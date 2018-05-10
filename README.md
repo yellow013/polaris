@@ -1,2 +1,2 @@
 # polaris
-Financial technology analysis interface and implementation of Java language
+The interface and implementation of technology analysis and financial market definition in Java language.
