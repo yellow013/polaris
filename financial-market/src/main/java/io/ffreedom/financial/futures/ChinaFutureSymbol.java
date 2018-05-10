@@ -1,4 +1,4 @@
-package io.ffreedom.financial.future;
+package io.ffreedom.financial.futures;
 
 import java.time.LocalTime;
 
@@ -10,7 +10,7 @@ import io.ffreedom.financial.Symbol;
 import io.ffreedom.market.TradingPeriod;
 import io.ffreedom.market.TradingPeriodSet;
 
-public enum FutureSymbol implements Symbol {
+public enum ChinaFutureSymbol implements Symbol {
 
 	rb("rb", TradingPeriodSet.newInstance(new TradingPeriod(0, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
 			new TradingPeriod(1, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
@@ -27,7 +27,7 @@ public enum FutureSymbol implements Symbol {
 
 	private TradingPeriodSet tradingPeriodSet;
 
-	private FutureSymbol(String symbolName, TradingPeriodSet tradingPeriodSet) {
+	private ChinaFutureSymbol(String symbolName, TradingPeriodSet tradingPeriodSet) {
 
 		this.symbolName = symbolName;
 		this.tradingPeriodSet = tradingPeriodSet;
@@ -49,15 +49,15 @@ public enum FutureSymbol implements Symbol {
 		return null;
 	}
 
-	private static MutableMap<String, FutureSymbol> innerMap = UnifiedMap.newMap();
+	private static MutableMap<String, ChinaFutureSymbol> innerMap = UnifiedMap.newMap();
 
 	static {
-		for (FutureSymbol symbol : FutureSymbol.values()) {
+		for (ChinaFutureSymbol symbol : ChinaFutureSymbol.values()) {
 			innerMap.put(symbol.getSymbolName(), symbol);
 		}
 	}
 
-	public static FutureSymbol checkOut(String symbolName) {
+	public static ChinaFutureSymbol checkOut(String symbolName) {
 		if (innerMap.containsKey(symbolName)) {
 			return innerMap.get(symbolName);
 		}
@@ -66,7 +66,7 @@ public enum FutureSymbol implements Symbol {
 
 	public static void main(String[] args) {
 
-		System.out.println(FutureSymbol.rb.getTradingPeriodSet().isTradingPeriod(LocalTime.of(23, 00, 1)));
+		System.out.println(ChinaFutureSymbol.rb.getTradingPeriodSet().isTradingPeriod(LocalTime.of(23, 00, 1)));
 
 	}
 

@@ -1,4 +1,4 @@
-package io.ffreedom.market;
+package io.ffreedom.financial.futures;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

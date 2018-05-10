@@ -1,4 +1,4 @@
-package io.ffreedom.financial.future;
+package io.ffreedom.financial.futures;
 
 import io.ffreedom.common.utils.StringUtil;
 

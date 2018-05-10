@@ -1,20 +1,20 @@
-package io.ffreedom.financial.future;
+package io.ffreedom.financial.futures;
 
 import io.ffreedom.common.utils.StringUtil;
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.financial.InstrumentType;
 import io.ffreedom.financial.Symbol;
 
-public final class Future implements Instrument {
+public final class ChinaFutures implements Instrument {
 
 	private String instrumentId;
 
 	private Symbol symbol;
 
-	public Future(String instrumentId) {
+	public ChinaFutures(String instrumentId) {
 		super();
 		this.instrumentId = instrumentId;
-		this.symbol = FutureSymbol.checkOut(analysisSymbol(instrumentId));
+		this.symbol = ChinaFutureSymbol.checkOut(analysisSymbol(instrumentId));
 	}
 
 	@Override
