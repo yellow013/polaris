@@ -10,7 +10,7 @@ public final class TradingPeriodSet {
 	private ImmutableSortedSet<TradingPeriod> tradingPeriodSet;
 
 	private TradingPeriodSet(TradingPeriod[] tradingPeriods) {
-		this.tradingPeriodSet = ImmutableSortedSetFactoryImpl.INSTANCE.with(tradingPeriods);
+		this.tradingPeriodSet = ImmutableSortedSetFactoryImpl.INSTANCE.of(tradingPeriods);
 	}
 
 	public static TradingPeriodSet newInstance(TradingPeriod... tradingPeriods) {

@@ -5,14 +5,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class ChinaFuturesTradingDayValidator {
+import io.ffreedom.common.utils.StringUtil;
+
+public final class ChinaFuturesUtil {
+
+	private ChinaFuturesUtil() {
+	}
 
 	public static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(16, 15);
 
 	public static final LocalDate NOW_TRADING_DAY = analysisTradingDay(LocalDateTime.now());
-
-	private ChinaFuturesTradingDayValidator() {
-	}
 
 	public static LocalDate analysisTradingDay(LocalDateTime dateTime) {
 		DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
@@ -40,6 +42,13 @@ public final class ChinaFuturesTradingDayValidator {
 		} else {
 			return false;
 		}
+	}
+
+	public static String analysisChinaFuturesSymbol(String instrumentId) {
+		if (StringUtil.isNullOrEmpty(instrumentId)) {
+			return instrumentId;
+		}
+		return instrumentId.replaceAll("\\d", "");
 	}
 
 }
