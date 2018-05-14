@@ -6,20 +6,19 @@ import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.impl.map.mutable.UnifiedMap;
 
 import io.ffreedom.financial.Exchange;
-import io.ffreedom.financial.Exchanges;
 import io.ffreedom.financial.Symbol;
 import io.ffreedom.market.TradingPeriod;
 import io.ffreedom.market.TradingPeriodSet;
 
 public enum ChinaFuturesSymbol implements Symbol {
 
-	rb(Exchanges.SHFE, 
+	rb(ChinaFuturesExchange.SHFE, 
 			TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
 			TradingPeriod.of(1, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
 			TradingPeriod.of(2, LocalTime.of(10, 15, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.of(3, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
-	cu(Exchanges.SHFE, 
+	cu(ChinaFuturesExchange.SHFE, 
 			TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00))),
 
 	;

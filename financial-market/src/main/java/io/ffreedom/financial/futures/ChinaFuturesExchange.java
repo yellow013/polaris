@@ -1,6 +1,8 @@
-package io.ffreedom.financial;
+package io.ffreedom.financial.futures;
 
-public enum Exchanges implements Exchange{
+import io.ffreedom.financial.Exchange;
+
+public enum ChinaFuturesExchange implements Exchange{
 	
 	//Shanghai Futures Exchange
 	SHFE,
