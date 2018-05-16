@@ -1,4 +1,4 @@
-package io.ffreedom.market;
+package io.ffreedom.market.data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,8 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import io.ffreedom.financial.Instrument;
-import io.ffreedom.market.quote.Asks;
-import io.ffreedom.market.quote.Bids;
 
 public class MarketData {
 

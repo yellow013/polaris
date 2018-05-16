@@ -3,7 +3,7 @@ package io.ffreedom.indicators.impl.sar;
 import java.time.LocalDateTime;
 
 import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.data.MarketData;
 
 @SuppressWarnings("unused")
 public class SARPoint implements TimeSeriesPoint<SARPoint, LocalDateTime, Double, MarketData> {

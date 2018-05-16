@@ -3,7 +3,7 @@ package io.ffreedom.indicators.impl.ma.base;
 import java.time.LocalDateTime;
 
 import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.data.MarketData;
 
 public class MAPoint implements TimeSeriesPoint<MAPoint, LocalDateTime, Double, MarketData> {
 

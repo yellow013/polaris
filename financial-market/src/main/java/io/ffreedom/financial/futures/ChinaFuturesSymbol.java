@@ -5,10 +5,10 @@ import java.time.LocalTime;
 import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.impl.map.mutable.UnifiedMap;
 
-import io.ffreedom.financial.Exchange;
 import io.ffreedom.financial.Symbol;
-import io.ffreedom.market.TradingPeriod;
-import io.ffreedom.market.TradingPeriodSet;
+import io.ffreedom.market.data.TradingPeriod;
+import io.ffreedom.market.data.TradingPeriodSet;
+import io.ffreedom.market.role.Exchange;
 
 public enum ChinaFuturesSymbol implements Symbol {
 

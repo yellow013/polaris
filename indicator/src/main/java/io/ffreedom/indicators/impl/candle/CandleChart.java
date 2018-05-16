@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import io.ffreedom.indicators.api.Indicator;
 import io.ffreedom.indicators.api.IndicatorPeriod;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.data.MarketData;
 
 public class CandleChart implements Indicator<Candle, MarketData> {
 

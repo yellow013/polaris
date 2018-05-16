@@ -1,4 +1,4 @@
-package io.ffreedom.financial;
+package io.ffreedom.market.role;
 
 public interface Exchange {
 

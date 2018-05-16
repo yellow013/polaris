@@ -6,7 +6,7 @@ import javax.sound.midi.Instrument;
 
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.data.MarketData;
 
 public class Candle implements TimeSeriesPoint<Candle, LocalDateTime, Candle, MarketData> {
 
