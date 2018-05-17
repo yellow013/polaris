@@ -24,7 +24,7 @@ public class Candle implements TimeSeriesPoint<Candle, LocalDateTime, Candle, Ma
 	}
 
 	private Candle(double open) {
-		this.open = open;
+		onPrice(open);
 	}
 
 	public LocalDateTime getStartDateTime() {
@@ -87,7 +87,7 @@ public class Candle implements TimeSeriesPoint<Candle, LocalDateTime, Candle, Ma
 		return new Candle(open);
 	}
 
-	public static Candle emptyBar() {
+	public static Candle emptyCandle() {
 		return new Candle();
 	}
 

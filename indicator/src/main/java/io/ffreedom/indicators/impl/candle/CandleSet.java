@@ -13,15 +13,20 @@ public class CandleSet {
 		this.fastList = FastList.newList(size);
 	}
 
-	public CandleSet() {
-		this(256);
+	public static CandleSet emptyCandleSet() {
+		return new CandleSet(256);
+	}
+
+	public static CandleSet emptyCandleSet(int size) {
+		return new CandleSet(size);
 	}
 
 	public boolean add(Candle bar) {
+
 		return fastList.add(bar);
 	}
 
-	public ImmutableSortedSet<Candle> getAll() {
+	public ImmutableSortedSet<Candle> toImmutableSortedSet() {
 		return fastList.toSortedSet().toImmutable();
 	}
 
@@ -29,16 +34,21 @@ public class CandleSet {
 		return fastList.size();
 	}
 
-	public Candle lastBar() {
+	public Candle lastCandle() {
 		return fastList.getLast();
 	}
 
-	public Candle lastBar(int index) {
+	public Candle firstCandle() {
+		return fastList.getFirst();
+	}
+
+	public Candle backToCandle(int index) {
 		int offset = fastList.size() - index - 1;
 		return offset < 0 ? fastList.getFirst() : fastList.get(offset);
 	}
 
 	public static void main(String[] args) {
+
 		FastList<Integer> list = FastList.newList(20);
 		for (int i = 0; i < 100; i++) {
 			list.add(i);

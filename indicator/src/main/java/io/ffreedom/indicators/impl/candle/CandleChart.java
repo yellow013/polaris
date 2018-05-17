@@ -20,7 +20,7 @@ public class CandleChart implements Indicator<Candle, MarketData> {
 		super();
 		this.period = period;
 		this.candleSet = new CandleSet();
-		this.inTimeCandle = Candle.emptyBar();
+		this.inTimeCandle = Candle.emptyCandle();
 	}
 
 	private boolean isNextBar(MarketData marketData) {
@@ -43,7 +43,7 @@ public class CandleChart implements Indicator<Candle, MarketData> {
 	public void onTick(MarketData t) {
 		if (isNextBar(t)) {
 			candleSet.add(inTimeCandle);
-			inTimeCandle = Candle.emptyBar();
+			inTimeCandle = Candle.emptyCandle();
 			// BarSet.add(inTimeBar);
 		}
 		inTimeCandle.onTick(t);//(t.getAskSet().first().getPrice());
