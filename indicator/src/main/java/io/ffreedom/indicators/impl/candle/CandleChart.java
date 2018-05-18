@@ -2,11 +2,13 @@ package io.ffreedom.indicators.impl.candle;
 
 import java.util.Collection;
 
+import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.Indicator;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.market.data.MarketData;
+import io.ffreedom.market.data.TradingPeriodSet;
 
-public class CandleChart implements Indicator<Candle, MarketData> {
+public class CandleChart implements Indicator<Candle> {
 
 	protected IndicatorPeriod period;
 	protected CandleSet candleSet;
@@ -16,11 +18,12 @@ public class CandleChart implements Indicator<Candle, MarketData> {
 	// protected Open openState;
 	// protected Close closeState;
 
-	public CandleChart(IndicatorPeriod period) {
-		super();
+	public CandleChart(Instrument instrument, IndicatorPeriod period) {
+		TradingPeriodSet tradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
+
 		this.period = period;
-		this.candleSet = new CandleSet();
-		this.inTimeCandle = Candle.emptyCandle();
+		this.candleSet = CandleSet.emptyCandleSet();
+
 	}
 
 	private boolean isNextBar(MarketData marketData) {
@@ -39,20 +42,14 @@ public class CandleChart implements Indicator<Candle, MarketData> {
 	// tradeSignalList.addLast(signal);
 	// }
 
-	@Override
-	public void onTick(MarketData t) {
-		if (isNextBar(t)) {
+	public void onMarketData(MarketData marketData) {
+		if (isNextBar(marketData)) {
 			candleSet.add(inTimeCandle);
-			inTimeCandle = Candle.emptyCandle();
+			inTimeCandle = Candle.emptyCandle(marketData.getTimeSeries().toLocalDateTime(), marketData.getInstrument(),
+					period);
 			// BarSet.add(inTimeBar);
 		}
-		inTimeCandle.onTick(t);//(t.getAskSet().first().getPrice());
-	}
-
-	@Override
-	public void onPoint(Candle p) {
-		// TODO Auto-generated method stub
-
+		inTimeCandle.onMarketData(marketData);// (t.getAskSet().first().getPrice());
 	}
 
 	@Override
@@ -62,13 +59,25 @@ public class CandleChart implements Indicator<Candle, MarketData> {
 
 	@Override
 	public Candle getPoint(int i) {
-		//candleSet.
+		// candleSet.
 		return null;
 	}
 
 	@Override
 	public Collection<Candle> getPoints() {
 		return candleSet.toCollection();
+	}
+
+	@Override
+	public void startPoint() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void endPoint() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

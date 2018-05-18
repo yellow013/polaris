@@ -1,7 +1,6 @@
 package io.ffreedom.indicators.api;
 
-import java.time.temporal.TemporalAdjuster;
+import io.ffreedom.market.data.TimeSeries;
 
-public interface TimeSeriesPoint<P extends TimeSeriesPoint<P, X, Y, T>, X extends TemporalAdjuster, Y, T>
-		extends Point<P, X, Y, T> {
+public interface TimeSeriesPoint<Y> extends Point<TimeSeries, Y> {
 }

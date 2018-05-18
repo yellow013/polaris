@@ -22,7 +22,6 @@ public class CandleSet {
 	}
 
 	public boolean add(Candle bar) {
-
 		return fastList.add(bar);
 	}
 

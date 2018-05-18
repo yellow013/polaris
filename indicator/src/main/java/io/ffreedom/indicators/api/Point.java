@@ -1,11 +1,13 @@
 package io.ffreedom.indicators.api;
 
-public interface Point<P, X, Y, T> extends Comparable<P>{
+import io.ffreedom.market.data.MarketData;
+
+public interface Point<X, Y> {
 
 	X getXAxis();
 
 	Y getYAxis();
 
-	P onTick(T tick);
+	void onMarketData(MarketData marketData);
 
 }

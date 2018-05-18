@@ -2,11 +2,15 @@ package io.ffreedom.indicators.api;
 
 import java.util.Collection;
 
-public interface Indicator<P extends Point<P, ?, ?, T>, T> {
+import io.ffreedom.market.data.MarketData;
 
-	void onTick(T t);
+public interface Indicator<P extends Point<?, ?>> {
 
-	void onPoint(P p);
+	void onMarketData(MarketData marketData);
+
+	void startPoint();
+	
+	void endPoint();
 
 	int size();
 

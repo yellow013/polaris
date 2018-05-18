@@ -2,65 +2,90 @@ package io.ffreedom.indicators.impl.candle;
 
 import java.time.LocalDateTime;
 
-import javax.sound.midi.Instrument;
-
+import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.IndicatorPeriod;
-import io.ffreedom.indicators.api.TimeSeriesPoint;
+import io.ffreedom.indicators.api.Point;
 import io.ffreedom.market.data.MarketData;
 
-public class Candle implements TimeSeriesPoint<Candle, LocalDateTime, Candle, MarketData> {
+public final class Candle implements Comparable<Candle>, Point<LocalDateTime, Candle> {
 
 	private LocalDateTime startDateTime;
-	private LocalDateTime endDatetime;
-	private IndicatorPeriod period;
 	private Instrument instrument;
+	private IndicatorPeriod period;
 	private double open = Double.NaN;
 	private double high = Double.MIN_VALUE;
 	private double low = Double.MAX_VALUE;
 	private double close = Double.NaN;
-	private int volumeSum;
+	private double volumeSum;
+	private double turnoverSum;
 
-	private Candle() {
+	private Candle(LocalDateTime startDateTime, Instrument instrument, IndicatorPeriod period) {
+		this.startDateTime = startDateTime;
+		this.instrument = instrument;
+		this.period = period;
 	}
 
-	private Candle(double open) {
-		onPrice(open);
+	public static Candle emptyCandle(LocalDateTime startDateTime, Instrument instrument, IndicatorPeriod period) {
+		return new Candle(startDateTime, instrument, period);
+	}
+
+	private Candle(MarketData marketData, IndicatorPeriod period) {
+		this(marketData.getTimeSeries().toLocalDateTime(), marketData.getInstrument(), period);
+		onMarketData(marketData);
+	}
+
+	public static Candle withFirstMarketData(MarketData marketData, IndicatorPeriod period) {
+		return new Candle(marketData, period);
+	}
+
+	@Override
+	public void onMarketData(MarketData marketData) {
+		onPrice(marketData.getLastPrice());
+		addVolumeSum(marketData.getVolume());
+		addTurnover(marketData.getTurnover());
+	}
+
+	private void onPrice(double price) {
+		close = price;
+		if (open == Double.NaN) {
+			open = price;
+		}
+		if (price < low) {
+			low = price;
+		}
+		if (price > high) {
+			high = price;
+		}
+	}
+
+	private void addVolumeSum(double volume) {
+		this.volumeSum += volume;
+	}
+
+	private void addTurnover(double turnover) {
+		this.turnoverSum += turnover;
+	}
+
+	@Override
+	public LocalDateTime getXAxis() {
+		return startDateTime;
+	}
+
+	@Override
+	public Candle getYAxis() {
+		return this;
 	}
 
 	public LocalDateTime getStartDateTime() {
 		return startDateTime;
 	}
 
-	public Candle setStartDateTime(LocalDateTime startDateTime) {
-		this.startDateTime = startDateTime;
-		return this;
-	}
-
-	public LocalDateTime getEndDatetime() {
-		return endDatetime;
-	}
-
-	public Candle setEndDatetime(LocalDateTime endDatetime) {
-		this.endDatetime = endDatetime;
-		return this;
-	}
-
 	public IndicatorPeriod getPeriod() {
 		return period;
 	}
 
-	public Candle setPeriod(IndicatorPeriod period) {
-		this.period = period;
-		return this;
-	}
-
 	public Instrument getInstrument() {
 		return instrument;
-	}
-
-	public Candle setInstrument(Instrument instrument) {
-		this.instrument = instrument;
-		return this;
 	}
 
 	public double getOpen() {
@@ -79,51 +104,12 @@ public class Candle implements TimeSeriesPoint<Candle, LocalDateTime, Candle, Ma
 		return close;
 	}
 
-	public int getVolumeSum() {
+	public double getVolumeSum() {
 		return volumeSum;
 	}
 
-	public static Candle withOpenPrice(double open) {
-		return new Candle(open);
-	}
-
-	public static Candle emptyCandle() {
-		return new Candle();
-	}
-
-	@Override
-	public LocalDateTime getXAxis() {
-		return this.startDateTime;
-	}
-
-	@Override
-	public Candle getYAxis() {
-		return this;
-	}
-
-	@Override
-	public Candle onTick(MarketData tick) {
-		// TODO 设置价格
-		onPrice(0D);
-		addVolumeSum(0);
-		return this;
-	}
-
-	private void onPrice(double price) {
-		close = price;
-		if (open == Double.NaN) {
-			open = price;
-		}
-		if (price < low) {
-			low = price;
-		}
-		if (price > high) {
-			high = price;
-		}
-	}
-
-	private void addVolumeSum(int volume) {
-		volumeSum += volume;
+	public double getTurnoverSum() {
+		return turnoverSum;
 	}
 
 	@Override
