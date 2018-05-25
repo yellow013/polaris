@@ -5,36 +5,23 @@ import java.time.LocalDateTime;
 import io.ffreedom.indicators.api.TimeSeriesPoint;
 import io.ffreedom.market.data.MarketData;
 
-public class MAPoint implements TimeSeriesPoint<MAPoint, LocalDateTime, Double, MarketData> {
+public class MAPoint extends TimeSeriesPoint<MAPoint> {
 
-	private LocalDateTime xAxis;
-	private Double yAxis;
+	private double avgPrice;
 
-	public MAPoint(LocalDateTime xAxis, Double yAxis) {
-		super();
-		this.xAxis = xAxis;
-		this.yAxis = yAxis;
+	public MAPoint(LocalDateTime startDateTime) {
+		super(startDateTime);
 	}
 
 	@Override
-	public LocalDateTime getXAxis() {
-		return xAxis;
+	public void onMarketData(MarketData marketData) {
+		double lastPrice = marketData.getLastPrice();
+
 	}
 
 	@Override
-	public Double getYAxis() {
-		return yAxis;
+	protected MAPoint getInstance() {
+		return this;
 	}
 
-	@Override
-	public MAPoint onTick(MarketData tick) {
-		return null;
-	}
-
-	@Override
-	public int compareTo(MAPoint o) {
-		return this.xAxis.isBefore(o.xAxis) ? -1 : this.xAxis.isAfter(o.xAxis) ? 1 : 0;
-	}
-	
-	
 }

@@ -1,40 +1,28 @@
 package io.ffreedom.indicators.impl.sar;
 
-import java.util.List;
+import java.util.Collection;
 
 import io.ffreedom.indicators.api.Indicator;
 import io.ffreedom.market.data.MarketData;
 
-public class SAR implements Indicator<SARPoint, MarketData> {
+public class SAR implements Indicator<SARPoint> {
 
 	@Override
-	public void onTick(MarketData marketData) {
+	public void onMarketData(MarketData marketData) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public SARPoint getFastPoint() {
+	public void startPoint() {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public SARPoint getLastPoint() {
+	public void endPoint() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<SARPoint> getPoints() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void onPoint(SARPoint p) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -48,5 +36,13 @@ public class SAR implements Indicator<SARPoint, MarketData> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Collection<SARPoint> getPoints() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }

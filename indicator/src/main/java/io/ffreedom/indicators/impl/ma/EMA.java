@@ -11,17 +11,7 @@ public class EMA extends MA {
 		super(period);
 	}
 
-	@Override
-	public void onTick(MarketData marketData) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPoint(MAPoint p) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public int size() {
@@ -33,6 +23,30 @@ public class EMA extends MA {
 	public MAPoint getPoint(int i) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	@Override
+	public void onMarketData(MarketData marketData) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void startPoint() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void endPoint() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

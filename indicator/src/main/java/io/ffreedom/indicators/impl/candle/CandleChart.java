@@ -45,8 +45,7 @@ public class CandleChart implements Indicator<Candle> {
 	public void onMarketData(MarketData marketData) {
 		if (isNextBar(marketData)) {
 			candleSet.add(inTimeCandle);
-			inTimeCandle = Candle.emptyCandle(marketData.getTimeSeries().toLocalDateTime(), marketData.getInstrument(),
-					period);
+			inTimeCandle = Candle.emptyCandle(marketData.getDatetime(), marketData.getInstrument(), period);
 			// BarSet.add(inTimeBar);
 		}
 		inTimeCandle.onMarketData(marketData);// (t.getAskSet().first().getPrice());

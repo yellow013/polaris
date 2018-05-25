@@ -7,9 +7,8 @@ import org.eclipse.collections.api.set.MutableSet;
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
 import io.ffreedom.indicators.api.Indicator;
-import io.ffreedom.market.data.MarketData;
 
-public abstract class MA implements Indicator<MAPoint, MarketData> {
+public abstract class MA implements Indicator<MAPoint> {
 
 	protected int period;
 

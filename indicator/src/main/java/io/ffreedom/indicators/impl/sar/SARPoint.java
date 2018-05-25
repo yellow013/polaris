@@ -5,34 +5,27 @@ import java.time.LocalDateTime;
 import io.ffreedom.indicators.api.TimeSeriesPoint;
 import io.ffreedom.market.data.MarketData;
 
-@SuppressWarnings("unused")
-public class SARPoint implements TimeSeriesPoint<SARPoint, LocalDateTime, Double, MarketData> {
+public class SARPoint extends TimeSeriesPoint<SARPoint> {
 
-	private LocalDateTime xAxis;
-	private Double yAxis;
+	private double pointPrice;
 
-	@Override
-	public LocalDateTime getXAxis() {
-		// TODO Auto-generated method stub
-		return null;
+	public SARPoint(LocalDateTime startDateTime) {
+		super(startDateTime);
 	}
 
 	@Override
-	public Double getYAxis() {
+	public void onMarketData(MarketData marketData) {
 		// TODO Auto-generated method stub
-		return null;
+
 	}
 
 	@Override
-	public SARPoint onTick(MarketData tick) {
-		// TODO Auto-generated method stub
-		return null;
+	protected SARPoint getInstance() {
+		return this;
 	}
 
-	@Override
-	public int compareTo(SARPoint o) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getPointPrice() {
+		return pointPrice;
 	}
 
 }

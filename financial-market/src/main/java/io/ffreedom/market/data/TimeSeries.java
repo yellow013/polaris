@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public final class TimeSeries {
+public final class TimeSeries implements Comparable<TimeSeries> {
 
 	private LocalDate date;
 	private LocalTime time;
@@ -13,21 +13,30 @@ public final class TimeSeries {
 		return new TimeSeries(date, time);
 	}
 
-	public TimeSeries(LocalDate date, LocalTime time) {
+	private TimeSeries(LocalDate date, LocalTime time) {
 		this.date = date;
 		this.time = time;
 	}
 
-	public LocalDate getDate() {
+	public LocalDate getLocalDate() {
 		return date;
 	}
 
-	public LocalTime getTime() {
+	public LocalTime getLocalTime() {
 		return time;
 	}
 
 	public LocalDateTime toLocalDateTime() {
 		return LocalDateTime.of(date, time);
+	}
+
+	@Override
+	public int compareTo(TimeSeries o) {
+		return date.isBefore(o.date) ? -1
+				: date.isAfter(o.date) ? 1 
+						: time.isBefore(o.time) ? -1 
+								: time.isAfter(o.time) ? 1 
+										: 0;
 	}
 
 }

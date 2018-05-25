@@ -4,23 +4,24 @@ import java.time.LocalDateTime;
 
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.IndicatorPeriod;
-import io.ffreedom.indicators.api.Point;
+import io.ffreedom.indicators.api.TimeSeriesPoint;
 import io.ffreedom.market.data.MarketData;
 
-public final class Candle implements Comparable<Candle>, Point<LocalDateTime, Candle> {
+import static io.ffreedom.common.utils.DoubleUtil.correction;
 
-	private LocalDateTime startDateTime;
+public final class Candle extends TimeSeriesPoint<Candle> {
+
 	private Instrument instrument;
 	private IndicatorPeriod period;
 	private double open = Double.NaN;
 	private double high = Double.MIN_VALUE;
 	private double low = Double.MAX_VALUE;
 	private double close = Double.NaN;
-	private double volumeSum;
-	private double turnoverSum;
+	private double volumeSum = 0.0D;
+	private double turnoverSum = 0.0D;
 
 	private Candle(LocalDateTime startDateTime, Instrument instrument, IndicatorPeriod period) {
-		this.startDateTime = startDateTime;
+		super(startDateTime);
 		this.instrument = instrument;
 		this.period = period;
 	}
@@ -30,7 +31,7 @@ public final class Candle implements Comparable<Candle>, Point<LocalDateTime, Ca
 	}
 
 	private Candle(MarketData marketData, IndicatorPeriod period) {
-		this(marketData.getTimeSeries().toLocalDateTime(), marketData.getInstrument(), period);
+		this(marketData.getDatetime(), marketData.getInstrument(), period);
 		onMarketData(marketData);
 	}
 
@@ -42,12 +43,17 @@ public final class Candle implements Comparable<Candle>, Point<LocalDateTime, Ca
 	public void onMarketData(MarketData marketData) {
 		onPrice(marketData.getLastPrice());
 		addVolumeSum(marketData.getVolume());
-		addTurnover(marketData.getTurnover());
+		addTurnoverSum(marketData.getTurnover());
+	}
+
+	@Override
+	protected Candle getInstance() {
+		return this;
 	}
 
 	private void onPrice(double price) {
 		close = price;
-		if (open == Double.NaN) {
+		if (Double.isNaN(open)) {
 			open = price;
 		}
 		if (price < low) {
@@ -59,25 +65,11 @@ public final class Candle implements Comparable<Candle>, Point<LocalDateTime, Ca
 	}
 
 	private void addVolumeSum(double volume) {
-		this.volumeSum += volume;
+		this.volumeSum = correction(volumeSum + volume);
 	}
 
-	private void addTurnover(double turnover) {
-		this.turnoverSum += turnover;
-	}
-
-	@Override
-	public LocalDateTime getXAxis() {
-		return startDateTime;
-	}
-
-	@Override
-	public Candle getYAxis() {
-		return this;
-	}
-
-	public LocalDateTime getStartDateTime() {
-		return startDateTime;
+	private void addTurnoverSum(double turnover) {
+		this.turnoverSum = correction(turnoverSum + turnover);
 	}
 
 	public IndicatorPeriod getPeriod() {
@@ -110,11 +102,6 @@ public final class Candle implements Comparable<Candle>, Point<LocalDateTime, Ca
 
 	public double getTurnoverSum() {
 		return turnoverSum;
-	}
-
-	@Override
-	public int compareTo(Candle o) {
-		return this.startDateTime.isBefore(o.startDateTime) ? -1 : startDateTime.isAfter(o.startDateTime) ? 1 : 0;
 	}
 
 }

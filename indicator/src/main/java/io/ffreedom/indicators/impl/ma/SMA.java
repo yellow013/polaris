@@ -15,44 +15,29 @@ public class SMA extends MA {
 	}
 
 	@Override
-	public void onTick(MarketData marketData) {
-		updateAvgPrice(0.0D);
-
-	}
-
-	@Override
-	public void onPoint(MAPoint p) {
-		// MAPoint point = new MAPoint(bar.getStartDateTime(), bar.getClose());
-		// calculateList.addTail(point);
-
-	}
-
-	@Override
 	public int size() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public MAPoint getPoint(int i) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public static void main(String[] args) {
 		try {
 
-			MAPoint point1 = new MAPoint(LocalDateTime.now(), 1.0);
+			MAPoint point1 = new MAPoint(LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point2 = new MAPoint(LocalDateTime.now(), 2.0);
+			MAPoint point2 = new MAPoint(LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point3 = new MAPoint(LocalDateTime.now(), 3.0);
+			MAPoint point3 = new MAPoint(LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point4 = new MAPoint(LocalDateTime.now(), 4.0);
+			MAPoint point4 = new MAPoint(LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point5 = new MAPoint(LocalDateTime.now(), 5.0);
+			MAPoint point5 = new MAPoint(LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point6 = new MAPoint(LocalDateTime.now(), 6.0);
+			MAPoint point6 = new MAPoint(LocalDateTime.now());
 			Thread.sleep(10);
 			// FastList<MAPoint> fastList = FastList.newListWith(point3, point2, point1,
 			// point5, point4, point6);
@@ -73,6 +58,24 @@ public class SMA extends MA {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
+	@Override
+	public void onMarketData(MarketData marketData) {
+		updateAvgPrice(marketData.getLastPrice());
+
+	}
+
+	@Override
+	public void startPoint() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void endPoint() {
+		// TODO Auto-generated method stub
 
 	}
 

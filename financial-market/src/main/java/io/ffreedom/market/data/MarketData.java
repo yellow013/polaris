@@ -10,7 +10,7 @@ import io.ffreedom.financial.Instrument;
 
 public class MarketData {
 
-	private TimeSeries timeSeries;
+	private LocalDateTime datetime;
 	private Instrument instrument;
 	private double lastPrice;
 	private double volume;
@@ -18,19 +18,33 @@ public class MarketData {
 	private Asks asks;
 	private Bids bids;
 
-	public MarketData(LocalDate date, LocalTime time, Instrument instrument) {
-		this.timeSeries = TimeSeries.newInstance(date, time);
+	public MarketData(LocalDateTime datetime, Instrument instrument) {
+		this.datetime = datetime;
 		this.instrument = instrument;
 		this.asks = Asks.newInstance();
 		this.bids = Bids.newInstance();
 	}
 
-	public TimeSeries getTimeSeries() {
-		return timeSeries;
+	public MarketData(LocalDate date, LocalTime time, Instrument instrument) {
+		this(LocalDateTime.of(date, time), instrument);
+	}
+
+	public LocalDateTime getDatetime() {
+		return datetime;
+	}
+
+	public MarketData setDatetime(LocalDateTime datetime) {
+		this.datetime = datetime;
+		return this;
 	}
 
 	public Instrument getInstrument() {
 		return instrument;
+	}
+
+	public MarketData setInstrument(Instrument instrument) {
+		this.instrument = instrument;
+		return this;
 	}
 
 	public double getLastPrice() {

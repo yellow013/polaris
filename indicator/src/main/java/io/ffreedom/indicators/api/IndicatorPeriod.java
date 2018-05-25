@@ -36,7 +36,6 @@ public enum IndicatorPeriod {
 	}
 
 	public static void main(String[] args) {
-
 		for (IndicatorPeriod period : IndicatorPeriod.values()) {
 			System.out.println(period.getDuration().getSeconds());
 			LocalTime plusSeconds = LocalTime.of(21, 0, 0).plusSeconds(period.getDuration().getSeconds());
