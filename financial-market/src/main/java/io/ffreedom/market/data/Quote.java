@@ -1,11 +1,11 @@
 package io.ffreedom.market.data;
 
-public abstract class Quote implements Comparable<Quote> {
+abstract class Quotes implements Comparable<Quotes> {
 
 	private double price;
 	private double volume;
 
-	protected Quote(double price, double volume) {
+	protected Quotes(double price, double volume) {
 		this.price = price;
 		this.volume = volume;
 	}

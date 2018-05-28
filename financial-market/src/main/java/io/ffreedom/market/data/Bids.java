@@ -9,10 +9,9 @@ public class Bids {
 	private MutableSortedSet<BidQuote> bidQuotes = TreeSortedSet.newSet();
 
 	private Bids() {
-		
 	}
 
-	public static Bids newInstance() {
+	static Bids newInstance() {
 		return new Bids();
 	}
 
@@ -25,14 +24,14 @@ public class Bids {
 		return this;
 	}
 
-	public static class BidQuote extends Quote {
+	public static class BidQuote extends Quotes {
 
 		private BidQuote(double price, double volume) {
 			super(price, volume);
 		}
 
 		@Override
-		public int compareTo(Quote o) {
+		public int compareTo(Quotes o) {
 			return getPrice() > o.getPrice() ? -1 : getPrice() < o.getPrice() ? 1 : 0;
 		}
 
