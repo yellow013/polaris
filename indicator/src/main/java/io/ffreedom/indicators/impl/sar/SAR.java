@@ -43,6 +43,18 @@ public class SAR implements Indicator<SARPoint> {
 		return null;
 	}
 
+	@Override
+	public SARPoint getFastPoint() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SARPoint getLastPoint() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

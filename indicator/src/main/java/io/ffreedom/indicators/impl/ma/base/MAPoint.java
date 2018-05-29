@@ -25,13 +25,15 @@ public class MAPoint extends TimeSeriesPoint<MAPoint> {
 	protected MAPoint getInstance() {
 		return this;
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		Mean mean = new Mean();
-		
-		mean.
-		
+
+		mean.setData(new double[] { 10D, 20D, 40D, 10D, 50, 12.98 });
+
+		System.out.println(mean.evaluate());
+
 	}
 
 }

@@ -63,8 +63,7 @@ public class SMA extends MA {
 
 	@Override
 	public void onMarketData(MarketData marketData) {
-		updateAvgPrice(marketData.getLastPrice());
-
+		calculateContainer.updateTail(marketData.getLastPrice());
 	}
 
 	@Override

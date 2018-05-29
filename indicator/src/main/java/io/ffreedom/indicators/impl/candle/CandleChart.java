@@ -58,7 +58,7 @@ public class CandleChart implements Indicator<Candle> {
 
 	@Override
 	public Candle getPoint(int i) {
-		// candleSet.
+		
 		return null;
 	}
 
@@ -69,7 +69,7 @@ public class CandleChart implements Indicator<Candle> {
 
 	@Override
 	public void startPoint() {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -77,6 +77,18 @@ public class CandleChart implements Indicator<Candle> {
 	public void endPoint() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Candle getFastPoint() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Candle getLastPoint() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
