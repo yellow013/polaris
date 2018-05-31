@@ -26,7 +26,7 @@ public enum IndicatorPeriod {
 	D1(Duration.ofDays(1));
 
 	private Duration duration;
-
+	
 	private IndicatorPeriod(Duration duration) {
 		this.duration = duration;
 	}

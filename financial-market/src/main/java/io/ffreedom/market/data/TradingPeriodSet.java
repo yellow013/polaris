@@ -7,23 +7,23 @@ import org.eclipse.collections.impl.set.sorted.immutable.ImmutableSortedSetFacto
 
 public final class TradingPeriodSet {
 
-	private ImmutableSortedSet<TradingPeriod> tradingPeriodSet;
+	private ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet;
 
 	private TradingPeriodSet(TradingPeriod[] tradingPeriods) {
-		this.tradingPeriodSet = ImmutableSortedSetFactoryImpl.INSTANCE.of(tradingPeriods);
+		this.immutableTradingPeriodSet = ImmutableSortedSetFactoryImpl.INSTANCE.with(tradingPeriods);
 	}
 
-	public static TradingPeriodSet newInstance(TradingPeriod... tradingPeriods) {
+	public static TradingPeriodSet with(TradingPeriod... tradingPeriods) {
 		return new TradingPeriodSet(tradingPeriods);
 	}
 
-	public ImmutableSortedSet<TradingPeriod> getTradingPeriodSet() {
-		return tradingPeriodSet;
+	public ImmutableSortedSet<TradingPeriod> getImmutableTradingPeriodSet() {
+		return immutableTradingPeriodSet;
 	}
 
-	public boolean isTradingPeriod(LocalTime time) {
-		for (TradingPeriod tradingPeriod : tradingPeriodSet) {
-			if (tradingPeriod.inTimeRange(time)) {
+	public boolean isTradingTime(LocalTime time) {
+		for (TradingPeriod tradingPeriod : immutableTradingPeriodSet) {
+			if (tradingPeriod.isTradingTime(time)) {
 				return true;
 			}
 		}

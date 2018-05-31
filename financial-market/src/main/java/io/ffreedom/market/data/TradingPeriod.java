@@ -1,13 +1,24 @@
 package io.ffreedom.market.data;
 
+import java.time.Duration;
 import java.time.LocalTime;
+
+import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.api.tuple.Twin;
+import org.eclipse.collections.impl.list.mutable.FastList;
+import org.eclipse.collections.impl.tuple.Tuples;
+
+import io.ffreedom.common.datetime.TimeConstants;
 
 public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 	private int number;
 	private LocalTime startTime;
+	private int startSecondOfDay;
 	private LocalTime endTime;
-	private boolean isCrossDay = false;
+	private int endSecondOfDay;
+	private boolean isCrossDay;
+	private Duration totalDuration;
 
 	public static TradingPeriod of(int number, LocalTime startTime, LocalTime endTime) {
 		return new TradingPeriod(number, startTime, endTime);
@@ -16,9 +27,19 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	private TradingPeriod(int number, LocalTime startTime, LocalTime endTime) {
 		this.number = number;
 		this.startTime = startTime;
+		this.startSecondOfDay = startTime.toSecondOfDay();
 		this.endTime = endTime;
-		if (endTime.isBefore(startTime)) {
+		this.endSecondOfDay = endTime.toSecondOfDay();
+		setAttributes();
+	}
+
+	private void setAttributes() {
+		if (startSecondOfDay > endSecondOfDay) {
 			isCrossDay = true;
+			totalDuration = Duration.ofSeconds(endSecondOfDay - startSecondOfDay + TimeConstants.DAY_SECONDS);
+		} else {
+			isCrossDay = false;
+			totalDuration = Duration.ofSeconds(endSecondOfDay - startSecondOfDay);
 		}
 	}
 
@@ -34,33 +55,74 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		return endTime;
 	}
 
+	public int getStartSecondOfDay() {
+		return startSecondOfDay;
+	}
+
+	public int getEndSecondOfDay() {
+		return endSecondOfDay;
+	}
+
 	@Override
 	public int compareTo(TradingPeriod o) {
 		return this.number < o.number ? -1 : this.number > o.number ? 1 : 0;
 	}
 
 	// TODO 增加1到3秒的时间偏移量
-	public boolean inTimeRange(LocalTime time) {
+	public boolean isTradingTime(LocalTime time) {
+		int secondOfDay = time.toSecondOfDay();
 		if (!isCrossDay) {
-			if (time.isAfter(startTime) && time.isBefore(endTime)) {
-				return true;
-			} else if (startTime.equals(time)) {
-				return true;
-			} else if (endTime.equals(time)) {
+			if (startSecondOfDay <= secondOfDay && endSecondOfDay >= secondOfDay) {
 				return true;
 			} else {
 				return false;
 			}
 		} else {
-			return false;
+			if (startSecondOfDay <= secondOfDay || endSecondOfDay >= secondOfDay) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
+	public MutableList<Twin<LocalTime>> segmentByDuration(Duration duration) {
+		int seconds = (int) duration.getSeconds();
+		if (seconds > TimeConstants.DAY_SECONDS_HALF) {
+			return FastList.newWithNValues(1, () -> Tuples.twin(startTime, endTime));
+		} else {
+			int totalSeconds = (int) totalDuration.getSeconds();
+			int count = totalSeconds / seconds;
+			if (totalSeconds % seconds > 0) {
+				count++;
+			}
+			FastList<Twin<LocalTime>> list = FastList.newList(count);
+			int startPoint = startSecondOfDay;
+			for (int i = 0; i < count; i++) {
+				LocalTime sTime = LocalTime.ofSecondOfDay(startPoint);
+				LocalTime eTime = sTime.plusSeconds(seconds);
+				startPoint = eTime.toSecondOfDay();
+				if (isTradingTime(eTime)) {
+					list.add(Tuples.twin(sTime, eTime));
+				} else {
+					list.add(Tuples.twin(sTime, endTime));
+				}
+			}
+			return list;
 		}
 	}
 
 	public static void main(String[] args) {
 
-		TradingPeriod of = TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(01, 00, 00));
+		TradingPeriod tradingPeriod = TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(02, 30, 00));
 
-		System.out.println(of.inTimeRange(LocalTime.of(23, 00, 00)));
+		System.out.println(tradingPeriod.isTradingTime(LocalTime.of(2, 00, 00)));
+
+		tradingPeriod.segmentByDuration(Duration.ofMinutes(10)).each(twin -> {
+			System.out.println(twin.getOne() + " - " + twin.getTwo());
+		});
+
+		// System.out.println(LocalTime.of(23, 50, 50).plusMinutes(20));
 
 	}
 

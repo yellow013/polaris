@@ -12,14 +12,12 @@ import io.ffreedom.market.role.Exchange;
 
 public enum ChinaFuturesSymbol implements Symbol {
 
-	rb(ChinaFuturesExchange.SHFE, 
-			TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
+	rb(ChinaFuturesExchange.SHFE, TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
 			TradingPeriod.of(1, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
-			TradingPeriod.of(2, LocalTime.of(10, 15, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.of(2, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.of(3, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
-	cu(ChinaFuturesExchange.SHFE, 
-			TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00))),
+	cu(ChinaFuturesExchange.SHFE, TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00))),
 
 	;
 
@@ -29,7 +27,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 
 	private ChinaFuturesSymbol(Exchange exchange, TradingPeriod... tradingPeriods) {
 		this.exchange = exchange;
-		this.tradingPeriodSet = TradingPeriodSet.newInstance(tradingPeriods);
+		this.tradingPeriodSet = TradingPeriodSet.with(tradingPeriods);
 	}
 
 	@Override
@@ -64,7 +62,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 
 	public static void main(String[] args) {
 
-		System.out.println(ChinaFuturesSymbol.cu.getTradingPeriodSet().isTradingPeriod(LocalTime.of(23, 00, 1)));
+		System.out.println(ChinaFuturesSymbol.cu.getTradingPeriodSet().isTradingTime(LocalTime.of(23, 00, 1)));
 
 	}
 
