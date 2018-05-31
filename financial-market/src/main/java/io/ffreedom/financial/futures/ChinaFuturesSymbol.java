@@ -1,5 +1,6 @@
 package io.ffreedom.financial.futures;
 
+import java.time.Duration;
 import java.time.LocalTime;
 
 import org.eclipse.collections.api.map.MutableMap;
@@ -12,12 +13,28 @@ import io.ffreedom.market.role.Exchange;
 
 public enum ChinaFuturesSymbol implements Symbol {
 
-	rb(ChinaFuturesExchange.SHFE, TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
-			TradingPeriod.of(1, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
-			TradingPeriod.of(2, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
-			TradingPeriod.of(3, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	rb(ChinaFuturesExchange.SHFE,
+			// 上期所螺纹钢期货交易时段
+			TradingPeriod.with(0, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
+			TradingPeriod.with(1, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(2, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(3, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
-	cu(ChinaFuturesExchange.SHFE, TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00))),
+	cu(ChinaFuturesExchange.SHFE,
+			// 上期所铜期货交易时段
+			TradingPeriod.with(0, LocalTime.of(21, 00, 00), LocalTime.of(0, 00, 00)),
+			TradingPeriod.with(1, LocalTime.of(0, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+
+	ni(ChinaFuturesExchange.SHFE,
+			// 上期所镍期货交易时段
+			TradingPeriod.with(0, LocalTime.of(21, 00, 00), LocalTime.of(0, 00, 00)),
+			TradingPeriod.with(1, LocalTime.of(0, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
 	;
 
@@ -61,8 +78,12 @@ public enum ChinaFuturesSymbol implements Symbol {
 	}
 
 	public static void main(String[] args) {
-
-		System.out.println(ChinaFuturesSymbol.cu.getTradingPeriodSet().isTradingTime(LocalTime.of(23, 00, 1)));
+		ChinaFuturesSymbol.cu.getTradingPeriodSet().getImmutableTradingPeriodSet().each(tradingPeriod -> {
+			tradingPeriod.segmentByDuration(Duration.ofMinutes(5)).each(timeTwins -> {
+				System.out.println(timeTwins.getSerialNumber() + " -> " + timeTwins.getStartTime() + " - "
+						+ timeTwins.getEndTime());
+			});
+		});
 
 	}
 

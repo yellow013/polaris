@@ -47,7 +47,7 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	}
 
 	@Override
-	protected Candle getInstance() {
+	protected Candle getThis() {
 		return this;
 	}
 

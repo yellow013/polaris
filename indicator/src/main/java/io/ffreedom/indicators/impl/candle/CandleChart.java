@@ -1,16 +1,16 @@
 package io.ffreedom.indicators.impl.candle;
 
-import java.time.LocalTime;
 import java.util.Collection;
 
-import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
-import org.eclipse.collections.api.tuple.Twin;
+import org.eclipse.collections.api.set.sorted.MutableSortedSet;
+import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
 
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.Indicator;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.market.data.MarketData;
+import io.ffreedom.market.data.TimeTwin;
 import io.ffreedom.market.data.TradingPeriod;
 import io.ffreedom.market.data.TradingPeriodSet;
 
@@ -21,9 +21,7 @@ public class CandleChart implements Indicator<Candle> {
 	private CandleSet candleSet;
 	private Candle currentCandle;
 
-	// private LinkedList<TradeSignal> tradeSignalList;
-	// protected Open openState;
-	// protected Close closeState;
+	private MutableSortedSet<TimeTwin> candleSetPeriods;
 
 	public CandleChart(Instrument instrument, IndicatorPeriod period) {
 		this.instrument = instrument;
@@ -37,19 +35,17 @@ public class CandleChart implements Indicator<Candle> {
 	private void initCandleSet() {
 		TradingPeriodSet tradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
 		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = tradingPeriodSet.getImmutableTradingPeriodSet();
+		this.candleSetPeriods = TreeSortedSet.newSet();
 		immutableTradingPeriodSet.each(tradingPeriod -> {
-			MutableList<Twin<LocalTime>> segmentByDuration = tradingPeriod.segmentByDuration(period.getDuration());
-			
-			
+			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(period.getDuration()));
 		});
-
 	}
 
 	private void initCurrentCandle() {
 		this.currentCandle = candleSet.firstCandle();
 	}
 
-	private boolean isNextBar(MarketData marketData) {
+	private boolean isNextCandle(MarketData marketData) {
 
 		return false;
 	}
@@ -58,7 +54,7 @@ public class CandleChart implements Indicator<Candle> {
 		if (currentCandle == null) {
 			currentCandle = Candle.withFirstMarketData(marketData, period);
 		}
-		if (isNextBar(marketData)) {
+		if (isNextCandle(marketData)) {
 
 		}
 

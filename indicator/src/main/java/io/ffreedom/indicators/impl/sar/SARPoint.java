@@ -20,7 +20,7 @@ public class SARPoint extends TimeSeriesPoint<SARPoint> {
 	}
 
 	@Override
-	protected SARPoint getInstance() {
+	protected SARPoint getThis() {
 		return this;
 	}
 

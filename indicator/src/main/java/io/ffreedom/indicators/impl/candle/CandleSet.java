@@ -38,7 +38,7 @@ public class CandleSet {
 		return candleList.getFirst();
 	}
 
-	public Candle backtracking(int index) {
+	public Candle backtrack(int index) {
 		int offset = candleList.size() - index - 1;
 		return offset < 0 ? firstCandle() : candleList.get(offset);
 	}

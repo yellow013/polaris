@@ -22,7 +22,7 @@ public class MAPoint extends TimeSeriesPoint<MAPoint> {
 	}
 
 	@Override
-	protected MAPoint getInstance() {
+	protected MAPoint getThis() {
 		return this;
 	}
 

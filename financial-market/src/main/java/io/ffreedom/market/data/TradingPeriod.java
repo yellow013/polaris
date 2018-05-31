@@ -10,7 +10,7 @@ import io.ffreedom.common.datetime.TimeConstants;
 
 public final class TradingPeriod implements Comparable<TradingPeriod> {
 
-	private int number;
+	private int serialNumber;
 	private LocalTime startTime;
 	private int startSecondOfDay;
 	private LocalTime endTime;
@@ -18,12 +18,12 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	private boolean isCrossDay;
 	private Duration totalDuration;
 
-	public static TradingPeriod of(int number, LocalTime startTime, LocalTime endTime) {
-		return new TradingPeriod(number, startTime, endTime);
+	public static TradingPeriod with(int serialNumber, LocalTime startTime, LocalTime endTime) {
+		return new TradingPeriod(serialNumber, startTime, endTime);
 	}
 
-	private TradingPeriod(int number, LocalTime startTime, LocalTime endTime) {
-		this.number = number;
+	private TradingPeriod(int serialNumber, LocalTime startTime, LocalTime endTime) {
+		this.serialNumber = serialNumber;
 		this.startTime = startTime;
 		this.startSecondOfDay = startTime.toSecondOfDay();
 		this.endTime = endTime;
@@ -41,8 +41,8 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		}
 	}
 
-	public int getNumber() {
-		return number;
+	public int getSerialNumber() {
+		return serialNumber;
 	}
 
 	public LocalTime getStartTime() {
@@ -63,7 +63,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 	@Override
 	public int compareTo(TradingPeriod o) {
-		return this.number < o.number ? -1 : this.number > o.number ? 1 : 0;
+		return this.serialNumber < o.serialNumber ? -1 : this.serialNumber > o.serialNumber ? 1 : 0;
 	}
 
 	// TODO 增加1到3秒的时间偏移量
@@ -87,7 +87,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	public MutableList<TimeTwin> segmentByDuration(Duration duration) {
 		int seconds = (int) duration.getSeconds();
 		if (seconds > TimeConstants.DAY_SECONDS_HALF) {
-			return FastList.newWithNValues(1, () -> TimeTwin.of(startTime, endTime));
+			return FastList.newWithNValues(1, () -> TimeTwin.of(serialNumber, startTime, endTime));
 		} else {
 			int totalSeconds = (int) totalDuration.getSeconds();
 			int count = totalSeconds / seconds;
@@ -98,12 +98,13 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			int startPoint = startSecondOfDay;
 			for (int i = 0; i < count; i++) {
 				LocalTime sTime = LocalTime.ofSecondOfDay(startPoint);
-				LocalTime eTime = sTime.plusSeconds(seconds);
-				startPoint = eTime.toSecondOfDay();
+				LocalTime nextSTime = sTime.plusSeconds(seconds);
+				LocalTime eTime = nextSTime.minusNanos(1);
+				startPoint = nextSTime.toSecondOfDay();
 				if (isTradingTime(eTime)) {
-					list.add(TimeTwin.of(sTime, eTime));
+					list.add(TimeTwin.of(serialNumber, sTime, eTime));
 				} else {
-					list.add(TimeTwin.of(sTime, endTime));
+					list.add(TimeTwin.of(serialNumber, sTime, endTime));
 				}
 			}
 			return list;
@@ -111,12 +112,12 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	}
 
 	public static void main(String[] args) {
-
-		TradingPeriod tradingPeriod = TradingPeriod.of(0, LocalTime.of(13, 00, 00), LocalTime.of(4, 20, 00));
+		
+		TradingPeriod tradingPeriod = TradingPeriod.with(0, LocalTime.of(13, 00, 00), LocalTime.of(4, 20, 00));
 
 		System.out.println(tradingPeriod.isTradingTime(LocalTime.of(2, 00, 00)));
 
-		tradingPeriod.segmentByDuration(Duration.ofSeconds(5)).each(timeTwin -> {
+		tradingPeriod.segmentByDuration(Duration.ofSeconds(10)).each(timeTwin -> {
 			System.out.println(timeTwin.getStartTime() + " - " + timeTwin.getEndTime());
 		});
 

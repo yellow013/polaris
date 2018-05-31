@@ -17,7 +17,7 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 
 	@Override
 	public final Y getYAxis() {
-		return getInstance();
+		return getThis();
 	}
 
 	@Override
@@ -25,6 +25,6 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 		return startDateTime.compareTo(o.getXAxis());
 	}
 
-	protected abstract Y getInstance();
+	protected abstract Y getThis();
 
 }
