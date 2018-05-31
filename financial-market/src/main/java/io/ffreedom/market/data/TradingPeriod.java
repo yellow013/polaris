@@ -4,9 +4,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 
 import org.eclipse.collections.api.list.MutableList;
-import org.eclipse.collections.api.tuple.Twin;
 import org.eclipse.collections.impl.list.mutable.FastList;
-import org.eclipse.collections.impl.tuple.Tuples;
 
 import io.ffreedom.common.datetime.TimeConstants;
 
@@ -86,26 +84,26 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		}
 	}
 
-	public MutableList<Twin<LocalTime>> segmentByDuration(Duration duration) {
+	public MutableList<TimeTwin> segmentByDuration(Duration duration) {
 		int seconds = (int) duration.getSeconds();
 		if (seconds > TimeConstants.DAY_SECONDS_HALF) {
-			return FastList.newWithNValues(1, () -> Tuples.twin(startTime, endTime));
+			return FastList.newWithNValues(1, () -> TimeTwin.of(startTime, endTime));
 		} else {
 			int totalSeconds = (int) totalDuration.getSeconds();
 			int count = totalSeconds / seconds;
 			if (totalSeconds % seconds > 0) {
 				count++;
 			}
-			FastList<Twin<LocalTime>> list = FastList.newList(count);
+			FastList<TimeTwin> list = FastList.newList(count);
 			int startPoint = startSecondOfDay;
 			for (int i = 0; i < count; i++) {
 				LocalTime sTime = LocalTime.ofSecondOfDay(startPoint);
 				LocalTime eTime = sTime.plusSeconds(seconds);
 				startPoint = eTime.toSecondOfDay();
 				if (isTradingTime(eTime)) {
-					list.add(Tuples.twin(sTime, eTime));
+					list.add(TimeTwin.of(sTime, eTime));
 				} else {
-					list.add(Tuples.twin(sTime, endTime));
+					list.add(TimeTwin.of(sTime, endTime));
 				}
 			}
 			return list;
@@ -114,16 +112,15 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 	public static void main(String[] args) {
 
-		TradingPeriod tradingPeriod = TradingPeriod.of(0, LocalTime.of(21, 00, 00), LocalTime.of(02, 30, 00));
+		TradingPeriod tradingPeriod = TradingPeriod.of(0, LocalTime.of(13, 00, 00), LocalTime.of(4, 20, 00));
 
 		System.out.println(tradingPeriod.isTradingTime(LocalTime.of(2, 00, 00)));
 
-		tradingPeriod.segmentByDuration(Duration.ofMinutes(10)).each(twin -> {
-			System.out.println(twin.getOne() + " - " + twin.getTwo());
+		tradingPeriod.segmentByDuration(Duration.ofSeconds(5)).each(timeTwin -> {
+			System.out.println(timeTwin.getStartTime() + " - " + timeTwin.getEndTime());
 		});
 
 		// System.out.println(LocalTime.of(23, 50, 50).plusMinutes(20));
-
 	}
 
 }

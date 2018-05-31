@@ -1,8 +1,11 @@
 package io.ffreedom.indicators.impl.candle;
 
+import java.time.LocalTime;
 import java.util.Collection;
 
+import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
+import org.eclipse.collections.api.tuple.Twin;
 
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.Indicator;
@@ -30,12 +33,14 @@ public class CandleChart implements Indicator<Candle> {
 		initCurrentCandle();
 	}
 
+	// TODO 进行池化处理
 	private void initCandleSet() {
-		// 进行池化处理
 		TradingPeriodSet tradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
 		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = tradingPeriodSet.getImmutableTradingPeriodSet();
 		immutableTradingPeriodSet.each(tradingPeriod -> {
-
+			MutableList<Twin<LocalTime>> segmentByDuration = tradingPeriod.segmentByDuration(period.getDuration());
+			
+			
 		});
 
 	}
