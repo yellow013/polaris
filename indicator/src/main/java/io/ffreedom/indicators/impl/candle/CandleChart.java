@@ -46,7 +46,7 @@ public class CandleChart implements Indicator<Candle> {
 	}
 
 	private boolean isNextCandle(MarketData marketData) {
-
+		
 		return false;
 	}
 
@@ -55,7 +55,7 @@ public class CandleChart implements Indicator<Candle> {
 			currentCandle = Candle.withFirstMarketData(marketData, period);
 		}
 		if (isNextCandle(marketData)) {
-
+			
 		}
 
 	}
@@ -66,8 +66,8 @@ public class CandleChart implements Indicator<Candle> {
 	}
 
 	@Override
-	public Candle getPoint(int i) {
-
+	public Candle getPoint(int index) {
+		candleSet.getCandle(index);
 		return null;
 	}
 

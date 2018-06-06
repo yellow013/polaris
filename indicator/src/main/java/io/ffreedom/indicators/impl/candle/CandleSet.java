@@ -40,7 +40,11 @@ public class CandleSet {
 
 	public Candle backtrack(int index) {
 		int offset = candleList.size() - index - 1;
-		return offset < 0 ? firstCandle() : candleList.get(offset);
+		return offset < 0 ? firstCandle() : getCandle(offset);
+	}
+	
+	public Candle getCandle(int index) {
+		return candleList.get(index);
 	}
 
 	public Collection<Candle> toCollection() {

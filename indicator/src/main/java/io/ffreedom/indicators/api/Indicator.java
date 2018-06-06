@@ -14,7 +14,7 @@ public interface Indicator<P extends Point<?, ?>> {
 
 	int size();
 
-	P getPoint(int i);
+	P getPoint(int index);
 
 	P getFastPoint();
 

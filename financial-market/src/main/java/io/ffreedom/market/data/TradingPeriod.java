@@ -113,6 +113,8 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 	public static void main(String[] args) {
 		
+		
+		
 		TradingPeriod tradingPeriod = TradingPeriod.with(0, LocalTime.of(13, 00, 00), LocalTime.of(4, 20, 00));
 
 		System.out.println(tradingPeriod.isTradingTime(LocalTime.of(2, 00, 00)));
