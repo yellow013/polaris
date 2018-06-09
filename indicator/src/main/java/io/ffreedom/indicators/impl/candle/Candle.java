@@ -2,12 +2,11 @@ package io.ffreedom.indicators.impl.candle;
 
 import java.time.LocalDateTime;
 
+import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.indicators.api.TimeSeriesPoint;
 import io.ffreedom.market.data.MarketData;
-
-import static io.ffreedom.common.utils.DoubleUtil.correction;
 
 public final class Candle extends TimeSeriesPoint<Candle> {
 
@@ -65,11 +64,11 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	}
 
 	private void addVolumeSum(double volume) {
-		this.volumeSum = correction(volumeSum + volume);
+		this.volumeSum = DoubleUtil.correction(volumeSum + volume);
 	}
 
 	private void addTurnoverSum(double turnover) {
-		this.turnoverSum = correction(turnoverSum + turnover);
+		this.turnoverSum = DoubleUtil.correction(turnoverSum + turnover);
 	}
 
 	public IndicatorPeriod getPeriod() {

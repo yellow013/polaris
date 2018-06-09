@@ -61,7 +61,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	public Exchange getExchange() {
 		return exchange;
 	}
-
+	
 	private static MutableMap<String, ChinaFuturesSymbol> innerMap = UnifiedMap.newMap();
 
 	static {
@@ -86,5 +86,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 		});
 
 	}
+
+	
 
 }

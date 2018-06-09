@@ -6,6 +6,10 @@ import io.ffreedom.market.role.Exchange;
 public interface Symbol {
 
 	String getSymbolName();
+	
+	//LocalTime getStartTradingTime();
+	
+	//LocalTime getEndTradingTime();
 
 	TradingPeriodSet getTradingPeriodSet();
 

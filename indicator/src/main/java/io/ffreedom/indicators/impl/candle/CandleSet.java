@@ -56,12 +56,15 @@ public class CandleSet {
 	}
 
 	public static void main(String[] args) {
-
+		
 		FastList<Integer> list = FastList.newList(500);
+		
 		for (int i = 0; i < 100; i++) {
 			list.add(i);
 		}
 		System.out.println(list.size());
+		System.out.println(list.indexOf(list.get(9)));
+		
 	}
 
 }
