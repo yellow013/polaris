@@ -12,7 +12,6 @@ import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.market.data.MarketData;
 import io.ffreedom.market.data.TimeTwin;
 import io.ffreedom.market.data.TradingPeriod;
-import io.ffreedom.market.data.TradingPeriodSet;
 
 public class CandleChart implements Indicator<Candle> {
 
@@ -33,12 +32,13 @@ public class CandleChart implements Indicator<Candle> {
 
 	// TODO 进行池化处理
 	private void initCandleSet() {
-		TradingPeriodSet tradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
-		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = tradingPeriodSet.getImmutableTradingPeriodSet();
+		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = instrument.getSymbol().getTradingPeriodSet()
+				.getImmutableTradingPeriodSet();
 		this.candleSetPeriods = TreeSortedSet.newSet();
 		immutableTradingPeriodSet.each(tradingPeriod -> {
 			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(period.getDuration()));
 		});
+
 	}
 
 	private void initCurrentCandle() {
@@ -46,16 +46,17 @@ public class CandleChart implements Indicator<Candle> {
 	}
 
 	private boolean isNextCandle(MarketData marketData) {
-		
+
 		return false;
 	}
 
 	public void onMarketData(MarketData marketData) {
 		if (currentCandle == null) {
+
 			currentCandle = Candle.withFirstMarketData(marketData, period);
 		}
 		if (isNextCandle(marketData)) {
-			
+			// TODO
 		}
 
 	}
