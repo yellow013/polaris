@@ -1,14 +1,22 @@
 package io.ffreedom.indicators.api;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements Point<LocalDateTime, Y>, Comparable<Y> {
 
-	private LocalDateTime startDateTime;
+	private LocalDate tradingDay;
 
-	protected TimeSeriesPoint(LocalDateTime startDateTime) {
-		this.startDateTime = startDateTime;
-	}
+	private LocalDate realDate;
+	
+	private int serialNumber;
+	
+	private LocalTime startTime;
+	private LocalTime endTime;
+	
+
+	
 
 	@Override
 	public final LocalDateTime getXAxis() {

@@ -39,7 +39,7 @@ public class CandleChart implements Indicator<Candle> {
 			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(period.getDuration()));
 		});
 		candleSetPeriods.each(timeTwin -> {
-			candleSet.add(bar)
+			candleSet.add(bar);
 		});
 	}
 
