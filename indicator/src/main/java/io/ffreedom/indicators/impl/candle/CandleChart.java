@@ -7,6 +7,7 @@ import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
 
 import io.ffreedom.financial.Instrument;
+import io.ffreedom.financial.futures.ChinaFuturesUtil;
 import io.ffreedom.indicators.api.Indicator;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.market.data.MarketData;
@@ -39,8 +40,8 @@ public class CandleChart implements Indicator<Candle> {
 			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(period.getDuration()));
 		});
 		candleSetPeriods.each(timeTwin -> {
-			candleSet.add(bar);
-			
+			// TODO 添加TradingDay的可变性
+			candleSet.add(Candle.withTimeTwin(ChinaFuturesUtil.NOW_TRADING_DAY, timeTwin, instrument, period));
 		});
 	}
 
@@ -49,14 +50,13 @@ public class CandleChart implements Indicator<Candle> {
 	}
 
 	private boolean isNextCandle(MarketData marketData) {
-
+		
 		return false;
 	}
 
 	public void onMarketData(MarketData marketData) {
 		if (currentCandle == null) {
-
-			currentCandle = Candle.withFirstMarketData(marketData, period);
+			currentCandle = candleSet.firstCandle();
 		}
 		if (isNextCandle(marketData)) {
 			// TODO

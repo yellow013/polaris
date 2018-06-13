@@ -1,12 +1,14 @@
 package io.ffreedom.indicators.impl.candle;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.indicators.api.TimeSeriesPoint;
 import io.ffreedom.market.data.MarketData;
+import io.ffreedom.market.data.TimeTwin;
 
 public final class Candle extends TimeSeriesPoint<Candle> {
 
@@ -19,24 +21,32 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	private double volumeSum = 0.0D;
 	private double turnoverSum = 0.0D;
 
-	private Candle(LocalDateTime startDateTime, Instrument instrument, IndicatorPeriod period) {
-		super(startDateTime);
+	private Candle(LocalDate tradingDay, int serialNumber, LocalTime startTime, LocalTime endTime,
+			Instrument instrument, IndicatorPeriod period) {
+		super(tradingDay, serialNumber, startTime, endTime);
 		this.instrument = instrument;
 		this.period = period;
 	}
 
-	public static Candle emptyCandle(LocalDateTime startDateTime, Instrument instrument, IndicatorPeriod period) {
-		return new Candle(startDateTime, instrument, period);
+	private Candle(LocalDate tradingDay, TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
+		this(tradingDay, timeTwin.getSerialNumber(), timeTwin.getStartTime(), timeTwin.getEndTime(), instrument,
+				period);
 	}
 
-	private Candle(MarketData marketData, IndicatorPeriod period) {
-		this(marketData.getDatetime(), marketData.getInstrument(), period);
-		onMarketData(marketData);
+	public static Candle withTimeTwin(LocalDate tradingDay, TimeTwin timeTwin, Instrument instrument,
+			IndicatorPeriod period) {
+		return new Candle(tradingDay, timeTwin, instrument, period);
 	}
 
-	public static Candle withFirstMarketData(MarketData marketData, IndicatorPeriod period) {
-		return new Candle(marketData, period);
-	}
+	// private Candle(MarketData marketData, IndicatorPeriod period) {
+	// this(marketData.getDatetime(), marketData.getInstrument(), period);
+	// onMarketData(marketData);
+	// }
+
+	// public static Candle withFirstMarketData(MarketData marketData,
+	// IndicatorPeriod period) {
+	// return new Candle(marketData, period);
+	// }
 
 	@Override
 	public void onMarketData(MarketData marketData) {
