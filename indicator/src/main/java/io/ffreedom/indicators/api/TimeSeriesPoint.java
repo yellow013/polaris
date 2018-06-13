@@ -6,21 +6,25 @@ import java.time.LocalTime;
 
 public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements Point<LocalDateTime, Y>, Comparable<Y> {
 
-	private LocalDate tradingDay;
-
 	private LocalDate realDate;
-	
+
+	private LocalDate tradingDay;
 	private int serialNumber;
-	
+
 	private LocalTime startTime;
 	private LocalTime endTime;
-	
 
-	
+	public TimeSeriesPoint(LocalDate tradingDay, int serialNumber, LocalTime startTime, LocalTime endTime) {
+		super();
+		this.tradingDay = tradingDay;
+		this.serialNumber = serialNumber;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
 
 	@Override
 	public final LocalDateTime getXAxis() {
-		return startDateTime;
+		return LocalDateTime.of(realDate, startTime);
 	}
 
 	@Override
@@ -30,7 +34,32 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 
 	@Override
 	public final int compareTo(Y o) {
-		return startDateTime.compareTo(o.getXAxis());
+		return getXAxis().compareTo(o.getXAxis());
+	}
+
+	public LocalDate getRealDate() {
+		return realDate;
+	}
+
+	public TimeSeriesPoint<Y> setRealDate(LocalDate realDate) {
+		this.realDate = realDate;
+		return this;
+	}
+
+	public LocalDate getTradingDay() {
+		return tradingDay;
+	}
+
+	public int getSerialNumber() {
+		return serialNumber;
+	}
+
+	public LocalTime getStartTime() {
+		return startTime;
+	}
+
+	public LocalTime getEndTime() {
+		return endTime;
 	}
 
 	protected abstract Y getThis();

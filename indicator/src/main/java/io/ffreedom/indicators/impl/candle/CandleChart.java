@@ -40,6 +40,7 @@ public class CandleChart implements Indicator<Candle> {
 		});
 		candleSetPeriods.each(timeTwin -> {
 			candleSet.add(bar);
+			
 		});
 	}
 
