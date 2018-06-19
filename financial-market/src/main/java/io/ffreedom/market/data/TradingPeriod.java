@@ -67,7 +67,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	}
 
 	// TODO 增加1到3秒的时间偏移量
-	public boolean isTradingTime(LocalTime time) {
+	public boolean isPeriod(LocalTime time) {
 		int secondOfDay = time.toSecondOfDay();
 		if (!isCrossDay) {
 			if (startSecondOfDay <= secondOfDay && endSecondOfDay >= secondOfDay) {
@@ -101,7 +101,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 				LocalTime nextSTime = sTime.plusSeconds(seconds);
 				LocalTime eTime = nextSTime.minusNanos(1);
 				startPoint = nextSTime.toSecondOfDay();
-				if (isTradingTime(eTime)) {
+				if (isPeriod(eTime)) {
 					list.add(TimeTwin.of(serialNumber, sTime, eTime));
 				} else {
 					list.add(TimeTwin.of(serialNumber, sTime, endTime));
@@ -115,7 +115,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 		TradingPeriod tradingPeriod = TradingPeriod.with(0, LocalTime.of(13, 00, 00), LocalTime.of(4, 20, 00));
 
-		System.out.println(tradingPeriod.isTradingTime(LocalTime.of(2, 00, 00)));
+		System.out.println(tradingPeriod.isPeriod(LocalTime.of(2, 00, 00)));
 
 		tradingPeriod.segmentByDuration(Duration.ofSeconds(10)).each(timeTwin -> {
 			System.out.println(timeTwin.getStartTime() + " - " + timeTwin.getEndTime());

@@ -20,8 +20,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<polaris.version>0.1</polaris.version>
-		<commons.version>0.1</commons.version>
+		<commons.version>1.0</commons.version>
+		<ec.version>9.2.0</ec.version>
 	</properties>
 
 	<build>
@@ -84,12 +84,12 @@
 			<dependency>
 				<groupId>org.eclipse.collections</groupId>
 				<artifactId>eclipse-collections-api</artifactId>
-				<version>9.1.0</version>
+				<version>${ec.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.collections</groupId>
 				<artifactId>eclipse-collections</artifactId>
-				<version>9.1.0</version>
+				<version>${ec.version}</version>
 			</dependency>
 
 			<dependency>

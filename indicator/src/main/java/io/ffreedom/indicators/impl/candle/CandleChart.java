@@ -49,17 +49,15 @@ public class CandleChart implements Indicator<Candle> {
 		this.currentCandle = candleSet.firstCandle();
 	}
 
-	private boolean isNextCandle(MarketData marketData) {
-		
-		return false;
+	private boolean isCurrentCandlePeriod(MarketData marketData) {
+		return currentCandle.isPeriod(marketData.getDatetime().toLocalTime());
 	}
 
 	public void onMarketData(MarketData marketData) {
-		if (currentCandle == null) {
-			currentCandle = candleSet.firstCandle();
-		}
-		if (isNextCandle(marketData)) {
-			// TODO
+		if (isCurrentCandlePeriod(marketData)) {
+			currentCandle.onMarketData(marketData);
+		}else {
+			
 		}
 
 	}
@@ -82,7 +80,7 @@ public class CandleChart implements Indicator<Candle> {
 
 	@Override
 	public void startPoint() {
-
+		
 	}
 
 	@Override

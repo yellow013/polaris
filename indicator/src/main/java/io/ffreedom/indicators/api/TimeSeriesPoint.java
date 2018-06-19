@@ -37,6 +37,10 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 		return getXAxis().compareTo(o.getXAxis());
 	}
 
+	public boolean isPeriod(LocalTime time) {
+		return startTime.isBefore(time) && endTime.isAfter(time) ? true : false;
+	}
+
 	public LocalDate getRealDate() {
 		return realDate;
 	}

@@ -21,9 +21,9 @@ public final class TradingPeriodSet {
 		return immutableTradingPeriodSet;
 	}
 
-	public boolean isTradingTime(LocalTime time) {
+	public boolean isPeriod(LocalTime time) {
 		for (TradingPeriod tradingPeriod : immutableTradingPeriodSet) {
-			if (tradingPeriod.isTradingTime(time)) {
+			if (tradingPeriod.isPeriod(time)) {
 				return true;
 			}
 		}
