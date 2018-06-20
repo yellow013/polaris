@@ -73,29 +73,20 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	public boolean isPeriod(LocalTime time) {
 		int secondOfDay = time.toSecondOfDay();
 		if (!isCrossDay) {
-			if (startSecondOfDay <= secondOfDay && endSecondOfDay >= secondOfDay) {
-				return true;
-			} else {
-				return false;
-			}
+			return (startSecondOfDay <= secondOfDay && endSecondOfDay >= secondOfDay) ? true : false;
 		} else {
-			if (startSecondOfDay <= secondOfDay || endSecondOfDay >= secondOfDay) {
-				return true;
-			} else {
-				return false;
-			}
+			return (startSecondOfDay <= secondOfDay || endSecondOfDay >= secondOfDay) ? true : false;
 		}
 	}
 
 	public MutableList<TimeTwin> segmentByDuration(Duration duration) {
 		int seconds = (int) duration.getSeconds();
 		if (seconds > TimeConstants.DAY_SECONDS_HALF) {
-			return FastList.newWithNValues(1,
-					() -> isCrossDay
-							? TimeTwin.of(LocalDateTime.of(SysDate.getNow(), startTime),
-									LocalDateTime.of(SysDate.getTomorrow(), endTime))
-							: TimeTwin.of(LocalDateTime.of(SysDate.getNow(), startTime),
-									LocalDateTime.of(SysDate.getNow(), endTime)));
+			return FastList.newListWith(isCrossDay
+					? TimeTwin.of(serialNumber, LocalDateTime.of(SysDate.getNow(), startTime),
+							LocalDateTime.of(SysDate.getTomorrow(), endTime))
+					: TimeTwin.of(serialNumber, LocalDateTime.of(SysDate.getNow(), startTime),
+							LocalDateTime.of(SysDate.getNow(), endTime)));
 		} else {
 			int totalSeconds = (int) totalDuration.getSeconds();
 			int count = totalSeconds / seconds;
@@ -110,9 +101,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 				LocalDateTime nextStartPoint = startPoint.plusSeconds(seconds);
 				if (nextStartPoint.isBefore(lastEndPoint)) {
 					LocalDateTime endPoint = nextStartPoint.minusNanos(1);
-					list.add(TimeTwin.of(startPoint, endPoint));
+					list.add(TimeTwin.of(serialNumber, startPoint, endPoint));
 				} else {
-					list.add(TimeTwin.of(startPoint, lastEndPoint));
+					list.add(TimeTwin.of(serialNumber, startPoint, lastEndPoint));
 					break;
 				}
 				startPoint = nextStartPoint;
@@ -130,8 +121,6 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		tradingPeriod.segmentByDuration(Duration.ofMinutes(45)).each(timeTwin -> {
 			System.out.println(timeTwin.getStartDateTime() + " - " + timeTwin.getEndDateTime());
 		});
-
-		// System.out.println(LocalTime.of(23, 50, 50).plusMinutes(20));
 
 		LocalDateTime of = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 55, 30));
 

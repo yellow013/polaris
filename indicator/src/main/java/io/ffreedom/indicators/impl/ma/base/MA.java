@@ -1,7 +1,6 @@
 package io.ffreedom.indicators.impl.ma.base;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;

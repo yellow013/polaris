@@ -22,7 +22,7 @@ public class TimeTwin implements Comparable<TimeTwin> {
 		this.serialNumber = getStartDateTime().toEpochSecond(TimeZone.UTC);
 	}
 
-	public static TimeTwin of(LocalDateTime startTime, LocalDateTime endTime) {
+	public static TimeTwin of(int serialNumber, LocalDateTime startTime, LocalDateTime endTime) {
 		return new TimeTwin(Tuples.twin(startTime, endTime));
 	}
 
