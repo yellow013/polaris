@@ -6,6 +6,7 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
 
+import io.ffreedom.common.functional.Callback;
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.financial.futures.ChinaFuturesUtil;
 import io.ffreedom.indicators.api.Indicator;
@@ -22,6 +23,8 @@ public class CandleChart implements Indicator<Candle> {
 	private Candle currentCandle;
 
 	private MutableSortedSet<TimeTwin> candleSetPeriods;
+	
+	private Callback<Candle> endPointCallback;
 
 	public CandleChart(Instrument instrument, IndicatorPeriod period) {
 		this.instrument = instrument;
@@ -50,16 +53,16 @@ public class CandleChart implements Indicator<Candle> {
 	}
 
 	private boolean isCurrentCandlePeriod(MarketData marketData) {
-		return currentCandle.isPeriod(marketData.getDatetime().toLocalTime());
+		return currentCandle.isPeriod(marketData.getDatetime());
 	}
 
 	public void onMarketData(MarketData marketData) {
 		if (isCurrentCandlePeriod(marketData)) {
 			currentCandle.onMarketData(marketData);
-		}else {
-			
+		} else {
+			endPoint(currentCandle);
+			currentCandle = candleSet.getNextCandle(currentCandle);
 		}
-
 	}
 
 	@Override
@@ -79,16 +82,6 @@ public class CandleChart implements Indicator<Candle> {
 	}
 
 	@Override
-	public void startPoint() {
-		
-	}
-
-	@Override
-	public void endPoint() {
-
-	}
-
-	@Override
 	public Candle getFastPoint() {
 		return candleSet.firstCandle();
 	}
@@ -96,6 +89,11 @@ public class CandleChart implements Indicator<Candle> {
 	@Override
 	public Candle getLastPoint() {
 		return candleSet.lastCandle();
+	}
+
+	@Override
+	public void endPoint(Candle candle) {
+		
 	}
 
 }

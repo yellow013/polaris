@@ -3,14 +3,13 @@ package io.ffreedom.indicators.impl.candle;
 import java.util.Collection;
 
 import org.eclipse.collections.api.list.MutableList;
-import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.impl.list.mutable.FastList;
 
 public class CandleSet {
 
 	private MutableList<Candle> candleList;
-	
+
 	private CandleSet(int size) {
 		this.candleList = FastList.newList(size);
 	}
@@ -43,15 +42,21 @@ public class CandleSet {
 		int offset = candleList.size() - index - 1;
 		return offset < 0 ? firstCandle() : getCandle(offset);
 	}
-	
+
 	public Candle getCandle(int index) {
 		return candleList.get(index);
 	}
-	
+
 	public Candle getNextCandle(Candle currentCandle) {
-		int indexOf = candleList.indexOf(currentCandle);
-		indexOf++;
-		return indexOf < candleList.size() ? candleList.get(indexOf) : 
+		int indexOf = candleList.binarySearch(currentCandle);
+		// ++indexOf < candleList.size() ?
+		// candleList.get(indexOf)
+		// : Candle.
+		//
+		// ;
+		//
+
+		return null;
 	}
 
 	public Collection<Candle> toCollection() {
@@ -63,15 +68,15 @@ public class CandleSet {
 	}
 
 	public static void main(String[] args) {
-		
+
 		FastList<Integer> list = FastList.newList(500);
-		
+
 		for (int i = 0; i < 100; i++) {
 			list.add(i);
 		}
 		System.out.println(list.size());
 		System.out.println(list.indexOf(list.get(9)));
-		
+
 	}
 
 }

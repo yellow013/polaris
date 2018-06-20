@@ -6,15 +6,13 @@ import java.time.LocalTime;
 
 public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements Point<LocalDateTime, Y>, Comparable<Y> {
 
-	private LocalDate realDate;
-
 	private LocalDate tradingDay;
-	private int serialNumber;
+	private long serialNumber;
 
-	private LocalTime startTime;
-	private LocalTime endTime;
+	private LocalDateTime startTime;
+	private LocalDateTime endTime;
 
-	public TimeSeriesPoint(LocalDate tradingDay, int serialNumber, LocalTime startTime, LocalTime endTime) {
+	public TimeSeriesPoint(LocalDate tradingDay, long serialNumber, LocalDateTime startTime, LocalDateTime endTime) {
 		super();
 		this.tradingDay = tradingDay;
 		this.serialNumber = serialNumber;
@@ -24,7 +22,7 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 
 	@Override
 	public final LocalDateTime getXAxis() {
-		return LocalDateTime.of(realDate, startTime);
+		return startTime;
 	}
 
 	@Override
@@ -37,32 +35,29 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 		return getXAxis().compareTo(o.getXAxis());
 	}
 
+	public boolean isPeriod(LocalDateTime time) {
+		return startTime.toLocalDate().isBefore(time.toLocalDate()) && endTime.toLocalDate().isAfter(time.toLocalDate())
+				? isPeriod(time.toLocalTime())
+				: false;
+	}
+
 	public boolean isPeriod(LocalTime time) {
-		return startTime.isBefore(time) && endTime.isAfter(time) ? true : false;
-	}
-
-	public LocalDate getRealDate() {
-		return realDate;
-	}
-
-	public TimeSeriesPoint<Y> setRealDate(LocalDate realDate) {
-		this.realDate = realDate;
-		return this;
+		return startTime.toLocalTime().isBefore(time) && endTime.toLocalTime().isAfter(time) ? true : false;
 	}
 
 	public LocalDate getTradingDay() {
 		return tradingDay;
 	}
 
-	public int getSerialNumber() {
+	public long getSerialNumber() {
 		return serialNumber;
 	}
 
-	public LocalTime getStartTime() {
+	public LocalDateTime getStartTime() {
 		return startTime;
 	}
 
-	public LocalTime getEndTime() {
+	public LocalDateTime getEndTime() {
 		return endTime;
 	}
 
