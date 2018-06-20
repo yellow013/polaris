@@ -8,9 +8,7 @@ public interface Indicator<P extends Point<?, ?>> {
 	
 	void onMarketData(MarketData marketData);
 
-	void startPoint();
-
-	void endPoint();
+	void endPoint(P p);
 
 	int size();
 

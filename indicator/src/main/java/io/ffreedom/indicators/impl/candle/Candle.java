@@ -1,7 +1,7 @@
 package io.ffreedom.indicators.impl.candle;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.financial.Instrument;
@@ -21,7 +21,7 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	private double volumeSum = 0.0D;
 	private double turnoverSum = 0.0D;
 
-	private Candle(LocalDate tradingDay, int serialNumber, LocalTime startTime, LocalTime endTime,
+	private Candle(LocalDate tradingDay, long serialNumber, LocalDateTime startTime, LocalDateTime endTime,
 			Instrument instrument, IndicatorPeriod period) {
 		super(tradingDay, serialNumber, startTime, endTime);
 		this.instrument = instrument;
@@ -29,7 +29,7 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	}
 
 	private Candle(LocalDate tradingDay, TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
-		this(tradingDay, timeTwin.getSerialNumber(), timeTwin.getStartTime(), timeTwin.getEndTime(), instrument,
+		this(tradingDay, timeTwin.getSerialNumber(), timeTwin.getStartDateTime(), timeTwin.getEndDateTime(), instrument,
 				period);
 	}
 

@@ -1,48 +1,50 @@
 package io.ffreedom.market.data;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import org.eclipse.collections.api.tuple.Twin;
 import org.eclipse.collections.impl.tuple.Tuples;
 
+import io.ffreedom.common.datetime.TimeZone;
+
 public class TimeTwin implements Comparable<TimeTwin> {
 
-	private int serialNumber;
+	private long serialNumber;
 
-	private Twin<LocalTime> twin;
+	private Twin<LocalDateTime> twin;
 
-	private TimeTwin(int serialNumber, Twin<LocalTime> twin) {
+	private TimeTwin(Twin<LocalDateTime> twin) {
 		this.twin = twin;
-		setSerialNumber(serialNumber);
+		setSerialNumber();
 	}
 
-	private void setSerialNumber(int serialNumber) {
-		this.serialNumber = serialNumber * 100000 + getStartTime().toSecondOfDay();
+	private void setSerialNumber() {
+		this.serialNumber = getStartDateTime().toEpochSecond(TimeZone.UTC);
 	}
 
-	public static TimeTwin of(int serialNumber, LocalTime startTime, LocalTime endTime) {
-		return new TimeTwin(serialNumber, Tuples.twin(startTime, endTime));
+	public static TimeTwin of(LocalDateTime startTime, LocalDateTime endTime) {
+		return new TimeTwin(Tuples.twin(startTime, endTime));
 	}
 
-	public Twin<LocalTime> getTwin() {
+	public Twin<LocalDateTime> getTwin() {
 		return twin;
 	}
 
-	public LocalTime getStartTime() {
+	public LocalDateTime getStartDateTime() {
 		return twin.getOne();
 	}
 
-	public LocalTime getEndTime() {
+	public LocalDateTime getEndDateTime() {
 		return twin.getTwo();
 	}
 
-	public int getSerialNumber() {
+	public long getSerialNumber() {
 		return serialNumber;
 	}
 
 	@Override
 	public int compareTo(TimeTwin o) {
-		return serialNumber > o.serialNumber ? -1 : 1;
+		return getStartDateTime().compareTo(o.getStartDateTime());
 	}
 
 }

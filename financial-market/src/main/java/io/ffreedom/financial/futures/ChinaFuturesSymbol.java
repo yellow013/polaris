@@ -22,19 +22,17 @@ public enum ChinaFuturesSymbol implements Symbol {
 
 	cu(ChinaFuturesExchange.SHFE,
 			// 上期所铜期货交易时段
-			TradingPeriod.with(0, LocalTime.of(21, 00, 00), LocalTime.of(0, 00, 00)),
-			TradingPeriod.with(1, LocalTime.of(0, 00, 00), LocalTime.of(1, 00, 00)),
-			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
-			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
-			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+			TradingPeriod.with(0, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(1, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(2, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(3, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
 	ni(ChinaFuturesExchange.SHFE,
 			// 上期所镍期货交易时段
-			TradingPeriod.with(0, LocalTime.of(21, 00, 00), LocalTime.of(0, 00, 00)),
-			TradingPeriod.with(1, LocalTime.of(0, 00, 00), LocalTime.of(1, 00, 00)),
-			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
-			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
-			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+			TradingPeriod.with(0, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(1, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(2, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(3, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
 	;
 
@@ -61,7 +59,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	public Exchange getExchange() {
 		return exchange;
 	}
-	
+
 	private static MutableMap<String, ChinaFuturesSymbol> innerMap = UnifiedMap.newMap();
 
 	static {
@@ -80,13 +78,10 @@ public enum ChinaFuturesSymbol implements Symbol {
 	public static void main(String[] args) {
 		ChinaFuturesSymbol.cu.getTradingPeriodSet().getImmutableTradingPeriodSet().each(tradingPeriod -> {
 			tradingPeriod.segmentByDuration(Duration.ofMinutes(5)).each(timeTwins -> {
-				System.out.println(timeTwins.getSerialNumber() + " -> " + timeTwins.getStartTime() + " - "
-						+ timeTwins.getEndTime());
+				System.out.println(timeTwins.getSerialNumber() + " -> " + timeTwins.getStartDateTime() + " - "
+						+ timeTwins.getEndDateTime());
 			});
 		});
-
 	}
-
-	
 
 }
