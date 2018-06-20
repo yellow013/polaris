@@ -1,6 +1,7 @@
 package io.ffreedom.indicators.impl.candle;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
@@ -8,10 +9,10 @@ import org.eclipse.collections.impl.list.mutable.FastList;
 
 public class CandleSet {
 
-	private MutableList<Candle> candleList;
+	private MutableList<Candle> candles;
 
 	private CandleSet(int size) {
-		this.candleList = FastList.newList(size);
+		this.candles = FastList.newList(size);
 	}
 
 	public static CandleSet emptyCandleSet() {
@@ -23,48 +24,41 @@ public class CandleSet {
 	}
 
 	public boolean add(Candle candle) {
-		return candleList.add(candle);
+		return candles.add(candle);
 	}
 
 	public int size() {
-		return candleList.size();
+		return candles.size();
 	}
 
 	public Candle lastCandle() {
-		return candleList.getLast();
+		return candles.getLast();
 	}
 
 	public Candle firstCandle() {
-		return candleList.getFirst();
+		return candles.getFirst();
 	}
 
 	public Candle backtrack(int index) {
-		int offset = candleList.size() - index - 1;
+		int offset = candles.size() - index - 1;
 		return offset < 0 ? firstCandle() : getCandle(offset);
 	}
 
 	public Candle getCandle(int index) {
-		return candleList.get(index);
+		return candles.get(index);
 	}
 
-	public Candle getNextCandle(Candle currentCandle) {
-		int indexOf = candleList.binarySearch(currentCandle);
-		// ++indexOf < candleList.size() ?
-		// candleList.get(indexOf)
-		// : Candle.
-		//
-		// ;
-		//
-
-		return null;
+	public Optional<Candle> getNextCandle(Candle currentCandle) {
+		int indexOf = candles.binarySearch(currentCandle);
+		return (indexOf++) < candles.size() ? Optional.of(getCandle(indexOf)) : Optional.empty();
 	}
 
 	public Collection<Candle> toCollection() {
-		return candleList;
+		return candles;
 	}
 
 	public ImmutableSortedSet<Candle> toImmutableSortedSet() {
-		return candleList.toSortedSet().toImmutable();
+		return candles.toSortedSet().toImmutable();
 	}
 
 	public static void main(String[] args) {

@@ -36,18 +36,12 @@ public class EMA extends MA {
 
 
 	@Override
-	public void startPoint() {
+	public void endPoint(MAPoint p) {
 		// TODO Auto-generated method stub
 		
 	}
 
 
-
-	@Override
-	public void endPoint() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 

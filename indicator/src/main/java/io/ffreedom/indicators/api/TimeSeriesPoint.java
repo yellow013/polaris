@@ -6,16 +6,11 @@ import java.time.LocalTime;
 
 public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements Point<LocalDateTime, Y>, Comparable<Y> {
 
-	private LocalDate tradingDay;
-	private long serialNumber;
-
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 
-	public TimeSeriesPoint(LocalDate tradingDay, long serialNumber, LocalDateTime startTime, LocalDateTime endTime) {
+	public TimeSeriesPoint(LocalDateTime startTime, LocalDateTime endTime) {
 		super();
-		this.tradingDay = tradingDay;
-		this.serialNumber = serialNumber;
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
@@ -43,14 +38,6 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 
 	public boolean isPeriod(LocalTime time) {
 		return startTime.toLocalTime().isBefore(time) && endTime.toLocalTime().isAfter(time) ? true : false;
-	}
-
-	public LocalDate getTradingDay() {
-		return tradingDay;
-	}
-
-	public long getSerialNumber() {
-		return serialNumber;
 	}
 
 	public LocalDateTime getStartTime() {

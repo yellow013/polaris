@@ -27,17 +27,17 @@ public class SMA extends MA {
 	public static void main(String[] args) {
 		try {
 
-			MAPoint point1 = new MAPoint(LocalDateTime.now());
+			MAPoint point1 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point2 = new MAPoint(LocalDateTime.now());
+			MAPoint point2 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point3 = new MAPoint(LocalDateTime.now());
+			MAPoint point3 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point4 = new MAPoint(LocalDateTime.now());
+			MAPoint point4 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point5 = new MAPoint(LocalDateTime.now());
+			MAPoint point5 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point6 = new MAPoint(LocalDateTime.now());
+			MAPoint point6 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
 			// FastList<MAPoint> fastList = FastList.newListWith(point3, point2, point1,
 			// point5, point4, point6);
@@ -67,13 +67,7 @@ public class SMA extends MA {
 	}
 
 	@Override
-	public void startPoint() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void endPoint() {
+	public void endPoint(MAPoint p) {
 		// TODO Auto-generated method stub
 
 	}

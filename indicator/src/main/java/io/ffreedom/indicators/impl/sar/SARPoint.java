@@ -9,8 +9,8 @@ public class SARPoint extends TimeSeriesPoint<SARPoint> {
 
 	private double pointPrice;
 
-	public SARPoint(LocalDateTime startDateTime) {
-		super(startDateTime);
+	public SARPoint(LocalDateTime startTime, LocalDateTime endTime) {
+		super(startTime, endTime);
 	}
 
 	@Override

@@ -11,18 +11,18 @@ public class MAPoint extends TimeSeriesPoint<MAPoint> {
 
 	private double avgPrice;
 
-	public MAPoint(LocalDateTime startDateTime) {
-		super(startDateTime);
+	public MAPoint(LocalDateTime startTime, LocalDateTime endTime) {
+		super(startTime, endTime);
 	}
 
 	@Override
 	public void onMarketData(MarketData marketData) {
 		double lastPrice = marketData.getLastPrice();
-		
+
 	}
 
 	@Override
-	protected MAPoint getThis() { 
+	protected MAPoint getThis() {
 		return this;
 	}
 

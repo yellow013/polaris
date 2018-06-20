@@ -12,6 +12,8 @@ import io.ffreedom.market.data.TimeTwin;
 
 public final class Candle extends TimeSeriesPoint<Candle> {
 
+	private LocalDate tradingDay;
+
 	private Instrument instrument;
 	private IndicatorPeriod period;
 	private double open = Double.NaN;
@@ -21,32 +23,21 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	private double volumeSum = 0.0D;
 	private double turnoverSum = 0.0D;
 
-	private Candle(LocalDate tradingDay, long serialNumber, LocalDateTime startTime, LocalDateTime endTime,
-			Instrument instrument, IndicatorPeriod period) {
-		super(tradingDay, serialNumber, startTime, endTime);
+	private Candle(LocalDate tradingDay, LocalDateTime startTime, LocalDateTime endTime, Instrument instrument,
+			IndicatorPeriod period) {
+		super(startTime, endTime);
 		this.instrument = instrument;
 		this.period = period;
 	}
 
 	private Candle(LocalDate tradingDay, TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
-		this(tradingDay, timeTwin.getSerialNumber(), timeTwin.getStartDateTime(), timeTwin.getEndDateTime(), instrument,
-				period);
+		this(tradingDay, timeTwin.getStartDateTime(), timeTwin.getEndDateTime(), instrument, period);
 	}
 
 	public static Candle withTimeTwin(LocalDate tradingDay, TimeTwin timeTwin, Instrument instrument,
 			IndicatorPeriod period) {
 		return new Candle(tradingDay, timeTwin, instrument, period);
 	}
-
-	// private Candle(MarketData marketData, IndicatorPeriod period) {
-	// this(marketData.getDatetime(), marketData.getInstrument(), period);
-	// onMarketData(marketData);
-	// }
-
-	// public static Candle withFirstMarketData(MarketData marketData,
-	// IndicatorPeriod period) {
-	// return new Candle(marketData, period);
-	// }
 
 	@Override
 	public void onMarketData(MarketData marketData) {
@@ -79,6 +70,10 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 
 	private void addTurnoverSum(double turnover) {
 		this.turnoverSum = DoubleUtil.correction(turnoverSum + turnover);
+	}
+
+	public LocalDate getTradingDay() {
+		return tradingDay;
 	}
 
 	public IndicatorPeriod getPeriod() {

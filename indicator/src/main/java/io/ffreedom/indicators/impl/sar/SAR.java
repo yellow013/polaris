@@ -14,18 +14,6 @@ public class SAR implements Indicator<SARPoint> {
 	}
 
 	@Override
-	public void startPoint() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void endPoint() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public int size() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -53,6 +41,12 @@ public class SAR implements Indicator<SARPoint> {
 	public SARPoint getLastPoint() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void endPoint(SARPoint p) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

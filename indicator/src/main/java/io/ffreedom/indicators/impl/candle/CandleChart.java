@@ -1,6 +1,7 @@
 package io.ffreedom.indicators.impl.candle;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;
@@ -23,7 +24,7 @@ public class CandleChart implements Indicator<Candle> {
 	private Candle currentCandle;
 
 	private MutableSortedSet<TimeTwin> candleSetPeriods;
-	
+
 	private Callback<Candle> endPointCallback;
 
 	public CandleChart(Instrument instrument, IndicatorPeriod period) {
@@ -61,7 +62,13 @@ public class CandleChart implements Indicator<Candle> {
 			currentCandle.onMarketData(marketData);
 		} else {
 			endPoint(currentCandle);
-			currentCandle = candleSet.getNextCandle(currentCandle);
+			Optional<Candle> nextCandle = candleSet.getNextCandle(currentCandle);
+			if (nextCandle.isPresent()) {
+				currentCandle = nextCandle.get();
+			} else {
+				// TODO 添加candleSet扩容
+				currentCandle = null;
+			}
 		}
 	}
 
@@ -93,7 +100,7 @@ public class CandleChart implements Indicator<Candle> {
 
 	@Override
 	public void endPoint(Candle candle) {
-		
+		endPointCallback.onEvent(candle);
 	}
 
 }
