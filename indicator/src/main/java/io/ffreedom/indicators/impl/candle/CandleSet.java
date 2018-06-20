@@ -10,15 +10,13 @@ import org.eclipse.collections.impl.list.mutable.FastList;
 public class CandleSet {
 
 	private MutableList<Candle> candleList;
-	private MutableMap<K, Integer>
-	
 	
 	private CandleSet(int size) {
 		this.candleList = FastList.newList(size);
 	}
 
 	public static CandleSet emptyCandleSet() {
-		return new CandleSet(256);
+		return new CandleSet(512);
 	}
 
 	public static CandleSet emptyCandleSet(int size) {
@@ -26,9 +24,7 @@ public class CandleSet {
 	}
 
 	public boolean add(Candle candle) {
-		candle.get
-		candleList.add(candle);
-		return null;
+		return candleList.add(candle);
 	}
 
 	public int size() {
@@ -49,15 +45,13 @@ public class CandleSet {
 	}
 	
 	public Candle getCandle(int index) {
-		
-		
 		return candleList.get(index);
 	}
 	
 	public Candle getNextCandle(Candle currentCandle) {
 		int indexOf = candleList.indexOf(currentCandle);
-		
-		
+		indexOf++;
+		return indexOf < candleList.size() ? candleList.get(indexOf) : 
 	}
 
 	public Collection<Candle> toCollection() {

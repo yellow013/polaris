@@ -18,11 +18,11 @@ public class MAPoint extends TimeSeriesPoint<MAPoint> {
 	@Override
 	public void onMarketData(MarketData marketData) {
 		double lastPrice = marketData.getLastPrice();
-
+		
 	}
 
 	@Override
-	protected MAPoint getThis() {
+	protected MAPoint getThis() { 
 		return this;
 	}
 
