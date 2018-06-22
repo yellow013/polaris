@@ -13,6 +13,7 @@ import io.ffreedom.market.data.TimeTwin;
 public final class Candle extends TimeSeriesPoint<Candle> {
 
 	private LocalDate tradingDay;
+	private long serialNumber;
 
 	private Instrument instrument;
 	private IndicatorPeriod period;
@@ -23,20 +24,22 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	private double volumeSum = 0.0D;
 	private double turnoverSum = 0.0D;
 
-	private Candle(LocalDate tradingDay, LocalDateTime startTime, LocalDateTime endTime, Instrument instrument,
-			IndicatorPeriod period) {
+	private Candle(LocalDate tradingDay, long serialNumber, LocalDateTime startTime, LocalDateTime endTime,
+			Instrument instrument, IndicatorPeriod period) {
 		super(startTime, endTime);
+		this.tradingDay = tradingDay;
+		this.serialNumber = serialNumber;
 		this.instrument = instrument;
 		this.period = period;
 	}
 
-	private Candle(LocalDate tradingDay, TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
-		this(tradingDay, timeTwin.getStartDateTime(), timeTwin.getEndDateTime(), instrument, period);
+	private Candle(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
+		this(timeTwin.getTradingDay(), timeTwin.getSerialNumber(), timeTwin.getStartDateTime(),
+				timeTwin.getEndDateTime(), instrument, period);
 	}
 
-	public static Candle withTimeTwin(LocalDate tradingDay, TimeTwin timeTwin, Instrument instrument,
-			IndicatorPeriod period) {
-		return new Candle(tradingDay, timeTwin, instrument, period);
+	public static Candle withTimeTwin(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
+		return new Candle(timeTwin, instrument, period);
 	}
 
 	@Override
@@ -74,6 +77,10 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 
 	public LocalDate getTradingDay() {
 		return tradingDay;
+	}
+
+	public long getSerialNumber() {
+		return serialNumber;
 	}
 
 	public IndicatorPeriod getPeriod() {

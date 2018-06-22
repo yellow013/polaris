@@ -9,11 +9,11 @@ import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
 
 import io.ffreedom.common.functional.Callback;
 import io.ffreedom.financial.Instrument;
-import io.ffreedom.financial.futures.ChinaFuturesUtil;
 import io.ffreedom.indicators.api.Indicator;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.market.data.MarketData;
 import io.ffreedom.market.data.TimeTwin;
+import io.ffreedom.market.data.TradingDay;
 import io.ffreedom.market.data.TradingPeriod;
 
 public class CandleChart implements Indicator<Candle> {
@@ -41,11 +41,11 @@ public class CandleChart implements Indicator<Candle> {
 				.getImmutableTradingPeriodSet();
 		this.candleSetPeriods = TreeSortedSet.newSet();
 		immutableTradingPeriodSet.each(tradingPeriod -> {
-			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(period.getDuration()));
+			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(TradingDay.get(), period.getDuration()));
 		});
 		candleSetPeriods.each(timeTwin -> {
 			// TODO 添加TradingDay的可变性
-			candleSet.add(Candle.withTimeTwin(ChinaFuturesUtil.NOW_TRADING_DAY, timeTwin, instrument, period));
+			candleSet.add(Candle.withTimeTwin(timeTwin, instrument, period));
 		});
 	}
 

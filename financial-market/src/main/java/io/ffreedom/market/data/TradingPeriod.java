@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.list.mutable.FastList;
@@ -79,13 +80,13 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		}
 	}
 
-	public MutableList<TimeTwin> segmentByDuration(Duration duration) {
+	public MutableList<TimeTwin> segmentByDuration(LocalDate tradingDay, Duration duration) {
 		int seconds = (int) duration.getSeconds();
 		if (seconds > TimeConstants.DAY_SECONDS_HALF) {
 			return FastList.newListWith(isCrossDay
-					? TimeTwin.of(serialNumber, LocalDateTime.of(SysDate.getNow(), startTime),
+					? TimeTwin.of(tradingDay, serialNumber, LocalDateTime.of(SysDate.getNow(), startTime),
 							LocalDateTime.of(SysDate.getTomorrow(), endTime))
-					: TimeTwin.of(serialNumber, LocalDateTime.of(SysDate.getNow(), startTime),
+					: TimeTwin.of(tradingDay, serialNumber, LocalDateTime.of(SysDate.getNow(), startTime),
 							LocalDateTime.of(SysDate.getNow(), endTime)));
 		} else {
 			int totalSeconds = (int) totalDuration.getSeconds();
@@ -101,9 +102,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 				LocalDateTime nextStartPoint = startPoint.plusSeconds(seconds);
 				if (nextStartPoint.isBefore(lastEndPoint)) {
 					LocalDateTime endPoint = nextStartPoint.minusNanos(1);
-					list.add(TimeTwin.of(serialNumber, startPoint, endPoint));
+					list.add(TimeTwin.of(tradingDay, serialNumber, startPoint, endPoint));
 				} else {
-					list.add(TimeTwin.of(serialNumber, startPoint, lastEndPoint));
+					list.add(TimeTwin.of(tradingDay, serialNumber, startPoint, lastEndPoint));
 					break;
 				}
 				startPoint = nextStartPoint;
@@ -118,7 +119,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 		System.out.println(tradingPeriod.isPeriod(LocalTime.of(14, 00, 00)));
 
-		tradingPeriod.segmentByDuration(Duration.ofMinutes(45)).each(timeTwin -> {
+		tradingPeriod.segmentByDuration(LocalDate.of(2018, Month.JUNE, 20), Duration.ofMinutes(45)).each(timeTwin -> {
 			System.out.println(timeTwin.getStartDateTime() + " - " + timeTwin.getEndDateTime());
 		});
 
