@@ -100,7 +100,7 @@ public class CandleChart implements Indicator<Candle> {
 
 	@Override
 	public void endPoint(Candle candle) {
-		endPointCallback.onEvent(candle);
+		endPointCallback.accept(candle);
 	}
 
 }
