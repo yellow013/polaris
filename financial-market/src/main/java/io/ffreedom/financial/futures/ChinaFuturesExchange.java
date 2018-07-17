@@ -2,28 +2,39 @@ package io.ffreedom.financial.futures;
 
 import io.ffreedom.market.role.Exchange;
 
-public enum ChinaFuturesExchange implements Exchange{
-	
-	//Shanghai Futures Exchange
-	SHFE,
-	
-	//Zhengzhou Commodity Exchange
-	ZCE,
-	
-	//Dalian Commodity Exchange
-	DCE,
-	
-	//China Financial Futures Exchange
-	CFFE,
-	
-	//Shanghai International Energy Exchange
-	SIEE
-	
+public enum ChinaFuturesExchange implements Exchange {
+
+	// Shanghai Futures Exchange
+	SHFE(1),
+
+	// Zhengzhou Commodity Exchange
+	ZCE(2),
+
+	// Dalian Commodity Exchange
+	DCE(3),
+
+	// China Financial Futures Exchange
+	CFFE(4),
+
+	// Shanghai International Energy Exchange
+	SIEE(5)
+
 	;
+
+	private int exchangeId;
+
+	private ChinaFuturesExchange(int exchangeId) {
+		this.exchangeId = exchangeId;
+	}
 
 	@Override
 	public String getExchangeCode() {
 		return this.name();
+	}
+
+	@Override
+	public int getExchangeId() {
+		return exchangeId;
 	}
 
 }

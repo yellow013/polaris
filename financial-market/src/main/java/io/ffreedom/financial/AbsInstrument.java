@@ -2,16 +2,16 @@ package io.ffreedom.financial;
 
 public abstract class AbsInstrument implements Instrument {
 
-	private String instrumentId;
+	private int instrumentId;
 	private Symbol symbol;
 	
-	protected AbsInstrument(String instrumentId, Symbol symbol) {
+	protected AbsInstrument(int instrumentId, Symbol symbol) {
 		this.instrumentId = instrumentId;
 		this.symbol = symbol;
 	}
 
 	@Override
-	public String getInstrumentId() {
+	public int getInstrumentId() {
 		return instrumentId;
 	}
 

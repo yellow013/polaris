@@ -5,8 +5,15 @@ import io.ffreedom.financial.forex.Forex;
 
 public final class CryptocurrencyExchange extends Forex {
 
-	protected CryptocurrencyExchange(String instrumentId, Symbol symbol) {
+	protected CryptocurrencyExchange(int instrumentId, Symbol symbol) {
 		super(instrumentId, symbol);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String getInstrumentCode() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

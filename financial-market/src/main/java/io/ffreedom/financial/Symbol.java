@@ -5,7 +5,9 @@ import io.ffreedom.market.role.Exchange;
 
 public interface Symbol {
 
-	String getSymbolName();
+	int getSymbolId();
+	
+	String getSymbolCode();
 
 	TradingPeriodSet getTradingPeriodSet();
 

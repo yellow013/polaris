@@ -6,7 +6,7 @@ import io.ffreedom.financial.Symbol;
 
 public abstract class Futures extends AbsInstrument {
 
-	public Futures(String instrumentId, Symbol symbol) {
+	public Futures(int instrumentId, Symbol symbol) {
 		super(instrumentId, symbol);
 	}
 

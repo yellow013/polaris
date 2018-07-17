@@ -12,7 +12,13 @@ public final class Stock implements Instrument {
 	}
 
 	@Override
-	public String getInstrumentId() {
+	public int getInstrumentId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public String getInstrumentCode() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -22,5 +28,7 @@ public final class Stock implements Instrument {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }

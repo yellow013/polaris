@@ -4,7 +4,9 @@ public interface Instrument {
 
 	InstrumentType getInstrumentType();
 
-	String getInstrumentId();
+	int getInstrumentId();
+	
+	String getInstrumentCode();
 
 	Symbol getSymbol();
 

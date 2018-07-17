@@ -15,21 +15,21 @@ import io.ffreedom.market.role.Exchange;
 
 public enum ChinaFuturesSymbol implements Symbol {
 
-	rb(ChinaFuturesExchange.SHFE,
+	rb(1,ChinaFuturesExchange.SHFE,
 			// 上期所螺纹钢期货交易时段
 			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
 			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
 			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
-	cu(ChinaFuturesExchange.SHFE,
+	cu(2,ChinaFuturesExchange.SHFE,
 			// 上期所铜期货交易时段
 			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
 			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
 			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
-	ni(ChinaFuturesExchange.SHFE,
+	ni(3,ChinaFuturesExchange.SHFE,
 			// 上期所镍期货交易时段
 			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
 			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
@@ -37,20 +37,29 @@ public enum ChinaFuturesSymbol implements Symbol {
 			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
 	;
+	
+	private int symbolId;
 
 	private Exchange exchange;
 
 	private TradingPeriodSet tradingPeriodSet;
 
-	private ChinaFuturesSymbol(Exchange exchange, TradingPeriod... tradingPeriods) {
+	private ChinaFuturesSymbol(int symbolId, Exchange exchange, TradingPeriod... tradingPeriods) {
+		this.symbolId = symbolId;
 		this.exchange = exchange;
 		this.tradingPeriodSet = TradingPeriodSet.with(tradingPeriods);
 	}
 
 	@Override
-	public String getSymbolName() {
+	public int getSymbolId() {
+		return symbolId;
+	}
+
+	@Override
+	public String getSymbolCode() {
 		return this.name();
 	}
+
 
 	@Override
 	public TradingPeriodSet getTradingPeriodSet() {
@@ -87,4 +96,5 @@ public enum ChinaFuturesSymbol implements Symbol {
 		});
 	}
 
+	
 }

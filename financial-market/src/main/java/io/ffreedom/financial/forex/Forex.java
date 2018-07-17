@@ -6,8 +6,11 @@ import io.ffreedom.financial.Symbol;
 
 public abstract class Forex extends AbsInstrument {
 
-	protected Forex(String instrumentId, Symbol symbol) {
+	
+
+	protected Forex(int instrumentId, Symbol symbol) {
 		super(instrumentId, symbol);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
