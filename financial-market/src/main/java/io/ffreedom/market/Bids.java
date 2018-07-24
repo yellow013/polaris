@@ -1,4 +1,4 @@
-package io.ffreedom.market.data;
+package io.ffreedom.market;
 
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;

@@ -1,4 +1,4 @@
-package io.ffreedom.market.data;
+package io.ffreedom.market;
 
 import java.time.LocalTime;
 

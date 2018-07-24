@@ -2,7 +2,7 @@ package io.ffreedom.indicators.impl.ma;
 
 import io.ffreedom.indicators.impl.ma.base.MA;
 import io.ffreedom.indicators.impl.ma.base.MAPoint;
-import io.ffreedom.market.data.MarketData;
+import io.ffreedom.market.MarketData;
 
 public class EMA extends MA {
 

@@ -7,8 +7,8 @@ import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.data.MarketData;
-import io.ffreedom.market.data.TimeTwin;
+import io.ffreedom.market.MarketData;
+import io.ffreedom.market.TimeTwin;
 
 public final class Candle extends TimeSeriesPoint<Candle> {
 

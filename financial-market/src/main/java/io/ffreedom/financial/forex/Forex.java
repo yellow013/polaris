@@ -6,7 +6,7 @@ import io.ffreedom.financial.Symbol;
 
 public abstract class Forex extends AbsInstrument {
 
-	
+	protected ExchangeRate rate;
 
 	protected Forex(int instrumentId, Symbol symbol) {
 		super(instrumentId, symbol);

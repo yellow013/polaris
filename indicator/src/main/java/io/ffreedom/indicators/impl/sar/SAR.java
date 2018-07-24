@@ -3,7 +3,7 @@ package io.ffreedom.indicators.impl.sar;
 import java.util.Collection;
 
 import io.ffreedom.indicators.api.Indicator;
-import io.ffreedom.market.data.MarketData;
+import io.ffreedom.market.MarketData;
 
 public class SAR implements Indicator<SARPoint> {
 

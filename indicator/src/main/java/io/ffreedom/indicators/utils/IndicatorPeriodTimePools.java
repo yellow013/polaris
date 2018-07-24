@@ -4,7 +4,7 @@ import com.google.common.collect.Table;
 
 import io.ffreedom.financial.Symbol;
 import io.ffreedom.indicators.api.IndicatorPeriod;
-import io.ffreedom.market.data.TimeTwin;
+import io.ffreedom.market.TimeTwin;
 
 //TODO 池化时间分割机制
 public final class IndicatorPeriodTimePools {

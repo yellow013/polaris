@@ -1,4 +1,4 @@
-package io.ffreedom.market.data;
+package io.ffreedom.market;
 
 abstract class Quotes implements Comparable<Quotes> {
 

@@ -11,10 +11,10 @@ import io.ffreedom.common.functional.Callback;
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.Indicator;
 import io.ffreedom.indicators.api.IndicatorPeriod;
-import io.ffreedom.market.data.MarketData;
-import io.ffreedom.market.data.TimeTwin;
-import io.ffreedom.market.data.TradingDay;
-import io.ffreedom.market.data.TradingPeriod;
+import io.ffreedom.market.MarketData;
+import io.ffreedom.market.TimeTwin;
+import io.ffreedom.market.TradingDay;
+import io.ffreedom.market.TradingPeriod;
 
 public class CandleChart implements Indicator<Candle> {
 

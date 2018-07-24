@@ -2,7 +2,7 @@ package io.ffreedom.indicators.api;
 
 import java.util.Collection;
 
-import io.ffreedom.market.data.MarketData;
+import io.ffreedom.market.MarketData;
 
 public interface Indicator<P extends Point<?, ?>> {
 	

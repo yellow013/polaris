@@ -1,7 +1,6 @@
 package io.ffreedom.financial;
 
-import io.ffreedom.market.data.TradingPeriodSet;
-import io.ffreedom.market.role.Exchange;
+import io.ffreedom.market.TradingPeriodSet;
 
 public interface Symbol {
 

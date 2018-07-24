@@ -6,7 +6,7 @@ import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
 import io.ffreedom.indicators.impl.ma.base.MA;
 import io.ffreedom.indicators.impl.ma.base.MAPoint;
-import io.ffreedom.market.data.MarketData;
+import io.ffreedom.market.MarketData;
 
 public class SMA extends MA {
 

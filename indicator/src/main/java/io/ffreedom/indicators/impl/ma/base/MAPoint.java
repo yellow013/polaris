@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
 
 import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.data.MarketData;
+import io.ffreedom.market.MarketData;
 
 public class MAPoint extends TimeSeriesPoint<MAPoint> {
 

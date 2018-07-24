@@ -1,6 +1,6 @@
 package io.ffreedom.financial.futures;
 
-import io.ffreedom.market.role.Exchange;
+import io.ffreedom.financial.Exchange;
 
 public enum ChinaFuturesExchange implements Exchange {
 
