@@ -39,18 +39,18 @@ public class CandleSet {
 		return candles.getFirst();
 	}
 
-	public Candle backtrack(int index) {
+	public Optional<Candle> backtrack(int index) {
 		int offset = candles.size() - index - 1;
-		return offset < 0 ? firstCandle() : getCandle(offset);
+		return offset < 0 ? Optional.of(firstCandle()) : getCandle(offset);
 	}
 
-	public Candle getCandle(int index) {
-		return candles.get(index);
+	public Optional<Candle> getCandle(int index) {
+		return index < candles.size() ? Optional.of(candles.get(index)) : Optional.empty();
 	}
 
 	public Optional<Candle> getNextCandle(Candle currentCandle) {
 		int indexOf = candles.binarySearch(currentCandle);
-		return (indexOf++) < candles.size() ? Optional.of(getCandle(indexOf)) : Optional.empty();
+		return getCandle(indexOf++);
 	}
 
 	public Collection<Candle> toCollection() {
