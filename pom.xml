@@ -17,6 +17,8 @@
 		<module>financial-market</module>
 		<module>indicator</module>
 	</modules>
+	
+	<url>https://github.com/yellow013/polaris.git</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
