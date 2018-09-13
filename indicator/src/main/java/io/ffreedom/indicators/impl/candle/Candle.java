@@ -68,11 +68,11 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	}
 
 	private void addVolumeSum(double volume) {
-		this.volumeSum = DoubleUtil.correction(volumeSum + volume);
+		this.volumeSum = DoubleUtil.correction8(volumeSum + volume);
 	}
 
 	private void addTurnoverSum(double turnover) {
-		this.turnoverSum = DoubleUtil.correction(turnoverSum + turnover);
+		this.turnoverSum = DoubleUtil.correction8(turnoverSum + turnover);
 	}
 
 	public LocalDate getTradingDay() {

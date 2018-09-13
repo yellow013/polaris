@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import org.eclipse.collections.api.tuple.Twin;
 import org.eclipse.collections.impl.tuple.Tuples;
 
-import io.ffreedom.common.datetime.TimeZone;
+import io.ffreedom.common.datetime.TimeZones;
 
 public class TimeTwin implements Comparable<TimeTwin> {
 
@@ -22,7 +22,7 @@ public class TimeTwin implements Comparable<TimeTwin> {
 	}
 
 	private void setSerialNumber(int serialNumber) {
-		this.serialNumber = serialNumber * 10000000000L + getStartDateTime().toEpochSecond(TimeZone.UTC);
+		this.serialNumber = serialNumber * 10000000000L + getStartDateTime().toEpochSecond(TimeZones.UTC);
 	}
 
 	public static TimeTwin of(LocalDate tradingDay, int serialNumber, LocalDateTime startTime, LocalDateTime endTime) {
@@ -60,8 +60,8 @@ public class TimeTwin implements Comparable<TimeTwin> {
 
 	public static void main(String[] args) {
 
-		System.out.println(2 * 10000000000L + LocalDateTime.now().toEpochSecond(TimeZone.UTC));
-		System.out.println(LocalDateTime.now().toEpochSecond(TimeZone.UTC));
+		System.out.println(2 * 10000000000L + LocalDateTime.now().toEpochSecond(TimeZones.UTC));
+		System.out.println(LocalDateTime.now().toEpochSecond(TimeZones.UTC));
 
 	}
 
