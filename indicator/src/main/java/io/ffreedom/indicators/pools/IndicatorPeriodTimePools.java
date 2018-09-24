@@ -1,8 +1,8 @@
-package io.ffreedom.indicators.utils;
+package io.ffreedom.indicators.pools;
 
 import com.google.common.collect.Table;
 
-import io.ffreedom.financial.Symbol;
+import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.market.TimeTwin;
 
@@ -11,6 +11,6 @@ public final class IndicatorPeriodTimePools {
 
 	private boolean isInit;
 
-	private Table<IndicatorPeriod, Symbol, TimeTwin> table;
+	private Table<IndicatorPeriod, Instrument, TimeTwin> table;
 
 }

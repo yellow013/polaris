@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- This is parent redstone pom.xml -->
+	<!-- This is parent polaris pom.xml -->
 
 	<groupId>io.ffreedom</groupId>
 	<artifactId>polaris</artifactId>
@@ -58,11 +58,6 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.8.1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.ojalgo</groupId>
-			<artifactId>ojalgo</artifactId>
-			<version>46.0.0</version>
-		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -104,7 +99,7 @@
 				<artifactId>chronicle-map</artifactId>
 				<version>3.14.5</version>
 			</dependency>
-			<!-- redstone -->
+			<!-- io.ffreedom.commons -->
 			<dependency>
 				<groupId>io.ffreedom</groupId>
 				<artifactId>common</artifactId>
