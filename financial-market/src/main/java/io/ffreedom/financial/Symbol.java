@@ -1,6 +1,8 @@
 package io.ffreedom.financial;
 
-import io.ffreedom.market.TradingPeriodSet;
+import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
+
+import io.ffreedom.market.TradingPeriod;
 
 public interface Symbol {
 
@@ -8,7 +10,7 @@ public interface Symbol {
 	
 	String getSymbolCode();
 
-	TradingPeriodSet getTradingPeriodSet();
+	ImmutableSortedSet<TradingPeriod> getTradingPeriodSet();
 
 	Exchange getExchange();
 

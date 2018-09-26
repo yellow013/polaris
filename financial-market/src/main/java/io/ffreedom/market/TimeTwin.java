@@ -13,11 +13,11 @@ public class TimeTwin implements Comparable<TimeTwin> {
 	private LocalDate tradingDay;
 	private long serialNumber;
 
-	private Twin<LocalDateTime> twin;
+	private Twin<LocalDateTime> tradingTimeTwin;
 
-	private TimeTwin(LocalDate tradingDay, int serialNumber, Twin<LocalDateTime> twin) {
+	private TimeTwin(LocalDate tradingDay, int serialNumber, Twin<LocalDateTime> tradingTimeTwin) {
 		this.tradingDay = tradingDay;
-		this.twin = twin;
+		this.tradingTimeTwin = tradingTimeTwin;
 		setSerialNumber(serialNumber);
 	}
 
@@ -29,16 +29,16 @@ public class TimeTwin implements Comparable<TimeTwin> {
 		return new TimeTwin(tradingDay, serialNumber, Tuples.twin(startTime, endTime));
 	}
 
-	public Twin<LocalDateTime> getTwin() {
-		return twin;
+	public Twin<LocalDateTime> getTradingTimeTwin() {
+		return tradingTimeTwin;
 	}
 
 	public LocalDateTime getStartDateTime() {
-		return twin.getOne();
+		return tradingTimeTwin.getOne();
 	}
 
 	public LocalDateTime getEndDateTime() {
-		return twin.getTwo();
+		return tradingTimeTwin.getTwo();
 	}
 
 	public long getSerialNumber() {

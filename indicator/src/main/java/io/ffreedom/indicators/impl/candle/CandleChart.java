@@ -37,8 +37,7 @@ public class CandleChart implements Indicator<Candle> {
 
 	// TODO 进行池化处理
 	private void initCandleSet() {
-		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = instrument.getSymbol().getTradingPeriodSet()
-				.getImmutableTradingPeriodSet();
+		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
 		this.candleSetPeriods = TreeSortedSet.newSet();
 		immutableTradingPeriodSet.each(tradingPeriod -> {
 			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(TradingDay.get(), period.getDuration()));

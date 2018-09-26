@@ -33,5 +33,11 @@
 			<groupId>io.ffreedom</groupId>
 			<artifactId>common</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>io.ffreedom</groupId>
+			<artifactId>transport</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

@@ -105,6 +105,11 @@
 				<artifactId>common</artifactId>
 				<version>${commons.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>io.ffreedom</groupId>
+				<artifactId>transport</artifactId>
+				<version>${commons.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
