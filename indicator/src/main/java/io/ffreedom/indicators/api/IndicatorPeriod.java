@@ -26,13 +26,17 @@ public enum IndicatorPeriod {
 	D1(Duration.ofDays(1));
 
 	private Duration duration;
-	
+
 	private IndicatorPeriod(Duration duration) {
 		this.duration = duration;
 	}
 
 	public Duration getDuration() {
 		return duration;
+	}
+
+	public long getSeconds() {
+		return duration.getSeconds();
 	}
 
 	public static void main(String[] args) {

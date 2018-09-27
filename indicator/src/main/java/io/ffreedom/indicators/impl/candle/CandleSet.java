@@ -41,11 +41,11 @@ public class CandleSet {
 
 	public Optional<Candle> backtrack(int index) {
 		int offset = candles.size() - index - 1;
-		return offset < 0 ? Optional.of(firstCandle()) : getCandle(offset);
+		return offset < 0 ? Optional.ofNullable(firstCandle()) : getCandle(offset);
 	}
 
 	public Optional<Candle> getCandle(int index) {
-		return index < candles.size() ? Optional.of(candles.get(index)) : Optional.empty();
+		return index < candles.size() ? Optional.ofNullable(candles.get(index)) : Optional.empty();
 	}
 
 	public Optional<Candle> getNextCandle(Candle currentCandle) {
@@ -57,7 +57,7 @@ public class CandleSet {
 		return candles;
 	}
 
-	public ImmutableSortedSet<Candle> toImmutableSortedSet() {
+	public ImmutableSortedSet<Candle> toImmutableCandleSet() {
 		return candles.toSortedSet().toImmutable();
 	}
 
