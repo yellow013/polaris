@@ -44,7 +44,7 @@ public final class ChinaFuturesUtil {
 		}
 	}
 
-	public static String analysisChinaFuturesSymbol(String instrumentId) {
+	public static String analysisSymbolCode(String instrumentId) {
 		if (StringUtil.isNullOrEmpty(instrumentId)) {
 			return instrumentId;
 		}

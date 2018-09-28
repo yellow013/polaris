@@ -2,9 +2,9 @@ package io.ffreedom.financial;
 
 public interface Instrument {
 
-	InstrumentType getInstrumentType();
-
 	int getInstrumentId();
+
+	InstrumentType getInstrumentType();
 	
 	String getInstrumentCode();
 

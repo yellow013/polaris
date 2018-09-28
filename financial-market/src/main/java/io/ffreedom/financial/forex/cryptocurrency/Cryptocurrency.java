@@ -6,7 +6,7 @@ import io.ffreedom.financial.forex.Forex;
 public final class Cryptocurrency extends Forex {
 
 	protected Cryptocurrency(int instrumentId, Symbol symbol) {
-		super(instrumentId, symbol);
+		super(instrumentId, symbol.getSymbolCode(), symbol);
 		// TODO Auto-generated constructor stub
 	}
 

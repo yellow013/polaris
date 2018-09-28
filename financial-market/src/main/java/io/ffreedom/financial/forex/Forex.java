@@ -8,9 +8,8 @@ public abstract class Forex extends AbsInstrument {
 
 	protected ExchangeRate rate;
 
-	protected Forex(int instrumentId, Symbol symbol) {
-		super(instrumentId, symbol);
-		// TODO Auto-generated constructor stub
+	protected Forex(int instrumentId, String instrumentCode, Symbol symbol) {
+		super(instrumentId, instrumentCode, symbol);
 	}
 
 	@Override
