@@ -8,43 +8,31 @@ import java.time.temporal.ChronoUnit;
 
 import io.ffreedom.financial.Instrument;
 
-public class MarketData {
+public final class MarketData {
 
 	private LocalDateTime datetime;
 	private Instrument instrument;
 	private double lastPrice;
 	private double volume;
 	private double turnover;
-	private Asks asks;
-	private Bids bids;
+	private Quotes quotes;
 
-	public MarketData(LocalDateTime datetime, Instrument instrument) {
+	public MarketData(LocalDateTime datetime, Instrument instrument, int quoteLevel) {
 		this.datetime = datetime;
 		this.instrument = instrument;
-		this.asks = Asks.newInstance();
-		this.bids = Bids.newInstance();
+		quotes = Quotes.newInstance(quoteLevel);
 	}
 
-	public MarketData(LocalDate date, LocalTime time, Instrument instrument) {
-		this(LocalDateTime.of(date, time), instrument);
+	public MarketData(LocalDate date, LocalTime time, Instrument instrument, int quoteLevel) {
+		this(LocalDateTime.of(date, time), instrument, quoteLevel);
 	}
 
 	public LocalDateTime getDatetime() {
 		return datetime;
 	}
 
-	public MarketData setDatetime(LocalDateTime datetime) {
-		this.datetime = datetime;
-		return this;
-	}
-
 	public Instrument getInstrument() {
 		return instrument;
-	}
-
-	public MarketData setInstrument(Instrument instrument) {
-		this.instrument = instrument;
-		return this;
 	}
 
 	public double getLastPrice() {
@@ -74,21 +62,17 @@ public class MarketData {
 		return this;
 	}
 
-	public Asks getAsks() {
-		return asks;
+	public Quotes getQuotes() {
+		return quotes;
 	}
 
-	public Bids getBids() {
-		return bids;
-	}
-
-	public MarketData addAskQuote(double price, double volume) {
-		asks.addAskQuote(price, volume);
+	public MarketData addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
+		quotes.addAskQuote(price, volume);
 		return this;
 	}
 
-	public MarketData addBidQuote(double price, double volume) {
-		bids.addBidQuote(price, volume);
+	public MarketData addBidQuote(double price, double volume) throws QuoteLevelOverflowException {
+		quotes.addBidQuote(price, volume);
 		return this;
 	}
 
