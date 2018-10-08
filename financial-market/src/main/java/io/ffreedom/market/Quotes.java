@@ -50,7 +50,7 @@ public final class Quotes {
 	public Quotes addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
 		if (askLevelIndex == askLevel) {
 			throw new QuoteLevelOverflowException(
-					"bidLevelIndex == " + askLevelIndex + ", array length is " + askLevel);
+					"askLevelIndex == " + askLevelIndex + ", array length is " + askLevel);
 		}
 		askQuotes[askLevelIndex] = new AskQuote(price, volume);
 		askLevelIndex++;
