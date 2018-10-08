@@ -13,8 +13,9 @@ import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.market.TimeTwin;
 import io.ffreedom.market.TradingDay;
 
-//TODO 池化时间分割机制
 public final class IndicatorPeriodTimePools {
+
+	public static final IndicatorPeriodTimePools INSTANCE = new IndicatorPeriodTimePools();
 
 	// Map<IndicatorPeriod, Map<Symbol, TimeTwin>>
 	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimeTwin>>> pools = LongObjectHashMap.newMap();

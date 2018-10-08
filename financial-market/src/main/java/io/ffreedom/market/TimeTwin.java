@@ -53,9 +53,7 @@ public class TimeTwin implements Comparable<TimeTwin> {
 	public int compareTo(TimeTwin o) {
 		return tradingDay.isBefore(o.tradingDay) ? -1
 				: tradingDay.isAfter(o.tradingDay) ? 1
-						: serialNumber < o.serialNumber ? -1 
-								: serialNumber > o.serialNumber ? 1 
-										: 0;
+						: serialNumber < o.serialNumber ? -1 : serialNumber > o.serialNumber ? 1 : 0;
 	}
 
 	public static void main(String[] args) {

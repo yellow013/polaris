@@ -2,28 +2,28 @@ package io.ffreedom.financial.futures;
 
 import io.ffreedom.financial.Exchange;
 
-public enum ChinaFuturesExchange implements Exchange {
+public enum ChinaExchange implements Exchange {
 
 	// Shanghai Futures Exchange
-	SHFE(1),
+	SHFE(11),
 
 	// Zhengzhou Commodity Exchange
-	ZCE(2),
+	ZCE(12),
 
 	// Dalian Commodity Exchange
-	DCE(3),
+	DCE(13),
 
 	// China Financial Futures Exchange
-	CFFE(4),
+	CFFE(14),
 
 	// Shanghai International Energy Exchange
-	SIEE(5)
+	SIEE(15)
 
 	;
 
 	private int exchangeId;
 
-	private ChinaFuturesExchange(int exchangeId) {
+	private ChinaExchange(int exchangeId) {
 		this.exchangeId = exchangeId;
 	}
 

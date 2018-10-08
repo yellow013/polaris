@@ -14,27 +14,146 @@ import io.ffreedom.market.TradingPeriod;
 
 public enum ChinaFuturesSymbol implements Symbol {
 
-	rb(1, ChinaFuturesExchange.SHFE,
-			// 上期所螺纹钢期货交易时段
+	// ************************上期所************************//
+	/**
+	 * 铜
+	 */
+	CU(1, ChinaExchange.SHFE,
+			// 铜期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 铝
+	 */
+	AL(2, ChinaExchange.SHFE,
+			// 铝期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 锌
+	 */
+	ZN(3, ChinaExchange.SHFE,
+			// 锌期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 铅
+	 */
+	PB(4, ChinaExchange.SHFE,
+			// 铅期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 镍
+	 */
+	NI(5, ChinaExchange.SHFE,
+			// 镍期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 锡
+	 */
+	SN(6, ChinaExchange.SHFE,
+			// 锡期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 黄金
+	 */
+	AU(7, ChinaExchange.SHFE,
+			// 黄金期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(2, 30, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 白银
+	 */
+	AG(8, ChinaExchange.SHFE,
+			// 白银期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(2, 30, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 螺纹钢
+	 */
+	RB(9, ChinaExchange.SHFE,
+			// 螺纹钢期货交易时段
 			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
 			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
 			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 热卷扎板
+	 */
+	HC(10, ChinaExchange.SHFE,
+			// 热卷扎板期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 沥青
+	 */
+	BU(11, ChinaExchange.SHFE,
+			// 沥青期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	/**
+	 * 橡胶
+	 */
+	RU(12, ChinaExchange.SHFE,
+			// 橡胶期货交易时段
+			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(23, 00, 00)),
+			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
+			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	// ************************上期所END************************//
 
-	cu(2, ChinaFuturesExchange.SHFE,
-			// 上期所铜期货交易时段
+	// ************************能源交易所************************//
+	/**
+	 * 原油
+	 */
+	SC(1, ChinaExchange.SIEE,
+			// 原油期货交易时段
 			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
 			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
 			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
 
-	ni(3, ChinaFuturesExchange.SHFE,
-			// 上期所镍期货交易时段
-			TradingPeriod.with(1, LocalTime.of(21, 00, 00), LocalTime.of(1, 00, 00)),
-			TradingPeriod.with(2, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
-			TradingPeriod.with(3, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
-			TradingPeriod.with(4, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
+	// ************************能源交易所END************************//
 
+	// ************************中金所************************//
+	IF(1, ChinaExchange.CFFE,
+			// 股指期货交易时段
+			TradingPeriod.with(1, LocalTime.of(9, 15, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(2, LocalTime.of(13, 00, 00), LocalTime.of(15, 15, 00))),
+
+	IC(1, ChinaExchange.CFFE,
+			// 股指期货交易时段
+			TradingPeriod.with(1, LocalTime.of(9, 15, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(2, LocalTime.of(13, 00, 00), LocalTime.of(15, 15, 00))),
+
+	TF(1, ChinaExchange.CFFE,
+			// 股指期货交易时段
+			TradingPeriod.with(1, LocalTime.of(9, 15, 00), LocalTime.of(11, 30, 00)),
+			TradingPeriod.with(2, LocalTime.of(13, 00, 00), LocalTime.of(15, 15, 00))),
+	// ************************中金所END************************//
 	;
 
 	private int symbolId;
@@ -42,9 +161,10 @@ public enum ChinaFuturesSymbol implements Symbol {
 	private Exchange exchange;
 
 	private ImmutableSortedSet<TradingPeriod> tradingPeriodSet;
-	
-	private ChinaFuturesSymbol(int symbolId, Exchange exchange, TradingPeriod... tradingPeriods) {
-		this.symbolId = symbolId;
+
+	private ChinaFuturesSymbol(int exchangeNo, Exchange exchange, TradingPeriod... tradingPeriods) {
+		this.symbolId = exchange.getExchangeId() * 100 + exchangeNo;
+
 		this.exchange = exchange;
 		this.tradingPeriodSet = ImmutableSortedSetFactoryImpl.INSTANCE.with(tradingPeriods);
 	}
@@ -78,20 +198,23 @@ public enum ChinaFuturesSymbol implements Symbol {
 	}
 
 	public static ChinaFuturesSymbol checkOut(String symbolName) {
-		if (innerMap.containsKey(symbolName)) {
-			return innerMap.get(symbolName);
+		String key = symbolName.toUpperCase();
+		if (innerMap.containsKey(key)) {
+			return innerMap.get(key);
 		}
 		throw new IllegalArgumentException("Symbol Name -> " + symbolName + " is no mapping object");
 	}
 
 	public static void main(String[] args) {
-		ChinaFuturesSymbol.cu.getTradingPeriodSet().each(tradingPeriod -> {
-			tradingPeriod.segmentByDuration(ChinaFuturesUtil.NOW_TRADING_DAY, Duration.ofMinutes(1))
-					.each(timeTwins -> {
-						System.out.println(timeTwins.getSerialNumber() + " -> " + timeTwins.getStartDateTime() + " - "
-								+ timeTwins.getEndDateTime());
-					});
-		});
+		for (Symbol symbol : ChinaFuturesSymbol.values()) {
+			symbol.getTradingPeriodSet().each(tradingPeriod -> {
+				tradingPeriod.segmentByDuration(ChinaFuturesUtil.NOW_TRADING_DAY, Duration.ofMinutes(5))
+						.each(timeTwins -> {
+							System.out.println(symbol.getSymbolCode() + " | " + timeTwins.getSerialNumber() + " -> "
+									+ timeTwins.getStartDateTime() + " - " + timeTwins.getEndDateTime());
+						});
+			});
+		}
 	}
 
 }
