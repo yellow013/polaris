@@ -40,8 +40,7 @@ public class CandleChart implements Indicator<Candle> {
 		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
 		this.candleSetPeriods = TreeSortedSet.newSet();
 		immutableTradingPeriodSet.each(tradingPeriod -> {
-			candleSetPeriods
-					.addAll(tradingPeriod.segmentByDuration(TradingDay.currentTradingDay(), period.getDuration()));
+			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(TradingDay.currentTradingDay(), period.getDuration()));
 		});
 		candleSetPeriods.each(timeTwin -> {
 			// TODO 添加TradingDay的可变性
