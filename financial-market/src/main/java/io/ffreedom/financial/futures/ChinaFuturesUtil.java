@@ -44,11 +44,17 @@ public final class ChinaFuturesUtil {
 		}
 	}
 
-	public static String analysisSymbolCode(String instrumentId) {
-		if (StringUtil.isNullOrEmpty(instrumentId)) {
-			return instrumentId;
+	public static String analysisSymbolCode(String instrumentCode) {
+		if (StringUtil.isNullOrEmpty(instrumentCode)) {
+			return instrumentCode;
 		}
-		return instrumentId.replaceAll("\\d", "");
+		return instrumentCode.replaceAll("\\d", "");
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println(ChinaFuturesSymbol.AG.getInstrumentId(1812));
+
 	}
 
 }
