@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
+import io.ffreedom.common.functional.Callback;
 import io.ffreedom.indicators.impl.ma.base.MA;
 import io.ffreedom.indicators.impl.ma.base.MAPoint;
 import io.ffreedom.market.MarketData;
@@ -68,6 +69,24 @@ public class SMA extends MA {
 
 	@Override
 	public void endPoint(MAPoint p) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void registerEndPointEvent(Callback<MAPoint> callback) {
+		throw new UnsupportedOperationException("default method registerEvent(callback) is abstract method.");
+
+	}
+
+	@Override
+	public void startPoint(MAPoint p) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void registerStartPointEvent(Callback<MAPoint> callback) {
 		// TODO Auto-generated method stub
 
 	}

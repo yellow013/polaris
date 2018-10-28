@@ -1,17 +1,15 @@
 package io.ffreedom.indicators.impl.ma;
 
+import io.ffreedom.common.functional.Callback;
 import io.ffreedom.indicators.impl.ma.base.MA;
 import io.ffreedom.indicators.impl.ma.base.MAPoint;
 import io.ffreedom.market.MarketData;
 
 public class EMA extends MA {
 
-	
 	public EMA(int period) {
 		super(period);
 	}
-
-	
 
 	@Override
 	public int size() {
@@ -25,28 +23,35 @@ public class EMA extends MA {
 		return null;
 	}
 
-
-
 	@Override
 	public void onMarketData(MarketData marketData) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public void endPoint(MAPoint p) {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void registerEndPointEvent(Callback<MAPoint> callback) {
+		throw new UnsupportedOperationException("default method registerEvent(callback) is abstract method.");
+		
 		
 	}
 
+	@Override
+	public void startPoint(MAPoint p) {
+		// TODO Auto-generated method stub
+		
+	}
 
-
-	
-
-	
-
-
+	@Override
+	public void registerStartPointEvent(Callback<MAPoint> callback) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

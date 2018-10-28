@@ -9,11 +9,13 @@ public interface Indicator<P extends Point<?, ?>> {
 
 	void onMarketData(MarketData marketData);
 
-	default void registerEvent(Callback<P> callback) {
-		throw new UnsupportedOperationException("default method registerEvent(callback) is abstract method.");
-	}
-
 	void endPoint(P p);
+
+	void registerEndPointEvent(Callback<P> callback);
+
+	void startPoint(P p);
+
+	void registerStartPointEvent(Callback<P> callback);
 
 	int size();
 

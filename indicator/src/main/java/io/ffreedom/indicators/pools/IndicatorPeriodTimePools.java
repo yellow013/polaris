@@ -17,26 +17,38 @@ public final class IndicatorPeriodTimePools {
 
 	public static final IndicatorPeriodTimePools INSTANCE = new IndicatorPeriodTimePools();
 
-	// Map<IndicatorPeriod, Map<Symbol, TimeTwin>>
+	// Map<IndicatorPeriod, Map<Symbol, Set<TimeTwin>>>
 	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimeTwin>>> pools = LongObjectHashMap.newMap();
 
-	public void register(IndicatorPeriod period, Symbol... symbols) {
-		for (Symbol symbol : symbols) {
-			register(period, symbol);
-		}
+	public void register(IndicatorPeriod period, Symbol[] symbols) {
+		MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap = getSymbolMap(period);
+		for (Symbol symbol : symbols)
+			findOrGenerate(symbolMap, period, symbol);
 	}
 
-	public void register(IndicatorPeriod period, Symbol symbol) {
-		MutableIntObjectMap<ImmutableSet<TimeTwin>> period$SymbolMap = pools.get(period.getSeconds());
-		if (period$SymbolMap == null) {
-			period$SymbolMap = IntObjectHashMap.newMap();
-			pools.put(period.getSeconds(), period$SymbolMap);
+	public ImmutableSet<TimeTwin> getTimeTwinSet(IndicatorPeriod period, Symbol symbol) {
+		return findOrGenerate(getSymbolMap(period), period, symbol);
+	}
+
+	private MutableIntObjectMap<ImmutableSet<TimeTwin>> getSymbolMap(IndicatorPeriod period) {
+		MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap = pools.get(period.getSeconds());
+		if (symbolMap == null) {
+			symbolMap = IntObjectHashMap.newMap();
+			pools.put(period.getSeconds(), symbolMap);
 		}
-		if (!period$SymbolMap.containsKey(symbol.getSymbolId())) {
-			MutableSet<TimeTwin> timeTwinSet = UnifiedSet.newSet();
-			symbol.getTradingPeriodSet().forEach(tradingPeriod -> timeTwinSet
+		return symbolMap;
+	}
+
+	private ImmutableSet<TimeTwin> findOrGenerate(MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap,
+			IndicatorPeriod period, Symbol symbol) {
+		ImmutableSet<TimeTwin> timeTwinSet = symbolMap.get(symbol.getSymbolId());
+		if (timeTwinSet != null) {
+			return timeTwinSet;
+		} else {
+			MutableSet<TimeTwin> mutableTimeTwinSet = UnifiedSet.newSet();
+			symbol.getTradingPeriodSet().forEach(tradingPeriod -> mutableTimeTwinSet
 					.addAll(tradingPeriod.segmentByDuration(TradingDay.currentTradingDay(), period.getDuration())));
-			period$SymbolMap.put(symbol.getSymbolId(), timeTwinSet.toImmutable());
+			return symbolMap.put(symbol.getSymbolId(), mutableTimeTwinSet.toImmutable());
 		}
 	}
 
