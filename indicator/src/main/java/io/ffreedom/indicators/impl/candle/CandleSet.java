@@ -5,14 +5,15 @@ import java.util.Optional;
 
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
-import org.eclipse.collections.impl.list.mutable.FastList;
+
+import io.ffreedom.common.collect.ECFactory;
 
 public class CandleSet {
 
 	private MutableList<Candle> candles;
 
 	private CandleSet(int size) {
-		this.candles = FastList.newList(size);
+		this.candles = ECFactory.newFastList(size);
 	}
 
 	public static CandleSet emptyCandleSet() {
@@ -62,15 +63,8 @@ public class CandleSet {
 	}
 
 	public static void main(String[] args) {
-
-		FastList<Integer> list = FastList.newList(500);
-
-		for (int i = 0; i < 100; i++) {
-			list.add(i);
-		}
-		System.out.println(list.size());
-		System.out.println(list.indexOf(list.get(9)));
-
+		
+		
 	}
 
 }

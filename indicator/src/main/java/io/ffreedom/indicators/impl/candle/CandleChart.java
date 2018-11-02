@@ -77,7 +77,7 @@ public class CandleChart implements Indicator<Candle> {
 			} else {
 				// TODO 添加candleSet扩容
 				
-				currentCandle = Candle.withTimeTwin(timeTwin, instrument, period);
+				currentCandle = Candle.withTimeTwin(null, instrument, period);
 			}
 		}
 	}
