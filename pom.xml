@@ -16,6 +16,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<commons.version>1.0</commons.version>
+		<transport.version>1.0</transport.version>
 		<ec.version>9.2.0</ec.version>
 	</properties>
 
@@ -51,8 +52,13 @@
 		</dependency>
 		<dependency>
 			<groupId>io.ffreedom</groupId>
-			<artifactId>transport</artifactId>
-			<version>${commons.version}</version>
+			<artifactId>transport-core</artifactId>
+			<version>${transport.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.ffreedom</groupId>
+			<artifactId>transport-rabbitmq</artifactId>
+			<version>${transport.version}</version>
 		</dependency>
 	</dependencies>
 

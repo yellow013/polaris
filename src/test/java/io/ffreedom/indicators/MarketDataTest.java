@@ -1,7 +1,7 @@
 package io.ffreedom.indicators;
 
 import io.ffreedom.common.charset.Charsets;
-import io.ffreedom.transport.base.role.Receiver;
+import io.ffreedom.transport.core.role.Receiver;
 import io.ffreedom.transport.rabbitmq.RabbitMqReceiver;
 import io.ffreedom.transport.rabbitmq.config.RmqReceiverConfigurator;
 
