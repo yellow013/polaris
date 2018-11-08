@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
-import io.ffreedom.common.collect.ECFactory;
+import io.ffreedom.common.collect.EclipseCollections;
 
 public class CandleSet {
 
 	private MutableList<Candle> candles;
 
 	private CandleSet(int size) {
-		this.candles = ECFactory.newFastList(size);
+		this.candles = EclipseCollections.newFastList(size);
 	}
 
 	public static CandleSet emptyCandleSet() {

@@ -4,17 +4,22 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.concurrent.atomic.AtomicReference;
 
-import io.ffreedom.common.utils.StringUtil;
+import io.ffreedom.market.TradingDay;
 
-public final class ChinaFuturesUtil {
+public final class ChinaFuturesTradingDay implements TradingDay {
 
-	private ChinaFuturesUtil() {
+	private AtomicReference<LocalDate> current = new AtomicReference<>(analysisTradingDay(LocalDateTime.now()));
+
+	public final static TradingDay INSTANCE = new ChinaFuturesTradingDay();
+
+	@Override
+	public LocalDate current() {
+		return current.get();
 	}
 
-	public static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(15, 05);
-
-	public static final LocalDate NOW_TRADING_DAY = analysisTradingDay(LocalDateTime.now());
+	private static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(16, 30);
 
 	public static LocalDate analysisTradingDay(LocalDateTime dateTime) {
 		DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
@@ -42,19 +47,6 @@ public final class ChinaFuturesUtil {
 		} else {
 			return false;
 		}
-	}
-
-	public static String analysisSymbolCode(String instrumentCode) {
-		if (StringUtil.isNullOrEmpty(instrumentCode)) {
-			return instrumentCode;
-		}
-		return instrumentCode.replaceAll("\\d", "");
-	}
-
-	public static void main(String[] args) {
-
-		System.out.println(ChinaFuturesSymbol.AG.getInstrumentId(1812));
-
 	}
 
 }

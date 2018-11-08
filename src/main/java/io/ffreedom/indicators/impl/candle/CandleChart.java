@@ -18,6 +18,7 @@ import io.ffreedom.indicators.pools.IndicatorPeriodTimePools;
 import io.ffreedom.market.MarketData;
 import io.ffreedom.market.TimeTwin;
 import io.ffreedom.market.TradingDay;
+import io.ffreedom.market.TradingDayKeeper;
 import io.ffreedom.market.TradingPeriod;
 
 public class CandleChart implements Indicator<Candle> {
@@ -44,13 +45,14 @@ public class CandleChart implements Indicator<Candle> {
 
 	// TODO 进行池化处理
 	private void initCandleSet() {
-		ImmutableSet<TimeTwin> timeTwinSet = IndicatorPeriodTimePools.INSTANCE.getTimeTwinSet(period, instrument.getSymbol());
-		
+		ImmutableSet<TimeTwin> timeTwinSet = IndicatorPeriodTimePools.INSTANCE.getTimeTwinSet(period,
+				instrument.getSymbol());
+
 		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
 		this.candleSetPeriods = TreeSortedSet.newSet();
 		immutableTradingPeriodSet.each(tradingPeriod -> {
-			candleSetPeriods
-					.addAll(tradingPeriod.segmentByDuration(TradingDay.currentTradingDay(), period.getDuration()));
+			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(TradingDayKeeper.getInstance(instrument).current(),
+					period.getDuration()));
 		});
 		candleSetPeriods.each(timeTwin -> {
 			// TODO 添加TradingDay的可变性
@@ -76,7 +78,7 @@ public class CandleChart implements Indicator<Candle> {
 				currentCandle = nextCandle.get();
 			} else {
 				// TODO 添加candleSet扩容
-				
+
 				currentCandle = Candle.withTimeTwin(null, instrument, period);
 			}
 		}

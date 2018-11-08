@@ -11,7 +11,7 @@ import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 import io.ffreedom.financial.Symbol;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.market.TimeTwin;
-import io.ffreedom.market.TradingDay;
+import io.ffreedom.market.TradingDayKeeper;
 
 public final class IndicatorPeriodTimePools {
 
@@ -46,8 +46,8 @@ public final class IndicatorPeriodTimePools {
 			return timeTwinSet;
 		} else {
 			MutableSet<TimeTwin> mutableTimeTwinSet = UnifiedSet.newSet();
-			symbol.getTradingPeriodSet().forEach(tradingPeriod -> mutableTimeTwinSet
-					.addAll(tradingPeriod.segmentByDuration(TradingDay.currentTradingDay(), period.getDuration())));
+			symbol.getTradingPeriodSet().forEach(tradingPeriod -> mutableTimeTwinSet.addAll(tradingPeriod
+					.segmentByDuration(TradingDayKeeper.getInstance(symbol).current(), period.getDuration())));
 			return symbolMap.put(symbol.getSymbolId(), mutableTimeTwinSet.toImmutable());
 		}
 	}
