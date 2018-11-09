@@ -9,21 +9,21 @@ import io.ffreedom.financial.futures.ChinaFuturesTradingDay;
 public final class TradingDayKeeper {
 
 	public static TradingDay getInstance(Instrument instrument) {
-		if (instrument instanceof ChinaFutures) {
+		if (instrument instanceof ChinaFutures)
 			return ChinaFuturesTradingDay.INSTANCE;
-		} else {
-			// TODO fill instance
-			return null;
-		}
+		else
+			return TradingDayImpl.INSTANCE;
 	}
 
 	public static TradingDay getInstance(Symbol symbol) {
-		if (symbol instanceof ChinaFuturesSymbol) {
+		if (symbol instanceof ChinaFuturesSymbol)
 			return ChinaFuturesTradingDay.INSTANCE;
-		} else {
-			// TODO fill instance
-			return null;
-		}
+		else
+			return TradingDayImpl.INSTANCE;
+	}
+
+	public static void main(String[] args) {
+
 	}
 
 }

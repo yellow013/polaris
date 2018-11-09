@@ -6,20 +6,23 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.annotation.concurrent.ThreadSafe;
+
 import io.ffreedom.market.TradingDay;
 
+@ThreadSafe
 public final class ChinaFuturesTradingDay implements TradingDay {
-
-	private AtomicReference<LocalDate> current = new AtomicReference<>(analysisTradingDay(LocalDateTime.now()));
-
-	public final static TradingDay INSTANCE = new ChinaFuturesTradingDay();
 
 	@Override
 	public LocalDate current() {
 		return current.get();
 	}
 
-	private static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(16, 30);
+	private static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(17, 00);
+
+	private AtomicReference<LocalDate> current = new AtomicReference<>(analysisTradingDay(LocalDateTime.now()));
+	
+	public final static TradingDay INSTANCE = new ChinaFuturesTradingDay();
 
 	public static LocalDate analysisTradingDay(LocalDateTime dateTime) {
 		DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
