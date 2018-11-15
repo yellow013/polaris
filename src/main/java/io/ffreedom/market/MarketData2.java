@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 
 import io.ffreedom.financial.Instrument;
 
-public final class MarketData {
+public final class MarketData2 {
 
 	private LocalDateTime datetime;
 	private Instrument instrument;
@@ -17,13 +17,13 @@ public final class MarketData {
 	private double turnover;
 	private Quotes quotes;
 
-	public MarketData(LocalDateTime datetime, Instrument instrument, int quoteLevel) {
+	public MarketData2(LocalDateTime datetime, Instrument instrument, int quoteLevel) {
 		this.datetime = datetime;
 		this.instrument = instrument;
 		quotes = Quotes.newInstance(quoteLevel);
 	}
 
-	public MarketData(LocalDate date, LocalTime time, Instrument instrument, int quoteLevel) {
+	public MarketData2(LocalDate date, LocalTime time, Instrument instrument, int quoteLevel) {
 		this(LocalDateTime.of(date, time), instrument, quoteLevel);
 	}
 
@@ -39,7 +39,7 @@ public final class MarketData {
 		return lastPrice;
 	}
 
-	public MarketData setLastPrice(double lastPrice) {
+	public MarketData2 setLastPrice(double lastPrice) {
 		this.lastPrice = lastPrice;
 		return this;
 	}
@@ -48,7 +48,7 @@ public final class MarketData {
 		return volume;
 	}
 
-	public MarketData setVolume(double volume) {
+	public MarketData2 setVolume(double volume) {
 		this.volume = volume;
 		return this;
 	}
@@ -57,7 +57,7 @@ public final class MarketData {
 		return turnover;
 	}
 
-	public MarketData setTurnover(double turnover) {
+	public MarketData2 setTurnover(double turnover) {
 		this.turnover = turnover;
 		return this;
 	}
@@ -66,12 +66,12 @@ public final class MarketData {
 		return quotes;
 	}
 
-	public MarketData addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
+	public MarketData2 addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
 		quotes.addAskQuote(price, volume);
 		return this;
 	}
 
-	public MarketData addBidQuote(double price, double volume) throws QuoteLevelOverflowException {
+	public MarketData2 addBidQuote(double price, double volume) throws QuoteLevelOverflowException {
 		quotes.addBidQuote(price, volume);
 		return this;
 	}

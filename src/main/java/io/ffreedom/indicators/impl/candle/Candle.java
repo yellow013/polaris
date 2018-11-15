@@ -7,7 +7,7 @@ import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.BasicMarketData;
 import io.ffreedom.market.TimeTwin;
 
 public final class Candle extends TimeSeriesPoint<Candle> {
@@ -43,7 +43,7 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	}
 
 	@Override
-	public void onMarketData(MarketData marketData) {
+	public void onMarketData(BasicMarketData marketData) {
 		onPrice(marketData.getLastPrice());
 		addVolumeSum(marketData.getVolume());
 		addTurnoverSum(marketData.getTurnover());

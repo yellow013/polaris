@@ -1,6 +1,6 @@
 package io.ffreedom.indicators.api;
 
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.BasicMarketData;
 
 public interface Point<X, Y> {
 
@@ -8,6 +8,6 @@ public interface Point<X, Y> {
 
 	Y getYAxis();
 
-	void onMarketData(MarketData marketData);
+	void onMarketData(BasicMarketData marketData);
 
 }

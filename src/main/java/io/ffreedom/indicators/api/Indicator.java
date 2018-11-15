@@ -3,11 +3,11 @@ package io.ffreedom.indicators.api;
 import java.util.Collection;
 
 import io.ffreedom.common.functional.Callback;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.BasicMarketData;
 
 public interface Indicator<P extends Point<?, ?>> {
 
-	void onMarketData(MarketData marketData);
+	void onMarketData(BasicMarketData marketData);
 
 	void endPoint(P p);
 

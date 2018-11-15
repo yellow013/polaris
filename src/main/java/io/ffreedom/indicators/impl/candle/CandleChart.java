@@ -15,9 +15,8 @@ import io.ffreedom.financial.Instrument;
 import io.ffreedom.indicators.api.Indicator;
 import io.ffreedom.indicators.api.IndicatorPeriod;
 import io.ffreedom.indicators.pools.IndicatorPeriodTimePools;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.BasicMarketData;
 import io.ffreedom.market.TimeTwin;
-import io.ffreedom.market.TradingDay;
 import io.ffreedom.market.TradingDayKeeper;
 import io.ffreedom.market.TradingPeriod;
 
@@ -64,11 +63,11 @@ public class CandleChart implements Indicator<Candle> {
 		this.currentCandle = candleSet.firstCandle();
 	}
 
-	private boolean isCurrentCandlePeriod(MarketData marketData) {
+	private boolean isCurrentCandlePeriod(BasicMarketData marketData) {
 		return currentCandle.isPeriod(marketData.getDatetime());
 	}
 
-	public void onMarketData(MarketData marketData) {
+	public void onMarketData(BasicMarketData marketData) {
 		if (isCurrentCandlePeriod(marketData)) {
 			currentCandle.onMarketData(marketData);
 		} else {
