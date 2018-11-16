@@ -1,5 +1,12 @@
 package io.ffreedom.financial.futures;
 
-public class JapanFutures {
+import io.ffreedom.financial.Symbol;
+
+public class JapanFutures extends Futures {
+
+	public JapanFutures(int instrumentId, String instrumentCode, Symbol symbol) {
+		super(instrumentId, instrumentCode, symbol);
+
+	}
 
 }

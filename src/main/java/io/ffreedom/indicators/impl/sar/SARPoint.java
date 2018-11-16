@@ -3,7 +3,7 @@ package io.ffreedom.indicators.impl.sar;
 import java.time.LocalDateTime;
 
 import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.BasicMarketData;
 
 public class SARPoint extends TimeSeriesPoint<SARPoint> {
 
@@ -14,7 +14,7 @@ public class SARPoint extends TimeSeriesPoint<SARPoint> {
 	}
 
 	@Override
-	public void onMarketData(MarketData marketData) {
+	public void onMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
 
 	}

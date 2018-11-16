@@ -1,7 +1,6 @@
 package io.ffreedom.financial.stock;
 
 import io.ffreedom.financial.Instrument;
-import io.ffreedom.financial.InstrumentType;
 import io.ffreedom.financial.Symbol;
 
 public final class Stock implements Instrument {
@@ -16,7 +15,7 @@ public final class Stock implements Instrument {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public String getInstrumentCode() {
 		// TODO Auto-generated method stub
@@ -29,6 +28,10 @@ public final class Stock implements Instrument {
 		return null;
 	}
 
-	
+	@Override
+	public boolean isTZero() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

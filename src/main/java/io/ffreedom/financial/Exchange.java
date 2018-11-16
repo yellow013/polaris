@@ -26,7 +26,7 @@ public enum Exchange {
 	private Country country;
 
 	private Exchange(int exchangeId, Country country) {
-		this.exchangeId = exchangeId;
+		this.exchangeId = country.getCountryId() + exchangeId * 1000000;
 		this.country = country;
 	}
 

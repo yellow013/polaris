@@ -165,8 +165,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	private ImmutableSortedSet<TradingPeriod> tradingPeriodSet;
 
 	private ChinaFuturesSymbol(int exchangeNo, Exchange exchange, TradingPeriod... tradingPeriods) {
-		this.symbolId = exchange.getCountry().getCountryId() * 100000000 + exchange.getExchangeId() * 1000000
-				+ exchangeNo * 10000;
+		this.symbolId = exchange.getExchangeId() + exchangeNo * 10000;
 		this.exchange = exchange;
 		this.tradingPeriodSet = ImmutableSortedSetFactoryImpl.INSTANCE.with(tradingPeriods);
 	}
@@ -216,7 +215,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 		return chinaFuturesSymbol;
 	}
 
-	public int getInstrumentId(int term) {
+	public int generateInstrumentId(int term) {
 		if (term > 9999)
 			throw new IllegalArgumentException("Term > 9999, Is too much.");
 		return symbolId + term;

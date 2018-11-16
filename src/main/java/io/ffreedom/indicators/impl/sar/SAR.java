@@ -4,31 +4,27 @@ import java.util.Collection;
 
 import io.ffreedom.common.functional.Callback;
 import io.ffreedom.indicators.api.Indicator;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.BasicMarketData;
 
 public class SAR implements Indicator<SARPoint> {
 
 	@Override
-	public void onMarketData(MarketData marketData) {
-		// TODO Auto-generated method stub
-
+	public void onMarketData(BasicMarketData marketData) {
+		
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public SARPoint getPoint(int i) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Collection<SARPoint> getPoints() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

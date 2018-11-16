@@ -1,7 +1,6 @@
 package io.ffreedom.financial.futures;
 
 import io.ffreedom.financial.AbsInstrument;
-import io.ffreedom.financial.InstrumentType;
 import io.ffreedom.financial.Symbol;
 
 public abstract class Futures extends AbsInstrument {
@@ -13,6 +12,11 @@ public abstract class Futures extends AbsInstrument {
 	@Override
 	public InstrumentType getInstrumentType() {
 		return InstrumentType.FUTURES;
+	}
+	
+	@Override
+	public boolean isTZero() {
+		return true;
 	}
 
 }

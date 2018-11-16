@@ -5,9 +5,9 @@ public enum Country {
 	JAPAN(1, "Japan"),
 
 	USA(2, "USA"),
-	
+
 	UK(3, "UK"),
-	
+
 	CHINA(4, "China"),
 
 	;
@@ -17,7 +17,7 @@ public enum Country {
 	private String countryName;
 
 	private Country(int countryId, String countryName) {
-		this.countryId = countryId;
+		this.countryId = countryId * 100000000;
 		this.countryName = countryName;
 	}
 

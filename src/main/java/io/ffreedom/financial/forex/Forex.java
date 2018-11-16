@@ -1,7 +1,6 @@
 package io.ffreedom.financial.forex;
 
 import io.ffreedom.financial.AbsInstrument;
-import io.ffreedom.financial.InstrumentType;
 import io.ffreedom.financial.Symbol;
 
 public abstract class Forex extends AbsInstrument {
@@ -15,6 +14,11 @@ public abstract class Forex extends AbsInstrument {
 	@Override
 	public InstrumentType getInstrumentType() {
 		return InstrumentType.FOREX;
+	}
+
+	@Override
+	public boolean isTZero() {
+		return true;
 	}
 
 }
