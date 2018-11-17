@@ -44,13 +44,11 @@ public class EMA extends MA {
 
 	@Override
 	public void startPoint(MAPoint p) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void registerStartPointEvent(Callback<MAPoint> callback) {
-		// TODO Auto-generated method stub
 		
 	}
 
