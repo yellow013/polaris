@@ -71,6 +71,7 @@ public class CandleChart implements Indicator<Candle> {
 		if (isCurrentCandlePeriod(marketData)) {
 			currentCandle.onMarketData(marketData);
 		} else {
+			
 			endPoint(currentCandle);
 			Optional<Candle> nextCandle = candleSet.getNextCandle(currentCandle);
 			if (nextCandle.isPresent()) {

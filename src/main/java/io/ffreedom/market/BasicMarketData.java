@@ -1,14 +1,18 @@
 package io.ffreedom.market;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import io.ffreedom.common.datetime.TimeZones;
+
 public class BasicMarketData {
 
-	private LocalDate tradingDay;
+	private ZonedDateTime zonedDateTime;
 	private long epochMillis;
 	private int instrumentId;
 	private double lastPrice;
@@ -19,17 +23,28 @@ public class BasicMarketData {
 	private double askPrice1;
 	private double askVolume1;
 
-	public BasicMarketData(long epochMillis, int instrumentId) {
+	private BasicMarketData() {
+	}
+
+	public static final BasicMarketData empty() {
+		return new BasicMarketData();
+	}
+
+	public BasicMarketData(int instrumentId, long epochMillis) {
 		this.instrumentId = instrumentId;
+		this.epochMillis = epochMillis;
 	}
 
-	public LocalDate getTradingDay() {
-		return tradingDay;
+	public BasicMarketData(int instrumentId, ZonedDateTime zonedDateTime) {
+		this.instrumentId = instrumentId;
+		this.zonedDateTime = zonedDateTime;
+		this.epochMillis = zonedDateTime.toInstant().toEpochMilli();
 	}
 
-	public BasicMarketData setTradingDay(LocalDate tradingDay) {
-		this.tradingDay = tradingDay;
-		return this;
+	public ZonedDateTime getZonedDateTime() {
+		if (zonedDateTime == null)
+			zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), TimeZones.SYS_DEFAULT);
+		return zonedDateTime;
 	}
 
 	public long getEpochMillis() {
