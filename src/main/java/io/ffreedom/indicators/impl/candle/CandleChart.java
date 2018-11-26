@@ -64,7 +64,7 @@ public class CandleChart implements Indicator<Candle> {
 	}
 
 	private boolean isCurrentCandlePeriod(BasicMarketData marketData) {
-		return currentCandle.isPeriod(marketData.getDatetime());
+		return currentCandle.isPeriod(marketData.getZonedDateTime());
 	}
 
 	public void onMarketData(BasicMarketData marketData) {
