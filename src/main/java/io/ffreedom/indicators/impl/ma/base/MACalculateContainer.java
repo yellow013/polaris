@@ -22,13 +22,13 @@ public class MACalculateContainer {
 		this.capacity = capacity;
 	}
 
-	private void updateTail() {
+	private void updateTailIndex() {
 		if (++tail == capacity) {
 			tail = 0;
 		}
 	}
 
-	private void updateHead() {
+	private void updateHeadIndex() {
 		if (count == capacity) {
 			if (++head == capacity) {
 				head = 0;
@@ -47,9 +47,9 @@ public class MACalculateContainer {
 	}
 
 	public MACalculateContainer addTail(double value) {
-		updateTail();
+		updateTailIndex();
 		updateTail(value);
-		updateHead();
+		updateHeadIndex();
 		updateCount();
 		return this;
 	}

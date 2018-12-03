@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
 
 import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.market.BasicMarketData;
 
 public class MAPoint extends TimeSeriesPoint<MAPoint> {
 
@@ -16,9 +16,11 @@ public class MAPoint extends TimeSeriesPoint<MAPoint> {
 	}
 
 	@Override
-	public void onMarketData(MarketData marketData) {
+	public void onMarketData(BasicMarketData marketData) {
 		double lastPrice = marketData.getLastPrice();
-
+		
+		
+		
 	}
 
 	@Override
