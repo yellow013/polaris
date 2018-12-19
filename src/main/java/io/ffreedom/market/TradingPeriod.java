@@ -73,18 +73,17 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	// TODO 增加1到3秒的时间偏移量
 	public boolean isPeriod(LocalTime time) {
 		int secondOfDay = time.toSecondOfDay();
-		if (!isCrossDay) {
+		if (!isCrossDay)
 			return (startSecondOfDay <= secondOfDay && endSecondOfDay >= secondOfDay) ? true : false;
-		} else {
+		else
 			return (startSecondOfDay <= secondOfDay || endSecondOfDay >= secondOfDay) ? true : false;
-		}
 	}
 
 	public MutableList<TimeTwin> segmentByDuration(LocalDate tradingDay, Duration segmentationDuration) {
 		// 获取分割参数的秒数
 		int seconds = (int) segmentationDuration.getSeconds();
 		// 判断分割段是否大于半天
-		if (seconds > TimeConstants.DAY_SECONDS_HALF) {
+		if (seconds > TimeConstants.HALF_DAY_SECONDS) {
 			// 如果交易周期跨天,则此分割周期等于当天开始时间至次日结束时间
 			// 如果交易周期未跨天,则此分割周期等于当天开始时间至当天结束时间
 			return FastList.newListWith(isCrossDay
@@ -97,9 +96,8 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			int totalSeconds = (int) totalDuration.getSeconds();
 			// 计算按照分割参数总的段数
 			int count = totalSeconds / seconds;
-			if (totalSeconds % seconds > 0) {
+			if (totalSeconds % seconds > 0)
 				count++;
-			}
 			FastList<TimeTwin> list = FastList.newList(count);
 			// 计算开始时间点
 			LocalDateTime startPoint = LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime);
@@ -127,9 +125,8 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 		System.out.println(tradingPeriod.isPeriod(LocalTime.of(14, 00, 00)));
 
-		tradingPeriod.segmentByDuration(LocalDate.of(2018, Month.JUNE, 20), Duration.ofMinutes(45)).each(timeTwin -> {
-			System.out.println(timeTwin.getStartDateTime() + " - " + timeTwin.getEndDateTime());
-		});
+		tradingPeriod.segmentByDuration(LocalDate.of(2018, Month.JUNE, 20), Duration.ofMinutes(45))
+				.each(timeTwin -> System.out.println(timeTwin.getStartDateTime() + " - " + timeTwin.getEndDateTime()));
 
 		LocalDateTime of = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 55, 30));
 
