@@ -49,14 +49,11 @@ public class CandleChart implements Indicator<Candle> {
 
 		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
 		this.candleSetPeriods = TreeSortedSet.newSet();
-		immutableTradingPeriodSet.each(tradingPeriod -> {
-			candleSetPeriods.addAll(tradingPeriod.segmentByDuration(TradingDayKeeper.getInstance(instrument).current(),
-					period.getDuration()));
-		});
-		candleSetPeriods.each(timeTwin -> {
-			// TODO 添加TradingDay的可变性
-			candleSet.add(Candle.withTimeTwin(timeTwin, instrument, period));
-		});
+		immutableTradingPeriodSet.each(tradingPeriod -> candleSetPeriods.addAll(tradingPeriod
+				.segmentByDuration(TradingDayKeeper.getInstance(instrument).current(), period.getDuration())));
+		candleSetPeriods.each(timeTwin ->
+		// TODO 添加TradingDay的可变性
+		candleSet.add(Candle.withTimeTwin(timeTwin, instrument, period)));
 	}
 
 	private void initCurrentCandle() {
@@ -71,14 +68,13 @@ public class CandleChart implements Indicator<Candle> {
 		if (isCurrentCandlePeriod(marketData)) {
 			currentCandle.onMarketData(marketData);
 		} else {
-			
+
 			endPoint(currentCandle);
 			Optional<Candle> nextCandle = candleSet.getNextCandle(currentCandle);
 			if (nextCandle.isPresent()) {
 				currentCandle = nextCandle.get();
 			} else {
 				// TODO 添加candleSet扩容
-
 				currentCandle = Candle.withTimeTwin(null, instrument, period);
 			}
 		}
@@ -115,7 +111,7 @@ public class CandleChart implements Indicator<Candle> {
 		if (endPointCallback != null)
 			endPointCallback.accept(p);
 		else
-			logger.info("this.endPointCallback is null.");
+			logger.error("this.endPointCallback is null.");
 	}
 
 	@Override
