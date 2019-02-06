@@ -15,19 +15,23 @@ import io.ffreedom.market.TradingDayKeeper;
 
 public final class IndicatorPeriodTimePools {
 
-	public static final IndicatorPeriodTimePools INSTANCE = new IndicatorPeriodTimePools();
+	private static final IndicatorPeriodTimePools INSTANCE = new IndicatorPeriodTimePools();
 
 	// Map<IndicatorPeriod, Map<Symbol, Set<TimeTwin>>>
 	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimeTwin>>> pools = LongObjectHashMap.newMap();
 
-	public void register(IndicatorPeriod period, Symbol[] symbols) {
-		MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap = getSymbolMap(period);
-		for (Symbol symbol : symbols)
-			findOrGenerate(symbolMap, period, symbol);
+	public static void register(IndicatorPeriod period, Symbol[] symbols) {
+		INSTANCE.register0(period, symbols);
 	}
 
-	public ImmutableSet<TimeTwin> getTimeTwinSet(IndicatorPeriod period, Symbol symbol) {
-		return findOrGenerate(getSymbolMap(period), period, symbol);
+	private void register0(IndicatorPeriod period, Symbol[] symbols) {
+		MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap = getSymbolMap(period);
+		for (Symbol symbol : symbols)
+			findOrCreate(symbolMap, period, symbol);
+	}
+
+	public static ImmutableSet<TimeTwin> getTimeTwinSet(IndicatorPeriod period, Symbol symbol) {
+		return INSTANCE.findOrCreate(INSTANCE.getSymbolMap(period), period, symbol);
 	}
 
 	private MutableIntObjectMap<ImmutableSet<TimeTwin>> getSymbolMap(IndicatorPeriod period) {
@@ -39,12 +43,12 @@ public final class IndicatorPeriodTimePools {
 		return symbolMap;
 	}
 
-	private ImmutableSet<TimeTwin> findOrGenerate(MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap,
+	private ImmutableSet<TimeTwin> findOrCreate(MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap,
 			IndicatorPeriod period, Symbol symbol) {
 		ImmutableSet<TimeTwin> timeTwinSet = symbolMap.get(symbol.getSymbolId());
-		if (timeTwinSet != null) {
+		if (timeTwinSet != null)
 			return timeTwinSet;
-		} else {
+		else {
 			MutableSet<TimeTwin> mutableTimeTwinSet = UnifiedSet.newSet();
 			symbol.getTradingPeriodSet().forEach(tradingPeriod -> mutableTimeTwinSet.addAll(tradingPeriod
 					.segmentByDuration(TradingDayKeeper.getInstance(symbol).current(), period.getDuration())));
