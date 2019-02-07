@@ -1,6 +1,6 @@
-package io.ffreedom.indicators.api;
+package io.ffreedom.polaris.indicators.api;
 
-import io.ffreedom.market.BasicMarketData;
+import io.ffreedom.polaris.market.BasicMarketData;
 
 public interface Point<X, Y> {
 

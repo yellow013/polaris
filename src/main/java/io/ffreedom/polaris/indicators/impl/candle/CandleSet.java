@@ -1,4 +1,4 @@
-package io.ffreedom.indicators.impl.candle;
+package io.ffreedom.polaris.indicators.impl.candle;
 
 import java.util.Collection;
 import java.util.Optional;

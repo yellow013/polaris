@@ -1,7 +1,7 @@
-package io.ffreedom.financial.stock;
+package io.ffreedom.polaris.financial.stock;
 
-import io.ffreedom.financial.Instrument;
-import io.ffreedom.financial.Symbol;
+import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.financial.Symbol;
 
 public final class Stock implements Instrument {
 

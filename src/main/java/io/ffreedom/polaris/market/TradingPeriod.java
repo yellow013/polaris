@@ -1,4 +1,4 @@
-package io.ffreedom.market;
+package io.ffreedom.polaris.market;
 
 import java.time.Duration;
 import java.time.LocalDate;

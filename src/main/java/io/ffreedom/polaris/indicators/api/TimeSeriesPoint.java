@@ -1,9 +1,9 @@
-package io.ffreedom.indicators.api;
+package io.ffreedom.polaris.indicators.api;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements Point<LocalDateTime, Y>, Comparable<Y> {
+public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<Y>> implements Point<LocalDateTime, Y>, Comparable<Y> {
 
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
@@ -21,7 +21,7 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 
 	@Override
 	public final Y getYAxis() {
-		return getThis();
+		return thisObj();
 	}
 
 	@Override
@@ -47,6 +47,6 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<?>> implements P
 		return endTime;
 	}
 
-	protected abstract Y getThis();
+	protected abstract Y thisObj();
 
 }

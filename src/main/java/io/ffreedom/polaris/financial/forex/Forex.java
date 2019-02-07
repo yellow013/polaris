@@ -1,7 +1,7 @@
-package io.ffreedom.financial.forex;
+package io.ffreedom.polaris.financial.forex;
 
-import io.ffreedom.financial.AbsInstrument;
-import io.ffreedom.financial.Symbol;
+import io.ffreedom.polaris.financial.AbsInstrument;
+import io.ffreedom.polaris.financial.Symbol;
 
 public abstract class Forex extends AbsInstrument {
 

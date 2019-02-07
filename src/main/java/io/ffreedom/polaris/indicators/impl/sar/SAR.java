@@ -1,10 +1,10 @@
-package io.ffreedom.indicators.impl.sar;
+package io.ffreedom.polaris.indicators.impl.sar;
 
 import java.util.Collection;
 
 import io.ffreedom.common.functional.Callback;
-import io.ffreedom.indicators.api.Indicator;
-import io.ffreedom.market.BasicMarketData;
+import io.ffreedom.polaris.indicators.api.Indicator;
+import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SAR implements Indicator<SARPoint> {
 

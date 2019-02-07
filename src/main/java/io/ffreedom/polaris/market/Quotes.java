@@ -1,4 +1,4 @@
-package io.ffreedom.market;
+package io.ffreedom.polaris.market;
 
 import java.util.NoSuchElementException;
 
@@ -48,20 +48,18 @@ public final class Quotes {
 	}
 
 	public Quotes addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
-		if (askLevelIndex == askLevel) {
+		if (askLevelIndex == askLevel)
 			throw new QuoteLevelOverflowException(
 					"askLevelIndex == " + askLevelIndex + ", array length is " + askLevel);
-		}
 		askQuotes[askLevelIndex] = new AskQuote(price, volume);
 		askLevelIndex++;
 		return this;
 	}
 
 	public Quotes addBidQuote(double price, double volume) throws QuoteLevelOverflowException {
-		if (bidLevelIndex == bidLevel) {
+		if (bidLevelIndex == bidLevel)
 			throw new QuoteLevelOverflowException(
 					"bidLevelIndex == " + bidLevelIndex + ", array length is " + bidLevel);
-		}
 		bidQuotes[bidLevelIndex] = new BidQuote(price, volume);
 		bidLevelIndex++;
 		return this;

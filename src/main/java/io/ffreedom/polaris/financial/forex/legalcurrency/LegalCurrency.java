@@ -1,4 +1,4 @@
-package io.ffreedom.financial.forex.legalcurrency;
+package io.ffreedom.polaris.financial.forex.legalcurrency;
 
 public class LegalCurrency {
 

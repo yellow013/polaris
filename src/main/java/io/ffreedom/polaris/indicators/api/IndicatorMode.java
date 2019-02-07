@@ -1,4 +1,4 @@
-package io.ffreedom.indicators.api;
+package io.ffreedom.polaris.indicators.api;
 
 public enum IndicatorMode {
 

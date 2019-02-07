@@ -1,4 +1,4 @@
-package io.ffreedom.indicators.impl.candle;
+package io.ffreedom.polaris.indicators.impl.candle;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -11,14 +11,14 @@ import org.slf4j.Logger;
 
 import io.ffreedom.common.functional.Callback;
 import io.ffreedom.common.log.LoggerFactory;
-import io.ffreedom.financial.Instrument;
-import io.ffreedom.indicators.api.Indicator;
-import io.ffreedom.indicators.api.IndicatorPeriod;
-import io.ffreedom.indicators.pools.IndicatorPeriodTimePools;
-import io.ffreedom.market.BasicMarketData;
-import io.ffreedom.market.TimeTwin;
-import io.ffreedom.market.TradingDayKeeper;
-import io.ffreedom.market.TradingPeriod;
+import io.ffreedom.polaris.datetime.TradingDayKeeper;
+import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.indicators.api.Indicator;
+import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.pools.IndicatorPeriodTimePools;
+import io.ffreedom.polaris.market.BasicMarketData;
+import io.ffreedom.polaris.market.TimeTwin;
+import io.ffreedom.polaris.market.TradingPeriod;
 
 public class CandleChart implements Indicator<Candle> {
 
@@ -44,8 +44,7 @@ public class CandleChart implements Indicator<Candle> {
 
 	// TODO 进行池化处理
 	private void initCandleSet() {
-		ImmutableSet<TimeTwin> timeTwinSet = IndicatorPeriodTimePools.INSTANCE.getTimeTwinSet(period,
-				instrument.getSymbol());
+		ImmutableSet<TimeTwin> timeTwinSet = IndicatorPeriodTimePools.getTimeTwinSet(period, instrument.getSymbol());
 
 		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
 		this.candleSetPeriods = TreeSortedSet.newSet();
@@ -61,7 +60,7 @@ public class CandleChart implements Indicator<Candle> {
 	}
 
 	private boolean isCurrentCandlePeriod(BasicMarketData marketData) {
-		return currentCandle.isPeriod(marketData.getZonedDateTime());
+		return currentCandle.isPeriod(marketData.getZonedDateTime().toLocalDateTime());
 	}
 
 	public void onMarketData(BasicMarketData marketData) {

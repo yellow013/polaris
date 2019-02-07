@@ -1,4 +1,4 @@
-package io.ffreedom.financial;
+package io.ffreedom.polaris.financial;
 
 public interface Instrument {
 

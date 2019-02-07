@@ -1,4 +1,4 @@
-package io.ffreedom.market;
+package io.ffreedom.polaris.market;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,9 +6,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-import io.ffreedom.financial.Instrument;
+import io.ffreedom.polaris.financial.Instrument;
 
-public final class MarketData2 {
+public final class DepthMarketData {
 
 	private LocalDateTime datetime;
 	private Instrument instrument;
@@ -17,13 +17,13 @@ public final class MarketData2 {
 	private double turnover;
 	private Quotes quotes;
 
-	public MarketData2(LocalDateTime datetime, Instrument instrument, int quoteLevel) {
+	public DepthMarketData(LocalDateTime datetime, Instrument instrument, int quoteLevel) {
 		this.datetime = datetime;
 		this.instrument = instrument;
 		quotes = Quotes.newInstance(quoteLevel);
 	}
 
-	public MarketData2(LocalDate date, LocalTime time, Instrument instrument, int quoteLevel) {
+	public DepthMarketData(LocalDate date, LocalTime time, Instrument instrument, int quoteLevel) {
 		this(LocalDateTime.of(date, time), instrument, quoteLevel);
 	}
 
@@ -39,7 +39,7 @@ public final class MarketData2 {
 		return lastPrice;
 	}
 
-	public MarketData2 setLastPrice(double lastPrice) {
+	public DepthMarketData setLastPrice(double lastPrice) {
 		this.lastPrice = lastPrice;
 		return this;
 	}
@@ -48,7 +48,7 @@ public final class MarketData2 {
 		return volume;
 	}
 
-	public MarketData2 setVolume(double volume) {
+	public DepthMarketData setVolume(double volume) {
 		this.volume = volume;
 		return this;
 	}
@@ -57,7 +57,7 @@ public final class MarketData2 {
 		return turnover;
 	}
 
-	public MarketData2 setTurnover(double turnover) {
+	public DepthMarketData setTurnover(double turnover) {
 		this.turnover = turnover;
 		return this;
 	}
@@ -66,12 +66,12 @@ public final class MarketData2 {
 		return quotes;
 	}
 
-	public MarketData2 addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
+	public DepthMarketData addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
 		quotes.addAskQuote(price, volume);
 		return this;
 	}
 
-	public MarketData2 addBidQuote(double price, double volume) throws QuoteLevelOverflowException {
+	public DepthMarketData addBidQuote(double price, double volume) throws QuoteLevelOverflowException {
 		quotes.addBidQuote(price, volume);
 		return this;
 	}

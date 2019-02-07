@@ -1,4 +1,4 @@
-package io.ffreedom.indicators.impl.siab;
+package io.ffreedom.polaris.indicators.impl.siab;
 
 public class SIABPoint {
 

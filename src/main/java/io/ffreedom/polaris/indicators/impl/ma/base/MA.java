@@ -1,17 +1,17 @@
-package io.ffreedom.indicators.impl.ma.base;
+package io.ffreedom.polaris.indicators.impl.ma.base;
 
 import java.util.Collection;
 
-import org.eclipse.collections.api.set.sorted.MutableSortedSet;
-import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
+import org.eclipse.collections.api.list.MutableList;
 
-import io.ffreedom.indicators.api.Indicator;
+import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.polaris.indicators.api.Indicator;
 
 public abstract class MA implements Indicator<MAPoint> {
 
 	protected int period;
 
-	protected MutableSortedSet<MAPoint> maPoints;
+	protected MutableList<MAPoint> maPoints;
 
 	protected MACalculateContainer calculateContainer;
 
@@ -19,7 +19,7 @@ public abstract class MA implements Indicator<MAPoint> {
 
 	protected MA(int period) {
 		this.period = period;
-		this.maPoints = TreeSortedSet.newSet();
+		this.maPoints = ECollections.newFastList();
 		this.calculateContainer = MACalculateContainer.newContainer(period);
 	}
 
@@ -35,7 +35,7 @@ public abstract class MA implements Indicator<MAPoint> {
 
 	@Override
 	public MAPoint getFastPoint() {
-		return maPoints.first();
+		return maPoints.getFirst();
 	}
 
 }

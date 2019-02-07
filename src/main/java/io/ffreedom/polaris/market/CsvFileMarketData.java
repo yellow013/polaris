@@ -1,6 +1,6 @@
-package io.ffreedom.market;
+package io.ffreedom.polaris.market;
 
-import static io.ffreedom.financial.futures.ChinaFuturesUtil.TRADING_DAY_DIVIDING_LINE;
+import static io.ffreedom.polaris.financial.futures.ChinaFuturesUtil.TRADING_DAY_DIVIDING_LINE;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -8,9 +8,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import io.ffreedom.common.datetime.DateTimeStyle;
-import io.ffreedom.financial.futures.ChinaFuturesUtil;
+import io.ffreedom.polaris.financial.futures.ChinaFuturesUtil;
 
-public class FileMarketData implements Comparable<FileMarketData> {
+public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 
 	private String timestamp;
 	private String instrumentID;
@@ -195,7 +195,7 @@ public class FileMarketData implements Comparable<FileMarketData> {
 	 * @param openInterest
 	 * @param updateTime
 	 */
-	private FileMarketData(String timestamp, String instrumentID, String symbol, String exchangeID, String last,
+	private CsvFileMarketData(String timestamp, String instrumentID, String symbol, String exchangeID, String last,
 			String iopv, String bid1, String bid2, String bid3, String bid4, String bid5, String ask1, String ask2,
 			String ask3, String ask4, String ask5, String bidSize1, String bidSize2, String bidSize3, String bidSize4,
 			String bidSize5, String askSize1, String askSize2, String askSize3, String askSize4, String askSize5,
@@ -349,12 +349,12 @@ public class FileMarketData implements Comparable<FileMarketData> {
 
 	}
 
-	public boolean equalsInstrumentId(FileMarketData o) {
+	public boolean equalsInstrumentId(CsvFileMarketData o) {
 		return instrumentID.equals(o.getInstrumentID());
 	}
 
 	@Override
-	public int compareTo(FileMarketData o) {
+	public int compareTo(CsvFileMarketData o) {
 		if (equalsInstrumentId(o)) {
 			if (this.localTimestamp.isEqual(o.getLocalTimestamp())) {
 				return 0;
@@ -377,7 +377,7 @@ public class FileMarketData implements Comparable<FileMarketData> {
 		return diskLocation;
 	}
 
-	public static FileMarketData newFileMarketData4CsvLine(String line) {
+	public static CsvFileMarketData newFileMarketData4CsvLine(String line) {
 		String[] strArray = line.split(",");
 		String timestamp = strArray[0];
 		String instrumentID = strArray[1];
@@ -409,20 +409,18 @@ public class FileMarketData implements Comparable<FileMarketData> {
 		String amount = strArray[26];
 		String openInterest = strArray[27];
 		String updateTime = strArray[28];
-
-		return new FileMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
+		return new CsvFileMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
 				ask1, ask2, ask3, ask4, ask5, bidSize1, bidSize2, bidSize3, bidSize4, bidSize5, askSize1, askSize2,
 				askSize3, askSize4, askSize5, volume, amount, openInterest, updateTime);
-
 	}
 
-	public static FileMarketData newFileMarketData(String timestamp, String instrumentID, String symbol,
+	public static CsvFileMarketData newFileMarketData(String timestamp, String instrumentID, String symbol,
 			String exchangeID, String last, String iopv, String bid1, String bid2, String bid3, String bid4,
 			String bid5, String ask1, String ask2, String ask3, String ask4, String ask5, String bidSize1,
 			String bidSize2, String bidSize3, String bidSize4, String bidSize5, String askSize1, String askSize2,
 			String askSize3, String askSize4, String askSize5, String volume, String amount, String openInterest,
 			String updateTime) {
-		return new FileMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
+		return new CsvFileMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
 				ask1, ask2, ask3, ask4, ask5, bidSize1, bidSize2, bidSize3, bidSize4, bidSize5, askSize1, askSize2,
 				askSize3, askSize4, askSize5, volume, amount, openInterest, updateTime);
 	}

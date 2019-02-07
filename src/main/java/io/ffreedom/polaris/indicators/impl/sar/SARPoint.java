@@ -1,13 +1,13 @@
-package io.ffreedom.indicators.impl.sar;
+package io.ffreedom.polaris.indicators.impl.sar;
 
 import java.time.LocalDateTime;
 
-import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.BasicMarketData;
+import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
+import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SARPoint extends TimeSeriesPoint<SARPoint> {
 
-	private double pointPrice;
+	private double pointValue;
 
 	public SARPoint(LocalDateTime startTime, LocalDateTime endTime) {
 		super(startTime, endTime);
@@ -20,12 +20,12 @@ public class SARPoint extends TimeSeriesPoint<SARPoint> {
 	}
 
 	@Override
-	protected SARPoint getThis() {
+	protected SARPoint thisObj() {
 		return this;
 	}
 
-	public double getPointPrice() {
-		return pointPrice;
+	public double getPointValue() {
+		return pointValue;
 	}
 
 }

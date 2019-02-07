@@ -1,14 +1,14 @@
-package io.ffreedom.indicators.impl.candle;
+package io.ffreedom.polaris.indicators.impl.candle;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import io.ffreedom.common.utils.DoubleUtil;
-import io.ffreedom.financial.Instrument;
-import io.ffreedom.indicators.api.IndicatorPeriod;
-import io.ffreedom.indicators.api.TimeSeriesPoint;
-import io.ffreedom.market.BasicMarketData;
-import io.ffreedom.market.TimeTwin;
+import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
+import io.ffreedom.polaris.market.BasicMarketData;
+import io.ffreedom.polaris.market.TimeTwin;
 
 public final class Candle extends TimeSeriesPoint<Candle> {
 
@@ -50,7 +50,7 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	}
 
 	@Override
-	protected Candle getThis() {
+	protected Candle thisObj() {
 		return this;
 	}
 

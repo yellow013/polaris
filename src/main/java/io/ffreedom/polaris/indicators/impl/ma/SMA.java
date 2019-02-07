@@ -1,13 +1,13 @@
-package io.ffreedom.indicators.impl.ma;
+package io.ffreedom.polaris.indicators.impl.ma;
 
 import java.time.LocalDateTime;
 
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
 import io.ffreedom.common.functional.Callback;
-import io.ffreedom.indicators.impl.ma.base.MA;
-import io.ffreedom.indicators.impl.ma.base.MAPoint;
-import io.ffreedom.market.MarketData;
+import io.ffreedom.polaris.indicators.impl.ma.base.MA;
+import io.ffreedom.polaris.indicators.impl.ma.base.MAPoint;
+import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SMA extends MA {
 
@@ -27,7 +27,6 @@ public class SMA extends MA {
 
 	public static void main(String[] args) {
 		try {
-
 			MAPoint point1 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
 			MAPoint point2 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
@@ -63,11 +62,6 @@ public class SMA extends MA {
 	}
 
 	@Override
-	public void onMarketData(MarketData marketData) {
-		calculateContainer.updateTail(marketData.getLastPrice());
-	}
-
-	@Override
 	public void endPoint(MAPoint p) {
 		// TODO Auto-generated method stub
 
@@ -89,6 +83,11 @@ public class SMA extends MA {
 	public void registerStartPointEvent(Callback<MAPoint> callback) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onMarketData(BasicMarketData marketData) {
+		calculateContainer.updateTail(marketData.getLastPrice());
 	}
 
 }

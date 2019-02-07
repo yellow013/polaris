@@ -1,4 +1,4 @@
-package io.ffreedom.indicators.impl.ma.base;
+package io.ffreedom.polaris.indicators.impl.ma.base;
 
 import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;

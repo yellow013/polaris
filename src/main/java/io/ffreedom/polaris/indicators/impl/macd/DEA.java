@@ -1,6 +1,6 @@
-package io.ffreedom.indicators.impl.macd;
+package io.ffreedom.polaris.indicators.impl.macd;
 
-import io.ffreedom.indicators.impl.ma.EMA;
+import io.ffreedom.polaris.indicators.impl.ma.EMA;
 
 public class DEA extends EMA{
 

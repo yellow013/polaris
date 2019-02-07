@@ -1,7 +1,7 @@
-package io.ffreedom.financial.futures;
+package io.ffreedom.polaris.financial.futures;
 
-import io.ffreedom.financial.AbsInstrument;
-import io.ffreedom.financial.Symbol;
+import io.ffreedom.polaris.financial.AbsInstrument;
+import io.ffreedom.polaris.financial.Symbol;
 
 public abstract class Futures extends AbsInstrument {
 

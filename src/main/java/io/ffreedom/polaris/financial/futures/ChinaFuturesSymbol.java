@@ -1,4 +1,4 @@
-package io.ffreedom.financial.futures;
+package io.ffreedom.polaris.financial.futures;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -10,9 +10,9 @@ import org.eclipse.collections.impl.map.mutable.UnifiedMap;
 import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
 import org.eclipse.collections.impl.set.sorted.immutable.ImmutableSortedSetFactoryImpl;
 
-import io.ffreedom.financial.Exchange;
-import io.ffreedom.financial.Symbol;
-import io.ffreedom.market.TradingPeriod;
+import io.ffreedom.polaris.financial.Exchange;
+import io.ffreedom.polaris.financial.Symbol;
+import io.ffreedom.polaris.market.TradingPeriod;
 
 public enum ChinaFuturesSymbol implements Symbol {
 

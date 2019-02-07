@@ -1,4 +1,4 @@
-package io.ffreedom.financial.futures;
+package io.ffreedom.polaris.financial.futures;
 
 public final class ChinaFutures extends Futures {
 

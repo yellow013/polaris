@@ -1,4 +1,4 @@
-package io.ffreedom.financial.futures;
+package io.ffreedom.polaris.financial.futures;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.concurrent.ThreadSafe;
 
-import io.ffreedom.market.TradingDay;
+import io.ffreedom.polaris.datetime.TradingDay;
 
 @ThreadSafe
 public final class ChinaFuturesTradingDay implements TradingDay {

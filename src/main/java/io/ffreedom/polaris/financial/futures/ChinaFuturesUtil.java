@@ -1,4 +1,4 @@
-package io.ffreedom.financial.futures;
+package io.ffreedom.polaris.financial.futures;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

@@ -1,8 +1,8 @@
-package io.ffreedom.financial;
+package io.ffreedom.polaris.financial;
 
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
-import io.ffreedom.market.TradingPeriod;
+import io.ffreedom.polaris.market.TradingPeriod;
 
 public interface Symbol {
 

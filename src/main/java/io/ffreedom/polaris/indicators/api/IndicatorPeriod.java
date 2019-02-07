@@ -1,4 +1,4 @@
-package io.ffreedom.indicators.api;
+package io.ffreedom.polaris.indicators.api;
 
 import java.time.Duration;
 import java.time.LocalTime;

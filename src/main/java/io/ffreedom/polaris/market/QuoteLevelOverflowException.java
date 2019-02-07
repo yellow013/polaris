@@ -1,4 +1,4 @@
-package io.ffreedom.market;
+package io.ffreedom.polaris.market;
 
 public class QuoteLevelOverflowException extends Exception {
 
