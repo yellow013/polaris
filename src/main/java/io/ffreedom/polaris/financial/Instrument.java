@@ -27,8 +27,18 @@ public interface Instrument {
 
 	public static enum InstrumentType {
 
-		BOND(false), OPTION(true), STOCK(false), FUTURES(true), FOREX(true), FUND(false),
-		
+		BOND(false),
+
+		OPTION(true),
+
+		STOCK(false),
+
+		FUTURES(true),
+
+		FOREX(true),
+
+		FUND(false),
+
 		INVALID(false)
 
 		;
