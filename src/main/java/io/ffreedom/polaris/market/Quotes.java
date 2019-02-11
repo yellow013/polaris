@@ -20,6 +20,10 @@ public final class Quotes {
 		this.bidQuotes = new BidQuote[bidLevel];
 	}
 
+	public static Quotes newInstance() {
+		return new Quotes(10, 10);
+	}
+
 	public static Quotes newInstance(int level) {
 		return new Quotes(level, level);
 	}
