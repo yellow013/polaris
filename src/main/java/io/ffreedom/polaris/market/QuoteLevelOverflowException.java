@@ -1,6 +1,6 @@
 package io.ffreedom.polaris.market;
 
-public class QuoteLevelOverflowException extends Exception {
+public class QuoteLevelOverflowException extends RuntimeException {
 
 	/**
 	 * 

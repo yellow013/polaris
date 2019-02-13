@@ -8,10 +8,10 @@ import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
 import org.eclipse.collections.impl.map.mutable.primitive.LongObjectHashMap;
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
+import io.ffreedom.polaris.datetime.TimeTwin;
 import io.ffreedom.polaris.datetime.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.market.TimeTwin;
 
 public final class IndicatorPeriodTimePools {
 

@@ -10,9 +10,9 @@ import org.eclipse.collections.impl.map.mutable.UnifiedMap;
 import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
 import org.eclipse.collections.impl.set.sorted.immutable.ImmutableSortedSetFactoryImpl;
 
+import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Exchange;
 import io.ffreedom.polaris.financial.Symbol;
-import io.ffreedom.polaris.market.TradingPeriod;
 
 public enum ChinaFuturesSymbol implements Symbol {
 

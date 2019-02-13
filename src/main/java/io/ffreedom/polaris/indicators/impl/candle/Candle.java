@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import io.ffreedom.common.utils.DoubleUtil;
+import io.ffreedom.polaris.datetime.TimeTwin;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
-import io.ffreedom.polaris.market.TimeTwin;
 
 public final class Candle extends TimeSeriesPoint<Candle> {
 

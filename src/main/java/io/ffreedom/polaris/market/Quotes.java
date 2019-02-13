@@ -22,15 +22,15 @@ public final class Quotes {
 			bidQuotes[i] = new BidQuote(0, 0);
 	}
 
-	public static Quotes newInstance() {
+	public static Quotes newLevel10() {
 		return new Quotes(10, 10);
 	}
 
-	public static Quotes newInstance(int level) {
+	public static Quotes newQuotes(int level) {
 		return new Quotes(level, level);
 	}
 
-	public static Quotes newInstance(int askLevel, int bidLevel) {
+	public static Quotes newQuotes(int askLevel, int bidLevel) {
 		return new Quotes(askLevel, bidLevel);
 	}
 
@@ -42,12 +42,12 @@ public final class Quotes {
 		return bidQuotes;
 	}
 
-	public Quotes addQuote(int level, double price, double volume, QuoteType type) throws QuoteLevelOverflowException {
+	public Quotes addQuote(int levelIndex, double price, double volume, QuoteType type) {
 		switch (type) {
 		case Bid:
-			return addBidQuote(level, price, volume);
+			return addBidQuote(levelIndex, price, volume);
 		case Ask:
-			return addAskQuote(level, price, volume);
+			return addAskQuote(levelIndex, price, volume);
 		default:
 			throw new NoSuchElementException("QuoteType -> (" + type + ") is");
 		}

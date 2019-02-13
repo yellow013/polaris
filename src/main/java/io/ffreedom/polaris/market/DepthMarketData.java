@@ -20,7 +20,7 @@ public final class DepthMarketData {
 	public DepthMarketData(LocalDateTime datetime, Instrument instrument, int quoteLevel) {
 		this.datetime = datetime;
 		this.instrument = instrument;
-		quotes = Quotes.newInstance(quoteLevel);
+		quotes = Quotes.newQuotes(quoteLevel);
 	}
 
 	public DepthMarketData(LocalDate date, LocalTime time, Instrument instrument, int quoteLevel) {
