@@ -8,16 +8,18 @@ public final class Quotes {
 	private BidQuote[] bidQuotes;
 
 	private int askLevel;
-	private int askLevelIndex = 0;
 
 	private int bidLevel;
-	private int bidLevelIndex = 0;
 
 	private Quotes(int askLevel, int bidLevel) {
 		this.askLevel = askLevel;
 		this.bidLevel = bidLevel;
 		this.askQuotes = new AskQuote[askLevel];
+		for (int i = 0; i < askQuotes.length; i++)
+			askQuotes[i] = new AskQuote(0, 0);
 		this.bidQuotes = new BidQuote[bidLevel];
+		for (int i = 0; i < bidQuotes.length; i++)
+			bidQuotes[i] = new BidQuote(0, 0);
 	}
 
 	public static Quotes newInstance() {
@@ -40,43 +42,39 @@ public final class Quotes {
 		return bidQuotes;
 	}
 
-	public Quotes addQuote(double price, double volume, QuoteType type) throws QuoteLevelOverflowException {
+	public Quotes addQuote(int level, double price, double volume, QuoteType type) throws QuoteLevelOverflowException {
 		switch (type) {
 		case Bid:
-			return addBidQuote(price, volume);
+			return addBidQuote(level, price, volume);
 		case Ask:
-			return addAskQuote(price, volume);
+			return addAskQuote(level, price, volume);
 		default:
 			throw new NoSuchElementException("QuoteType -> (" + type + ") is");
 		}
 	}
 
-	public Quotes addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
-		if (askLevelIndex == askLevel)
-			throw new QuoteLevelOverflowException(
-					"askLevelIndex == " + askLevelIndex + ", array length is " + askLevel);
-		askQuotes[askLevelIndex] = new AskQuote(price, volume);
-		askLevelIndex++;
+	public Quotes addAskQuote(int levelIndex, double price, double volume) throws QuoteLevelOverflowException {
+		if (levelIndex == askLevel)
+			throw new QuoteLevelOverflowException("askLevelIndex == " + levelIndex + ", array length is " + askLevel);
+		askQuotes[levelIndex].setPrice(price).setVolume(volume);
 		return this;
 	}
 
-	public Quotes addBidQuote(double price, double volume) throws QuoteLevelOverflowException {
-		if (bidLevelIndex == bidLevel)
-			throw new QuoteLevelOverflowException(
-					"bidLevelIndex == " + bidLevelIndex + ", array length is " + bidLevel);
-		bidQuotes[bidLevelIndex] = new BidQuote(price, volume);
-		bidLevelIndex++;
+	public Quotes addBidQuote(int levelindex, double price, double volume) throws QuoteLevelOverflowException {
+		if (levelindex == bidLevel)
+			throw new QuoteLevelOverflowException("bidLevelIndex == " + levelindex + ", array length is " + bidLevel);
+		bidQuotes[levelindex].setPrice(price).setVolume(volume);
 		return this;
 	}
 
-	public static class AskQuote extends Quote {
+	public static class AskQuote extends Quote<AskQuote> {
 
 		private AskQuote(double price, double volume) {
 			super(price, volume);
 		}
 
 		@Override
-		public int compareTo(Quote o) {
+		public int compareTo(AskQuote o) {
 			return getPrice() < o.getPrice() ? -1 : getPrice() > o.getPrice() ? 1 : 0;
 		}
 
@@ -85,16 +83,28 @@ public final class Quotes {
 			return QuoteType.Ask;
 		}
 
+		@Override
+		public AskQuote setPrice(double price) {
+			this.price = price;
+			return null;
+		}
+
+		@Override
+		public AskQuote setVolume(double volume) {
+			this.volume = volume;
+			return null;
+		}
+
 	}
 
-	public static class BidQuote extends Quote {
+	public static class BidQuote extends Quote<BidQuote> {
 
 		private BidQuote(double price, double volume) {
 			super(price, volume);
 		}
 
 		@Override
-		public int compareTo(Quote o) {
+		public int compareTo(BidQuote o) {
 			return getPrice() > o.getPrice() ? -1 : getPrice() < o.getPrice() ? 1 : 0;
 		}
 
@@ -103,16 +113,28 @@ public final class Quotes {
 			return QuoteType.Bid;
 		}
 
+		@Override
+		public BidQuote setPrice(double price) {
+			this.price = price;
+			return this;
+		}
+
+		@Override
+		public BidQuote setVolume(double volume) {
+			this.volume = volume;
+			return this;
+		}
+
 	}
 
 	public static enum QuoteType {
 		Bid, Ask
 	}
 
-	private static abstract class Quote implements Comparable<Quote> {
+	private static abstract class Quote<T extends Quote<T>> implements Comparable<T> {
 
-		private double price;
-		private double volume;
+		protected double price;
+		protected double volume;
 
 		protected Quote(double price, double volume) {
 			this.price = price;
@@ -126,6 +148,10 @@ public final class Quotes {
 		public double getVolume() {
 			return volume;
 		}
+
+		public abstract T setPrice(double price);
+
+		public abstract T setVolume(double volume);
 
 		public abstract QuoteType getType();
 	}

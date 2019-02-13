@@ -66,13 +66,13 @@ public final class DepthMarketData {
 		return quotes;
 	}
 
-	public DepthMarketData addAskQuote(double price, double volume) throws QuoteLevelOverflowException {
-		quotes.addAskQuote(price, volume);
+	public DepthMarketData addAskQuote(int level, double price, double volume) throws QuoteLevelOverflowException {
+		quotes.addAskQuote(level, price, volume);
 		return this;
 	}
 
-	public DepthMarketData addBidQuote(double price, double volume) throws QuoteLevelOverflowException {
-		quotes.addBidQuote(price, volume);
+	public DepthMarketData addBidQuote(int level, double price, double volume) throws QuoteLevelOverflowException {
+		quotes.addBidQuote(level, price, volume);
 		return this;
 	}
 
