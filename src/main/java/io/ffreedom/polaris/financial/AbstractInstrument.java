@@ -1,15 +1,27 @@
 package io.ffreedom.polaris.financial;
 
-public abstract class AbsInstrument implements Instrument {
+public abstract class AbstractInstrument implements Instrument {
 
 	private int instrumentId;
 	private String instrumentCode;
 	private Symbol symbol;
+	private boolean isEnable = false;
 
-	protected AbsInstrument(int instrumentId, String instrumentCode, Symbol symbol) {
+	protected AbstractInstrument(int instrumentId, String instrumentCode, Symbol symbol) {
 		this.instrumentId = instrumentId;
 		this.instrumentCode = instrumentCode;
 		this.symbol = symbol;
+	}
+
+	@Override
+	public boolean enabled() {
+		return isEnable;
+	}
+
+	@Override
+	public void setEnable(boolean enable) {
+		if (enable)
+			this.isEnable = true;
 	}
 
 	@Override

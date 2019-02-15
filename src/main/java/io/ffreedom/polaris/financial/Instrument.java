@@ -1,6 +1,8 @@
 package io.ffreedom.polaris.financial;
 
-public interface Instrument {
+import io.ffreedom.common.fsm.Enable;
+
+public interface Instrument extends Enable{
 
 	/**
 	 * STOCK : country|exchange|symbol<br>

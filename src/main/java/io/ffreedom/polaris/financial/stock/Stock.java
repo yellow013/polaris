@@ -1,9 +1,14 @@
 package io.ffreedom.polaris.financial.stock;
 
-import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.financial.AbstractInstrument;
 import io.ffreedom.polaris.financial.Symbol;
 
-public final class Stock implements Instrument {
+public final class Stock extends AbstractInstrument {
+
+	protected Stock(int instrumentId, String instrumentCode, Symbol symbol) {
+		super(instrumentId, instrumentCode, symbol);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public InstrumentType getInstrumentType() {

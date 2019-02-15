@@ -1,9 +1,9 @@
 package io.ffreedom.polaris.financial.forex;
 
-import io.ffreedom.polaris.financial.AbsInstrument;
+import io.ffreedom.polaris.financial.AbstractInstrument;
 import io.ffreedom.polaris.financial.Symbol;
 
-public abstract class Forex extends AbsInstrument {
+public abstract class Forex extends AbstractInstrument {
 
 	protected ExchangeRate rate;
 
