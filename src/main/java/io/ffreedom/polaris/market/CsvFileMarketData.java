@@ -277,8 +277,8 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 	private void setLocalDateTime() {
 		String[] split = timestamp.split(" ");
 		try {
-			this.localTimestampDate = LocalDate.parse(split[0], DateTimeStyle.YYYYMMDD.newDateTimeFormatter());
-			this.localTimestampTime = LocalTime.parse(split[1], DateTimeStyle.HH_MM_SS_MICROSECOND.newDateTimeFormatter());
+			this.localTimestampDate = LocalDate.parse(split[0], DateTimeStyle.YYYYMMDD.newFormatter());
+			this.localTimestampTime = LocalTime.parse(split[1], DateTimeStyle.HH_MM_SS_MICROSECOND.newFormatter());
 			setLocalTimestamp();
 		} catch (Exception e) {
 			// System.out.println(JSON.toJSONString(this));
@@ -334,7 +334,7 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 				tradingDayLocalDate = tempLocalDate;
 			}
 		}
-		this.tradingDay = tradingDayLocalDate.format(DateTimeStyle.YYYYMMDD.newDateTimeFormatter());
+		this.tradingDay = tradingDayLocalDate.format(DateTimeStyle.YYYYMMDD.newFormatter());
 	}
 
 	private boolean isNightTrading(LocalTime time) {
