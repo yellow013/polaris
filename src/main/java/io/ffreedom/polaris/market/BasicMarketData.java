@@ -9,12 +9,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import io.ffreedom.common.datetime.TimeZones;
+import io.ffreedom.polaris.financial.Instrument;
 
 public class BasicMarketData {
 
 	private ZonedDateTime zonedDateTime;
 	private long epochMillis;
-	private int instrumentId;
+	private Instrument instrument;
 	private double lastPrice;
 	private double volume;
 	private double turnover;
@@ -26,19 +27,27 @@ public class BasicMarketData {
 	private BasicMarketData() {
 	}
 
-	public static final BasicMarketData empty() {
-		return new BasicMarketData();
-	}
-
-	public BasicMarketData(int instrumentId, long epochMillis) {
-		this.instrumentId = instrumentId;
+	private BasicMarketData(Instrument instrument, long epochMillis) {
+		this.instrument = instrument;
 		this.epochMillis = epochMillis;
 	}
 
-	public BasicMarketData(int instrumentId, ZonedDateTime zonedDateTime) {
-		this.instrumentId = instrumentId;
+	private BasicMarketData(Instrument instrument, ZonedDateTime zonedDateTime) {
+		this.instrument = instrument;
 		this.zonedDateTime = zonedDateTime;
 		this.epochMillis = zonedDateTime.toInstant().toEpochMilli();
+	}
+
+	public static final BasicMarketData newEmpty() {
+		return new BasicMarketData();
+	}
+
+	public static final BasicMarketData newOf(Instrument instrument, long epochMillis) {
+		return new BasicMarketData(instrument, epochMillis);
+	}
+
+	public static final BasicMarketData newOf(Instrument instrument, ZonedDateTime zonedDateTime) {
+		return new BasicMarketData(instrument, zonedDateTime);
 	}
 
 	public ZonedDateTime getZonedDateTime() {
@@ -56,13 +65,8 @@ public class BasicMarketData {
 		return this;
 	}
 
-	public int getInstrumentId() {
-		return instrumentId;
-	}
-
-	public BasicMarketData setInstrumentId(int instrumentId) {
-		this.instrumentId = instrumentId;
-		return this;
+	public Instrument getInstrument() {
+		return instrument;
 	}
 
 	public double getLastPrice() {
