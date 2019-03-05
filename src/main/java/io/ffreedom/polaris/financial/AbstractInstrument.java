@@ -5,7 +5,7 @@ public abstract class AbstractInstrument implements Instrument {
 	private int instrumentId;
 	private String instrumentCode;
 	private Symbol symbol;
-	private boolean isEnable = false;
+	private boolean isEnable;
 
 	protected AbstractInstrument(int instrumentId, String instrumentCode, Symbol symbol) {
 		this.instrumentId = instrumentId;
@@ -14,14 +14,23 @@ public abstract class AbstractInstrument implements Instrument {
 	}
 
 	@Override
-	public boolean enabled() {
-		return isEnable;
+	public void disable() {
+		this.isEnable = false;
 	}
 
 	@Override
-	public void setEnable(boolean enable) {
-		if (enable)
-			this.isEnable = true;
+	public void enable() {
+		this.isEnable = true;
+	}
+
+	@Override
+	public boolean isDisabled() {
+		return !isEnable;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return isEnable;
 	}
 
 	@Override

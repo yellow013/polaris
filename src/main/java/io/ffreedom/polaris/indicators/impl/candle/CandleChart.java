@@ -10,7 +10,7 @@ import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
 import org.slf4j.Logger;
 
 import io.ffreedom.common.functional.Callback;
-import io.ffreedom.common.log.LoggerFactory;
+import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.polaris.datetime.TimeTwin;
 import io.ffreedom.polaris.datetime.TradingDayKeeper;
 import io.ffreedom.polaris.datetime.TradingPeriod;
@@ -32,7 +32,7 @@ public class CandleChart implements Indicator<Candle> {
 	private Callback<Candle> startPointCallback;
 	private Callback<Candle> endPointCallback;
 
-	private static Logger logger = LoggerFactory.getLogger(CandleChart.class);
+	private static Logger logger = CommonLoggerFactory.getLogger(CandleChart.class);
 
 	public CandleChart(Instrument instrument, IndicatorPeriod period) {
 		this.instrument = instrument;
