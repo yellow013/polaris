@@ -20,8 +20,14 @@ public final class IndicatorPeriodTimePools {
 	// Map<IndicatorPeriod, Map<Symbol, Set<TimeTwin>>>
 	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimeTwin>>> pools = LongObjectHashMap.newMap();
 
-	public static void register(IndicatorPeriod period, Symbol[] symbols) {
-		INSTANCE.register0(period, symbols);
+	public static void register(Symbol[] symbols, IndicatorPeriod... periods) {
+		if (symbols == null)
+			throw new IllegalArgumentException("Illegal Argument -> symbols is null");
+		if (periods == null)
+			throw new IllegalArgumentException("Illegal Argument -> periods in null");
+		for (IndicatorPeriod period : periods) {
+			INSTANCE.register0(period, symbols);
+		}
 	}
 
 	private void register0(IndicatorPeriod period, Symbol[] symbols) {
