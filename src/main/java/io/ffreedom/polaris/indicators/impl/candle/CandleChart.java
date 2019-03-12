@@ -1,15 +1,12 @@
 package io.ffreedom.polaris.indicators.impl.candle;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
 
 import org.eclipse.collections.api.set.ImmutableSet;
-import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
-import org.eclipse.collections.api.set.sorted.MutableSortedSet;
-import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
 
 import io.ffreedom.polaris.datetime.TimeTwin;
-import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.datetime.tradingday.impl.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
@@ -24,8 +21,6 @@ public class CandleChart extends AbstractIndicator<Candle> {
 	private CandleSet candleSet;
 	private Candle currentCandle;
 
-	private MutableSortedSet<TimeTwin> candleSetPeriods;
-
 	public CandleChart(Instrument instrument, IndicatorPeriod period) {
 		this.instrument = instrument;
 		this.period = period;
@@ -34,17 +29,10 @@ public class CandleChart extends AbstractIndicator<Candle> {
 		initCurrentCandle();
 	}
 
-	// TODO 进行池化处理
 	private void initCandleSet() {
+		// 从已经根据交易日分配好的池中获取此指标的分割节点
 		ImmutableSet<TimeTwin> timeTwinSet = IndicatorPeriodTimePools.getTimeTwinSet(period, instrument.getSymbol());
-
-		ImmutableSortedSet<TradingPeriod> immutableTradingPeriodSet = instrument.getSymbol().getTradingPeriodSet();
-		this.candleSetPeriods = TreeSortedSet.newSet();
-		immutableTradingPeriodSet.each(tradingPeriod -> candleSetPeriods.addAll(tradingPeriod
-				.segmentByDuration(TradingDayKeeper.getInstance(instrument).current(), period.getDuration())));
-		candleSetPeriods.each(timeTwin ->
-		// TODO 添加TradingDay的可变性
-		candleSet.add(Candle.withTimeTwin(timeTwin, instrument, period)));
+		timeTwinSet.each(timeTwin -> candleSet.add(Candle.withTimeTwin(timeTwin, instrument, period)));
 	}
 
 	private void initCurrentCandle() {
@@ -66,10 +54,11 @@ public class CandleChart extends AbstractIndicator<Candle> {
 				currentCandle = nextCandle.get();
 			} else {
 				// 根据当前周期的开始时间和结束时间以及时间周期创建新的点
-				currentCandle.getStartTime().plusSeconds(period.getSeconds());
-				currentCandle.getEndTime().plusSeconds(period.getSeconds());
-				TimeTwin.
-				currentCandle = Candle.withTimeTwin(null, instrument, period);
+				LocalDateTime newStartTime = currentCandle.getStartTime().plusSeconds(period.getSeconds());
+				LocalDateTime newEndTime = currentCandle.getEndTime().plusSeconds(period.getSeconds());
+				currentCandle = Candle.withTimeTwin(
+						TimeTwin.of(TradingDayKeeper.getInstance(instrument), newStartTime, newEndTime), instrument,
+						period);
 			}
 		}
 	}
@@ -81,8 +70,8 @@ public class CandleChart extends AbstractIndicator<Candle> {
 
 	@Override
 	public Candle getPoint(int index) {
-		candleSet.getCandle(index).orElse(Candle.);
-		return null;
+		return candleSet.getCandle(index).orElseThrow(
+				() -> new NullPointerException("getPoint(index) throw NullPointerException index==" + index));
 	}
 
 	@Override

@@ -1,20 +1,20 @@
 package io.ffreedom.polaris.datetime;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.eclipse.collections.api.tuple.Twin;
 import org.eclipse.collections.impl.tuple.Tuples;
 
 import io.ffreedom.common.datetime.TimeZones;
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
 public class TimeTwin implements Comparable<TimeTwin> {
 
-	private LocalDate tradingDay;
+	private TradingDay tradingDay;
 	private long epochTime;
 	private Twin<LocalDateTime> tradingTimeTwin;
 
-	private TimeTwin(LocalDate tradingDay, Twin<LocalDateTime> tradingTimeTwin) {
+	private TimeTwin(TradingDay tradingDay, Twin<LocalDateTime> tradingTimeTwin) {
 		this.tradingDay = tradingDay;
 		this.tradingTimeTwin = tradingTimeTwin;
 		setEpochTime();
@@ -24,7 +24,7 @@ public class TimeTwin implements Comparable<TimeTwin> {
 		this.epochTime = getStartDateTime().toEpochSecond(TimeZones.UTC);
 	}
 
-	public static TimeTwin of(LocalDate tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
+	public static TimeTwin of(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
 		return new TimeTwin(tradingDay, Tuples.twin(startTime, endTime));
 	}
 
@@ -44,20 +44,19 @@ public class TimeTwin implements Comparable<TimeTwin> {
 		return epochTime;
 	}
 
-	public LocalDate getTradingDay() {
+	public TradingDay getTradingDay() {
 		return tradingDay;
 	}
 
 	@Override
 	public int compareTo(TimeTwin o) {
-		return tradingDay.isBefore(o.tradingDay) ? -1
-				: tradingDay.isAfter(o.tradingDay) ? 1 
-						: epochTime < o.epochTime ? -1 
-								: epochTime > o.epochTime ? 1 : 0;
+		int compare = tradingDay.compareTo(o.tradingDay);
+		if (compare == 0)
+			return epochTime < o.epochTime ? -1 : epochTime > o.epochTime ? 1 : 0;
+		return compare;
 	}
 
 	public static void main(String[] args) {
-
 
 	}
 

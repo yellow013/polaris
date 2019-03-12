@@ -1,10 +1,10 @@
 package io.ffreedom.polaris.indicators.impl.candle;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.polaris.datetime.TimeTwin;
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
@@ -12,8 +12,7 @@ import io.ffreedom.polaris.market.BasicMarketData;
 
 public final class Candle extends TimeSeriesPoint<Candle> {
 
-	private LocalDate tradingDay;
-	private long serialNumber;
+	private TradingDay tradingDay;
 
 	private Instrument instrument;
 	private IndicatorPeriod period;
@@ -24,18 +23,16 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	private double volumeSum = 0.0D;
 	private double turnoverSum = 0.0D;
 
-	private Candle(LocalDate tradingDay, long serialNumber, LocalDateTime startTime, LocalDateTime endTime,
-			Instrument instrument, IndicatorPeriod period) {
+	private Candle(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime, Instrument instrument,
+			IndicatorPeriod period) {
 		super(startTime, endTime);
 		this.tradingDay = tradingDay;
-		this.serialNumber = serialNumber;
 		this.instrument = instrument;
 		this.period = period;
 	}
 
 	private Candle(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
-		this(timeTwin.getTradingDay(), timeTwin.getSerialNumber(), timeTwin.getStartDateTime(),
-				timeTwin.getEndDateTime(), instrument, period);
+		this(timeTwin.getTradingDay(), timeTwin.getStartDateTime(), timeTwin.getEndDateTime(), instrument, period);
 	}
 
 	public static Candle withTimeTwin(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
@@ -75,12 +72,8 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 		this.turnoverSum = DoubleUtil.correction8(turnoverSum + turnover);
 	}
 
-	public LocalDate getTradingDay() {
+	public TradingDay getTradingDay() {
 		return tradingDay;
-	}
-
-	public long getSerialNumber() {
-		return serialNumber;
 	}
 
 	public IndicatorPeriod getPeriod() {
