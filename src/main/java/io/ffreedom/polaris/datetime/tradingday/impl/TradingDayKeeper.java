@@ -8,14 +8,14 @@ import io.ffreedom.polaris.financial.futures.ChinaFuturesSymbol;
 
 public final class TradingDayKeeper {
 
-	public static TradingDay getInstance(Instrument instrument) {
+	public static TradingDay get(Instrument instrument) {
 		if (instrument instanceof ChinaFutures)
 			return ChinaFuturesTradingDay.INSTANCE;
 		else
 			return TradingDayImpl.INSTANCE;
 	}
 
-	public static TradingDay getInstance(Symbol symbol) {
+	public static TradingDay get(Symbol symbol) {
 		if (symbol instanceof ChinaFuturesSymbol)
 			return ChinaFuturesTradingDay.INSTANCE;
 		else

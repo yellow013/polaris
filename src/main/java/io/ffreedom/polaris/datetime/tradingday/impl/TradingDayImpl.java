@@ -1,7 +1,6 @@
 package io.ffreedom.polaris.datetime.tradingday.impl;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.concurrent.ThreadSafe;
@@ -25,8 +24,8 @@ public class TradingDayImpl implements TradingDay {
 	}
 
 	@Override
-	public TradingDay set(LocalDateTime datetime) {
-		current.set(datetime.toLocalDate());
+	public TradingDay set(LocalDate date) {
+		current.set(date);
 		return this;
 	}
 

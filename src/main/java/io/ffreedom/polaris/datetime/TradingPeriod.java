@@ -4,13 +4,14 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.list.mutable.FastList;
 
 import io.ffreedom.common.datetime.DateTimeUtil;
 import io.ffreedom.common.datetime.TimeConstants;
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
+import io.ffreedom.polaris.datetime.tradingday.impl.ChinaFuturesTradingDay;
 
 public final class TradingPeriod implements Comparable<TradingPeriod> {
 
@@ -66,7 +67,6 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		return this.serialNumber < o.serialNumber ? -1 : this.serialNumber > o.serialNumber ? 1 : 0;
 	}
 
-	// TODO 增加1到3秒的时间偏移量
 	public boolean isPeriod(LocalTime time) {
 		int secondOfDay = time.toSecondOfDay();
 		if (!isCrossDay)
@@ -75,7 +75,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			return (startSecondOfDay <= secondOfDay || endSecondOfDay >= secondOfDay) ? true : false;
 	}
 
-	public MutableList<TimeTwin> segmentByDuration(LocalDate tradingDay, Duration segmentationDuration) {
+	public MutableList<TimeTwin> segmentByDuration(TradingDay tradingDay, Duration segmentationDuration) {
 		// 获取分割参数的秒数
 		int seconds = (int) segmentationDuration.getSeconds();
 		// 判断分割段是否大于半天
@@ -121,7 +121,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 		System.out.println(tradingPeriod.isPeriod(LocalTime.of(14, 00, 00)));
 
-		tradingPeriod.segmentByDuration(LocalDate.of(2018, Month.JUNE, 20), Duration.ofMinutes(45))
+		tradingPeriod.segmentByDuration(ChinaFuturesTradingDay.INSTANCE.set(LocalDate.now()), Duration.ofMinutes(45))
 				.each(timeTwin -> System.out.println(timeTwin.getStartDateTime() + " - " + timeTwin.getEndDateTime()));
 
 		LocalDateTime of = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 55, 30));
