@@ -7,20 +7,17 @@ import org.eclipse.collections.api.set.ImmutableSet;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import org.eclipse.collections.impl.set.sorted.mutable.TreeSortedSet;
-import org.slf4j.Logger;
 
-import io.ffreedom.common.functional.Callback;
-import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.polaris.datetime.TimeTwin;
-import io.ffreedom.polaris.datetime.TradingDayKeeper;
 import io.ffreedom.polaris.datetime.TradingPeriod;
+import io.ffreedom.polaris.datetime.tradingday.impl.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
 import io.ffreedom.polaris.indicators.pools.IndicatorPeriodTimePools;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class CandleChart implements Indicator<Candle> {
+public class CandleChart extends AbstractIndicator<Candle> {
 
 	private Instrument instrument;
 	private IndicatorPeriod period;
@@ -29,15 +26,10 @@ public class CandleChart implements Indicator<Candle> {
 
 	private MutableSortedSet<TimeTwin> candleSetPeriods;
 
-	private Callback<Candle> startPointCallback;
-	private Callback<Candle> endPointCallback;
-
-	private static Logger logger = CommonLoggerFactory.getLogger(CandleChart.class);
-
 	public CandleChart(Instrument instrument, IndicatorPeriod period) {
 		this.instrument = instrument;
 		this.period = period;
-		this.candleSet = CandleSet.emptyCandleSet();
+		this.candleSet = CandleSet.newEmptyCandleSet();
 		initCandleSet();
 		initCurrentCandle();
 	}
@@ -73,7 +65,10 @@ public class CandleChart implements Indicator<Candle> {
 			if (nextCandle.isPresent()) {
 				currentCandle = nextCandle.get();
 			} else {
-				// TODO 添加candleSet扩容
+				// 根据当前周期的开始时间和结束时间以及时间周期创建新的点
+				currentCandle.getStartTime().plusSeconds(period.getSeconds());
+				currentCandle.getEndTime().plusSeconds(period.getSeconds());
+				TimeTwin.
 				currentCandle = Candle.withTimeTwin(null, instrument, period);
 			}
 		}
@@ -86,7 +81,7 @@ public class CandleChart implements Indicator<Candle> {
 
 	@Override
 	public Candle getPoint(int index) {
-		candleSet.getCandle(index);
+		candleSet.getCandle(index).orElse(Candle.);
 		return null;
 	}
 
@@ -103,32 +98,6 @@ public class CandleChart implements Indicator<Candle> {
 	@Override
 	public Candle getLastPoint() {
 		return candleSet.lastCandle();
-	}
-
-	@Override
-	public void endPoint(Candle p) {
-		if (endPointCallback != null)
-			endPointCallback.accept(p);
-		else
-			logger.error("this.endPointCallback is null.");
-	}
-
-	@Override
-	public void registerEndPointEvent(Callback<Candle> callback) {
-		this.endPointCallback = callback;
-	}
-
-	@Override
-	public void startPoint(Candle p) {
-		if (startPointCallback != null)
-			startPointCallback.accept(p);
-		else
-			logger.info("this.startPointCallback is null.");
-	}
-
-	@Override
-	public void registerStartPointEvent(Callback<Candle> callback) {
-		this.startPointCallback = callback;
 	}
 
 }

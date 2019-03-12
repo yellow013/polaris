@@ -16,11 +16,11 @@ public class CandleSet {
 		this.candles = ECollections.newFastList(size);
 	}
 
-	public static CandleSet emptyCandleSet() {
+	public static CandleSet newEmptyCandleSet() {
 		return new CandleSet(512);
 	}
 
-	public static CandleSet emptyCandleSet(int size) {
+	public static CandleSet newEmptyCandleSet(int size) {
 		return new CandleSet(size);
 	}
 
@@ -63,8 +63,7 @@ public class CandleSet {
 	}
 
 	public static void main(String[] args) {
-		
-		
+
 	}
 
 }
