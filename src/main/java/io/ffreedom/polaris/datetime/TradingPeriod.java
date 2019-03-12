@@ -10,8 +10,9 @@ import org.eclipse.collections.impl.list.mutable.FastList;
 
 import io.ffreedom.common.datetime.DateTimeUtil;
 import io.ffreedom.common.datetime.TimeConstants;
+import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
-import io.ffreedom.polaris.datetime.tradingday.impl.ChinaFuturesTradingDay;
+import io.ffreedom.polaris.financial.futures.ChinaFuturesSymbol;
 
 public final class TradingPeriod implements Comparable<TradingPeriod> {
 
@@ -121,7 +122,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 		System.out.println(tradingPeriod.isPeriod(LocalTime.of(14, 00, 00)));
 
-		tradingPeriod.segmentByDuration(ChinaFuturesTradingDay.INSTANCE.set(LocalDate.now()), Duration.ofMinutes(45))
+		tradingPeriod
+				.segmentByDuration(TradingDayKeeper.get(ChinaFuturesSymbol.RB).set(LocalDate.now()),
+						Duration.ofMinutes(45))
 				.each(timeTwin -> System.out.println(timeTwin.getStartDateTime() + " - " + timeTwin.getEndDateTime()));
 
 		LocalDateTime of = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 55, 30));

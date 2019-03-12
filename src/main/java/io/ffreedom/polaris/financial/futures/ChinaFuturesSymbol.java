@@ -11,7 +11,7 @@ import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.datetime.TradingPeriod;
-import io.ffreedom.polaris.datetime.tradingday.impl.TradingDayKeeper;
+import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Exchange;
 import io.ffreedom.polaris.financial.Symbol;
 

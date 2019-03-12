@@ -8,14 +8,13 @@ import javax.annotation.concurrent.ThreadSafe;
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
 @ThreadSafe
-public class TradingDayImpl implements TradingDay {
+public class CommonTradingDayImpl implements TradingDay {
 
 	private AtomicReference<LocalDate> current = new AtomicReference<>(LocalDate.now());
 
-	public final static TradingDay INSTANCE = new TradingDayImpl();
+	public final static TradingDay INSTANCE = new CommonTradingDayImpl();
 
-	private TradingDayImpl() {
-		// TODO Auto-generated constructor stub
+	private CommonTradingDayImpl() {
 	}
 
 	@Override

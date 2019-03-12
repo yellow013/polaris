@@ -7,7 +7,7 @@ import org.eclipse.collections.api.set.MutableSet;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.datetime.TimeTwin;
-import io.ffreedom.polaris.datetime.tradingday.impl.TradingDayKeeper;
+import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 

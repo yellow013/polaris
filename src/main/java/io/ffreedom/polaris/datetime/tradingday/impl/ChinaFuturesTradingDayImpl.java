@@ -1,6 +1,5 @@
 package io.ffreedom.polaris.datetime.tradingday.impl;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -18,21 +17,21 @@ import io.ffreedom.polaris.financial.futures.ChinaFuturesUtil;
  *
  */
 @ThreadSafe
-public final class ChinaFuturesTradingDay implements TradingDay {
+public final class ChinaFuturesTradingDayImpl implements TradingDay {
+
+	public final static TradingDay INSTANCE = new ChinaFuturesTradingDayImpl();
+
+	private AtomicReference<LocalDate> current = new AtomicReference<>(
+			ChinaFuturesUtil.analysisTradingDay(LocalDateTime.now()));
+
+	private ChinaFuturesTradingDayImpl() {
+
+	}
 
 	@Override
 	public LocalDate current() {
 		return current.get();
 	}
-
-	private ChinaFuturesTradingDay() {
-
-	}
-
-	private AtomicReference<LocalDate> current = new AtomicReference<>(
-			ChinaFuturesUtil.analysisTradingDay(LocalDateTime.now()));
-
-	public final static TradingDay INSTANCE = new ChinaFuturesTradingDay();
 
 	@Override
 	public TradingDay set(LocalDate date) {
@@ -42,7 +41,7 @@ public final class ChinaFuturesTradingDay implements TradingDay {
 
 	public static void main(String[] args) {
 
-		TradingDay tradingDay = ChinaFuturesTradingDay.INSTANCE;
+		TradingDay tradingDay = ChinaFuturesTradingDayImpl.INSTANCE;
 		tradingDay.set(ChinaFuturesUtil
 				.analysisTradingDay(LocalDateTime.of(LocalDate.of(2019, 3, 15), LocalTime.of(15, 20, 40))));
 

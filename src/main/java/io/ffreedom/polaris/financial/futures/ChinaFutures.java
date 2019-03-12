@@ -11,11 +11,6 @@ public final class ChinaFutures extends Futures {
 	}
 
 	@Override
-	public boolean isTZero() {
-		return false;
-	}
-
-	@Override
 	public PriorityCloseType getPriorityCloseType() {
 		return priorityCloseType;
 	}
