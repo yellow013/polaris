@@ -38,15 +38,15 @@ public class BasicMarketData {
 		this.epochMillis = zonedDateTime.toInstant().toEpochMilli();
 	}
 
-	public static final BasicMarketData newEmpty() {
+	public static final BasicMarketData empty() {
 		return new BasicMarketData();
 	}
 
-	public static final BasicMarketData newOf(Instrument instrument, long epochMillis) {
+	public static final BasicMarketData of(Instrument instrument, long epochMillis) {
 		return new BasicMarketData(instrument, epochMillis);
 	}
 
-	public static final BasicMarketData newOf(Instrument instrument, ZonedDateTime zonedDateTime) {
+	public static final BasicMarketData of(Instrument instrument, ZonedDateTime zonedDateTime) {
 		return new BasicMarketData(instrument, zonedDateTime);
 	}
 

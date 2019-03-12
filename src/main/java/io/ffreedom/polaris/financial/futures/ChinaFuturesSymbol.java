@@ -11,6 +11,7 @@ import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.datetime.TradingPeriod;
+import io.ffreedom.polaris.datetime.tradingday.impl.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Exchange;
 import io.ffreedom.polaris.financial.Symbol;
 
@@ -233,7 +234,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	public static void main(String[] args) {
 		for (Symbol symbol : ChinaFuturesSymbol.values()) {
 			symbol.getTradingPeriodSet().each(tradingPeriod -> tradingPeriod
-					.segmentByDuration(ChinaFuturesUtil.NOW_TRADING_DAY, Duration.ofMinutes(5))
+					.segmentByDuration(TradingDayKeeper.get(symbol), Duration.ofMinutes(5))
 					.each(timeTwins -> System.out.println(symbol.getSymbolCode() + " | " + timeTwins.getEpochTime()
 							+ " -> " + timeTwins.getStartDateTime() + " - " + timeTwins.getEndDateTime())));
 		}

@@ -47,7 +47,6 @@ public class CandleChart extends AbstractIndicator<Candle> {
 		if (isCurrentCandlePeriod(marketData)) {
 			currentCandle.onMarketData(marketData);
 		} else {
-
 			endPoint(currentCandle);
 			Optional<Candle> nextCandle = candleSet.getNextCandle(currentCandle);
 			if (nextCandle.isPresent()) {
@@ -57,7 +56,7 @@ public class CandleChart extends AbstractIndicator<Candle> {
 				LocalDateTime newStartTime = currentCandle.getStartTime().plusSeconds(period.getSeconds());
 				LocalDateTime newEndTime = currentCandle.getEndTime().plusSeconds(period.getSeconds());
 				currentCandle = Candle.withTimeTwin(
-						TimeTwin.of(TradingDayKeeper.getInstance(instrument), newStartTime, newEndTime), instrument,
+						TimeTwin.of(TradingDayKeeper.get(instrument), newStartTime, newEndTime), instrument,
 						period);
 			}
 		}

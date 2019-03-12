@@ -4,9 +4,6 @@ import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 import org.eclipse.collections.api.set.ImmutableSet;
 import org.eclipse.collections.api.set.MutableSet;
-import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
-import org.eclipse.collections.impl.map.mutable.primitive.LongObjectHashMap;
-import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.datetime.TimeTwin;
@@ -19,7 +16,8 @@ public final class IndicatorPeriodTimePools {
 	private static final IndicatorPeriodTimePools INSTANCE = new IndicatorPeriodTimePools();
 
 	// Map<IndicatorPeriod, Map<Symbol, Set<TimeTwin>>>
-	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimeTwin>>> pools = LongObjectHashMap.newMap();
+	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimeTwin>>> pools = ECollections
+			.newLongObjectHashMap();
 
 	public static void register(Symbol[] symbols, IndicatorPeriod... periods) {
 		if (symbols == null)
@@ -73,13 +71,14 @@ public final class IndicatorPeriodTimePools {
 	 */
 	private ImmutableSet<TimeTwin> findOrCreate(MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap,
 			IndicatorPeriod period, Symbol symbol) {
-		ImmutableSet<TimeTwin> timeTwinSet = symbolMap.get(symbol.getSymbolId());
-		if (timeTwinSet != null)
-			return timeTwinSet;
-		MutableSet<TimeTwin> mutableTimeTwinSet = UnifiedSet.newSet();
-		symbol.getTradingPeriodSet().forEach(tradingPeriod -> mutableTimeTwinSet.addAll(
-				tradingPeriod.segmentByDuration(TradingDayKeeper.getInstance(symbol).current(), period.getDuration())));
-		return symbolMap.put(symbol.getSymbolId(), mutableTimeTwinSet.toImmutable());
+		ImmutableSet<TimeTwin> immutableTimeTwinSet = symbolMap.get(symbol.getSymbolId());
+		if (immutableTimeTwinSet != null)
+			return immutableTimeTwinSet;
+		MutableSet<TimeTwin> timeTwinSet = ECollections.newUnifiedSet();
+		// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
+		symbol.getTradingPeriodSet().forEach(tradingPeriod -> timeTwinSet
+				.addAll(tradingPeriod.segmentByDuration(TradingDayKeeper.get(symbol), period.getDuration())));
+		return symbolMap.put(symbol.getSymbolId(), timeTwinSet.toImmutable());
 	}
 
 }
