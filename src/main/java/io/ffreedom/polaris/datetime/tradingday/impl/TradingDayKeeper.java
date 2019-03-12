@@ -1,10 +1,10 @@
-package io.ffreedom.polaris.datetime;
+package io.ffreedom.polaris.datetime.tradingday.impl;
 
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.financial.futures.ChinaFutures;
 import io.ffreedom.polaris.financial.futures.ChinaFuturesSymbol;
-import io.ffreedom.polaris.financial.futures.ChinaFuturesTradingDay;
 
 public final class TradingDayKeeper {
 

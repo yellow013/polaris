@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.financial.futures;
+package io.ffreedom.polaris.datetime.tradingday.impl;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -8,8 +8,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.concurrent.ThreadSafe;
 
-import io.ffreedom.polaris.datetime.TradingDay;
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
+/**
+ * 在收盘后至15点05分之前启动获得的TradinDay将存在误差
+ * 
+ * @author yellow013
+ *
+ */
 @ThreadSafe
 public final class ChinaFuturesTradingDay implements TradingDay {
 
@@ -18,13 +24,17 @@ public final class ChinaFuturesTradingDay implements TradingDay {
 		return current.get();
 	}
 
-	private static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(17, 00);
+	private ChinaFuturesTradingDay() {
+
+	}
+
+	private static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(15, 10);
 
 	private AtomicReference<LocalDate> current = new AtomicReference<>(analysisTradingDay(LocalDateTime.now()));
 
 	public final static TradingDay INSTANCE = new ChinaFuturesTradingDay();
 
-	public static LocalDate analysisTradingDay(LocalDateTime dateTime) {
+	public LocalDate analysisTradingDay(LocalDateTime dateTime) {
 		DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
 		// 判断是否是夜盘
 		if (isNightTrading(dateTime.toLocalTime())) {
@@ -47,6 +57,21 @@ public final class ChinaFuturesTradingDay implements TradingDay {
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public TradingDay set(LocalDateTime datetime) {
+		current.set(analysisTradingDay(datetime));
+		return this;
+	}
+	
+	public static void main(String[] args) {
+		
+		TradingDay tradingDay = ChinaFuturesTradingDay.INSTANCE;
+		tradingDay.set(LocalDateTime.of(LocalDate.of(2019, 3, 15), LocalTime.of(15, 20, 40)));
+		
+		System.out.println(tradingDay.current());
+		
 	}
 
 }

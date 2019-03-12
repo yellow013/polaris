@@ -11,22 +11,21 @@ import io.ffreedom.common.datetime.TimeZones;
 public class TimeTwin implements Comparable<TimeTwin> {
 
 	private LocalDate tradingDay;
-	private long serialNumber;
-
+	private long epochTime;
 	private Twin<LocalDateTime> tradingTimeTwin;
 
-	private TimeTwin(LocalDate tradingDay, int serialNumber, Twin<LocalDateTime> tradingTimeTwin) {
+	private TimeTwin(LocalDate tradingDay, Twin<LocalDateTime> tradingTimeTwin) {
 		this.tradingDay = tradingDay;
 		this.tradingTimeTwin = tradingTimeTwin;
-		setSerialNumber(serialNumber);
+		setEpochTime();
 	}
 
-	private void setSerialNumber(int serialNumber) {
-		this.serialNumber = serialNumber * 10000000000L + getStartDateTime().toEpochSecond(TimeZones.UTC);
+	private void setEpochTime() {
+		this.epochTime = getStartDateTime().toEpochSecond(TimeZones.UTC);
 	}
 
-	public static TimeTwin of(LocalDate tradingDay, int serialNumber, LocalDateTime startTime, LocalDateTime endTime) {
-		return new TimeTwin(tradingDay, serialNumber, Tuples.twin(startTime, endTime));
+	public static TimeTwin of(LocalDate tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
+		return new TimeTwin(tradingDay, Tuples.twin(startTime, endTime));
 	}
 
 	public Twin<LocalDateTime> getTradingTimeTwin() {
@@ -41,8 +40,8 @@ public class TimeTwin implements Comparable<TimeTwin> {
 		return tradingTimeTwin.getTwo();
 	}
 
-	public long getSerialNumber() {
-		return serialNumber;
+	public long getEpochTime() {
+		return epochTime;
 	}
 
 	public LocalDate getTradingDay() {
@@ -52,14 +51,13 @@ public class TimeTwin implements Comparable<TimeTwin> {
 	@Override
 	public int compareTo(TimeTwin o) {
 		return tradingDay.isBefore(o.tradingDay) ? -1
-				: tradingDay.isAfter(o.tradingDay) ? 1
-						: serialNumber < o.serialNumber ? -1 : serialNumber > o.serialNumber ? 1 : 0;
+				: tradingDay.isAfter(o.tradingDay) ? 1 
+						: epochTime < o.epochTime ? -1 
+								: epochTime > o.epochTime ? 1 : 0;
 	}
 
 	public static void main(String[] args) {
 
-		System.out.println(2 * 10000000000L + LocalDateTime.now().toEpochSecond(TimeZones.UTC));
-		System.out.println(LocalDateTime.now().toEpochSecond(TimeZones.UTC));
 
 	}
 

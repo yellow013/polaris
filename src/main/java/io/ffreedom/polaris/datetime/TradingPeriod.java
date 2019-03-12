@@ -45,10 +45,6 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		}
 	}
 
-	public int getSerialNumber() {
-		return serialNumber;
-	}
-
 	public LocalTime getStartTime() {
 		return startTime;
 	}
@@ -87,9 +83,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			// 如果交易周期跨天,则此分割周期等于当天开始时间至次日结束时间
 			// 如果交易周期未跨天,则此分割周期等于当天开始时间至当天结束时间
 			return FastList.newListWith(isCrossDay
-					? TimeTwin.of(tradingDay, serialNumber, LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
+					? TimeTwin.of(tradingDay, LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
 							LocalDateTime.of(DateTimeUtil.getTomorrowDate(), endTime))
-					: TimeTwin.of(tradingDay, serialNumber, LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
+					: TimeTwin.of(tradingDay, LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
 							LocalDateTime.of(DateTimeUtil.getCurrentDate(), endTime)));
 		} else {
 			// 获取此交易时间段的总时长
@@ -108,9 +104,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 				LocalDateTime nextStartPoint = startPoint.plusSeconds(seconds);
 				if (nextStartPoint.isBefore(lastEndPoint)) {
 					LocalDateTime endPoint = nextStartPoint.minusNanos(1);
-					list.add(TimeTwin.of(tradingDay, serialNumber, startPoint, endPoint));
+					list.add(TimeTwin.of(tradingDay, startPoint, endPoint));
 				} else {
-					list.add(TimeTwin.of(tradingDay, serialNumber, startPoint, lastEndPoint));
+					list.add(TimeTwin.of(tradingDay, startPoint, lastEndPoint));
 					break;
 				}
 				startPoint = nextStartPoint;
