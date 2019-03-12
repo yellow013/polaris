@@ -6,7 +6,7 @@ public final class ChinaFutures extends Futures {
 
 	public ChinaFutures(int term, String instrumentCode, ChinaFuturesSymbol symbol,
 			PriorityCloseType priorityCloseType) {
-		super(symbol.generateInstrumentId(term), instrumentCode, symbol);
+		super(symbol.genInstrumentId(term), instrumentCode, symbol);
 		this.priorityCloseType = priorityCloseType;
 	}
 

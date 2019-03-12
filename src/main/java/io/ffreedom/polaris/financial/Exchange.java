@@ -1,33 +1,39 @@
 package io.ffreedom.polaris.financial;
 
+import java.time.ZoneId;
+
+import io.ffreedom.common.datetime.TimeZones;
+
 public enum Exchange {
 
 	// Shanghai Futures Exchange
-	SHFE(41, Country.CHINA),
+	SHFE(41, TimeZones.CST),
 
 	// Zhengzhou Commodity Exchange
-	ZCE(42, Country.CHINA),
+	ZCE(42, TimeZones.CST),
 
 	// Dalian Commodity Exchange
-	DCE(43, Country.CHINA),
+	DCE(43, TimeZones.CST),
 
 	// China Financial Futures Exchange
-	CFFE(44, Country.CHINA),
+	CFFE(44, TimeZones.CST),
 
 	// Shanghai International Energy Exchange
-	SIEE(45, Country.CHINA),
+	SIEE(45, TimeZones.CST),
 
 	// Tokyo Commodity Exchange
-	TOCOM(11, Country.JAPAN),
+	TOCOM(11, TimeZones.JST),
 
 	;
 
 	private int exchangeId;
-	private Country country;
 
-	private Exchange(int exchangeId, Country country) {
-		this.exchangeId = country.getCountryId() + exchangeId * 1000000;
-		this.country = country;
+	private ZoneId zoneId;
+
+	private Exchange(int exchangeId, ZoneId zoneId) {
+		this.exchangeId = exchangeId * 10000000;
+		this.zoneId = zoneId;
+
 	}
 
 	public String getExchangeCode() {
@@ -38,8 +44,8 @@ public enum Exchange {
 		return exchangeId;
 	}
 
-	public Country getCountry() {
-		return country;
+	public ZoneId getZoneId() {
+		return zoneId;
 	}
 
 }
