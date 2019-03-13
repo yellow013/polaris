@@ -128,9 +128,8 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 				.each(timeTwin -> System.out.println(timeTwin.getStartDateTime() + " - " + timeTwin.getEndDateTime()));
 
 		LocalDateTime of = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 55, 30));
-
+		
 		System.out.println(of);
-
 		System.out.println(of.plusMinutes(30));
 
 	}

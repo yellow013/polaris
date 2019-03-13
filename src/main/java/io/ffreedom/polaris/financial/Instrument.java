@@ -2,14 +2,14 @@ package io.ffreedom.polaris.financial;
 
 import io.ffreedom.common.fsm.Enable;
 
-public interface Instrument extends Enable{
+public interface Instrument extends Enable {
 
 	/**
-	 * STOCK : country|exchange|symbol<br>
-	 * MAX_VALUE == 21 |47 |483647<br>
+	 * STOCK : exchange|symbol<br>
+	 * MAX_VALUE == 214|7483647<br>
 	 * 
-	 * FUTURES :country|exchange|symbol|term<br>
-	 * MAX_VALUE == 21 |47 |48 |3647<br>
+	 * FUTURES:exchange|symbol|term<br>
+	 * MAX_VALUE == 214| 74 |83647<br>
 	 * 
 	 * @return int
 	 */
