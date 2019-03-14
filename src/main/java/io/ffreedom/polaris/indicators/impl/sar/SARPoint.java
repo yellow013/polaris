@@ -2,6 +2,7 @@ package io.ffreedom.polaris.indicators.impl.sar;
 
 import java.time.LocalDateTime;
 
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
@@ -9,8 +10,8 @@ public class SARPoint extends TimeSeriesPoint<SARPoint> {
 
 	private double pointValue;
 
-	public SARPoint(LocalDateTime startTime, LocalDateTime endTime) {
-		super(startTime, endTime);
+	public SARPoint(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
+		super(tradingDay, startTime, endTime);
 	}
 
 	@Override

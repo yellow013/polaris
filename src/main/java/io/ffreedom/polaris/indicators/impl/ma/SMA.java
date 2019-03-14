@@ -13,21 +13,20 @@ public class SMA extends MA {
 	public SMA(int period) {
 		super(period);
 	}
-	
 
 	public static void main(String[] args) {
 		try {
-			MAPoint point1 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point1 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point2 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point2 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point3 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point3 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point4 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point4 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point5 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point5 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point6 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point6 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
 			// FastList<MAPoint> fastList = FastList.newListWith(point3, point2, point1,
 			// point5, point4, point6);

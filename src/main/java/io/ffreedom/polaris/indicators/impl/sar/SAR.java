@@ -1,5 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.sar;
 
+import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
 import io.ffreedom.polaris.market.BasicMarketData;
 
@@ -11,8 +12,9 @@ public class SAR extends AbstractIndicator<SARPoint> {
 	}
 
 	@Override
-	protected void initPoints() {
+	protected PointSet<SARPoint> initPoints() {
 		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

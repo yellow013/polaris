@@ -9,7 +9,7 @@ public final class Bar {
 
 	private TimePoint startTimePoint;
 	private TimePoint endTimePoint;
-	private double[] priceRecord;
+	
 	private double startPrice = 0.0D;
 	private double endPrice = 0.0D;
 	private double highest = Double.MIN_VALUE;

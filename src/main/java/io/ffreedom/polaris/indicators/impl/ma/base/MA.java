@@ -1,5 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.ma.base;
 
+import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
 
 public abstract class MA extends AbstractIndicator<MAPoint> {
@@ -13,14 +14,14 @@ public abstract class MA extends AbstractIndicator<MAPoint> {
 	}
 
 	@Override
-	protected void initPoints() {
-		// TODO Auto-generated method stub
-
+	protected PointSet<MAPoint> initPoints() {
+		PointSet<MAPoint> mas = PointSet.emptyPointSet(256);
+		return mas;
 	}
 
 	@Override
 	protected MAPoint initCurrentPoint() {
-		return MAPoint.with(null, null);
+		return MAPoint.with(null, null, null);
 	}
 
 }
