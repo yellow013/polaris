@@ -1,7 +1,5 @@
 package io.ffreedom.polaris.indicators.api;
 
-import org.eclipse.collections.api.list.MutableList;
-
 import io.ffreedom.common.functional.Callback;
 import io.ffreedom.polaris.market.BasicMarketData;
 
@@ -21,10 +19,10 @@ public interface Indicator<P extends Point<?, ?>> {
 
 	P getPoint(int index);
 
-	P getFastPoint();
+	P fastPoint();
 
-	P getLastPoint();
+	P currentPoint();
 
-	MutableList<P> getPoints();
+	PointSet<P> getPointSet();
 
 }

@@ -2,8 +2,6 @@ package io.ffreedom.polaris.indicators.impl.ma.base;
 
 import java.time.LocalDateTime;
 
-import org.apache.commons.math3.stat.descriptive.moment.Mean;
-
 import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 

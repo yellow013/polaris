@@ -7,15 +7,18 @@ public class SAR extends AbstractIndicator<SARPoint> {
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
-		
+
 	}
 
 	@Override
-	protected SARPoint initLastPoint() {
+	protected void initPoints() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected SARPoint initCurrentPoint() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

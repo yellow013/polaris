@@ -8,6 +8,7 @@ import io.ffreedom.common.functional.Callback;
 import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.Point;
+import io.ffreedom.polaris.indicators.api.PointSet;
 
 public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indicator<P> {
 
@@ -16,15 +17,24 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 
 	private Logger logger = CommonLoggerFactory.getLogger(getClass());
 
-	protected MutableList<P> points;
-	protected P lastPoint;
+	protected PointSet<P> points;
+
+	// protected MutableList<P> points;
+	protected P currentPoint;
 
 	public AbstractIndicator() {
-		this.points = ECollections.newFastList();
-		this.lastPoint = initLastPoint();
+		this(512);
 	}
 
-	protected abstract P initLastPoint();
+	public AbstractIndicator(int size) {
+		this.points = PointSet.emptyPointSet(size);
+		initPoints();
+		this.currentPoint = initCurrentPoint();
+	}
+
+	protected abstract void initPoints();
+
+	protected abstract P initCurrentPoint();
 
 	@Override
 	public void addStartPointEvent(Callback<P> callback) {
@@ -55,15 +65,15 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 	}
 
 	@Override
-	public P getFastPoint() {
+	public P fastPoint() {
 		if (points.size() == 0)
-			return lastPoint;
-		return points.get(0);
+			return currentPoint;
+		return points.first();
 	}
 
 	@Override
-	public P getLastPoint() {
-		return lastPoint;
+	public P currentPoint() {
+		return currentPoint;
 	}
 
 	@Override
@@ -73,15 +83,15 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 
 	@Override
 	public P getPoint(int index) {
-		if (points.size() == 0 || index >= points.size())
-			return lastPoint;
-		if (index < 0)
-			return points.get(0);
-		return points.get(index);
+		if (index < 0 || points.size() == 0)
+			return currentPoint;
+		if (index >= points.size())
+			index = points.size() - 1;
+		return points.get(index).orElse(currentPoint);
 	}
 
 	@Override
-	public MutableList<P> getPoints() {
+	public PointSet<P> getPointSet() {
 		return points;
 	}
 
