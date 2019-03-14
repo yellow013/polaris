@@ -1,6 +1,6 @@
 package io.ffreedom.polaris.indicators.api;
 
-import java.util.Collection;
+import org.eclipse.collections.api.list.MutableList;
 
 import io.ffreedom.common.functional.Callback;
 import io.ffreedom.polaris.market.BasicMarketData;
@@ -9,13 +9,13 @@ public interface Indicator<P extends Point<?, ?>> {
 
 	void onMarketData(BasicMarketData marketData);
 
-	void endPoint(P p);
+	void addStartPointEvent(Callback<P> callback);
 
-	void registerEndPointEvent(Callback<P> callback);
+	void addEndPointEvent(Callback<P> callback);
 
 	void startPoint(P p);
 
-	void registerStartPointEvent(Callback<P> callback);
+	void endPoint(P p);
 
 	int size();
 
@@ -25,6 +25,6 @@ public interface Indicator<P extends Point<?, ?>> {
 
 	P getLastPoint();
 
-	Collection<P> getPoints();
+	MutableList<P> getPoints();
 
 }
