@@ -4,14 +4,17 @@ import java.time.LocalDateTime;
 
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
+import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.ma.base.MA;
+import io.ffreedom.polaris.indicators.impl.ma.base.MAPeriod;
 import io.ffreedom.polaris.indicators.impl.ma.base.MAPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SMA extends MA {
 
-	public SMA(int period) {
-		super(period);
+	public SMA(Instrument instrument, IndicatorPeriod period, MAPeriod maPeriod) {
+		super(instrument, period, maPeriod);
 	}
 
 	public static void main(String[] args) {

@@ -2,11 +2,10 @@ package io.ffreedom.polaris.indicators.impl.ma.base;
 
 import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
-import org.eclipse.collections.impl.list.mutable.primitive.MutableDoubleListFactoryImpl;
+
+import io.ffreedom.common.collect.ECollections;
 
 public class MACalculateContainer {
-
-	private MutableDoubleList calculateList = MutableDoubleListFactoryImpl.INSTANCE.empty();
 
 	private int head = 0;
 	private int tail = 0;
@@ -14,32 +13,32 @@ public class MACalculateContainer {
 
 	private int capacity;
 
-	public static MACalculateContainer newContainer(int capacity) {
-		return new MACalculateContainer(capacity);
+	private MutableDoubleList calculateList;
+
+	public static MACalculateContainer newContainer(MAPeriod maPeriod) {
+		return new MACalculateContainer(maPeriod.getPeriodValue());
 	}
 
 	private MACalculateContainer(int capacity) {
 		this.capacity = capacity;
+		this.calculateList = ECollections.newDoubleArrayList(capacity);
 	}
 
 	private void updateTailIndex() {
-		if (++tail == capacity) {
+		if (++tail == capacity)
 			tail = 0;
-		}
 	}
 
 	private void updateHeadIndex() {
 		if (count == capacity) {
-			if (++head == capacity) {
+			if (++head == capacity)
 				head = 0;
-			}
 		}
 	}
 
 	private void updateCount() {
-		if (count < capacity) {
+		if (count < capacity)
 			count++;
-		}
 	}
 
 	public ImmutableDoubleList getCalculateList() {

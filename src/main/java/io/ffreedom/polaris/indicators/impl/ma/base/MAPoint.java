@@ -31,15 +31,10 @@ public class MAPoint extends TimeSeriesPoint<MAPoint> {
 	public static void main(String[] args) {
 
 		double d = 1 + 1 + 6 + 10;
-
 		double b = d / 4;
-
 		System.out.println(b);
-
 		double b1 = b + 20;
-
 		System.out.println(b1 / 2);
-
 		System.out.println((1 + 1 + 6 + 10 + 20) / 2);
 
 	}
