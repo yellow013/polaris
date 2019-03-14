@@ -19,8 +19,8 @@ public final class Bar extends TimeSeriesPoint<Bar> {
 	private IndicatorPeriod period;
 
 	private double open = Double.NaN;
-	private double high = Double.MIN_VALUE;
-	private double low = Double.MAX_VALUE;
+	private double highest = Double.MIN_VALUE;
+	private double lowest = Double.MAX_VALUE;
 	private double close = Double.NaN;
 	private double volumeSum = 0.0D;
 	private double turnoverSum = 0.0D;
@@ -49,7 +49,7 @@ public final class Bar extends TimeSeriesPoint<Bar> {
 	}
 
 	@Override
-	protected Bar thisObj() {
+	protected Bar thisPoint() {
 		return this;
 	}
 
@@ -57,10 +57,10 @@ public final class Bar extends TimeSeriesPoint<Bar> {
 		close = price;
 		if (Double.isNaN(open))
 			open = price;
-		if (price < low)
-			low = price;
-		if (price > high)
-			high = price;
+		if (price < lowest)
+			lowest = price;
+		if (price > highest)
+			highest = price;
 		priceRecord.add(price);
 	}
 
@@ -84,12 +84,12 @@ public final class Bar extends TimeSeriesPoint<Bar> {
 		return open;
 	}
 
-	public double getHigh() {
-		return high;
+	public double getHighest() {
+		return highest;
 	}
 
-	public double getLow() {
-		return low;
+	public double getLowest() {
+		return lowest;
 	}
 
 	public double getClose() {
@@ -102,6 +102,10 @@ public final class Bar extends TimeSeriesPoint<Bar> {
 
 	public double getTurnoverSum() {
 		return turnoverSum;
+	}
+
+	public MutableDoubleList getPriceRecord() {
+		return priceRecord;
 	}
 
 }

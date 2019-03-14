@@ -20,8 +20,7 @@ public class BBandsPoint extends TimeSeriesPoint<BBandsPoint> {
 	}
 
 	@Override
-	protected BBandsPoint thisObj() {
-		// TODO Auto-generated method stub
+	protected BBandsPoint thisPoint() {
 		return this;
 	}
 

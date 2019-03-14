@@ -24,7 +24,7 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<Y>> implements P
 
 	@Override
 	public final Y getYAxis() {
-		return thisObj();
+		return thisPoint();
 	}
 
 	@Override
@@ -48,6 +48,6 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<Y>> implements P
 		return endTime;
 	}
 
-	protected abstract Y thisObj();
+	protected abstract Y thisPoint();
 
 }
