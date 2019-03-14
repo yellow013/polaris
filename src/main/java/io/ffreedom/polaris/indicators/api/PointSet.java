@@ -38,16 +38,16 @@ public final class PointSet<P> {
 		return points.getFirst();
 	}
 
-	public Optional<P> backtrack(int index) {
-		int offset = points.size() - index - 1;
-		return offset < 0 ? Optional.ofNullable(first()) : get(offset);
+	public Optional<P> backtrack(int offset) {
+		int indexOf = points.size() - offset - 1;
+		return indexOf < 0 ? Optional.ofNullable(first()) : get(indexOf);
 	}
 
 	public Optional<P> get(int index) {
 		return index < points.size() ? Optional.ofNullable(points.get(index)) : Optional.empty();
 	}
 
-	public Optional<P> getNext(P currentCandle) {
+	public Optional<P> nextOf(P currentCandle) {
 		int indexOf = points.binarySearch(currentCandle);
 		return get(indexOf++);
 	}
