@@ -1,7 +1,10 @@
-package io.ffreedom.polaris.indicators.impl.candle;
+package io.ffreedom.polaris.indicators.impl.bar;
 
 import java.time.LocalDateTime;
 
+import org.eclipse.collections.api.list.primitive.MutableDoubleList;
+
+import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.polaris.datetime.TimeTwin;
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
@@ -10,33 +13,32 @@ import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public final class Candle extends TimeSeriesPoint<Candle> {
-
-	private TradingDay tradingDay;
+public final class Bar extends TimeSeriesPoint<Bar> {
 
 	private Instrument instrument;
 	private IndicatorPeriod period;
+
 	private double open = Double.NaN;
 	private double high = Double.MIN_VALUE;
 	private double low = Double.MAX_VALUE;
 	private double close = Double.NaN;
 	private double volumeSum = 0.0D;
 	private double turnoverSum = 0.0D;
+	private MutableDoubleList priceRecord = ECollections.newDoubleArrayList(64);
 
-	private Candle(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime, Instrument instrument,
+	private Bar(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime, Instrument instrument,
 			IndicatorPeriod period) {
-		super(startTime, endTime);
-		this.tradingDay = tradingDay;
+		super(tradingDay, startTime, endTime);
 		this.instrument = instrument;
 		this.period = period;
 	}
 
-	private Candle(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
+	private Bar(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
 		this(timeTwin.getTradingDay(), timeTwin.getStartDateTime(), timeTwin.getEndDateTime(), instrument, period);
 	}
 
-	public static Candle withTimeTwin(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
-		return new Candle(timeTwin, instrument, period);
+	public static Bar with(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
+		return new Bar(timeTwin, instrument, period);
 	}
 
 	@Override
@@ -47,21 +49,19 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 	}
 
 	@Override
-	protected Candle thisObj() {
+	protected Bar thisObj() {
 		return this;
 	}
 
 	private void onPrice(double price) {
 		close = price;
-		if (Double.isNaN(open)) {
+		if (Double.isNaN(open))
 			open = price;
-		}
-		if (price < low) {
+		if (price < low)
 			low = price;
-		}
-		if (price > high) {
+		if (price > high)
 			high = price;
-		}
+		priceRecord.add(price);
 	}
 
 	private void addVolumeSum(double volume) {
@@ -70,10 +70,6 @@ public final class Candle extends TimeSeriesPoint<Candle> {
 
 	private void addTurnoverSum(double turnover) {
 		this.turnoverSum = DoubleUtil.correction8(turnoverSum + turnover);
-	}
-
-	public TradingDay getTradingDay() {
-		return tradingDay;
 	}
 
 	public IndicatorPeriod getPeriod() {
