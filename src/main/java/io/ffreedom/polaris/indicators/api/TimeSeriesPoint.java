@@ -1,14 +1,17 @@
 package io.ffreedom.polaris.indicators.api;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
 public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<Y>> implements Point<LocalDateTime, Y>, Comparable<Y> {
+
+	private TradingDay tradingDay;
 
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 
-	public TimeSeriesPoint(LocalDateTime startTime, LocalDateTime endTime) {
+	public TimeSeriesPoint(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
 		super();
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -29,14 +32,12 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<Y>> implements P
 		return getXAxis().compareTo(o.getXAxis());
 	}
 
-	public boolean isPeriod(LocalDateTime time) {
-		return startTime.toLocalDate().isBefore(time.toLocalDate()) && endTime.toLocalDate().isAfter(time.toLocalDate())
-				? isPeriod(time.toLocalTime())
-				: false;
+	public TradingDay getTradingDay() {
+		return tradingDay;
 	}
 
-	public boolean isPeriod(LocalTime time) {
-		return startTime.toLocalTime().isBefore(time) && endTime.toLocalTime().isAfter(time) ? true : false;
+	public boolean isPeriod(LocalDateTime time) {
+		return startTime.isBefore(time) && endTime.isAfter(time) ? true : false;
 	}
 
 	public LocalDateTime getStartTime() {

@@ -17,7 +17,7 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 
 	private Logger logger = CommonLoggerFactory.getLogger(getClass());
 
-	protected PointSet<P> points;
+	private PointSet<P> points;
 
 	// protected MutableList<P> points;
 	protected P currentPoint;
@@ -27,12 +27,11 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 	}
 
 	public AbstractIndicator(int size) {
-		this.points = PointSet.emptyPointSet(size);
-		initPoints();
+		this.points = initPoints();
 		this.currentPoint = initCurrentPoint();
 	}
 
-	protected abstract void initPoints();
+	protected abstract PointSet<P> initPoints();
 
 	protected abstract P initCurrentPoint();
 
