@@ -11,9 +11,9 @@ import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 
-public final class IndicatorPeriodTimePools {
+public final class TimeTwinPools {
 
-	private static final IndicatorPeriodTimePools INSTANCE = new IndicatorPeriodTimePools();
+	private static final TimeTwinPools INSTANCE = new TimeTwinPools();
 
 	// Map<IndicatorPeriod, Map<Symbol, Set<TimeTwin>>>
 	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimeTwin>>> pools = ECollections
