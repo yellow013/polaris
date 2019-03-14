@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
-import io.ffreedom.common.functional.Callback;
 import io.ffreedom.polaris.indicators.impl.ma.base.MA;
 import io.ffreedom.polaris.indicators.impl.ma.base.MAPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
@@ -14,30 +13,21 @@ public class SMA extends MA {
 	public SMA(int period) {
 		super(period);
 	}
-
-	@Override
-	public int size() {
-		return 0;
-	}
-
-	@Override
-	public MAPoint getPoint(int i) {
-		return null;
-	}
+	
 
 	public static void main(String[] args) {
 		try {
-			MAPoint point1 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point1 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point2 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point2 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point3 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point3 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point4 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point4 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point5 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point5 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
-			MAPoint point6 = new MAPoint(LocalDateTime.now(), LocalDateTime.now());
+			MAPoint point6 = MAPoint.with(LocalDateTime.now(), LocalDateTime.now());
 			Thread.sleep(10);
 			// FastList<MAPoint> fastList = FastList.newListWith(point3, point2, point1,
 			// point5, point4, point6);
@@ -58,30 +48,6 @@ public class SMA extends MA {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-	}
-
-	@Override
-	public void endPoint(MAPoint p) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void registerEndPointEvent(Callback<MAPoint> callback) {
-		throw new UnsupportedOperationException("default method registerEvent(callback) is abstract method.");
-
-	}
-
-	@Override
-	public void startPoint(MAPoint p) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void registerStartPointEvent(Callback<MAPoint> callback) {
-		// TODO Auto-generated method stub
 
 	}
 

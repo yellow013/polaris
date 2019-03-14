@@ -90,15 +90,15 @@ public class MACalculateContainer {
 
 		ImmutableDoubleList list = container.getCalculateList();
 
-		System.out.println(list.median());
+		System.out.println(container.median());
 
-		System.out.println(list.average());
+		System.out.println(container.average());
 
-		System.out.println(list.sum());
+		System.out.println(container.sum());
 
-		System.out.println(list.median());
+		System.out.println(container.median());
 
-		System.out.println(list.average());
+		System.out.println(container.average());
 
 		System.out.println(list.sum());
 	}
