@@ -6,18 +6,17 @@ import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
 import io.ffreedom.common.collect.ECollections;
-import io.ffreedom.common.functional.Callback;
 import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.Indicator;
+import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.indicators.api.PointSet;
 
 public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indicator<P> {
 
-	private MutableList<Callback<P>> startPointEvents = ECollections.newFastList();
-	private MutableList<Callback<P>> endPointEvents = ECollections.newFastList();
+	private MutableList<IndicatorEvent<P>> indicatorEvents = ECollections.newFastList();
 
 	protected Instrument instrument;
 	protected IndicatorPeriod period;
@@ -51,29 +50,23 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 	}
 
 	@Override
-	public void addStartPointEvent(Callback<P> callback) {
-		if (callback != null)
-			this.startPointEvents.add(callback);
-	}
-
-	@Override
-	public void addEndPointEvent(Callback<P> callback) {
-		if (callback != null)
-			this.endPointEvents.add(callback);
+	public void addIndicatorEvent(IndicatorEvent<P> event) {
+		if (event != null)
+			indicatorEvents.add(event);
 	}
 
 	@Override
 	public void startPoint(P p) {
-		if (startPointEvents.size() > 0)
-			startPointEvents.each(callback -> callback.onEvent(p));
+		if (indicatorEvents.notEmpty())
+			indicatorEvents.each(event -> event.onStartPoint(p));
 		else
 			logger.info("this.startPointCallback is null.");
 	}
 
 	@Override
 	public void endPoint(P p) {
-		if (endPointEvents.size() != 0)
-			endPointEvents.each(callback -> callback.onEvent(p));
+		if (indicatorEvents.notEmpty())
+			indicatorEvents.each(event -> event.onEndPoint(p));
 		else
 			logger.error("this.endPointCallback is null.");
 	}
