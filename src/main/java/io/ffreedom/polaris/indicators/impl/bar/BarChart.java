@@ -11,12 +11,12 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
-import io.ffreedom.polaris.indicators.pools.TimeTwinPools;
+import io.ffreedom.polaris.indicators.pools.TimeTwinPool;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class BarChart extends AbstractIndicator<Bar> {
 
-	public BarChart(Instrument instrument, IndicatorPeriod period) {
+	public BarChart(IndicatorPeriod period, Instrument instrument) {
 		super(instrument, period);
 	}
 
@@ -24,7 +24,7 @@ public class BarChart extends AbstractIndicator<Bar> {
 	protected PointSet<Bar> initPoints() {
 		PointSet<Bar> bars = PointSet.emptyPointSet(256);
 		// 从已经根据交易日分配好的池中获取此指标的分割节点
-		ImmutableSet<TimeTwin> timeTwinSet = TimeTwinPools.getTimeTwinSet(period, instrument.getSymbol());
+		ImmutableSet<TimeTwin> timeTwinSet = TimeTwinPool.getTimeTwinSet(period, instrument.getSymbol());
 		timeTwinSet.each(timeTwin -> bars.add(Bar.with(timeTwin, instrument, period)));
 		return bars;
 	}
