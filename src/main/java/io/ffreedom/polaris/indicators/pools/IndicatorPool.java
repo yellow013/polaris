@@ -7,6 +7,7 @@ import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.market.BasicMarketData;
 
 public abstract class IndicatorPool<I extends Indicator<?>> {
 
@@ -105,6 +106,11 @@ public abstract class IndicatorPool<I extends Indicator<?>> {
 		default:
 			throw new IllegalArgumentException("period : " + period.name() + " is not found.b");
 		}
+	}
+
+	public void onMarketDate(BasicMarketData marketData) {
+		indicators.forEach(indicator -> indicator.onMarketData(marketData));
+
 	}
 
 }

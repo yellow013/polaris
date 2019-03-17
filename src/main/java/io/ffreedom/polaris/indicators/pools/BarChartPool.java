@@ -4,11 +4,11 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.bar.BarChart;
 
-public final class BarChartPools extends IndicatorPool<BarChart> {
+public final class BarChartPool extends IndicatorPool<BarChart> {
 
-	private static final BarChartPools INSTANCE = new BarChartPools();
+	private static final BarChartPool INSTANCE = new BarChartPool();
 
-	private BarChartPools() {
+	private BarChartPool() {
 	}
 
 	public static BarChart get(IndicatorPeriod period, Instrument instrument) {
@@ -17,6 +17,10 @@ public final class BarChartPools extends IndicatorPool<BarChart> {
 
 	public static BarChart put(IndicatorPeriod period, Instrument instrument, BarChart barChart) {
 		return INSTANCE.innerPut(period, instrument, barChart);
+	}
+	
+	public void register() {
+		
 	}
 
 }
