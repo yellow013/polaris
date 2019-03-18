@@ -14,7 +14,7 @@ public class BBands extends AbstractIndicator<BBandsPoint> {
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
-
+		
 	}
 
 	@Override

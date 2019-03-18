@@ -14,16 +14,16 @@ import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
 import io.ffreedom.polaris.indicators.pools.TimeTwinPool;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class BarChart extends AbstractIndicator<Bar> {
+public class BarSet extends AbstractIndicator<Bar> {
 
-	public BarChart(IndicatorPeriod period, Instrument instrument) {
+	public BarSet(Instrument instrument, IndicatorPeriod period) {
 		super(instrument, period);
 	}
 
 	@Override
 	protected PointSet<Bar> initPoints() {
 		PointSet<Bar> bars = PointSet.emptyPointSet(256);
-		// 从已经根据交易日分配好的池中获取此指标的分割节点
+		// 从已经根据交易周期分配好的池中获取此指标的分割节点
 		ImmutableSet<TimeTwin> timeTwinSet = TimeTwinPool.getTimeTwinSet(period, instrument.getSymbol());
 		timeTwinSet.each(timeTwin -> bars.add(Bar.with(timeTwin, instrument, period)));
 		return bars;

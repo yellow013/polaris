@@ -2,25 +2,26 @@ package io.ffreedom.polaris.indicators.pools;
 
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.impl.bar.BarChart;
+import io.ffreedom.polaris.indicators.impl.bar.BarSet;
 
-public final class BarChartPool extends IndicatorPool<BarChart> {
+public final class BarSettPool extends IndicatorPool<BarSet> {
 
-	private static final BarChartPool INSTANCE = new BarChartPool();
+	private static final BarSettPool INSTANCE = new BarSettPool();
 
-	private BarChartPool() {
+	private BarSettPool() {
 	}
 
-	public static BarChart get(IndicatorPeriod period, Instrument instrument) {
+	public static BarSet get(IndicatorPeriod period, Instrument instrument) {
 		return INSTANCE.innerGet(period, instrument);
 	}
 
-	public static BarChart put(IndicatorPeriod period, Instrument instrument, BarChart barChart) {
+	public static BarSet put(IndicatorPeriod period, Instrument instrument, BarSet barChart) {
 		return INSTANCE.innerPut(period, instrument, barChart);
 	}
-	
-	public void register() {
-		
+
+	public static BarSet generate(IndicatorPeriod period, Instrument instrument) {
+		BarSet barChart = new BarSet(instrument, period);
+		return put(period, instrument, barChart);
 	}
 
 }
