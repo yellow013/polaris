@@ -4,22 +4,19 @@ import java.time.LocalDateTime;
 
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
-public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<Y>> implements Point<LocalDateTime, Y>, Comparable<Y> {
+public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements Point<TimePeriod, Y>, Comparable<Y> {
 
 	private TradingDay tradingDay;
+	private TimePeriod timePeriod;
 
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
-
-	public TimeSeriesPoint(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
+	public TimePeriodPoint(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
 		super();
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.timePeriod = TimePeriod.with(startTime, endTime);
 	}
 
 	@Override
-	public final LocalDateTime getXAxis() {
-		return startTime;
+	public final TimePeriod getXAxis() {
+		return timePeriod;
 	}
 
 	@Override
@@ -37,15 +34,15 @@ public abstract class TimeSeriesPoint<Y extends TimeSeriesPoint<Y>> implements P
 	}
 
 	public boolean isPeriod(LocalDateTime time) {
-		return startTime.isBefore(time) && endTime.isAfter(time) ? true : false;
+		return timePeriod.getStartTime().isBefore(time) && timePeriod.getEndTime().isAfter(time) ? true : false;
 	}
 
 	public LocalDateTime getStartTime() {
-		return startTime;
+		return timePeriod.getStartTime();
 	}
 
 	public LocalDateTime getEndTime() {
-		return endTime;
+		return timePeriod.getEndTime();
 	}
 
 	protected abstract Y thisPoint();

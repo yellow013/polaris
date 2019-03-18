@@ -2,7 +2,7 @@ package io.ffreedom.polaris.indicators.api;
 
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public interface Point<X, Y> {
+public interface Point<X extends Comparable<X>, Y> {
 
 	X getXAxis();
 
