@@ -4,7 +4,9 @@ import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
 import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 
+@Deprecated
 public class MACalculateContainer {
 
 	private int head = 0;
@@ -15,8 +17,8 @@ public class MACalculateContainer {
 
 	private MutableDoubleList calculateList;
 
-	public static MACalculateContainer newContainer(MAPeriod maPeriod) {
-		return new MACalculateContainer(maPeriod.getPeriodValue());
+	public static MACalculateContainer newContainer(IndicatorCycle cycle) {
+		return new MACalculateContainer(cycle.getValue());
 	}
 
 	private MACalculateContainer(int capacity) {

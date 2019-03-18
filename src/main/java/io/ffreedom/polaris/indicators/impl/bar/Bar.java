@@ -10,10 +10,10 @@ import io.ffreedom.polaris.datetime.TimeTwin;
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
+import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public final class Bar extends TimeSeriesPoint<Bar> {
+public final class Bar extends TimePeriodPoint<Bar> {
 
 	private Instrument instrument;
 	private IndicatorPeriod period;

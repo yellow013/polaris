@@ -1,15 +1,15 @@
 package io.ffreedom.polaris.indicators.impl.ma;
 
 import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.ma.base.MA;
-import io.ffreedom.polaris.indicators.impl.ma.base.MAPeriod;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class EMA extends MA {
 
-	public EMA(Instrument instrument, IndicatorPeriod period, MAPeriod maPeriod) {
-		super(instrument, period, maPeriod);
+	public EMA(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
+		super(instrument, period, cycle);
 	}
 
 	@Override

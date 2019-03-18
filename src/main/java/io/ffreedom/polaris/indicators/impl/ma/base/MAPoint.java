@@ -3,10 +3,10 @@ package io.ffreedom.polaris.indicators.impl.ma.base;
 import java.time.LocalDateTime;
 
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
-import io.ffreedom.polaris.indicators.api.TimeSeriesPoint;
+import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class MAPoint extends TimeSeriesPoint<MAPoint> {
+public class MAPoint extends TimePeriodPoint<MAPoint> {
 
 	private double avgPrice;
 
