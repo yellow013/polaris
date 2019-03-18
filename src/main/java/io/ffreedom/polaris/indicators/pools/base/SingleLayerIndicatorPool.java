@@ -1,17 +1,14 @@
-package io.ffreedom.polaris.indicators.pools;
+package io.ffreedom.polaris.indicators.pools.base;
 
-import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.market.BasicMarketData;
 
-public abstract class IndicatorPool<I extends Indicator<?>> {
+public abstract class SingleLayerIndicatorPool<I extends Indicator<?>> extends BaseIndicatorPool<I> {
 
-	private MutableList<I> indicators = ECollections.newFastList();
 	private MutableIntObjectMap<I> s1IndicatorMap = ECollections.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> s2IndicatorMap = ECollections.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> s5IndicatorMap = ECollections.newIntObjectHashMap(8);
@@ -29,88 +26,66 @@ public abstract class IndicatorPool<I extends Indicator<?>> {
 	private MutableIntObjectMap<I> h4IndicatorMap = ECollections.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> d1IndicatorMap = ECollections.newIntObjectHashMap(8);
 
-	protected I innerGet(IndicatorPeriod period, Instrument instrument) {
+	protected abstract I generateIndicator(IndicatorPeriod period, Instrument instrument);
+
+	public I getIndicator(IndicatorPeriod period, Instrument instrument) {
+		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
+		I saved = indicatorMap.get(instrument.getInstrumentId());
+		if (saved == null) {
+			saved = generateIndicator(period, instrument);
+			indicatorMap.put(instrument.getInstrumentId(), saved);
+		}
+		return saved;
+	}
+
+	public boolean putIndicator(IndicatorPeriod period, Instrument instrument, I i) {
+		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
+		I saved = indicatorMap.get(instrument.getInstrumentId());
+		if (saved != null) {
+			logger.warn("Indicator existed. period==[{}], instrumentCode==[{}]", period, instrument.getInstrumentId());
+			return false;
+		}
+		indicatorMap.put(instrument.getInstrumentId(), i);
+		return indicators.add(i);
+	}
+
+	private MutableIntObjectMap<I> getIndicatorMap(IndicatorPeriod period) {
 		switch (period) {
 		case S1:
-			return s1IndicatorMap.get(instrument.getInstrumentId());
+			return s1IndicatorMap;
 		case S2:
-			return s2IndicatorMap.get(instrument.getInstrumentId());
+			return s2IndicatorMap;
 		case S5:
-			return s5IndicatorMap.get(instrument.getInstrumentId());
+			return s5IndicatorMap;
 		case S10:
-			return s10IndicatorMap.get(instrument.getInstrumentId());
+			return s10IndicatorMap;
 		case S15:
-			return s15IndicatorMap.get(instrument.getInstrumentId());
+			return s15IndicatorMap;
 		case S30:
-			return s30IndicatorMap.get(instrument.getInstrumentId());
+			return s30IndicatorMap;
 		case M1:
-			return m1IndicatorMap.get(instrument.getInstrumentId());
+			return m1IndicatorMap;
 		case M2:
-			return m2IndicatorMap.get(instrument.getInstrumentId());
+			return m2IndicatorMap;
 		case M5:
-			return m5IndicatorMap.get(instrument.getInstrumentId());
+			return m5IndicatorMap;
 		case M10:
-			return m10IndicatorMap.get(instrument.getInstrumentId());
+			return m10IndicatorMap;
 		case M15:
-			return m15IndicatorMap.get(instrument.getInstrumentId());
+			return m15IndicatorMap;
 		case M30:
-			return m30IndicatorMap.get(instrument.getInstrumentId());
+			return m30IndicatorMap;
 		case H1:
-			return h1IndicatorMap.get(instrument.getInstrumentId());
+			return h1IndicatorMap;
 		case H2:
-			return h2IndicatorMap.get(instrument.getInstrumentId());
+			return h2IndicatorMap;
 		case H4:
-			return h4IndicatorMap.get(instrument.getInstrumentId());
+			return h4IndicatorMap;
 		case D1:
-			return d1IndicatorMap.get(instrument.getInstrumentId());
+			return d1IndicatorMap;
 		default:
 			throw new IllegalArgumentException("period : " + period.name() + " is not found.b");
 		}
-	}
-
-	protected I innerPut(IndicatorPeriod period, Instrument instrument, I i) {
-		indicators.add(i);
-		switch (period) {
-		case S1:
-			return s1IndicatorMap.put(instrument.getInstrumentId(), i);
-		case S2:
-			return s2IndicatorMap.put(instrument.getInstrumentId(), i);
-		case S5:
-			return s5IndicatorMap.put(instrument.getInstrumentId(), i);
-		case S10:
-			return s10IndicatorMap.put(instrument.getInstrumentId(), i);
-		case S15:
-			return s15IndicatorMap.put(instrument.getInstrumentId(), i);
-		case S30:
-			return s30IndicatorMap.put(instrument.getInstrumentId(), i);
-		case M1:
-			return m1IndicatorMap.put(instrument.getInstrumentId(), i);
-		case M2:
-			return m2IndicatorMap.put(instrument.getInstrumentId(), i);
-		case M5:
-			return m5IndicatorMap.put(instrument.getInstrumentId(), i);
-		case M10:
-			return m10IndicatorMap.put(instrument.getInstrumentId(), i);
-		case M15:
-			return m15IndicatorMap.put(instrument.getInstrumentId(), i);
-		case M30:
-			return m30IndicatorMap.put(instrument.getInstrumentId(), i);
-		case H1:
-			return h1IndicatorMap.put(instrument.getInstrumentId(), i);
-		case H2:
-			return h2IndicatorMap.put(instrument.getInstrumentId(), i);
-		case H4:
-			return h4IndicatorMap.put(instrument.getInstrumentId(), i);
-		case D1:
-			return d1IndicatorMap.put(instrument.getInstrumentId(), i);
-		default:
-			throw new IllegalArgumentException("period : " + period.name() + " is not found.b");
-		}
-	}
-
-	public void onMarketDate(BasicMarketData marketData) {
-		indicators.forEach(indicator -> indicator.onMarketData(marketData));
-
 	}
 
 }

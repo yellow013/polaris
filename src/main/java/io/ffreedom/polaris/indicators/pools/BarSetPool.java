@@ -3,25 +3,22 @@ package io.ffreedom.polaris.indicators.pools;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.bar.BarSet;
+import io.ffreedom.polaris.indicators.pools.base.SingleLayerIndicatorPool;
 
-public final class BarSettPool extends IndicatorPool<BarSet> {
+public final class BarSetPool extends SingleLayerIndicatorPool<BarSet> {
 
-	private static final BarSettPool INSTANCE = new BarSettPool();
+	private static final BarSetPool singleton = new BarSetPool();
 
-	private BarSettPool() {
+	private BarSetPool() {
 	}
 
-	public static BarSet get(IndicatorPeriod period, Instrument instrument) {
-		return INSTANCE.innerGet(period, instrument);
+	public static BarSetPool getSingleton() {
+		return singleton;
 	}
 
-	public static BarSet put(IndicatorPeriod period, Instrument instrument, BarSet barChart) {
-		return INSTANCE.innerPut(period, instrument, barChart);
-	}
-
-	public static BarSet generate(IndicatorPeriod period, Instrument instrument) {
-		BarSet barChart = new BarSet(instrument, period);
-		return put(period, instrument, barChart);
+	@Override
+	protected BarSet generateIndicator(IndicatorPeriod period, Instrument instrument) {
+		return new BarSet(instrument, period);
 	}
 
 }
