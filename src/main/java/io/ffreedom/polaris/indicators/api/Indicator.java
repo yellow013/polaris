@@ -12,6 +12,8 @@ public interface Indicator<P extends Point<?, ?>> {
 	void onMarketData(BasicMarketData marketData);
 
 	void addIndicatorEvent(IndicatorEvent<P> event);
+	
+	void currentPointChanged(P p);
 
 	void startPoint(P p);
 
