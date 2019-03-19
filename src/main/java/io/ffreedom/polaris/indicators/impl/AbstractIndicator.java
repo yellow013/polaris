@@ -56,11 +56,19 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 	}
 
 	@Override
+	public void currentPointChanged(P p) {
+		if (indicatorEvents.notEmpty())
+			indicatorEvents.each(event -> event.onCurrentPointChanged(p));
+		else
+			logger.info("this.currentPointChanged callback is null.");
+	}
+
+	@Override
 	public void startPoint(P p) {
 		if (indicatorEvents.notEmpty())
 			indicatorEvents.each(event -> event.onStartPoint(p));
 		else
-			logger.info("this.startPointCallback is null.");
+			logger.info("this.startPoint callback is null.");
 	}
 
 	@Override
@@ -68,7 +76,7 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 		if (indicatorEvents.notEmpty())
 			indicatorEvents.each(event -> event.onEndPoint(p));
 		else
-			logger.error("this.endPointCallback is null.");
+			logger.error("this.endPoint callback is null.");
 	}
 
 	@Override

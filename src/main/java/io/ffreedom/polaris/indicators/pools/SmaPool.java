@@ -6,14 +6,14 @@ import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.ma.SMA;
 import io.ffreedom.polaris.indicators.pools.base.MultiLayerIndicatorPool;
 
-public class SMAPool extends MultiLayerIndicatorPool<SMA> {
+public class SmaPool extends MultiLayerIndicatorPool<SMA> {
 
-	private static final SMAPool singleton = new SMAPool();
+	private static final SmaPool singleton = new SmaPool();
 
-	private SMAPool() {
+	private SmaPool() {
 	}
 
-	public static SMAPool getSingleton() {
+	public static SmaPool getSingleton() {
 		return singleton;
 	}
 
