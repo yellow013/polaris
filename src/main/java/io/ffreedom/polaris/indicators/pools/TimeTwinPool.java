@@ -6,7 +6,7 @@ import org.eclipse.collections.api.set.ImmutableSet;
 import org.eclipse.collections.api.set.MutableSet;
 
 import io.ffreedom.common.collect.ECollections;
-import io.ffreedom.polaris.datetime.TimeTwin;
+import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
@@ -16,7 +16,7 @@ public final class TimeTwinPool {
 	private static final TimeTwinPool INSTANCE = new TimeTwinPool();
 
 	// Map<IndicatorPeriod, Map<Symbol, Set<TimeTwin>>>
-	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimeTwin>>> pools = ECollections
+	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimePeriod>>> pools = ECollections
 			.newLongObjectHashMap();
 
 	public static void register(Symbol[] symbols, IndicatorPeriod... periods) {
@@ -25,12 +25,12 @@ public final class TimeTwinPool {
 		if (periods == null)
 			throw new IllegalArgumentException("Illegal Argument -> periods in null");
 		for (IndicatorPeriod period : periods) {
-			INSTANCE.register0(period, symbols);
+			INSTANCE.register0(symbols, period);
 		}
 	}
 
-	private void register0(IndicatorPeriod period, Symbol[] symbols) {
-		MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap = getSymbolMap(period);
+	private void register0(Symbol[] symbols, IndicatorPeriod period) {
+		MutableIntObjectMap<ImmutableSet<TimePeriod>> symbolMap = getSymbolMap(period);
 		for (Symbol symbol : symbols)
 			findOrCreate(symbolMap, period, symbol);
 	}
@@ -42,7 +42,7 @@ public final class TimeTwinPool {
 	 * @param symbol
 	 * @return
 	 */
-	public static ImmutableSet<TimeTwin> getTimeTwinSet(IndicatorPeriod period, Symbol symbol) {
+	public static ImmutableSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Symbol symbol) {
 		return INSTANCE.findOrCreate(INSTANCE.getSymbolMap(period), period, symbol);
 	}
 
@@ -52,8 +52,8 @@ public final class TimeTwinPool {
 	 * @param period
 	 * @return
 	 */
-	private MutableIntObjectMap<ImmutableSet<TimeTwin>> getSymbolMap(IndicatorPeriod period) {
-		MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap = pools.get(period.getSeconds());
+	private MutableIntObjectMap<ImmutableSet<TimePeriod>> getSymbolMap(IndicatorPeriod period) {
+		MutableIntObjectMap<ImmutableSet<TimePeriod>> symbolMap = pools.get(period.getSeconds());
 		if (symbolMap == null) {
 			symbolMap = ECollections.newIntObjectHashMap();
 			pools.put(period.getSeconds(), symbolMap);
@@ -69,16 +69,16 @@ public final class TimeTwinPool {
 	 * @param symbol
 	 * @return
 	 */
-	private ImmutableSet<TimeTwin> findOrCreate(MutableIntObjectMap<ImmutableSet<TimeTwin>> symbolMap,
+	private ImmutableSet<TimePeriod> findOrCreate(MutableIntObjectMap<ImmutableSet<TimePeriod>> symbolMap,
 			IndicatorPeriod period, Symbol symbol) {
-		ImmutableSet<TimeTwin> immutableTimeTwinSet = symbolMap.get(symbol.getSymbolId());
+		ImmutableSet<TimePeriod> immutableTimeTwinSet = symbolMap.get(symbol.getSymbolId());
 		if (immutableTimeTwinSet != null)
 			return immutableTimeTwinSet;
-		MutableSet<TimeTwin> timeTwinSet = ECollections.newUnifiedSet();
+		MutableSet<TimePeriod> timePeriodSet = ECollections.newUnifiedSet();
 		// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
-		symbol.getTradingPeriodSet().forEach(tradingPeriod -> timeTwinSet
+		symbol.getTradingPeriodSet().forEach(tradingPeriod -> timePeriodSet
 				.addAll(tradingPeriod.segmentByDuration(TradingDayKeeper.get(symbol), period.getDuration())));
-		return symbolMap.put(symbol.getSymbolId(), timeTwinSet.toImmutable());
+		return symbolMap.put(symbol.getSymbolId(), timePeriodSet.toImmutable());
 	}
 
 }
