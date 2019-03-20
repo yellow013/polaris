@@ -3,27 +3,30 @@ package io.ffreedom.polaris.indicators.api;
 import java.util.Optional;
 
 import org.eclipse.collections.api.list.MutableList;
+import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
 import io.ffreedom.common.collect.ECollections;
 
-public final class PointSet<P> {
+public final class PointSet<P extends Point<?, ?>> {
 
+	private MutableLongObjectMap<P> pointMap;
 	private MutableList<P> points;
 
 	private PointSet(int size) {
+		this.pointMap = ECollections.newLongObjectHashMap(size);
 		this.points = ECollections.newFastList(size);
 	}
 
-	public static <P> PointSet<P> emptyPointSet() {
+	public static <P extends Point<?, ?>> PointSet<P> emptyPointSet() {
 		return new PointSet<>(512);
 	}
 
-	public static <P> PointSet<P> emptyPointSet(int size) {
+	public static <P extends Point<?, ?>> PointSet<P> emptyPointSet(int size) {
 		return new PointSet<>(size);
 	}
 
-	public boolean add(P candle) {
-		return points.add(candle);
+	public boolean add(P point) {
+		return points.add(point);
 	}
 
 	public int size() {
