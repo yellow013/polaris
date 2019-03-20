@@ -1,22 +1,20 @@
-package io.ffreedom.polaris.indicators.impl.ma;
+package io.ffreedom.polaris.indicators.impl.macd;
+
+import java.time.LocalDateTime;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class SMAPoint extends TimePeriodPoint<SMAPoint> {
+public class MacdPoint extends TimePeriodPoint<MacdPoint> {
 
-	public SMAPoint(IndicatorPeriod period, TimePeriod timePeriod) {
+	private MacdPoint(IndicatorPeriod period, TimePeriod timePeriod) {
 		super(period, timePeriod);
-		// TODO Auto-generated constructor stub
 	}
 
 	private double avgPrice;
-
-	public static SMAPoint with(IndicatorPeriod period, TimePeriod timePeriod) {
-		return new SMAPoint(period, timePeriod);
-	}
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
@@ -24,7 +22,7 @@ public class SMAPoint extends TimePeriodPoint<SMAPoint> {
 	}
 
 	@Override
-	protected SMAPoint thisPoint() {
+	protected MacdPoint thisPoint() {
 		return this;
 	}
 

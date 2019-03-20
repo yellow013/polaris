@@ -1,18 +1,18 @@
 package io.ffreedom.polaris.indicators.impl.sar;
 
-import java.time.LocalDateTime;
-
-import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
+import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SARPoint extends TimePeriodPoint<SARPoint> {
 
-	private double pointValue;
-
-	public SARPoint(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
-		super(tradingDay, startTime, endTime);
+	public SARPoint(IndicatorPeriod period, TimePeriod timePeriod) {
+		super(period, timePeriod);
+		// TODO Auto-generated constructor stub
 	}
+
+	private double pointValue;
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {

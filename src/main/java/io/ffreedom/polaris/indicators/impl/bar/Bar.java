@@ -1,13 +1,10 @@
 package io.ffreedom.polaris.indicators.impl.bar;
 
-import java.time.LocalDateTime;
-
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.common.utils.DoubleUtil;
-import io.ffreedom.polaris.datetime.TimeTwin;
-import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
+import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
@@ -26,19 +23,14 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	private double turnoverSum = 0.0D;
 	private MutableDoubleList priceRecord = ECollections.newDoubleArrayList(64);
 
-	private Bar(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime, Instrument instrument,
-			IndicatorPeriod period) {
-		super(tradingDay, startTime, endTime);
+	private Bar(IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
+		super(period, timePeriod);
 		this.instrument = instrument;
 		this.period = period;
 	}
 
-	private Bar(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
-		this(timeTwin.getTradingDay(), timeTwin.getStartDateTime(), timeTwin.getEndDateTime(), instrument, period);
-	}
-
-	public static Bar with(TimeTwin timeTwin, Instrument instrument, IndicatorPeriod period) {
-		return new Bar(timeTwin, instrument, period);
+	public static Bar with(IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
+		return new Bar(period, timePeriod, instrument);
 	}
 
 	@Override

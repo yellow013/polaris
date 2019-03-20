@@ -1,65 +1,37 @@
 package io.ffreedom.polaris.indicators.impl.ma;
 
-import java.time.LocalDateTime;
-
-import org.eclipse.collections.impl.set.mutable.UnifiedSet;
-
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.impl.ma.base.MA;
-import io.ffreedom.polaris.indicators.impl.ma.base.MAPoint;
+import io.ffreedom.polaris.indicators.api.PointSet;
+import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class SMA extends MA {
+public final class SMA extends AbstractIndicator<SMAPoint> {
 
 	public SMA(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
-		super(instrument, period, cycle);
+		super(instrument, period);
 	}
 
 	public static SMA with(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
 		return new SMA(instrument, period, cycle);
 	}
 
-	public static void main(String[] args) {
-		try {
-			MAPoint point1 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
-			Thread.sleep(10);
-			MAPoint point2 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
-			Thread.sleep(10);
-			MAPoint point3 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
-			Thread.sleep(10);
-			MAPoint point4 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
-			Thread.sleep(10);
-			MAPoint point5 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
-			Thread.sleep(10);
-			MAPoint point6 = MAPoint.with(null, LocalDateTime.now(), LocalDateTime.now());
-			Thread.sleep(10);
-			// FastList<MAPoint> fastList = FastList.newListWith(point3, point2, point1,
-			// point5, point4, point6);
-			UnifiedSet<MAPoint> unifiedSet = UnifiedSet.newSetWith(point3, point2, point1, point5, point4, point6);
-
-			unifiedSet.forEach(e -> System.out.println(e.getXAxis() + " - " + e.getYAxis()));
-
-			// FastList<MAPoint> sortThis = fastList.sortThis();
-
-			// System.out.println(fastList.hashCode());
-
-			// System.out.println(sortThis.hashCode());
-
-			// sortThis.forEach(e -> System.out.println(e.getXAxis() + " - " +
-			// e.getYAxis()));
-
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	@Override
+	public void onMarketData(BasicMarketData marketData) {
+		currentPoint.onMarketData(marketData);
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		calculateContainer.updateTail(marketData.getLastPrice());
+	protected PointSet<SMAPoint> initPoints() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected SMAPoint initCurrentPoint() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

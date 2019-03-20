@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.eclipse.collections.api.set.ImmutableSet;
 
-import io.ffreedom.polaris.datetime.TimeTwin;
+import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
@@ -24,14 +24,14 @@ public class BarSet extends AbstractIndicator<Bar> {
 	protected PointSet<Bar> initPoints() {
 		PointSet<Bar> bars = PointSet.emptyPointSet(256);
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSet<TimeTwin> timeTwinSet = TimeTwinPool.getTimeTwinSet(period, instrument.getSymbol());
-		timeTwinSet.each(timeTwin -> bars.add(Bar.with(timeTwin, instrument, period)));
+		ImmutableSet<TimePeriod> timePeriodSet = TimeTwinPool.getTimePeriodSet(period, instrument.getSymbol());
+		timePeriodSet.each(timePeriod -> bars.add(Bar.with(period, timePeriod, instrument)));
 		return bars;
 	}
 
 	@Override
 	protected Bar initCurrentPoint() {
-		return getPointSet().first();
+		return getPointSet().getfirst();
 	}
 
 	private boolean isCurrentCandlePeriod(BasicMarketData marketData) {
@@ -50,8 +50,8 @@ public class BarSet extends AbstractIndicator<Bar> {
 				// 根据当前周期的开始时间和结束时间以及时间周期创建新的点
 				LocalDateTime newStartTime = currentPoint.getStartTime().plusSeconds(period.getSeconds());
 				LocalDateTime newEndTime = currentPoint.getEndTime().plusSeconds(period.getSeconds());
-				currentPoint = Bar.with(TimeTwin.of(TradingDayKeeper.get(instrument), newStartTime, newEndTime),
-						instrument, period);
+				currentPoint = Bar.with(period,
+						TimePeriod.with(TradingDayKeeper.get(instrument), newStartTime, newEndTime), instrument);
 				getPointSet().add(currentPoint);
 			}
 		}
