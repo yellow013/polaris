@@ -11,7 +11,7 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
-import io.ffreedom.polaris.indicators.pools.TimeTwinPool;
+import io.ffreedom.polaris.indicators.pools.TimePeriodPool;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class BarSet extends AbstractIndicator<Bar> {
@@ -24,7 +24,7 @@ public class BarSet extends AbstractIndicator<Bar> {
 	protected PointSet<Bar> initPoints() {
 		PointSet<Bar> bars = PointSet.emptyPointSet(256);
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSet<TimePeriod> timePeriodSet = TimeTwinPool.getTimePeriodSet(period, instrument.getSymbol());
+		ImmutableSet<TimePeriod> timePeriodSet = TimePeriodPool.getTimePeriodSet(period, instrument.getSymbol());
 		timePeriodSet.each(timePeriod -> bars.add(Bar.with(period, timePeriod, instrument)));
 		return bars;
 	}

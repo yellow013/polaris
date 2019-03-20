@@ -4,10 +4,10 @@ public interface IndicatorEvent<P extends Point<?, ?>> {
 
 	String getEventName();
 
-	void onCurrentPointChanged(P p);
+	void onCurrentPointChanged(P point);
 
-	void onStartPoint(P p);
+	void onStartPoint(P point);
 
-	void onEndPoint(P p);
+	void onEndPoint(P point);
 
 }

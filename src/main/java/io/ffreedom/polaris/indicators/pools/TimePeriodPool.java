@@ -8,12 +8,16 @@ import org.eclipse.collections.api.set.MutableSet;
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
+import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 
-public final class TimeTwinPool {
+public final class TimePeriodPool {
 
-	private static final TimeTwinPool INSTANCE = new TimeTwinPool();
+	private static final TimePeriodPool INSTANCE = new TimePeriodPool();
+
+	private TimePeriodPool() {
+	}
 
 	// Map<IndicatorPeriod, Map<Symbol, Set<TimeTwin>>>
 	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimePeriod>>> pools = ECollections
@@ -33,6 +37,17 @@ public final class TimeTwinPool {
 		MutableIntObjectMap<ImmutableSet<TimePeriod>> symbolMap = getSymbolMap(period);
 		for (Symbol symbol : symbols)
 			findOrCreate(symbolMap, period, symbol);
+	}
+
+	/**
+	 * 获取当前交易日下指定Symbol和指定指标周期下的全部时间分割点
+	 * 
+	 * @param period
+	 * @param symbol
+	 * @return
+	 */
+	public static ImmutableSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Instrument instrument) {
+		return getTimePeriodSet(period, instrument.getSymbol());
 	}
 
 	/**
