@@ -2,36 +2,42 @@ package io.ffreedom.polaris.indicators.api;
 
 import java.time.LocalDateTime;
 
+import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
 public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements Point<TimePeriod, Y>, Comparable<Y> {
 
 	private IndicatorPeriod period;
-	private TradingDay tradingDay;
 	private TimePeriod timePeriod;
 
-	public TimePeriodPoint(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
+	public TimePeriodPoint(IndicatorPeriod period, TimePeriod timePeriod) {
 		super();
-		this.timePeriod = TimePeriod.with(startTime, endTime);
+		this.period = period;
+		this.timePeriod = timePeriod;
+	}
+
+	public TimePeriodPoint(IndicatorPeriod period, TradingDay tradingDay, LocalDateTime startTime,
+			LocalDateTime endTime) {
+		this.timePeriod = TimePeriod.with(tradingDay, startTime, endTime);
 	}
 
 	@Override
-	public final TimePeriod getXAxis() {
+	public TimePeriod getXAxis() {
 		return timePeriod;
 	}
 
 	@Override
-	public final Y getYAxis() {
+	public Y getYAxis() {
 		return thisPoint();
 	}
 
 	@Override
-	public final int compareTo(Y o) {
+	public int compareTo(Y o) {
 		return getXAxis().compareTo(o.getXAxis());
 	}
 
 	public TradingDay getTradingDay() {
-		return tradingDay;
+		return timePeriod.getTradingDay();
 	}
 
 	public boolean isPeriod(LocalDateTime time) {

@@ -30,17 +30,12 @@ public final class PointSet<P> {
 		return points.size();
 	}
 
-	public P last() {
+	public P getLast() {
 		return points.getLast();
 	}
 
-	public P first() {
+	public P getfirst() {
 		return points.getFirst();
-	}
-
-	public Optional<P> backtrack(int offset) {
-		int indexOf = points.size() - offset - 1;
-		return indexOf < 0 ? Optional.ofNullable(first()) : get(indexOf);
 	}
 
 	public Optional<P> get(int index) {
@@ -54,6 +49,10 @@ public final class PointSet<P> {
 
 	public MutableList<P> getPoints() {
 		return points;
+	}
+
+	public MutableList<P> getSubPoints(int fromIndex, int toIndex) {
+		return points.subList(fromIndex, toIndex);
 	}
 
 }

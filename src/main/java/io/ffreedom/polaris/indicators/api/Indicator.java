@@ -12,7 +12,7 @@ public interface Indicator<P extends Point<?, ?>> {
 	void onMarketData(BasicMarketData marketData);
 
 	void addIndicatorEvent(IndicatorEvent<P> event);
-	
+
 	void currentPointChanged(P p);
 
 	void startPoint(P p);
@@ -23,9 +23,9 @@ public interface Indicator<P extends Point<?, ?>> {
 
 	P getPoint(int index);
 
-	P fastPoint();
+	P getFastPoint();
 
-	P currentPoint();
+	P getCurrentPoint();
 
 	PointSet<P> getPointSet();
 
