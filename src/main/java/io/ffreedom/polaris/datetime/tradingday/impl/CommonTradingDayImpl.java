@@ -1,7 +1,7 @@
 package io.ffreedom.polaris.datetime.tradingday.impl;
 
 import java.time.LocalDate;
-import java.util.concurrent.atomic.AtomicReference;
+import java.time.LocalDateTime;
 
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -10,22 +10,25 @@ import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 @ThreadSafe
 public class CommonTradingDayImpl implements TradingDay {
 
-	private AtomicReference<LocalDate> current = new AtomicReference<>(LocalDate.now());
+	public final static CommonTradingDayImpl CURRENT = CommonTradingDayImpl.with(LocalDateTime.now());
 
-	public final static TradingDay INSTANCE = new CommonTradingDayImpl();
+	private LocalDate date;
 
-	private CommonTradingDayImpl() {
+	private CommonTradingDayImpl(LocalDate date) {
+		this.date = date;
+	}
+
+	public static CommonTradingDayImpl with(LocalDateTime dateTime) {
+		return new CommonTradingDayImpl(dateTime.toLocalDate());
+	}
+
+	public static CommonTradingDayImpl with(LocalDate date) {
+		return new CommonTradingDayImpl(date);
 	}
 
 	@Override
-	public LocalDate current() {
-		return current.get();
-	}
-
-	@Override
-	public TradingDay set(LocalDate date) {
-		current.set(date);
-		return this;
+	public LocalDate getDate() {
+		return date;
 	}
 
 }

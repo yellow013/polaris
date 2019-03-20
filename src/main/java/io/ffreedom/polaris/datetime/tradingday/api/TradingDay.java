@@ -4,13 +4,11 @@ import java.time.LocalDate;
 
 public interface TradingDay extends Comparable<TradingDay> {
 
-	LocalDate current();
-
-	TradingDay set(LocalDate datetime);
+	LocalDate getDate();
 
 	@Override
 	default int compareTo(TradingDay o) {
-		return current().compareTo(o.current());
+		return getDate().compareTo(o.getDate());
 	}
 
 }

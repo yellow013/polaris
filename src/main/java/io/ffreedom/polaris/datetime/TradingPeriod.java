@@ -14,6 +14,11 @@ import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 import io.ffreedom.polaris.financial.futures.ChinaFuturesSymbol;
 
+/**
+ * 指示某交易标的总的交易时间
+ * 
+ * @author yellow013
+ */
 public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 	private int serialNumber;
@@ -76,7 +81,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			return (startSecondOfDay <= secondOfDay || endSecondOfDay >= secondOfDay) ? true : false;
 	}
 
-	public MutableList<TimeTwin> segmentByDuration(TradingDay tradingDay, Duration segmentationDuration) {
+	public MutableList<TimePeriod> segmentByDuration(TradingDay tradingDay, Duration segmentationDuration) {
 		// 获取分割参数的秒数
 		int seconds = (int) segmentationDuration.getSeconds();
 		// 判断分割段是否大于半天
@@ -84,9 +89,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			// 如果交易周期跨天,则此分割周期等于当天开始时间至次日结束时间
 			// 如果交易周期未跨天,则此分割周期等于当天开始时间至当天结束时间
 			return FastList.newListWith(isCrossDay
-					? TimeTwin.of(tradingDay, LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
+					? TimePeriod.with(tradingDay, LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
 							LocalDateTime.of(DateTimeUtil.getTomorrowDate(), endTime))
-					: TimeTwin.of(tradingDay, LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
+					: TimePeriod.with(tradingDay, LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
 							LocalDateTime.of(DateTimeUtil.getCurrentDate(), endTime)));
 		} else {
 			// 获取此交易时间段的总时长
@@ -95,7 +100,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			int count = totalSeconds / seconds;
 			if (totalSeconds % seconds > 0)
 				count++;
-			FastList<TimeTwin> list = FastList.newList(count);
+			FastList<TimePeriod> list = FastList.newList(count);
 			// 计算开始时间点
 			LocalDateTime startPoint = LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime);
 			// 计算结束时间点,如果跨天则日期加一天
@@ -105,9 +110,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 				LocalDateTime nextStartPoint = startPoint.plusSeconds(seconds);
 				if (nextStartPoint.isBefore(lastEndPoint)) {
 					LocalDateTime endPoint = nextStartPoint.minusNanos(1);
-					list.add(TimeTwin.of(tradingDay, startPoint, endPoint));
+					list.add(TimePeriod.with(tradingDay, startPoint, endPoint));
 				} else {
-					list.add(TimeTwin.of(tradingDay, startPoint, lastEndPoint));
+					list.add(TimePeriod.with(tradingDay, startPoint, lastEndPoint));
 					break;
 				}
 				startPoint = nextStartPoint;
@@ -122,13 +127,11 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 		System.out.println(tradingPeriod.isPeriod(LocalTime.of(14, 00, 00)));
 
-		tradingPeriod
-				.segmentByDuration(TradingDayKeeper.get(ChinaFuturesSymbol.RB).set(LocalDate.now()),
-						Duration.ofMinutes(45))
-				.each(timeTwin -> System.out.println(timeTwin.getStartDateTime() + " - " + timeTwin.getEndDateTime()));
+		tradingPeriod.segmentByDuration(TradingDayKeeper.get(ChinaFuturesSymbol.RB), Duration.ofMinutes(45))
+				.each(timePeriod -> System.out.println(timePeriod.getStartTime() + " - " + timePeriod.getEndTime()));
 
 		LocalDateTime of = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 55, 30));
-		
+
 		System.out.println(of);
 		System.out.println(of.plusMinutes(30));
 

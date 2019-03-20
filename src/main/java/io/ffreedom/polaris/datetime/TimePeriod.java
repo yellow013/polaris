@@ -1,24 +1,45 @@
-package io.ffreedom.polaris.indicators.api;
+package io.ffreedom.polaris.datetime;
 
 import java.time.LocalDateTime;
 
+import io.ffreedom.common.datetime.TimeZones;
+import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
+
 public final class TimePeriod implements Comparable<TimePeriod> {
 
+	private TradingDay tradingDay;
+	private long epochTime;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 
-	public static TimePeriod with(LocalDateTime startTime, LocalDateTime endTime) {
-		return new TimePeriod(startTime, endTime);
+	public static TimePeriod with(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
+		return new TimePeriod(tradingDay, startTime, endTime);
 	}
 
-	public TimePeriod(LocalDateTime startTime, LocalDateTime endTime) {
+	public TimePeriod(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
+		setEpochTime();
+	}
+
+	private void setEpochTime() {
+		this.epochTime = getStartTime().toEpochSecond(TimeZones.UTC);
 	}
 
 	@Override
 	public int compareTo(TimePeriod o) {
-		return startTime.compareTo(o.startTime);
+		int compare = tradingDay.compareTo(o.tradingDay);
+		if (compare == 0)
+			return epochTime < o.epochTime ? -1 : epochTime > o.epochTime ? 1 : 0;
+		return compare;
+	}
+
+	public TradingDay getTradingDay() {
+		return tradingDay;
+	}
+
+	public long getEpochTime() {
+		return epochTime;
 	}
 
 	public LocalDateTime getStartTime() {
