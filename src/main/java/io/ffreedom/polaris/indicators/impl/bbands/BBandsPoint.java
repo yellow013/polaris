@@ -28,4 +28,10 @@ public class BBandsPoint extends TimePeriodPoint<BBandsPoint> {
 		return this;
 	}
 
+	@Override
+	public BBandsPoint generateNext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

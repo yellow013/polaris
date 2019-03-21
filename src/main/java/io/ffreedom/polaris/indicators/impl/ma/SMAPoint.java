@@ -39,4 +39,10 @@ public class SMAPoint extends TimePeriodPoint<SMAPoint> {
 
 	}
 
+	@Override
+	public SMAPoint generateNext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

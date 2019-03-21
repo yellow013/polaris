@@ -83,7 +83,7 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 	public P getFastPoint() {
 		if (points.size() == 0)
 			return currentPoint;
-		return points.getfirst();
+		return points.getFirst();
 	}
 
 	@Override

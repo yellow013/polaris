@@ -31,7 +31,7 @@ public class BarSet extends AbstractIndicator<Bar> {
 
 	@Override
 	protected Bar initCurrentPoint() {
-		return getPointSet().getfirst();
+		return getPointSet().getFirst();
 	}
 
 	private boolean isCurrentCandlePeriod(BasicMarketData marketData) {

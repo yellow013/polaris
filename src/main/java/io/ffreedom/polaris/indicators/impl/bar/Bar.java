@@ -13,7 +13,6 @@ import io.ffreedom.polaris.market.BasicMarketData;
 public final class Bar extends TimePeriodPoint<Bar> {
 
 	private Instrument instrument;
-	private IndicatorPeriod period;
 
 	private double open = Double.NaN;
 	private double highest = Double.MIN_VALUE;
@@ -26,7 +25,6 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	private Bar(IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
 		super(period, timePeriod);
 		this.instrument = instrument;
-		this.period = period;
 	}
 
 	public static Bar with(IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
@@ -43,6 +41,14 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	@Override
 	protected Bar thisPoint() {
 		return this;
+	}
+
+	@Override
+	public Bar generateNext() {
+		return new Bar(getPeriod(),
+				TimePeriod.with(timePeriod.getTradingDay(), timePeriod.getStartTime().plusSeconds(period.getSeconds()),
+						timePeriod.getEndTime().plusSeconds(period.getSeconds())),
+				instrument);
 	}
 
 	private void onPrice(double price) {
@@ -62,10 +68,6 @@ public final class Bar extends TimePeriodPoint<Bar> {
 
 	private void addTurnoverSum(double turnover) {
 		this.turnoverSum = DoubleUtil.correction8(turnoverSum + turnover);
-	}
-
-	public IndicatorPeriod getPeriod() {
-		return period;
 	}
 
 	public Instrument getInstrument() {

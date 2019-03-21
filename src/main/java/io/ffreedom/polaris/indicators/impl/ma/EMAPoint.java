@@ -38,4 +38,10 @@ public class EMAPoint extends TimePeriodPoint<EMAPoint> {
 
 	}
 
+	@Override
+	public EMAPoint generateNext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

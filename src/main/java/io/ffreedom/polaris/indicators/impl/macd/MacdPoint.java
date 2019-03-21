@@ -1,9 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.macd;
 
-import java.time.LocalDateTime;
-
 import io.ffreedom.polaris.datetime.TimePeriod;
-import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
@@ -35,6 +32,12 @@ public class MacdPoint extends TimePeriodPoint<MacdPoint> {
 		System.out.println(b1 / 2);
 		System.out.println((1 + 1 + 6 + 10 + 20) / 2);
 
+	}
+
+	@Override
+	public MacdPoint generateNext() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

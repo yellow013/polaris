@@ -29,4 +29,10 @@ public class SARPoint extends TimePeriodPoint<SARPoint> {
 		return pointValue;
 	}
 
+	@Override
+	public SARPoint generateNext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
