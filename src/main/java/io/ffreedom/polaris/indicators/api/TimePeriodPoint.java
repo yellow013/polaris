@@ -8,7 +8,7 @@ import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements Point<TimePeriod, Y>, Comparable<Y> {
 
 	private IndicatorPeriod period;
-	private TimePeriod timePeriod;
+	protected TimePeriod timePeriod;
 
 	public TimePeriodPoint(IndicatorPeriod period, TimePeriod timePeriod) {
 		super();
@@ -19,6 +19,11 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements P
 	public TimePeriodPoint(IndicatorPeriod period, TradingDay tradingDay, LocalDateTime startTime,
 			LocalDateTime endTime) {
 		this.timePeriod = TimePeriod.with(tradingDay, startTime, endTime);
+	}
+
+	@Override
+	public IndicatorPeriod getPeriod() {
+		return period;
 	}
 
 	@Override
@@ -42,10 +47,6 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements P
 
 	public boolean isPeriod(LocalDateTime time) {
 		return timePeriod.getStartTime().isBefore(time) && timePeriod.getEndTime().isAfter(time) ? true : false;
-	}
-
-	public IndicatorPeriod getPeriod() {
-		return period;
 	}
 
 	public LocalDateTime getStartTime() {

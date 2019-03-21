@@ -26,6 +26,10 @@ public final class PointSet<P extends Point<?, ?>> {
 	}
 
 	public boolean add(P point) {
+		long serialNumber = point.getXAxis().getSerialNumber();
+		if (pointMap.containsKey(serialNumber))
+			return false;
+		pointMap.put(serialNumber, point);
 		return points.add(point);
 	}
 
@@ -37,7 +41,7 @@ public final class PointSet<P extends Point<?, ?>> {
 		return points.getLast();
 	}
 
-	public P getfirst() {
+	public P getFirst() {
 		return points.getFirst();
 	}
 
@@ -45,6 +49,7 @@ public final class PointSet<P extends Point<?, ?>> {
 		return index < points.size() ? Optional.ofNullable(points.get(index)) : Optional.empty();
 	}
 
+	// TODO 增加下标索引
 	public Optional<P> nextOf(P currentCandle) {
 		int indexOf = points.binarySearch(currentCandle);
 		return get(indexOf++);
