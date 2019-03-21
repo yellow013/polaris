@@ -3,9 +3,10 @@ package io.ffreedom.polaris.datetime;
 import java.time.LocalDateTime;
 
 import io.ffreedom.common.datetime.TimeZones;
+import io.ffreedom.common.sequence.Serial;
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
-public final class TimePeriod implements Comparable<TimePeriod> {
+public final class TimePeriod implements Serial<TimePeriod> {
 
 	private TradingDay tradingDay;
 	private long epochTime;
@@ -24,6 +25,11 @@ public final class TimePeriod implements Comparable<TimePeriod> {
 
 	private void setEpochTime() {
 		this.epochTime = getStartTime().toEpochSecond(TimeZones.UTC);
+	}
+
+	@Override
+	public long getSerialNumber() {
+		return epochTime;
 	}
 
 	@Override
