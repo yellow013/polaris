@@ -9,7 +9,7 @@ public class EMAPoint extends TimePeriodPoint<EMAPoint> {
 
 	private double avgPrice;
 
-	public EMAPoint(IndicatorPeriod period, TimePeriod timePeriod) {
+	private EMAPoint(IndicatorPeriod period, TimePeriod timePeriod) {
 		super(period, timePeriod);
 	}
 

@@ -45,7 +45,7 @@ public final class Bar extends TimePeriodPoint<Bar> {
 
 	@Override
 	public Bar generateNext() {
-		return new Bar(getPeriod(),
+		return new Bar(period,
 				TimePeriod.with(timePeriod.getTradingDay(), timePeriod.getStartTime().plusSeconds(period.getSeconds()),
 						timePeriod.getEndTime().plusSeconds(period.getSeconds())),
 				instrument);

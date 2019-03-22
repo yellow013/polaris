@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.impl.bar;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import org.eclipse.collections.api.set.ImmutableSet;
+import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
@@ -20,11 +20,15 @@ public class BarSet extends AbstractIndicator<Bar> {
 		super(instrument, period);
 	}
 
+	public static BarSet with(Instrument instrument, IndicatorPeriod period) {
+		return new BarSet(instrument, period);
+	}
+
 	@Override
 	protected PointSet<Bar> initPoints() {
 		PointSet<Bar> bars = PointSet.emptyPointSet(256);
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSet<TimePeriod> timePeriodSet = TimePeriodPool.getTimePeriodSet(period, instrument.getSymbol());
+		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.getTimePeriodSet(period, instrument.getSymbol());
 		timePeriodSet.each(timePeriod -> bars.add(Bar.with(period, timePeriod, instrument)));
 		return bars;
 	}
