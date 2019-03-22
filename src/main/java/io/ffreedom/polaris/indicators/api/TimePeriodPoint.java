@@ -7,16 +7,16 @@ import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
 public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements Point<TimePeriod, Y>, Comparable<Y> {
 
-	private IndicatorPeriod period;
+	protected IndicatorPeriod period;
 	protected TimePeriod timePeriod;
 
-	public TimePeriodPoint(IndicatorPeriod period, TimePeriod timePeriod) {
+	protected TimePeriodPoint(IndicatorPeriod period, TimePeriod timePeriod) {
 		super();
 		this.period = period;
 		this.timePeriod = timePeriod;
 	}
 
-	public TimePeriodPoint(IndicatorPeriod period, TradingDay tradingDay, LocalDateTime startTime,
+	protected TimePeriodPoint(IndicatorPeriod period, TradingDay tradingDay, LocalDateTime startTime,
 			LocalDateTime endTime) {
 		this.timePeriod = TimePeriod.with(tradingDay, startTime, endTime);
 	}
