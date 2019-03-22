@@ -8,13 +8,9 @@ import io.ffreedom.polaris.indicators.pools.base.MultiLayerIndicatorPool;
 
 public class SmaPool extends MultiLayerIndicatorPool<SMA> {
 
-	private static final SmaPool singleton = new SmaPool();
+	public static final SmaPool Singleton = new SmaPool();
 
 	private SmaPool() {
-	}
-
-	public static SmaPool getSingleton() {
-		return singleton;
 	}
 
 	@Override

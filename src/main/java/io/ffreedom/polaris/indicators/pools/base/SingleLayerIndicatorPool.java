@@ -38,15 +38,15 @@ public abstract class SingleLayerIndicatorPool<I extends Indicator<?>> extends B
 		return saved;
 	}
 
-	public boolean putIndicator(IndicatorPeriod period, Instrument instrument, I i) {
+	public boolean putIndicator(IndicatorPeriod period, Instrument instrument, I indicator) {
 		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
 		I saved = indicatorMap.get(instrument.getInstrumentId());
 		if (saved != null) {
 			logger.warn("Indicator existed. period==[{}], instrumentCode==[{}]", period, instrument.getInstrumentId());
 			return false;
 		}
-		indicatorMap.put(instrument.getInstrumentId(), i);
-		return indicators.add(i);
+		indicatorMap.put(instrument.getInstrumentId(), indicator);
+		return indicators.add(indicator);
 	}
 
 	private MutableIntObjectMap<I> getIndicatorMap(IndicatorPeriod period) {

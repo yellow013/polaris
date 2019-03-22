@@ -45,7 +45,7 @@ public abstract class MultiLayerIndicatorPool<I extends Indicator<?>> extends Ba
 		return saved;
 	}
 
-	public boolean putIndicator(IndicatorPeriod period, Instrument instrument, IndicatorCycle cycle, I i) {
+	public boolean putIndicator(IndicatorPeriod period, Instrument instrument, IndicatorCycle cycle, I indicator) {
 		MutableLongObjectMap<I> indicatorMap = getIndicatorMap(period);
 		long index = calculateIndex(instrument, cycle);
 		I saved = indicatorMap.get(index);
@@ -54,8 +54,12 @@ public abstract class MultiLayerIndicatorPool<I extends Indicator<?>> extends Ba
 					instrument.getInstrumentId(), cycle);
 			return false;
 		}
-		indicatorMap.put(index, i);
-		return indicators.add(i);
+		indicatorMap.put(index, indicator);
+		return indicators.add(indicator);
+	}
+
+	private long calculateIndex(Instrument instrument, IndicatorCycle cycle) {
+		return instrument.getInstrumentId() * 1000000 + cycle.getValue();
 	}
 
 	private MutableLongObjectMap<I> getIndicatorMap(IndicatorPeriod period) {
@@ -95,10 +99,6 @@ public abstract class MultiLayerIndicatorPool<I extends Indicator<?>> extends Ba
 		default:
 			throw new IllegalArgumentException("period : " + period.name() + " is not found.b");
 		}
-	}
-
-	private long calculateIndex(Instrument instrument, IndicatorCycle cycle) {
-		return instrument.getInstrumentId() * 1000000 + cycle.getValue();
 	}
 
 }

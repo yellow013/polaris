@@ -7,13 +7,9 @@ import io.ffreedom.polaris.indicators.pools.base.SingleLayerIndicatorPool;
 
 public final class BarSetPool extends SingleLayerIndicatorPool<BarSet> {
 
-	private static final BarSetPool singleton = new BarSetPool();
+	public static final BarSetPool Singleton = new BarSetPool();
 
 	private BarSetPool() {
-	}
-
-	public static BarSetPool getSingleton() {
-		return singleton;
 	}
 
 	@Override

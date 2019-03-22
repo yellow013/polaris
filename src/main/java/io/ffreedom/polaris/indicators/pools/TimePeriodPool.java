@@ -1,17 +1,22 @@
 package io.ffreedom.polaris.indicators.pools;
 
+import javax.annotation.concurrent.NotThreadSafe;
+
+import org.eclipse.collections.api.map.primitive.ImmutableLongObjectMap;
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
-import org.eclipse.collections.api.set.ImmutableSet;
-import org.eclipse.collections.api.set.MutableSet;
+import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
+import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 
+@NotThreadSafe
 public final class TimePeriodPool {
 
 	private static final TimePeriodPool INSTANCE = new TimePeriodPool();
@@ -19,24 +24,42 @@ public final class TimePeriodPool {
 	private TimePeriodPool() {
 	}
 
-	// Map<IndicatorPeriod, Map<Symbol, Set<TimeTwin>>>
-	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSet<TimePeriod>>> pools = ECollections
+	// Map<IndicatorPeriod, Map<Symbol, Set<TimePeriod>>>
+	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSortedSet<TimePeriod>>> timePeriodMap = ECollections
 			.newLongObjectHashMap();
+
+	// Map<IndicatorPeriod, Map<Symbol, Set<TimePeriod>>>
+	private ImmutableLongObjectMap<ImmutableLongObjectMap<ImmutableSortedSet<TimePeriod>>> immutablePool;
+
+	// Map<IndicatorPeriod, Map<Symbol, Map<SerialNumber, TimePeriod>>>
+	private ImmutableLongObjectMap<ImmutableLongObjectMap<ImmutableLongObjectMap<TimePeriod>>> immutableMap;
 
 	public static void register(Symbol[] symbols, IndicatorPeriod... periods) {
 		if (symbols == null)
 			throw new IllegalArgumentException("Illegal Argument -> symbols is null");
 		if (periods == null)
 			throw new IllegalArgumentException("Illegal Argument -> periods in null");
-		for (IndicatorPeriod period : periods) {
-			INSTANCE.register0(symbols, period);
-		}
+		for (IndicatorPeriod period : periods)
+			INSTANCE.generateTimePeriod(symbols, period);
 	}
 
-	private void register0(Symbol[] symbols, IndicatorPeriod period) {
-		MutableIntObjectMap<ImmutableSet<TimePeriod>> symbolMap = getSymbolMap(period);
+	public static TradingPeriod getNextTimePeriod(Symbol symbols, IndicatorPeriod period) {
+		// TODO
+		return null;
+	}
+
+	private void generateTimePeriod(Symbol[] symbols, IndicatorPeriod period) {
+		MutableIntObjectMap<ImmutableSortedSet<TimePeriod>> symbolMap = getSymbolMap(period);
 		for (Symbol symbol : symbols)
 			findOrCreate(symbolMap, period, symbol);
+	}
+
+	public static void toImmutable() {
+		INSTANCE.toImmutable0();
+	}
+
+	public void toImmutable0() {
+		// TODO
 	}
 
 	/**
@@ -46,7 +69,7 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public static ImmutableSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Instrument instrument) {
+	public static ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Instrument instrument) {
 		return getTimePeriodSet(period, instrument.getSymbol());
 	}
 
@@ -57,7 +80,7 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public static ImmutableSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Symbol symbol) {
+	public static ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Symbol symbol) {
 		return INSTANCE.findOrCreate(INSTANCE.getSymbolMap(period), period, symbol);
 	}
 
@@ -67,11 +90,11 @@ public final class TimePeriodPool {
 	 * @param period
 	 * @return
 	 */
-	private MutableIntObjectMap<ImmutableSet<TimePeriod>> getSymbolMap(IndicatorPeriod period) {
-		MutableIntObjectMap<ImmutableSet<TimePeriod>> symbolMap = pools.get(period.getSeconds());
+	private MutableIntObjectMap<ImmutableSortedSet<TimePeriod>> getSymbolMap(IndicatorPeriod period) {
+		MutableIntObjectMap<ImmutableSortedSet<TimePeriod>> symbolMap = timePeriodMap.get(period.getSeconds());
 		if (symbolMap == null) {
 			symbolMap = ECollections.newIntObjectHashMap();
-			pools.put(period.getSeconds(), symbolMap);
+			timePeriodMap.put(period.getSeconds(), symbolMap);
 		}
 		return symbolMap;
 	}
@@ -84,12 +107,12 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	private ImmutableSet<TimePeriod> findOrCreate(MutableIntObjectMap<ImmutableSet<TimePeriod>> symbolMap,
+	private ImmutableSortedSet<TimePeriod> findOrCreate(MutableIntObjectMap<ImmutableSortedSet<TimePeriod>> symbolMap,
 			IndicatorPeriod period, Symbol symbol) {
-		ImmutableSet<TimePeriod> immutableTimeTwinSet = symbolMap.get(symbol.getSymbolId());
-		if (immutableTimeTwinSet != null)
-			return immutableTimeTwinSet;
-		MutableSet<TimePeriod> timePeriodSet = ECollections.newUnifiedSet();
+		ImmutableSortedSet<TimePeriod> immutableTimePeriod = symbolMap.get(symbol.getSymbolId());
+		if (immutableTimePeriod != null)
+			return immutableTimePeriod;
+		MutableSortedSet<TimePeriod> timePeriodSet = ECollections.newTreeSortedSet();
 		// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
 		symbol.getTradingPeriodSet().forEach(tradingPeriod -> timePeriodSet
 				.addAll(tradingPeriod.segmentByDuration(TradingDayKeeper.get(symbol), period.getDuration())));
