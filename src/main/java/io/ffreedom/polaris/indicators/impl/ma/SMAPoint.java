@@ -2,25 +2,29 @@ package io.ffreedom.polaris.indicators.impl.ma;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
+import io.ffreedom.polaris.indicators.impl.HistoryPriceRecorder;
+import io.ffreedom.polaris.indicators.impl.ma.base.MAPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class SMAPoint extends TimePeriodPoint<SMAPoint> {
+public class SMAPoint extends MAPoint<SMAPoint> {
 
-	public SMAPoint(IndicatorPeriod period, TimePeriod timePeriod) {
-		super(period, timePeriod);
-		// TODO Auto-generated constructor stub
+	private double historyPriceSum;
+
+	public SMAPoint(IndicatorPeriod period, TimePeriod timePeriod, HistoryPriceRecorder historyPriceRecorder) {
+		super(period, timePeriod, historyPriceRecorder);
+		this.historyPriceSum = historyPriceRecorder.sum();
 	}
 
-	private double avgPrice;
-
-	public static SMAPoint with(IndicatorPeriod period, TimePeriod timePeriod) {
-		return new SMAPoint(period, timePeriod);
+	public static SMAPoint with(IndicatorPeriod period, TimePeriod timePeriod,
+			HistoryPriceRecorder historyPriceRecorder) {
+		return new SMAPoint(period, timePeriod, historyPriceRecorder);
 	}
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
-		double lastPrice = marketData.getLastPrice();
+		this.lastPrice = marketData.getLastPrice();
+		historyPriceRecorder.getCount();
+		this.avgPrice = historyPriceSum + lastPrice;
 	}
 
 	@Override
@@ -41,8 +45,7 @@ public class SMAPoint extends TimePeriodPoint<SMAPoint> {
 
 	@Override
 	public SMAPoint generateNext() {
-		// TODO Auto-generated method stub
-		return null;
+		return SMAPoint.with(period, timePeriod, historyPriceRecorder.addTail(lastPrice));
 	}
 
 }

@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.ma.base;
+package io.ffreedom.polaris.indicators.impl;
 
 import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
@@ -6,24 +6,65 @@ import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 
-@Deprecated
-public class MACalculateContainer {
+public class HistoryPriceRecorder {
 
-	private int head = 0;
+	private int head = -1;
 	private int tail = 0;
 	private int count = 0;
 
 	private int capacity;
 
-	private MutableDoubleList calculateList;
+	private MutableDoubleList priceList;
 
-	public static MACalculateContainer newContainer(IndicatorCycle cycle) {
-		return new MACalculateContainer(cycle.getValue());
+	private boolean isFull;
+
+	private HistoryPriceRecorder(int capacity) {
+		this.capacity = capacity;
+		this.priceList = ECollections.newDoubleArrayList(capacity);
 	}
 
-	private MACalculateContainer(int capacity) {
-		this.capacity = capacity;
-		this.calculateList = ECollections.newDoubleArrayList(capacity);
+	public static HistoryPriceRecorder newRecorder(IndicatorCycle cycle) {
+		return new HistoryPriceRecorder(cycle.getValue());
+	}
+
+	public boolean isFull() {
+		return isFull;
+	}
+
+	public double sum() {
+		return priceList.sum();
+	}
+
+	public double max() {
+		return priceList.max();
+	}
+
+	public double min() {
+		return priceList.min();
+	}
+
+	public double average() {
+		return priceList.average();
+	}
+
+	public double median() {
+		return priceList.median();
+	}
+
+	public ImmutableDoubleList toImmutable() {
+		return priceList.toImmutable();
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public HistoryPriceRecorder addTail(double value) {
+		updateTailIndex();
+		updateHeadIndex();
+		updateCount();
+		updateTail(value);
+		return this;
 	}
 
 	private void updateTailIndex() {
@@ -32,75 +73,41 @@ public class MACalculateContainer {
 	}
 
 	private void updateHeadIndex() {
-		if (count == capacity) {
-			if (++head == capacity)
-				head = 0;
-		}
+		if (count < capacity)
+			return;
+		if (++head == capacity)
+			head = 0;
 	}
 
 	private void updateCount() {
-		if (count < capacity)
+		if (!isFull) {
+			if (count == capacity) {
+				isFull = true;
+				return;
+			}
 			count++;
+		}
 	}
 
-	public ImmutableDoubleList getCalculateList() {
-		return calculateList.toImmutable();
-	}
-
-	public MACalculateContainer addTail(double value) {
-		updateTailIndex();
-		updateTail(value);
-		updateHeadIndex();
-		updateCount();
-		return this;
-	}
-
-	public MACalculateContainer updateTail(double value) {
-		calculateList.set(tail, value);
-		return this;
-	}
-
-	public MACalculateContainer removeHead() {
-		calculateList.removeAtIndex(head);
-		return this;
-	}
-
-	public double sum() {
-		return calculateList.sum();
-	}
-
-	public double max() {
-		return calculateList.max();
-	}
-
-	public double min() {
-		return calculateList.min();
-	}
-
-	public double average() {
-		return calculateList.average();
-	}
-
-	public double median() {
-		return calculateList.median();
+	private void updateTail(double value) {
+		if (isFull)
+			priceList.set(tail, value);
+		else
+			priceList.add(value);
 	}
 
 	public static void main(String[] args) {
 
-		MACalculateContainer container = new MACalculateContainer(10);
+		HistoryPriceRecorder recorder = newRecorder(IndicatorCycle.with(10));
 
-		ImmutableDoubleList list = container.getCalculateList();
+		for (int i = 1; i < 30; i++) {
+			recorder.addTail(i);
+			System.out.println("Count -> " + recorder.count);
+			System.out.print("Value -> ");
+			recorder.priceList.each(value -> System.out.print(value + " , "));
+			System.out.println();
+		}
 
-		System.out.println(container.median());
-
-		System.out.println(container.average());
-
-		System.out.println(container.sum());
-
-		System.out.println(container.median());
-
-		System.out.println(container.average());
-
-		System.out.println(list.sum());
 	}
+
 }

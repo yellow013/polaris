@@ -9,7 +9,7 @@ public final class IndicatorCycle {
 	}
 
 	public static IndicatorCycle with(int value) {
-		if (value < 99999)
+		if (value > 99999)
 			throw new IllegalArgumentException("IndicatorCycle value is too big.");
 		return new IndicatorCycle(value);
 	}
