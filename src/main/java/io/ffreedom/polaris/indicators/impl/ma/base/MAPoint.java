@@ -3,15 +3,16 @@ package io.ffreedom.polaris.indicators.impl.ma.base;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
-import io.ffreedom.polaris.indicators.impl.HistoryPriceRecorder;
+import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
 
 public abstract class MAPoint<P extends MAPoint<P>> extends TimePeriodPoint<P> {
 
-	protected HistoryPriceRecorder historyPriceRecorder;
+	protected FixedLengthHistoryPriceRecorder historyPriceRecorder;
 	protected double avgPrice;
 	protected double lastPrice;
 
-	protected MAPoint(IndicatorPeriod period, TimePeriod timePeriod, HistoryPriceRecorder historyPriceRecorder) {
+	protected MAPoint(IndicatorPeriod period, TimePeriod timePeriod,
+			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
 		super(period, timePeriod);
 		this.historyPriceRecorder = historyPriceRecorder;
 	}
@@ -24,7 +25,7 @@ public abstract class MAPoint<P extends MAPoint<P>> extends TimePeriodPoint<P> {
 		return lastPrice;
 	}
 
-	public HistoryPriceRecorder getHistoryPriceRecorder() {
+	public FixedLengthHistoryPriceRecorder getHistoryPriceRecorder() {
 		return historyPriceRecorder;
 	}
 
