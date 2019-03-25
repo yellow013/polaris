@@ -19,7 +19,7 @@ import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 @NotThreadSafe
 public final class TimePeriodPool {
 
-	private static final TimePeriodPool INSTANCE = new TimePeriodPool();
+	public static final TimePeriodPool Singleton = new TimePeriodPool();
 
 	private TimePeriodPool() {
 	}
@@ -34,16 +34,21 @@ public final class TimePeriodPool {
 	// Map<IndicatorPeriod, Map<Symbol, Map<SerialNumber, TimePeriod>>>
 	private ImmutableLongObjectMap<ImmutableLongObjectMap<ImmutableLongObjectMap<TimePeriod>>> immutableMap;
 
-	public static void register(Symbol[] symbols, IndicatorPeriod... periods) {
+	public void register(Symbol[] symbols, IndicatorPeriod... periods) {
 		if (symbols == null)
 			throw new IllegalArgumentException("Illegal Argument -> symbols is null");
 		if (periods == null)
 			throw new IllegalArgumentException("Illegal Argument -> periods in null");
 		for (IndicatorPeriod period : periods)
-			INSTANCE.generateTimePeriod(symbols, period);
+			generateTimePeriod(symbols, period);
 	}
 
 	public static TradingPeriod getNextTimePeriod(Symbol symbols, IndicatorPeriod period) {
+		// TODO
+		return null;
+	}
+
+	public static TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorPeriod period) {
 		// TODO
 		return null;
 	}
@@ -54,11 +59,7 @@ public final class TimePeriodPool {
 			findOrCreate(symbolMap, period, symbol);
 	}
 
-	public static void toImmutable() {
-		INSTANCE.toImmutable0();
-	}
-
-	public void toImmutable0() {
+	public void toImmutable() {
 		// TODO
 	}
 
@@ -69,7 +70,7 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public static ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Instrument instrument) {
+	public ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Instrument instrument) {
 		return getTimePeriodSet(period, instrument.getSymbol());
 	}
 
@@ -80,8 +81,8 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public static ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Symbol symbol) {
-		return INSTANCE.findOrCreate(INSTANCE.getSymbolMap(period), period, symbol);
+	public ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Symbol symbol) {
+		return findOrCreate(getSymbolMap(period), period, symbol);
 	}
 
 	/**

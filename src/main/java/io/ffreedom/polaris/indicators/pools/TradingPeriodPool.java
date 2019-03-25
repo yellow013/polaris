@@ -14,7 +14,7 @@ import io.ffreedom.polaris.financial.Symbol;
 @ThreadSafe
 public final class TradingPeriodPool {
 
-	private static final TradingPeriodPool INSTANCE = new TradingPeriodPool();
+	public static final TradingPeriodPool Singleton = new TradingPeriodPool();
 
 	private TradingPeriodPool() {
 	}
@@ -26,11 +26,11 @@ public final class TradingPeriodPool {
 	// Map<IndicatorPeriod, Map<Symbol, Map<SerialNumber, TimePeriod>>>
 	private ImmutableIntObjectMap<ImmutableSortedSet<TradingPeriod>> immutablePool;
 
-	public static void register(Symbol... symbols) {
+	public void register(Symbol... symbols) {
 		if (symbols == null)
 			throw new IllegalArgumentException("Illegal Argument -> symbols is null");
 		for (Symbol symbol : symbols)
-			INSTANCE.putTradingPeriod(symbol);
+			putTradingPeriod(symbol);
 	}
 
 	private void putTradingPeriod(Symbol symbol) {
@@ -38,11 +38,7 @@ public final class TradingPeriodPool {
 			tradingPeriodMap.put(symbol.getSymbolId(), symbol.getTradingPeriodSet());
 	}
 
-	public static void toImmutable() {
-		INSTANCE.toImmutable0();
-	}
-
-	private void toImmutable0() {
+	public void toImmutable() {
 		this.immutablePool = tradingPeriodMap.toImmutable();
 	}
 
@@ -53,14 +49,14 @@ public final class TradingPeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public static ImmutableSortedSet<TradingPeriod> getTradingPeriodSet(Instrument instrument) {
+	public ImmutableSortedSet<TradingPeriod> getTradingPeriodSet(Instrument instrument) {
 		return getTradingPeriodSet(instrument.getSymbol());
 	}
 
-	public static ImmutableSortedSet<TradingPeriod> getTradingPeriodSet(Symbol symbol) {
-		if (INSTANCE.immutablePool == null)
-			throw new NullPointerException("immutablePool is null, plz call static method toImmutable().");
-		return INSTANCE.immutablePool.get(symbol.getSymbolId());
+	public ImmutableSortedSet<TradingPeriod> getTradingPeriodSet(Symbol symbol) {
+		if (immutablePool == null)
+			throw new NullPointerException("immutablePool is null, plz call method toImmutable().");
+		return immutablePool.get(symbol.getSymbolId());
 	}
 
 }
