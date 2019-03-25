@@ -43,12 +43,12 @@ public final class TimePeriodPool {
 			generateTimePeriod(symbols, period);
 	}
 
-	public static TradingPeriod getNextTimePeriod(Symbol symbols, IndicatorPeriod period) {
+	public TradingPeriod getNextTimePeriod(Symbol symbols, IndicatorPeriod period) {
 		// TODO
 		return null;
 	}
 
-	public static TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorPeriod period) {
+	public TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorPeriod period) {
 		// TODO
 		return null;
 	}
