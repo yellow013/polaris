@@ -1,34 +1,57 @@
 package io.ffreedom.polaris.indicators.impl;
 
+import javax.annotation.concurrent.NotThreadSafe;
+
 import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 
-public class HistoryPriceRecorder {
+@NotThreadSafe
+public class FixedLengthHistoryPriceRecorder {
 
-	private int head = -1;
-	private int tail = 0;
+	private int tail = -1;
 	private int count = 0;
 
 	private int capacity;
 
 	private MutableDoubleList priceList;
 
-	private boolean isFull;
+	private boolean isEmpty = true;
+	private boolean isFull = false;
 
-	private HistoryPriceRecorder(int capacity) {
+	private static double nothingPrice = 0.0d;
+
+	private FixedLengthHistoryPriceRecorder(int capacity) {
 		this.capacity = capacity;
 		this.priceList = ECollections.newDoubleArrayList(capacity);
 	}
 
-	public static HistoryPriceRecorder newRecorder(IndicatorCycle cycle) {
-		return new HistoryPriceRecorder(cycle.getValue());
+	public static FixedLengthHistoryPriceRecorder newRecorder(IndicatorCycle cycle) {
+		return new FixedLengthHistoryPriceRecorder(cycle.getValue());
+	}
+
+	public boolean isEmpty() {
+		return isEmpty;
 	}
 
 	public boolean isFull() {
 		return isFull;
+	}
+
+	public double getTail() {
+		if (isEmpty)
+			return nothingPrice;
+		return priceList.get(tail);
+	}
+
+	public double getHead() {
+		if (isEmpty)
+			return nothingPrice;
+		if (isFull)
+			return priceList.get(tail + 1 == capacity ? 0 : tail + 1);
+		return priceList.get(tail - count + 1);
 	}
 
 	public double sum() {
@@ -59,24 +82,23 @@ public class HistoryPriceRecorder {
 		return count;
 	}
 
-	public HistoryPriceRecorder addTail(double value) {
-		updateTailIndex();
-		updateHeadIndex();
-		updateCount();
+	public FixedLengthHistoryPriceRecorder addTail(double value) {
 		updateTail(value);
 		return this;
+	}
+
+	private void updateTail(double value) {
+		updateTailIndex();
+		updateCount();
+		if (isFull)
+			priceList.set(tail, value);
+		else
+			priceList.add(value);
 	}
 
 	private void updateTailIndex() {
 		if (++tail == capacity)
 			tail = 0;
-	}
-
-	private void updateHeadIndex() {
-		if (count < capacity)
-			return;
-		if (++head == capacity)
-			head = 0;
 	}
 
 	private void updateCount() {
@@ -87,18 +109,14 @@ public class HistoryPriceRecorder {
 			}
 			count++;
 		}
-	}
-
-	private void updateTail(double value) {
-		if (isFull)
-			priceList.set(tail, value);
-		else
-			priceList.add(value);
+		if (isEmpty) {
+			isEmpty = false;
+		}
 	}
 
 	public static void main(String[] args) {
 
-		HistoryPriceRecorder recorder = newRecorder(IndicatorCycle.with(10));
+		FixedLengthHistoryPriceRecorder recorder = newRecorder(IndicatorCycle.with(10));
 
 		for (int i = 1; i < 30; i++) {
 			recorder.addTail(i);
@@ -106,6 +124,8 @@ public class HistoryPriceRecorder {
 			System.out.print("Value -> ");
 			recorder.priceList.each(value -> System.out.print(value + " , "));
 			System.out.println();
+			System.out.println("Head -> " + recorder.getHead());
+			System.out.println("Tail -> " + recorder.getTail());
 		}
 
 	}
