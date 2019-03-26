@@ -9,6 +9,7 @@ import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.Indicator;
+import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.Point;
@@ -20,15 +21,17 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 
 	protected Instrument instrument;
 	protected IndicatorPeriod period;
+	protected IndicatorCycle cycle;
 
 	protected PointSet<P> points;
 	protected P currentPoint;
 
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
 
-	public AbstractIndicator(Instrument instrument, IndicatorPeriod period) {
+	public AbstractIndicator(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
 		this.instrument = instrument;
 		this.period = period;
+		this.cycle = cycle;
 		this.points = initPoints();
 		this.currentPoint = initCurrentPoint();
 	}

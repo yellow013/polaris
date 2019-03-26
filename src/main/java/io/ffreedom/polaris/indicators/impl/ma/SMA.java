@@ -17,8 +17,7 @@ public final class SMA extends AbstractIndicator<SMAPoint> {
 	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
 
 	public SMA(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
-		super(instrument, period);
-		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
+		super(instrument, period, cycle);
 	}
 
 	public static SMA with(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
@@ -33,6 +32,7 @@ public final class SMA extends AbstractIndicator<SMAPoint> {
 	@Override
 	protected PointSet<SMAPoint> initPoints() {
 		PointSet<SMAPoint> pointSet = PointSet.emptyPointSet(256);
+		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
 		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
 		timePeriodSet.each(timePeriod -> pointSet.add(SMAPoint.with(period, timePeriod, historyPriceRecorder)));
 		return pointSet;

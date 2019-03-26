@@ -1,6 +1,7 @@
 package io.ffreedom.polaris.indicators.impl.macd;
 
 import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
@@ -9,8 +10,7 @@ import io.ffreedom.polaris.market.BasicMarketData;
 public final class MACD extends AbstractIndicator<MacdPoint> {
 
 	public MACD(Instrument instrument, IndicatorPeriod period) {
-		super(instrument, period);
-		// TODO Auto-generated constructor stub
+		super(instrument, period, IndicatorCycle.with(26));
 	}
 
 	@Override

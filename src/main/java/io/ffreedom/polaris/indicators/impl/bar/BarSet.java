@@ -8,6 +8,7 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
@@ -17,7 +18,7 @@ import io.ffreedom.polaris.market.BasicMarketData;
 public class BarSet extends AbstractIndicator<Bar> {
 
 	public BarSet(Instrument instrument, IndicatorPeriod period) {
-		super(instrument, period);
+		super(instrument, period, IndicatorCycle.with(1));
 	}
 
 	public static BarSet with(Instrument instrument, IndicatorPeriod period) {
@@ -28,7 +29,8 @@ public class BarSet extends AbstractIndicator<Bar> {
 	protected PointSet<Bar> initPoints() {
 		PointSet<Bar> bars = PointSet.emptyPointSet(256);
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument.getSymbol());
+		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period,
+				instrument.getSymbol());
 		timePeriodSet.each(timePeriod -> bars.add(Bar.with(period, timePeriod, instrument)));
 		return bars;
 	}

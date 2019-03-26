@@ -10,7 +10,7 @@ import io.ffreedom.polaris.market.BasicMarketData;
 public class EMA extends AbstractIndicator<EMAPoint> {
 
 	public EMA(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
-		super(instrument, period);
+		super(instrument, period, cycle);
 	}
 
 	@Override
