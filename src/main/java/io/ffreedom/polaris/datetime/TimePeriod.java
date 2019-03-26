@@ -18,6 +18,7 @@ public final class TimePeriod implements Serial<TimePeriod> {
 	}
 
 	public TimePeriod(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
+		this.tradingDay = tradingDay;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		setEpochTime();
