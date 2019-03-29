@@ -53,7 +53,7 @@ public final class ChinaFuturesUtil {
 
 		System.out.println(ChinaFuturesSymbol.AG.getExchange().getExchangeId());
 		System.out.println(ChinaFuturesSymbol.AG.getSymbolId());
-		System.out.println(ChinaFuturesSymbol.AG.genInstrumentId(1812));
+		System.out.println(ChinaFuturesSymbol.AG.generateInstrumentId(1906));
 
 	}
 
