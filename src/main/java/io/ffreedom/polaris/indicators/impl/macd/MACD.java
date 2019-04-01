@@ -31,4 +31,16 @@ public final class MACD extends AbstractIndicator<MacdPoint> {
 		return null;
 	}
 
+	@Override
+	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected MacdPoint generateNextPoint(MacdPoint currentPoint) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

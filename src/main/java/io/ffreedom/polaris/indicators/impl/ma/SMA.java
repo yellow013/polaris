@@ -25,22 +25,29 @@ public final class SMA extends AbstractIndicator<SMAPoint> {
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		currentPoint.onMarketData(marketData);
-	}
-
-	@Override
 	protected PointSet<SMAPoint> initPoints() {
 		PointSet<SMAPoint> pointSet = PointSet.emptyPointSet(256);
 		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
 		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
-		timePeriodSet.each(timePeriod -> pointSet.add(SMAPoint.with(period, timePeriod, historyPriceRecorder)));
+		timePeriodSet.each(timePeriod -> pointSet.add(SMAPoint.with(period, timePeriod, cycle, historyPriceRecorder)));
 		return pointSet;
 	}
 
 	@Override
 	protected SMAPoint initCurrentPoint() {
 		return points.getFirst();
+	}
+
+	@Override
+	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected SMAPoint generateNextPoint(SMAPoint currentPoint) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

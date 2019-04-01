@@ -28,4 +28,16 @@ public class BBands extends AbstractIndicator<BBandsPoint> {
 		return null;
 	}
 
+	@Override
+	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected BBandsPoint generateNextPoint(BBandsPoint currentPoint) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

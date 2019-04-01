@@ -28,4 +28,16 @@ public class SAR extends AbstractIndicator<SARPoint> {
 		return null;
 	}
 
+	@Override
+	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected SARPoint generateNextPoint(SARPoint currentPoint) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

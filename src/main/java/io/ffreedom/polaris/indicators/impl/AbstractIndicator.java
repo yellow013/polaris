@@ -14,6 +14,7 @@ import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.indicators.api.PointSet;
+import io.ffreedom.polaris.market.BasicMarketData;
 
 public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indicator<P> {
 
@@ -28,6 +29,8 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
 
+	protected BasicMarketData preMarketData;
+
 	public AbstractIndicator(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
 		this.instrument = instrument;
 		this.period = period;
@@ -41,6 +44,28 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 
 	@Nonnull
 	protected abstract P initCurrentPoint();
+
+	protected abstract boolean isCurrentPointPeriod(BasicMarketData marketData);
+
+	@Nonnull
+	protected abstract P generateNextPoint(P currentPoint);
+
+	@Override
+	public void onMarketData(BasicMarketData marketData) {
+		if (isCurrentPointPeriod(marketData)) {
+			currentPoint.onMarketData(marketData);
+		} else {
+			endPoint(currentPoint);
+			currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
+			while (!isCurrentPointPeriod(marketData)) {
+				currentPoint.onMarketData(preMarketData);
+				currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
+			}
+			currentPoint.onMarketData(marketData);
+			startPoint(currentPoint);
+		}
+		this.preMarketData = marketData;
+	}
 
 	@Override
 	public Instrument getInstrument() {

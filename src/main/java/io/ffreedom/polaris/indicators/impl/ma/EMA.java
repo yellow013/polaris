@@ -31,4 +31,16 @@ public class EMA extends AbstractIndicator<EMAPoint> {
 		return null;
 	}
 
+	@Override
+	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected EMAPoint generateNextPoint(EMAPoint currentPoint) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

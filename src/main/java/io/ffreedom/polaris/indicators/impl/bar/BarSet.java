@@ -1,12 +1,10 @@
 package io.ffreedom.polaris.indicators.impl.bar;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
-import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
@@ -40,27 +38,19 @@ public class BarSet extends AbstractIndicator<Bar> {
 		return getPointSet().getFirst();
 	}
 
-	private boolean isCurrentCandlePeriod(BasicMarketData marketData) {
+	@Override
+	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
 		return currentPoint.isPeriod(marketData.getZonedDateTime().toLocalDateTime());
 	}
 
-	public void onMarketData(BasicMarketData marketData) {
-		if (isCurrentCandlePeriod(marketData)) {
-			currentPoint.onMarketData(marketData);
-		} else {
-			endPoint(currentPoint);
-			Optional<Bar> nextBar = getPointSet().nextOf(currentPoint);
-			if (nextBar.isPresent()) {
-				currentPoint = nextBar.get();
-			} else {
-				// 根据当前周期的开始时间和结束时间以及时间周期创建新的点
-				LocalDateTime newStartTime = currentPoint.getStartTime().plusSeconds(period.getSeconds());
-				LocalDateTime newEndTime = currentPoint.getEndTime().plusSeconds(period.getSeconds());
-				currentPoint = Bar.with(period,
-						TimePeriod.with(TradingDayKeeper.get(instrument), newStartTime, newEndTime), instrument);
-				getPointSet().add(currentPoint);
-			}
-		}
+	@Override
+	protected Bar generateNextPoint(Bar currentPoint) {
+		// 根据当前周期的开始时间和结束时间以及时间周期创建新的点
+		LocalDateTime newStartTime = currentPoint.getStartTime().plusSeconds(period.getSeconds());
+		LocalDateTime newEndTime = currentPoint.getEndTime().plusSeconds(period.getSeconds());
+		Bar newPoint = Bar.with(period, TimePeriod.with(newStartTime, newEndTime), instrument);
+		getPointSet().add(newPoint);
+		return newPoint;
 	}
 
 }
