@@ -1,11 +1,11 @@
 package io.ffreedom.polaris.market;
 
+import java.util.function.Consumer;
+
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
-
-import io.ffreedom.common.functional.Callback;
 
 @NotThreadSafe
 public final class QuoteKeeper {
@@ -36,9 +36,9 @@ public final class QuoteKeeper {
 	}
 
 	@FunctionalInterface
-	public interface QuotesUpdater extends Callback<Quotes> {
+	public interface QuotesUpdater extends Consumer<Quotes> {
 		default void update(Quotes quotes) {
-			onEvent(quotes);
+			accept(quotes);
 		}
 	}
 
