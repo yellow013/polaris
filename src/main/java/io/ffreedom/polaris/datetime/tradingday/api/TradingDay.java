@@ -2,6 +2,7 @@ package io.ffreedom.polaris.datetime.tradingday.api;
 
 import java.time.LocalDate;
 
+@Deprecated
 public interface TradingDay extends Comparable<TradingDay> {
 
 	LocalDate getDate();

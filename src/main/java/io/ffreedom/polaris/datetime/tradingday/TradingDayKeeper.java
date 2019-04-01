@@ -11,6 +11,7 @@ import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.financial.futures.ChinaFutures;
 import io.ffreedom.polaris.financial.futures.ChinaFuturesSymbol;
 
+@Deprecated
 public final class TradingDayKeeper {
 
 	public static TradingDay get(Instrument instrument) {

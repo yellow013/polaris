@@ -7,6 +7,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
+@Deprecated
 @ThreadSafe
 public class CommonTradingDayImpl implements TradingDay {
 

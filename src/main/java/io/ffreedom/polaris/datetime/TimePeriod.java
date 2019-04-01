@@ -4,21 +4,18 @@ import java.time.LocalDateTime;
 
 import io.ffreedom.common.datetime.TimeZones;
 import io.ffreedom.common.sequence.Serial;
-import io.ffreedom.polaris.datetime.tradingday.api.TradingDay;
 
 public final class TimePeriod implements Serial<TimePeriod> {
 
-	private TradingDay tradingDay;
 	private long epochTime;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 
-	public static TimePeriod with(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
-		return new TimePeriod(tradingDay, startTime, endTime);
+	public static TimePeriod with(LocalDateTime startTime, LocalDateTime endTime) {
+		return new TimePeriod(startTime, endTime);
 	}
 
-	public TimePeriod(TradingDay tradingDay, LocalDateTime startTime, LocalDateTime endTime) {
-		this.tradingDay = tradingDay;
+	public TimePeriod(LocalDateTime startTime, LocalDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		setEpochTime();
@@ -35,14 +32,7 @@ public final class TimePeriod implements Serial<TimePeriod> {
 
 	@Override
 	public int compareTo(TimePeriod o) {
-		int compare = tradingDay.compareTo(o.tradingDay);
-		if (compare == 0)
-			return epochTime < o.epochTime ? -1 : epochTime > o.epochTime ? 1 : 0;
-		return compare;
-	}
-
-	public TradingDay getTradingDay() {
-		return tradingDay;
+		return epochTime < o.epochTime ? -1 : epochTime > o.epochTime ? 1 : 0;
 	}
 
 	public long getEpochTime() {

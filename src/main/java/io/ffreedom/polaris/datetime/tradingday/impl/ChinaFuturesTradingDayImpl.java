@@ -15,6 +15,7 @@ import io.ffreedom.polaris.financial.futures.ChinaFuturesUtil;
  * @author yellow013
  *
  */
+@Deprecated
 @ThreadSafe
 public final class ChinaFuturesTradingDayImpl implements TradingDay {
 
