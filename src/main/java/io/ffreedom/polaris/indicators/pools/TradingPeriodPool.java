@@ -55,8 +55,6 @@ public final class TradingPeriodPool {
 	}
 
 	public ImmutableSortedSet<TradingPeriod> getTradingPeriodSet(Symbol symbol) {
-		if (immutablePool == null)
-			throw new NullPointerException("immutablePool is null, plz call method toImmutable().");
 		return immutablePool.get(symbol.getSymbolId());
 	}
 
