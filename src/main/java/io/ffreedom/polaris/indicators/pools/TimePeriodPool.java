@@ -11,7 +11,6 @@ import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.TradingPeriod;
-import io.ffreedom.polaris.datetime.tradingday.TradingDayKeeper;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
@@ -115,8 +114,8 @@ public final class TimePeriodPool {
 			return immutableTimePeriod;
 		MutableSortedSet<TimePeriod> timePeriodSet = ECollections.newTreeSortedSet();
 		// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
-		symbol.getTradingPeriodSet().forEach(tradingPeriod -> timePeriodSet
-				.addAll(tradingPeriod.segmentByDuration(TradingDayKeeper.get(symbol), period.getDuration())));
+		symbol.getTradingPeriodSet()
+				.forEach(tradingPeriod -> timePeriodSet.addAll(tradingPeriod.segmentByDuration(period.getDuration())));
 		return symbolMap.put(symbol.getSymbolId(), timePeriodSet.toImmutable());
 	}
 

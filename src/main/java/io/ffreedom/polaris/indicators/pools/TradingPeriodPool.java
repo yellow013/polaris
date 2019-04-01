@@ -31,6 +31,7 @@ public final class TradingPeriodPool {
 			throw new IllegalArgumentException("Illegal Argument -> symbols is null");
 		for (Symbol symbol : symbols)
 			putTradingPeriod(symbol);
+		toImmutable();
 	}
 
 	private void putTradingPeriod(Symbol symbol) {
@@ -38,7 +39,7 @@ public final class TradingPeriodPool {
 			tradingPeriodMap.put(symbol.getSymbolId(), symbol.getTradingPeriodSet());
 	}
 
-	public void toImmutable() {
+	private void toImmutable() {
 		this.immutablePool = tradingPeriodMap.toImmutable();
 	}
 
