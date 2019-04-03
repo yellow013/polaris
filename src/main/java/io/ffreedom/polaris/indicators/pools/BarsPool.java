@@ -4,20 +4,20 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.impl.bar.BarSet;
+import io.ffreedom.polaris.indicators.impl.bar.PooledBars;
 import io.ffreedom.polaris.indicators.pools.base.SingleLayerIndicatorPool;
 
 @NotThreadSafe
-public final class BarSetPool extends SingleLayerIndicatorPool<BarSet> {
+public final class BarsPool extends SingleLayerIndicatorPool<PooledBars> {
 
-	public static final BarSetPool Singleton = new BarSetPool();
+	public static final BarsPool Singleton = new BarsPool();
 
-	private BarSetPool() {
+	private BarsPool() {
 	}
 
 	@Override
-	protected BarSet generateIndicator(IndicatorPeriod period, Instrument instrument) {
-		return new BarSet(instrument, period);
+	protected PooledBars generateIndicator(IndicatorPeriod period, Instrument instrument) {
+		return new PooledBars(instrument, period);
 	}
 
 }

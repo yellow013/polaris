@@ -7,6 +7,7 @@ import io.ffreedom.common.sequence.Serial;
 
 public final class TimePeriod implements Serial<TimePeriod> {
 
+	private long serialNumber;
 	private long epochTime;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
@@ -18,21 +19,17 @@ public final class TimePeriod implements Serial<TimePeriod> {
 	public TimePeriod(LocalDateTime startTime, LocalDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
-		setEpochTime();
+		init();
 	}
 
-	private void setEpochTime() {
+	private void init() {
 		this.epochTime = getStartTime().toEpochSecond(TimeZones.UTC);
+		this.serialNumber = epochTime ;
 	}
 
 	@Override
 	public long getSerialNumber() {
-		return epochTime;
-	}
-
-	@Override
-	public int compareTo(TimePeriod o) {
-		return epochTime < o.epochTime ? -1 : epochTime > o.epochTime ? 1 : 0;
+		return serialNumber;
 	}
 
 	public long getEpochTime() {

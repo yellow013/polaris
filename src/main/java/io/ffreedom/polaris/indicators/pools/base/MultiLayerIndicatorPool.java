@@ -59,7 +59,7 @@ public abstract class MultiLayerIndicatorPool<I extends Indicator<?>> extends Ba
 	}
 
 	private long calculateIndex(Instrument instrument, IndicatorCycle cycle) {
-		return instrument.getInstrumentId() * 1000000 + cycle.getValue();
+		return instrument.getInstrumentId()* 1000000L + cycle.getValue();
 	}
 
 	private MutableLongObjectMap<I> getIndicatorMap(IndicatorPeriod period) {
