@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.bar;
+package io.ffreedom.polaris.indicators.impl.bar.point;
 
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 

@@ -4,10 +4,11 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
-import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
+import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
+import io.ffreedom.polaris.indicators.impl.bbands.point.BBandsPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class BBands extends AbstractIndicator<BBandsPoint> {
+public class BBands extends AbstractPooledIndicator<BBandsPoint> {
 
 	public BBands(Instrument instrument, IndicatorPeriod period) {
 		super(instrument, period, IndicatorCycle.with(1));

@@ -4,10 +4,11 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
-import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
+import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
+import io.ffreedom.polaris.indicators.impl.ma.point.EmaPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class EMA extends AbstractIndicator<EMAPoint> {
+public class EMA extends AbstractPooledIndicator<EmaPoint> {
 
 	public EMA(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
 		super(instrument, period, cycle);
@@ -20,13 +21,13 @@ public class EMA extends AbstractIndicator<EMAPoint> {
 	}
 
 	@Override
-	protected PointSet<EMAPoint> initPoints() {
+	protected PointSet<EmaPoint> initPoints() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	protected EMAPoint initCurrentPoint() {
+	protected EmaPoint initCurrentPoint() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -38,7 +39,7 @@ public class EMA extends AbstractIndicator<EMAPoint> {
 	}
 
 	@Override
-	protected EMAPoint generateNextPoint(EMAPoint currentPoint) {
+	protected EmaPoint generateNextPoint(EmaPoint currentPoint) {
 		// TODO Auto-generated method stub
 		return null;
 	}

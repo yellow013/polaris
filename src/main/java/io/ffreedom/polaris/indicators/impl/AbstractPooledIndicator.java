@@ -2,23 +2,14 @@ package io.ffreedom.polaris.indicators.impl;
 
 import javax.annotation.Nonnull;
 
-import org.eclipse.collections.api.list.MutableList;
-import org.slf4j.Logger;
-
-import io.ffreedom.common.collect.ECollections;
-import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
-import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indicator<P> {
-
-	private MutableList<IndicatorEvent<P>> indicatorEvents = ECollections.newFastList();
+public abstract class AbstractPooledIndicator<P extends Point<?, ?>> extends IndicatorEventManager<P> {
 
 	protected Instrument instrument;
 	protected IndicatorPeriod period;
@@ -27,11 +18,9 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 	protected PointSet<P> points;
 	protected P currentPoint;
 
-	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
-
 	protected BasicMarketData preMarketData;
 
-	public AbstractIndicator(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
+	public AbstractPooledIndicator(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
 		this.instrument = instrument;
 		this.period = period;
 		this.cycle = cycle;
@@ -45,10 +34,10 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 	@Nonnull
 	protected abstract P initCurrentPoint();
 
-	protected abstract boolean isCurrentPointPeriod(BasicMarketData marketData);
-
 	@Nonnull
 	protected abstract P generateNextPoint(P currentPoint);
+
+	protected abstract boolean isCurrentPointPeriod(BasicMarketData marketData);
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
@@ -75,36 +64,6 @@ public abstract class AbstractIndicator<P extends Point<?, ?>> implements Indica
 	@Override
 	public IndicatorPeriod getPeriod() {
 		return period;
-	}
-
-	@Override
-	public void addIndicatorEvent(IndicatorEvent<P> event) {
-		if (event != null)
-			indicatorEvents.add(event);
-	}
-
-	@Override
-	public void currentPointChanged(P p) {
-		if (indicatorEvents.notEmpty())
-			indicatorEvents.each(event -> event.onCurrentPointChanged(p));
-		else
-			logger.info("this.currentPointChanged callback is null.");
-	}
-
-	@Override
-	public void startPoint(P p) {
-		if (indicatorEvents.notEmpty())
-			indicatorEvents.each(event -> event.onStartPoint(p));
-		else
-			logger.info("this.startPoint callback is null.");
-	}
-
-	@Override
-	public void endPoint(P p) {
-		if (indicatorEvents.notEmpty())
-			indicatorEvents.each(event -> event.onEndPoint(p));
-		else
-			logger.error("this.endPoint callback is null.");
 	}
 
 	@Override

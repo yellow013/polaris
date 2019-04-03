@@ -9,26 +9,26 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
-import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
+import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
+import io.ffreedom.polaris.indicators.impl.bar.point.Bar;
 import io.ffreedom.polaris.indicators.pools.TimePeriodPool;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class BarSet extends AbstractIndicator<Bar> {
+public class PooledBars extends AbstractPooledIndicator<Bar> {
 
-	public BarSet(Instrument instrument, IndicatorPeriod period) {
+	public PooledBars(Instrument instrument, IndicatorPeriod period) {
 		super(instrument, period, IndicatorCycle.with(1));
 	}
 
-	public static BarSet with(Instrument instrument, IndicatorPeriod period) {
-		return new BarSet(instrument, period);
+	public static PooledBars with(Instrument instrument, IndicatorPeriod period) {
+		return new PooledBars(instrument, period);
 	}
 
 	@Override
 	protected PointSet<Bar> initPoints() {
 		PointSet<Bar> bars = PointSet.emptyPointSet(256);
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period,
-				instrument.getSymbol());
+		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
 		timePeriodSet.each(timePeriod -> bars.add(Bar.with(period, timePeriod, instrument)));
 		return bars;
 	}

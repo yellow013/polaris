@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.chaos;
+package io.ffreedom.polaris.indicators.impl.chaos.point;
 
 public class Fractal {
 

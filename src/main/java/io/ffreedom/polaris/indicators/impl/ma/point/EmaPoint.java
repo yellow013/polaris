@@ -1,20 +1,20 @@
-package io.ffreedom.polaris.indicators.impl.ma;
+package io.ffreedom.polaris.indicators.impl.ma.point;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class EMAPoint extends TimePeriodPoint<EMAPoint> {
+public class EmaPoint extends TimePeriodPoint<EmaPoint> {
 
 	private double avgPrice;
 
-	private EMAPoint(IndicatorPeriod period, TimePeriod timePeriod) {
+	private EmaPoint(IndicatorPeriod period, TimePeriod timePeriod) {
 		super(period, timePeriod);
 	}
 
-	public static EMAPoint with(IndicatorPeriod period, TimePeriod timePeriod) {
-		return new EMAPoint(period, timePeriod);
+	public static EmaPoint with(IndicatorPeriod period, TimePeriod timePeriod) {
+		return new EmaPoint(period, timePeriod);
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class EMAPoint extends TimePeriodPoint<EMAPoint> {
 	}
 
 	@Override
-	protected EMAPoint thisPoint() {
+	protected EmaPoint thisPoint() {
 		return this;
 	}
 
@@ -39,7 +39,7 @@ public class EMAPoint extends TimePeriodPoint<EMAPoint> {
 	}
 
 	@Override
-	public EMAPoint generateNext() {
+	public EmaPoint generateNext() {
 		// TODO Auto-generated method stub
 		return null;
 	}

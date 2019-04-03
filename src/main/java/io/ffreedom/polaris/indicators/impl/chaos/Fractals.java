@@ -1,5 +1,5 @@
 package io.ffreedom.polaris.indicators.impl.chaos;
 
-public class FractalSet {
+public class Fractals {
 
 }

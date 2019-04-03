@@ -7,34 +7,35 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
-import io.ffreedom.polaris.indicators.impl.AbstractIndicator;
+import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
 import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
+import io.ffreedom.polaris.indicators.impl.ma.point.SmaPoint;
 import io.ffreedom.polaris.indicators.pools.TimePeriodPool;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public final class SMA extends AbstractIndicator<SMAPoint> {
+public final class PooledSma extends AbstractPooledIndicator<SmaPoint> {
 
 	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
 
-	public SMA(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
+	public PooledSma(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
 		super(instrument, period, cycle);
 	}
 
-	public static SMA with(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
-		return new SMA(instrument, period, cycle);
+	public static PooledSma with(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
+		return new PooledSma(instrument, period, cycle);
 	}
 
 	@Override
-	protected PointSet<SMAPoint> initPoints() {
-		PointSet<SMAPoint> pointSet = PointSet.emptyPointSet(256);
+	protected PointSet<SmaPoint> initPoints() {
+		PointSet<SmaPoint> pointSet = PointSet.emptyPointSet(256);
 		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
 		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
-		timePeriodSet.each(timePeriod -> pointSet.add(SMAPoint.with(period, timePeriod, cycle, historyPriceRecorder)));
+		timePeriodSet.each(timePeriod -> pointSet.add(SmaPoint.with(period, timePeriod, cycle, historyPriceRecorder)));
 		return pointSet;
 	}
 
 	@Override
-	protected SMAPoint initCurrentPoint() {
+	protected SmaPoint initCurrentPoint() {
 		return points.getFirst();
 	}
 
@@ -45,7 +46,7 @@ public final class SMA extends AbstractIndicator<SMAPoint> {
 	}
 
 	@Override
-	protected SMAPoint generateNextPoint(SMAPoint currentPoint) {
+	protected SmaPoint generateNextPoint(SmaPoint currentPoint) {
 		// TODO Auto-generated method stub
 		return null;
 	}

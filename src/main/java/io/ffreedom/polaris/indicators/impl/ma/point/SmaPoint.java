@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.ma;
+package io.ffreedom.polaris.indicators.impl.ma.point;
 
 import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.polaris.datetime.TimePeriod;
@@ -8,21 +8,22 @@ import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.indicators.impl.ma.base.MAPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class SMAPoint extends MAPoint<SMAPoint> {
+public class SmaPoint extends MAPoint<SmaPoint> {
 
 	private double historyPriceSum;
 
 	private IndicatorCycle cycle;
 
-	public SMAPoint(IndicatorPeriod period, TimePeriod timePeriod, IndicatorCycle cycle,
+	public SmaPoint(IndicatorPeriod period, TimePeriod timePeriod, IndicatorCycle cycle,
 			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
 		super(period, timePeriod, historyPriceRecorder);
 		this.historyPriceSum = historyPriceRecorder.sum();
+		this.cycle = cycle;
 	}
 
-	public static SMAPoint with(IndicatorPeriod period, TimePeriod timePeriod, IndicatorCycle cycle,
+	public static SmaPoint with(IndicatorPeriod period, TimePeriod timePeriod, IndicatorCycle cycle,
 			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
-		return new SMAPoint(period, timePeriod, cycle, historyPriceRecorder);
+		return new SmaPoint(period, timePeriod, cycle, historyPriceRecorder);
 	}
 
 	@Override
@@ -33,7 +34,7 @@ public class SMAPoint extends MAPoint<SMAPoint> {
 	}
 
 	@Override
-	protected SMAPoint thisPoint() {
+	protected SmaPoint thisPoint() {
 		return this;
 	}
 
@@ -49,7 +50,7 @@ public class SMAPoint extends MAPoint<SMAPoint> {
 	}
 
 	@Override
-	public SMAPoint generateNext() {
+	public SmaPoint generateNext() {
 		return null;
 	}
 
