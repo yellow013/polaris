@@ -9,7 +9,7 @@ import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.Point;
 
-public abstract class IndicatorEventManager<P extends Point<?, ?>> implements Indicator<P> {
+abstract class IndicatorEventManager<P extends Point<?, ?>> implements Indicator<P> {
 	
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
 	

@@ -48,6 +48,7 @@ public abstract class AbstractPooledIndicator<P extends Point<?, ?>> extends Ind
 			currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
 			while (!isCurrentPointPeriod(marketData)) {
 				currentPoint.onMarketData(preMarketData);
+				startPoint(currentPoint);
 				currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
 			}
 			currentPoint.onMarketData(marketData);
