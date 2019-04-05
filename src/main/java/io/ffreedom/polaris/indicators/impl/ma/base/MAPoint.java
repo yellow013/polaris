@@ -11,9 +11,9 @@ public abstract class MAPoint<P extends MAPoint<P>> extends TimePeriodPoint<P> {
 	protected double avgPrice;
 	protected double lastPrice;
 
-	protected MAPoint(IndicatorPeriod period, TimePeriod timePeriod,
+	protected MAPoint(int index, IndicatorPeriod period, TimePeriod timePeriod,
 			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
-		super(period, timePeriod);
+		super(index, period, timePeriod);
 		this.historyPriceRecorder = historyPriceRecorder;
 	}
 

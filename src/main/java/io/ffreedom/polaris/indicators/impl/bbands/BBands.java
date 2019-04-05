@@ -16,17 +16,13 @@ public class BBands extends AbstractPooledIndicator<BBandsPoint> {
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
-		
+
 	}
 
 	@Override
-	protected PointSet<BBandsPoint> initPoints() {
-		return null;
-	}
+	protected void initPooledPoints(PointSet<BBandsPoint> points) {
+		// TODO Auto-generated method stub
 
-	@Override
-	protected BBandsPoint initCurrentPoint() {
-		return null;
 	}
 
 	@Override
@@ -40,5 +36,7 @@ public class BBands extends AbstractPooledIndicator<BBandsPoint> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

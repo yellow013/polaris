@@ -9,12 +9,12 @@ import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.Point;
 
-abstract class IndicatorEventManager<P extends Point<?, ?>> implements Indicator<P> {
-	
+abstract class IndicatorEventManager<P extends Point<?, P>> implements Indicator<P> {
+
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
-	
+
 	private MutableList<IndicatorEvent<P>> indicatorEvents = ECollections.newFastList();
-	
+
 	@Override
 	public void addIndicatorEvent(IndicatorEvent<P> event) {
 		if (event != null)

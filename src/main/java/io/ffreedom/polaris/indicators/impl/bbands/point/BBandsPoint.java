@@ -7,8 +7,8 @@ import io.ffreedom.polaris.market.BasicMarketData;
 
 public class BBandsPoint extends TimePeriodPoint<BBandsPoint> {
 
-	private BBandsPoint(IndicatorPeriod period, TimePeriod timePeriod) {
-		super(period, timePeriod);
+	private BBandsPoint(int index, IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, period, timePeriod);
 	}
 
 	@Override
@@ -27,5 +27,7 @@ public class BBandsPoint extends TimePeriodPoint<BBandsPoint> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

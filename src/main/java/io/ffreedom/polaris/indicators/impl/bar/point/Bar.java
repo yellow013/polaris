@@ -22,13 +22,13 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	private double turnoverSum = 0.0D;
 	private MutableDoubleList priceRecord = ECollections.newDoubleArrayList(64);
 
-	private Bar(IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
-		super(period, timePeriod);
+	private Bar(int index, IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
+		super(index, period, timePeriod);
 		this.instrument = instrument;
 	}
 
-	public static Bar with(IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
-		return new Bar(period, timePeriod, instrument);
+	public static Bar with(int index, IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
+		return new Bar(index, period, timePeriod, instrument);
 	}
 
 	@Override
@@ -45,8 +45,10 @@ public final class Bar extends TimePeriodPoint<Bar> {
 
 	@Override
 	public Bar generateNext() {
-		return new Bar(period, TimePeriod.with(timePeriod.getStartTime().plusSeconds(period.getSeconds()),
-				timePeriod.getEndTime().plusSeconds(period.getSeconds())), instrument);
+		return new Bar(getIndex() + 1, period,
+				TimePeriod.with(timePeriod.getStartTime().plusSeconds(period.getSeconds()),
+						timePeriod.getEndTime().plusSeconds(period.getSeconds())),
+				instrument);
 	}
 
 	private void onPrice(double price) {
@@ -99,5 +101,6 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	public MutableDoubleList getPriceRecord() {
 		return priceRecord;
 	}
+
 
 }

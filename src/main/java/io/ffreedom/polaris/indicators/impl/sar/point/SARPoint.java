@@ -7,8 +7,8 @@ import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SARPoint extends TimePeriodPoint<SARPoint> {
 
-	public SARPoint(IndicatorPeriod period, TimePeriod timePeriod) {
-		super(period, timePeriod);
+	public SARPoint(int index,IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, period, timePeriod);
 		// TODO Auto-generated constructor stub
 	}
 

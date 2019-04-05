@@ -26,17 +26,12 @@ public final class PooledSma extends AbstractPooledIndicator<SmaPoint> {
 	}
 
 	@Override
-	protected PointSet<SmaPoint> initPoints() {
-		PointSet<SmaPoint> pointSet = PointSet.emptyPointSet(256);
+	protected void initPooledPoints(PointSet<SmaPoint> points) {
 		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
 		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
-		timePeriodSet.each(timePeriod -> pointSet.add(SmaPoint.with(period, timePeriod, cycle, historyPriceRecorder)));
-		return pointSet;
-	}
-
-	@Override
-	protected SmaPoint initCurrentPoint() {
-		return points.getFirst();
+		int i = -1;
+		for (TimePeriod timePeriod : timePeriodSet)
+			points.add(SmaPoint.with(++i, period, timePeriod, cycle, historyPriceRecorder));
 	}
 
 	@Override

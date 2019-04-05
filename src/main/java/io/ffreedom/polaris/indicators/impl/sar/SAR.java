@@ -20,13 +20,9 @@ public class SAR extends AbstractPooledIndicator<SARPoint> {
 	}
 
 	@Override
-	protected PointSet<SARPoint> initPoints() {
-		return null;
-	}
+	protected void initPooledPoints(PointSet<SARPoint> points) {
+		// TODO Auto-generated method stub
 
-	@Override
-	protected SARPoint initCurrentPoint() {
-		return null;
 	}
 
 	@Override

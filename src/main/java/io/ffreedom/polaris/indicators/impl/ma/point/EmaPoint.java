@@ -9,12 +9,12 @@ public class EmaPoint extends TimePeriodPoint<EmaPoint> {
 
 	private double avgPrice;
 
-	private EmaPoint(IndicatorPeriod period, TimePeriod timePeriod) {
-		super(period, timePeriod);
+	private EmaPoint(int index, IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, period, timePeriod);
 	}
 
-	public static EmaPoint with(IndicatorPeriod period, TimePeriod timePeriod) {
-		return new EmaPoint(period, timePeriod);
+	public static EmaPoint with(int index, IndicatorPeriod period, TimePeriod timePeriod) {
+		return new EmaPoint(index, period, timePeriod);
 	}
 
 	@Override
@@ -42,6 +42,12 @@ public class EmaPoint extends TimePeriodPoint<EmaPoint> {
 	public EmaPoint generateNext() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getIndex() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -14,16 +14,16 @@ public class SmaPoint extends MAPoint<SmaPoint> {
 
 	private IndicatorCycle cycle;
 
-	public SmaPoint(IndicatorPeriod period, TimePeriod timePeriod, IndicatorCycle cycle,
+	public SmaPoint(int index, IndicatorPeriod period, TimePeriod timePeriod, IndicatorCycle cycle,
 			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
-		super(period, timePeriod, historyPriceRecorder);
+		super(index, period, timePeriod, historyPriceRecorder);
 		this.historyPriceSum = historyPriceRecorder.sum();
 		this.cycle = cycle;
 	}
 
-	public static SmaPoint with(IndicatorPeriod period, TimePeriod timePeriod, IndicatorCycle cycle,
+	public static SmaPoint with(int indxe, IndicatorPeriod period, TimePeriod timePeriod, IndicatorCycle cycle,
 			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
-		return new SmaPoint(period, timePeriod, cycle, historyPriceRecorder);
+		return new SmaPoint(indxe, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
 	@Override
@@ -49,13 +49,14 @@ public class SmaPoint extends MAPoint<SmaPoint> {
 
 	}
 
-	@Override
-	public SmaPoint generateNext() {
-		return null;
-	}
-
 	public IndicatorCycle getCycle() {
 		return cycle;
+	}
+
+	@Override
+	public SmaPoint generateNext() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

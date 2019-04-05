@@ -7,10 +7,11 @@ import io.ffreedom.polaris.market.BasicMarketData;
 
 public class MacdPoint extends TimePeriodPoint<MacdPoint> {
 
-	private MacdPoint(IndicatorPeriod period, TimePeriod timePeriod) {
-		super(period, timePeriod);
+	private MacdPoint(int index, IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, period, timePeriod);
 	}
 
+	@SuppressWarnings("unused")
 	private double avgPrice;
 
 	@Override
@@ -36,7 +37,6 @@ public class MacdPoint extends TimePeriodPoint<MacdPoint> {
 
 	@Override
 	public MacdPoint generateNext() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

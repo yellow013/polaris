@@ -21,15 +21,9 @@ public final class MACD extends AbstractPooledIndicator<MacdPoint> {
 	}
 
 	@Override
-	protected PointSet<MacdPoint> initPoints() {
+	protected void initPooledPoints(PointSet<MacdPoint> points) {
 		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	protected MacdPoint initCurrentPoint() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -43,5 +37,7 @@ public final class MACD extends AbstractPooledIndicator<MacdPoint> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

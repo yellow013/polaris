@@ -21,15 +21,9 @@ public class EMA extends AbstractPooledIndicator<EmaPoint> {
 	}
 
 	@Override
-	protected PointSet<EmaPoint> initPoints() {
+	protected void initPooledPoints(PointSet<EmaPoint> points) {
 		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	protected EmaPoint initCurrentPoint() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -43,5 +37,7 @@ public class EMA extends AbstractPooledIndicator<EmaPoint> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }
