@@ -6,11 +6,13 @@ import io.ffreedom.polaris.datetime.TimePeriod;
 
 public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements Point<TimePeriod, Y>, Comparable<Y> {
 
+	private int index;
 	protected IndicatorPeriod period;
 	protected TimePeriod timePeriod;
 
-	protected TimePeriodPoint(IndicatorPeriod period, TimePeriod timePeriod) {
+	protected TimePeriodPoint(int index, IndicatorPeriod period, TimePeriod timePeriod) {
 		super();
+		this.index = index;
 		this.period = period;
 		this.timePeriod = timePeriod;
 	}
@@ -37,6 +39,11 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements P
 	@Override
 	public int compareTo(Y o) {
 		return getXAxis().compareTo(o.getXAxis());
+	}
+
+	@Override
+	public int getIndex() {
+		return index;
 	}
 
 	public boolean isPeriod(LocalDateTime time) {

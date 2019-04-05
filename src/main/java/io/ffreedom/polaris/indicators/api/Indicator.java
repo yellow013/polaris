@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.api;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public interface Indicator<P extends Point<?, ?>> {
+public interface Indicator<P extends Point<?, P>> {
 
 	Instrument getInstrument();
 
