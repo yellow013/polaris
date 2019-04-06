@@ -5,21 +5,19 @@ import java.time.LocalDateTime;
 import io.ffreedom.common.datetime.TimeZones;
 import io.ffreedom.common.sequence.Serial;
 
-public final class TimePeriod implements Serial<TimePeriod> {
+public class TimeStarted implements Serial<TimeStarted> {
 
-	private long epochTime;
 	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+	private long epochTime;
 
-	public static TimePeriod with(LocalDateTime startTime, LocalDateTime endTime) {
-		if (startTime == null || endTime == null)
+	public static TimeStarted with(LocalDateTime startTime) {
+		if (startTime == null)
 			throw new IllegalArgumentException("startTime and endTime cannot null");
-		return new TimePeriod(startTime, endTime);
+		return new TimeStarted(startTime);
 	}
 
-	public TimePeriod(LocalDateTime startTime, LocalDateTime endTime) {
+	private TimeStarted(LocalDateTime startTime) {
 		this.startTime = startTime;
-		this.endTime = endTime;
 		setEpochTime();
 	}
 
@@ -32,16 +30,12 @@ public final class TimePeriod implements Serial<TimePeriod> {
 		return epochTime;
 	}
 
-	public long getEpochTime() {
-		return epochTime;
-	}
-
 	public LocalDateTime getStartTime() {
 		return startTime;
 	}
 
-	public LocalDateTime getEndTime() {
-		return endTime;
+	public long getEpochTime() {
+		return epochTime;
 	}
 
 }
