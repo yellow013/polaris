@@ -7,7 +7,7 @@ import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
+import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public final class Bar extends TimePeriodPoint<Bar> {

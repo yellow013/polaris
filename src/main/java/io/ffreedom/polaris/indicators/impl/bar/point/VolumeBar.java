@@ -1,17 +1,10 @@
 package io.ffreedom.polaris.indicators.impl.bar.point;
 
 import io.ffreedom.polaris.datetime.TimeStarted;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class VolumeBar implements Point<TimeStarted, VolumeBar> {
-
-	@Override
-	public IndicatorPeriod getPeriod() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int getIndex() {

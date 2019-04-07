@@ -2,7 +2,7 @@ package io.ffreedom.polaris.indicators.impl.sar.point;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.api.TimePeriodPoint;
+import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SARPoint extends TimePeriodPoint<SARPoint> {

@@ -1,27 +1,25 @@
-package io.ffreedom.polaris.indicators.api;
+package io.ffreedom.polaris.indicators.impl;
 
 import java.time.LocalDateTime;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 
-public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements Point<TimePeriod, Y>, Comparable<Y> {
+public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends AbstractPoint<TimePeriod, Y> {
 
-	private int index;
 	protected IndicatorPeriod period;
 	protected TimePeriod timePeriod;
 
 	protected TimePeriodPoint(int index, IndicatorPeriod period, TimePeriod timePeriod) {
-		super();
-		this.index = index;
+		super(index);
 		this.period = period;
 		this.timePeriod = timePeriod;
 	}
 
-	protected TimePeriodPoint(IndicatorPeriod period, LocalDateTime startTime, LocalDateTime endTime) {
-		this.timePeriod = TimePeriod.with(startTime, endTime);
+	protected TimePeriodPoint(int index, IndicatorPeriod period, LocalDateTime startTime, LocalDateTime endTime) {
+		this(index, period, TimePeriod.with(startTime, endTime));
 	}
 
-	@Override
 	public IndicatorPeriod getPeriod() {
 		return period;
 	}
@@ -29,21 +27,6 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements P
 	@Override
 	public TimePeriod getXAxis() {
 		return timePeriod;
-	}
-
-	@Override
-	public Y getYAxis() {
-		return thisPoint();
-	}
-
-	@Override
-	public int compareTo(Y o) {
-		return getXAxis().compareTo(o.getXAxis());
-	}
-
-	@Override
-	public int getIndex() {
-		return index;
 	}
 
 	public boolean isPeriod(LocalDateTime time) {
@@ -57,7 +40,5 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> implements P
 	public LocalDateTime getEndTime() {
 		return timePeriod.getEndTime();
 	}
-
-	protected abstract Y thisPoint();
 
 }
