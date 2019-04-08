@@ -5,12 +5,12 @@ import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
-import io.ffreedom.polaris.indicators.impl.sar.point.SARPoint;
+import io.ffreedom.polaris.indicators.impl.sar.point.SarPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class SAR extends AbstractPooledIndicator<SARPoint> {
+public class PooledSar extends AbstractPooledIndicator<SarPoint> {
 
-	public SAR(Instrument instrument, IndicatorPeriod period) {
+	public PooledSar(Instrument instrument, IndicatorPeriod period) {
 		super(instrument, period, IndicatorCycle.with(2));
 	}
 
@@ -20,7 +20,7 @@ public class SAR extends AbstractPooledIndicator<SARPoint> {
 	}
 
 	@Override
-	protected void initPooledPoints(PointSet<SARPoint> points) {
+	protected void initPooledPoints(PointSet<SarPoint> points) {
 		// TODO Auto-generated method stub
 
 	}
@@ -32,7 +32,7 @@ public class SAR extends AbstractPooledIndicator<SARPoint> {
 	}
 
 	@Override
-	protected SARPoint generateNextPoint(SARPoint currentPoint) {
+	protected SarPoint generateNextPoint(SarPoint currentPoint) {
 		// TODO Auto-generated method stub
 		return null;
 	}

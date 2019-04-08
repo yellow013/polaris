@@ -1,14 +1,15 @@
 package io.ffreedom.polaris.indicators.impl.sar.point;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class SARPoint extends TimePeriodPoint<SARPoint> {
+public class SarPoint extends TimePeriodPoint<SarPoint> {
 
-	public SARPoint(int index,IndicatorPeriod period, TimePeriod timePeriod) {
-		super(index, period, timePeriod);
+	public SarPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, instrument, period, timePeriod);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,7 +22,7 @@ public class SARPoint extends TimePeriodPoint<SARPoint> {
 	}
 
 	@Override
-	protected SARPoint thisPoint() {
+	protected SarPoint thisPoint() {
 		return this;
 	}
 
@@ -30,7 +31,7 @@ public class SARPoint extends TimePeriodPoint<SARPoint> {
 	}
 
 	@Override
-	public SARPoint generateNext() {
+	public SarPoint generateNext() {
 		// TODO Auto-generated method stub
 		return null;
 	}
