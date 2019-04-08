@@ -3,6 +3,7 @@ package io.ffreedom.polaris.indicators.impl;
 import java.time.LocalDateTime;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 
 public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends AbstractPoint<TimePeriod, Y> {
@@ -10,14 +11,10 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends Abst
 	protected IndicatorPeriod period;
 	protected TimePeriod timePeriod;
 
-	protected TimePeriodPoint(int index, IndicatorPeriod period, TimePeriod timePeriod) {
-		super(index);
+	protected TimePeriodPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, instrument);
 		this.period = period;
 		this.timePeriod = timePeriod;
-	}
-
-	protected TimePeriodPoint(int index, IndicatorPeriod period, LocalDateTime startTime, LocalDateTime endTime) {
-		this(index, period, TimePeriod.with(startTime, endTime));
 	}
 
 	public IndicatorPeriod getPeriod() {
