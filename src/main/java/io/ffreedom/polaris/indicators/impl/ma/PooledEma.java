@@ -8,9 +8,9 @@ import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
 import io.ffreedom.polaris.indicators.impl.ma.point.EmaPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class EMA extends AbstractPooledIndicator<EmaPoint> {
+public class PooledEma extends AbstractPooledIndicator<EmaPoint> {
 
-	public EMA(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
+	public PooledEma(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
 		super(instrument, period, cycle);
 	}
 
@@ -37,7 +37,5 @@ public class EMA extends AbstractPooledIndicator<EmaPoint> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

@@ -31,7 +31,7 @@ public final class PooledSma extends AbstractPooledIndicator<SmaPoint> {
 		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
 		int i = -1;
 		for (TimePeriod timePeriod : timePeriodSet)
-			points.add(SmaPoint.with(++i, period, timePeriod, cycle, historyPriceRecorder));
+			points.add(SmaPoint.with(++i, instrument, period, timePeriod, cycle, historyPriceRecorder));
 	}
 
 	@Override

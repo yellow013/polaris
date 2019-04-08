@@ -34,7 +34,7 @@ public final class UnpooledSma extends AbstractUnpooledIndicator<SmaPoint> {
 		LocalDate nowDate = LocalDate.now();
 		TimePeriod timePeriod = TimePeriod.with(LocalDateTime.of(nowDate, tradingPeriod.getStartTime()),
 				LocalDateTime.of(nowDate, tradingPeriod.getStartTime().plusSeconds(period.getSeconds()).minusNanos(1)));
-		return SmaPoint.with(0, period, timePeriod, cycle, historyPriceRecorder);
+		return SmaPoint.with(0, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
 	@Override
