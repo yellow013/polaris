@@ -1,14 +1,15 @@
 package io.ffreedom.polaris.indicators.impl.bbands.point;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class BBandsPoint extends TimePeriodPoint<BBandsPoint> {
 
-	private BBandsPoint(int index, IndicatorPeriod period, TimePeriod timePeriod) {
-		super(index, period, timePeriod);
+	private BBandsPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, instrument, period, timePeriod);
 	}
 
 	@Override
@@ -27,7 +28,5 @@ public class BBandsPoint extends TimePeriodPoint<BBandsPoint> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }
