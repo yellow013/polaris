@@ -12,8 +12,6 @@ import io.ffreedom.polaris.market.BasicMarketData;
 
 public final class Bar extends TimePeriodPoint<Bar> {
 
-	private Instrument instrument;
-
 	private double open = Double.NaN;
 	private double highest = Double.MIN_VALUE;
 	private double lowest = Double.MAX_VALUE;
@@ -22,13 +20,12 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	private double turnoverSum = 0.0D;
 	private MutableDoubleList priceRecord = ECollections.newDoubleArrayList(64);
 
-	private Bar(int index, IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
-		super(index, period, timePeriod);
-		this.instrument = instrument;
+	private Bar(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, instrument, period, timePeriod);
 	}
 
-	public static Bar with(int index, IndicatorPeriod period, TimePeriod timePeriod, Instrument instrument) {
-		return new Bar(index, period, timePeriod, instrument);
+	public static Bar with(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+		return new Bar(index, instrument, period, timePeriod);
 	}
 
 	@Override
@@ -45,10 +42,9 @@ public final class Bar extends TimePeriodPoint<Bar> {
 
 	@Override
 	public Bar generateNext() {
-		return new Bar(getIndex() + 1, period,
+		return new Bar(index + 1, instrument, period,
 				TimePeriod.with(timePeriod.getStartTime().plusSeconds(period.getSeconds()),
-						timePeriod.getEndTime().plusSeconds(period.getSeconds())),
-				instrument);
+						timePeriod.getEndTime().plusSeconds(period.getSeconds())));
 	}
 
 	private void onPrice(double price) {
@@ -68,10 +64,6 @@ public final class Bar extends TimePeriodPoint<Bar> {
 
 	private void addTurnoverSum(double turnover) {
 		this.turnoverSum = DoubleUtil.correction8(turnoverSum + turnover);
-	}
-
-	public Instrument getInstrument() {
-		return instrument;
 	}
 
 	public double getOpen() {
@@ -101,6 +93,5 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	public MutableDoubleList getPriceRecord() {
 		return priceRecord;
 	}
-
 
 }

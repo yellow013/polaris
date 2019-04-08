@@ -41,7 +41,7 @@ public class PooledBars extends AbstractPooledIndicator<Bar> {
 		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
 		int i = -1;
 		for (TimePeriod timePeriod : timePeriodSet)
-			points.add(Bar.with(++i, period, timePeriod, instrument));
+			points.add(Bar.with(++i, instrument, period, timePeriod));
 	}
 
 }
