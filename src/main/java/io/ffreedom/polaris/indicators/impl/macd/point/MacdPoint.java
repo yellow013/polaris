@@ -1,14 +1,15 @@
 package io.ffreedom.polaris.indicators.impl.macd.point;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class MacdPoint extends TimePeriodPoint<MacdPoint> {
 
-	private MacdPoint(int index, IndicatorPeriod period, TimePeriod timePeriod) {
-		super(index, period, timePeriod);
+	private MacdPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+		super(index, instrument, period, timePeriod);
 	}
 
 	@SuppressWarnings("unused")
