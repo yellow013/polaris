@@ -1,29 +1,14 @@
-package io.ffreedom.polaris.indicators.impl.sar.event;
+package io.ffreedom.polaris.indicators.events;
 
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.impl.sar.point.SarPoint;
 
-public interface SarIndicatorEvent extends IndicatorEvent<SarPoint> {
-	
+public interface SarEvent extends IndicatorEvent {
+
 	void onCurrentSarChanged(SarPoint point);
 
 	void onStartSar(SarPoint point);
 
 	void onEndSar(SarPoint point);
-
-	@Override
-	default void onCurrentPointChanged(SarPoint point) {
-		onCurrentSarChanged(point);
-	}
-
-	@Override
-	default void onStartPoint(SarPoint point) {
-		onStartSar(point);
-	}
-
-	@Override
-	default void onEndPoint(SarPoint point) {
-		onEndSar(point);
-	}
 
 }

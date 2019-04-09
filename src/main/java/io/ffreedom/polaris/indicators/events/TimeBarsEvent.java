@@ -1,29 +1,18 @@
-package io.ffreedom.polaris.indicators.impl.bar.event;
+package io.ffreedom.polaris.indicators.events;
 
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
-import io.ffreedom.polaris.indicators.impl.bar.point.Bar;
+import io.ffreedom.polaris.indicators.impl.bar.point.TimeBar;
 
-public interface BarIndicatorEvent extends IndicatorEvent<Bar> {
+public interface TimeBarsEvent extends IndicatorEvent {
 
-	void onCurrentBarChanged(Bar point);
+	void onCurrentBarLastPriceChanged(TimeBar bar);
 
-	void onStartBar(Bar point);
+	void onCurrentBarHighestPriceChanged(TimeBar bar);
 
-	void onEndBar(Bar point);
+	void onCurrentBarLowestPriceChanged(TimeBar bar);
 
-	@Override
-	default void onCurrentPointChanged(Bar point) {
-		onCurrentBarChanged(point);
-	}
+	void onStartBar(TimeBar point);
 
-	@Override
-	default void onStartPoint(Bar point) {
-		onStartBar(point);
-	}
-
-	@Override
-	default void onEndPoint(Bar point) {
-		onEndBar(point);
-	}
+	void onEndBar(TimeBar point);
 
 }
