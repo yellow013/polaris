@@ -3,40 +3,16 @@ package io.ffreedom.polaris.indicators.impl.ma.point;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
+import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
+import io.ffreedom.polaris.indicators.impl.ma.base.MAPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class EmaPoint extends TimePeriodPoint<EmaPoint> {
+public class EmaPoint extends MAPoint<EmaPoint> {
 
-	private double avgPrice;
-
-	private EmaPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
-		super(index, instrument, period, timePeriod);
-	}
-
-	public static EmaPoint with(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
-		return new EmaPoint(index, instrument, period, timePeriod);
-	}
-
-	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		double lastPrice = marketData.getLastPrice();
-	}
-
-	@Override
-	protected EmaPoint thisPoint() {
-		return this;
-	}
-
-	public static void main(String[] args) {
-
-		double d = 1 + 1 + 6 + 10;
-		double b = d / 4;
-		System.out.println(b);
-		double b1 = b + 20;
-		System.out.println(b1 / 2);
-		System.out.println((1 + 1 + 6 + 10 + 20) / 2);
-
+	protected EmaPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod,
+			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
+		super(index, instrument, period, timePeriod, historyPriceRecorder);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -46,9 +22,15 @@ public class EmaPoint extends TimePeriodPoint<EmaPoint> {
 	}
 
 	@Override
-	public int getIndex() {
+	public void onMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
-		return 0;
+
+	}
+
+	@Override
+	protected EmaPoint thisPoint() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

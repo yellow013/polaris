@@ -9,13 +9,14 @@ import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractUnpooledIndicator;
 import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.indicators.impl.ma.point.SmaPoint;
 import io.ffreedom.polaris.indicators.pools.TradingPeriodPool;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public final class UnpooledSma extends AbstractUnpooledIndicator<SmaPoint> {
+public final class UnpooledSma extends AbstractUnpooledIndicator<SmaPoint, SmaEvent> {
 
 	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
 
@@ -47,6 +48,12 @@ public final class UnpooledSma extends AbstractUnpooledIndicator<SmaPoint> {
 	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void onMarketData(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -2,14 +2,17 @@ package io.ffreedom.polaris.indicators.impl;
 
 import javax.annotation.Nonnull;
 
+import io.ffreedom.common.sequence.Serial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
+import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-abstract class AbstractIndicator<P extends Point<?, P>> extends IndicatorEventManager<P> {
+abstract class AbstractIndicator<P extends Point<? extends Serial<?>, P>, E extends IndicatorEvent>
+		extends IndicatorEventManager<P, E> {
 
 	protected Instrument instrument;
 	protected IndicatorPeriod period;
@@ -32,25 +35,25 @@ abstract class AbstractIndicator<P extends Point<?, P>> extends IndicatorEventMa
 
 	protected abstract boolean isCurrentPointPeriod(BasicMarketData marketData);
 
-	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		if (isCurrentPointPeriod(marketData)) {
-			currentPoint.onMarketData(marketData);
-			currentPointChanged(currentPoint);
-		} else {
-			endPoint(currentPoint);
-			currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
-			while (!isCurrentPointPeriod(marketData)) {
-				currentPoint.onMarketData(preMarketData);
-				startPoint(currentPoint);
-				endPoint(currentPoint);
-				currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
-			}
-			currentPoint.onMarketData(marketData);
-			startPoint(currentPoint);
-		}
-		this.preMarketData = marketData;
-	}
+//	@Override
+//	public void onMarketData(BasicMarketData marketData) {
+//		if (isCurrentPointPeriod(marketData)) {
+//			currentPoint.onMarketData(marketData);
+//			currentPointChanged(currentPoint);
+//		} else {
+//			endPoint(currentPoint);
+//			currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
+//			while (!isCurrentPointPeriod(marketData)) {
+//				currentPoint.onMarketData(preMarketData);
+//				startPoint(currentPoint);
+//				endPoint(currentPoint);
+//				currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
+//			}
+//			currentPoint.onMarketData(marketData);
+//			startPoint(currentPoint);
+//		}
+//		this.preMarketData = marketData;
+//	}
 
 	@Override
 	public Instrument getInstrument() {

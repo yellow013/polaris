@@ -4,11 +4,12 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
+import io.ffreedom.polaris.indicators.events.SarEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
 import io.ffreedom.polaris.indicators.impl.sar.point.SarPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class PooledSar extends AbstractPooledIndicator<SarPoint> {
+public class PooledSar extends AbstractPooledIndicator<SarPoint, SarEvent> {
 
 	public PooledSar(Instrument instrument, IndicatorPeriod period) {
 		super(instrument, period, IndicatorCycle.with(2));

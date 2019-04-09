@@ -10,7 +10,7 @@ import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public final class Bar extends TimePeriodPoint<Bar> {
+public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
 	private double open = Double.NaN;
 	private double highest = Double.MIN_VALUE;
@@ -20,12 +20,12 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	private double turnoverSum = 0.0D;
 	private MutableDoubleList priceRecord = ECollections.newDoubleArrayList(64);
 
-	private Bar(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+	private TimeBar(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
 		super(index, instrument, period, timePeriod);
 	}
 
-	public static Bar with(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
-		return new Bar(index, instrument, period, timePeriod);
+	public static TimeBar with(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+		return new TimeBar(index, instrument, period, timePeriod);
 	}
 
 	@Override
@@ -36,13 +36,13 @@ public final class Bar extends TimePeriodPoint<Bar> {
 	}
 
 	@Override
-	protected Bar thisPoint() {
+	protected TimeBar thisPoint() {
 		return this;
 	}
 
 	@Override
-	public Bar generateNext() {
-		return new Bar(index + 1, instrument, period,
+	public TimeBar generateNext() {
+		return new TimeBar(index + 1, instrument, period,
 				TimePeriod.with(timePeriod.getStartTime().plusSeconds(period.getSeconds()),
 						timePeriod.getEndTime().plusSeconds(period.getSeconds())));
 	}

@@ -5,44 +5,22 @@ import org.slf4j.Logger;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.common.log.CommonLoggerFactory;
+import io.ffreedom.common.sequence.Serial;
 import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.Point;
 
-abstract class IndicatorEventManager<P extends Point<?, P>> implements Indicator<P> {
+abstract class IndicatorEventManager<P extends Point<? extends Serial<?>, P>, E extends IndicatorEvent>
+		implements Indicator<P, E> {
 
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
 
-	private MutableList<IndicatorEvent<P>> indicatorEvents = ECollections.newFastList();
+	private MutableList<E> indicatorEvents = ECollections.newFastList();
 
 	@Override
-	public void addIndicatorEvent(IndicatorEvent<P> event) {
+	public void addIndicatorEvent(E event) {
 		if (event != null)
 			indicatorEvents.add(event);
-	}
-
-	@Override
-	public void currentPointChanged(P p) {
-		if (indicatorEvents.notEmpty())
-			indicatorEvents.forEach(event -> event.onCurrentPointChanged(p));
-		else
-			logger.info("this.currentPointChanged callback is null.");
-	}
-
-	@Override
-	public void startPoint(P p) {
-		if (indicatorEvents.notEmpty())
-			indicatorEvents.forEach(event -> event.onStartPoint(p));
-		else
-			logger.info("this.startPoint callback is null.");
-	}
-
-	@Override
-	public void endPoint(P p) {
-		if (indicatorEvents.notEmpty())
-			indicatorEvents.forEach(event -> event.onEndPoint(p));
-		else
-			logger.error("this.endPoint callback is null.");
 	}
 
 }
