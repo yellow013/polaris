@@ -4,10 +4,10 @@ import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
 
-public abstract class SingleLayerIndicatorPool<I extends Indicator<?>> extends BaseIndicatorPool<I> {
+public abstract class SingleLayerIndicatorPool<I extends AbstractPooledIndicator<?, ?>> extends BaseIndicatorPool<I> {
 
 	private MutableIntObjectMap<I> s1IndicatorMap = ECollections.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> s2IndicatorMap = ECollections.newIntObjectHashMap(8);

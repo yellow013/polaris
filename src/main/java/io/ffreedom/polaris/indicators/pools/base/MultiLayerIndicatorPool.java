@@ -4,12 +4,12 @@ import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
 import io.ffreedom.common.collect.ECollections;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.Indicator;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public abstract class MultiLayerIndicatorPool<I extends Indicator<?>> extends BaseIndicatorPool<I> {
+public abstract class MultiLayerIndicatorPool<I extends AbstractPooledIndicator<?, ?>> extends BaseIndicatorPool<I> {
 
 	private MutableLongObjectMap<I> s1IndicatorMap = ECollections.newLongObjectHashMap(8);
 	private MutableLongObjectMap<I> s2IndicatorMap = ECollections.newLongObjectHashMap(8);
@@ -59,7 +59,7 @@ public abstract class MultiLayerIndicatorPool<I extends Indicator<?>> extends Ba
 	}
 
 	private long calculateIndex(Instrument instrument, IndicatorCycle cycle) {
-		return instrument.getInstrumentId()* 1000000L + cycle.getValue();
+		return instrument.getInstrumentId() * 1000000L + cycle.getValue();
 	}
 
 	private MutableLongObjectMap<I> getIndicatorMap(IndicatorPeriod period) {

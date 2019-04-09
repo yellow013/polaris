@@ -7,7 +7,7 @@ import io.ffreedom.polaris.market.BasicMarketData;
 public interface Point<X extends Serial<X>, Y extends Point<X, Y>> {
 
 	int getIndex();
-	
+
 	Instrument getInstrument();
 
 	X getXAxis();

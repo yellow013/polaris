@@ -1,9 +1,10 @@
 package io.ffreedom.polaris.indicators.api;
 
+import io.ffreedom.common.sequence.Serial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public interface Indicator<P extends Point<?, P>> {
+public interface Indicator<P extends Point<? extends Serial<?>, P>, E extends IndicatorEvent> {
 
 	Instrument getInstrument();
 
@@ -11,13 +12,7 @@ public interface Indicator<P extends Point<?, P>> {
 
 	void onMarketData(BasicMarketData marketData);
 
-	void addIndicatorEvent(IndicatorEvent<P> event);
-
-	void currentPointChanged(P p);
-
-	void startPoint(P p);
-
-	void endPoint(P p);
+	void addIndicatorEvent(E event);
 
 	int size();
 
