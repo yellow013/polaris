@@ -22,7 +22,7 @@ public class SarPoint extends TimePeriodPoint<SarPoint> {
 	}
 
 	@Override
-	protected SarPoint thisPoint() {
+	protected SarPoint thisObj() {
 		return this;
 	}
 

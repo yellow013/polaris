@@ -26,7 +26,7 @@ abstract class AbstractPoint<X extends Serial<X>, Y extends Point<X, Y>> impleme
 
 	@Override
 	public Y getYAxis() {
-		return thisPoint();
+		return thisObj();
 	}
 
 	@Override
@@ -34,6 +34,6 @@ abstract class AbstractPoint<X extends Serial<X>, Y extends Point<X, Y>> impleme
 		return getXAxis().compareTo(o.getXAxis());
 	}
 
-	protected abstract Y thisPoint();
+	protected abstract Y thisObj();
 
 }

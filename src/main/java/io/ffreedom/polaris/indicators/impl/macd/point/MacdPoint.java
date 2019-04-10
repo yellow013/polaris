@@ -12,33 +12,21 @@ public class MacdPoint extends TimePeriodPoint<MacdPoint> {
 		super(index, instrument, period, timePeriod);
 	}
 
-	@SuppressWarnings("unused")
-	private double avgPrice;
+	@Override
+	public MacdPoint generateNext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
-		double lastPrice = marketData.getLastPrice();
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	protected MacdPoint thisPoint() {
+	protected MacdPoint thisObj() {
 		return this;
-	}
-
-	public static void main(String[] args) {
-
-		double d = 1 + 1 + 6 + 10;
-		double b = d / 4;
-		System.out.println(b);
-		double b1 = b + 20;
-		System.out.println(b1 / 2);
-		System.out.println((1 + 1 + 6 + 10 + 20) / 2);
-
-	}
-
-	@Override
-	public MacdPoint generateNext() {
-		return null;
 	}
 
 }
