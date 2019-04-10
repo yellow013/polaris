@@ -28,9 +28,8 @@ public class EmaPoint extends MAPoint<EmaPoint> {
 	}
 
 	@Override
-	protected EmaPoint thisPoint() {
-		// TODO Auto-generated method stub
-		return null;
+	protected EmaPoint thisObj() {
+		return this;
 	}
 
 }

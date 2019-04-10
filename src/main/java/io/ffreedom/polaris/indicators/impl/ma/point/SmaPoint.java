@@ -35,7 +35,7 @@ public class SmaPoint extends MAPoint<SmaPoint> {
 	}
 
 	@Override
-	protected SmaPoint thisPoint() {
+	protected SmaPoint thisObj() {
 		return this;
 	}
 
