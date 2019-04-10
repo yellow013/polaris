@@ -4,14 +4,14 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
-import io.ffreedom.polaris.indicators.events.BBandsEvent;
+import io.ffreedom.polaris.indicators.events.BollingerBandsEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
-import io.ffreedom.polaris.indicators.impl.bbands.point.BBandsPoint;
+import io.ffreedom.polaris.indicators.impl.bbands.point.BollingerBandsPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class BBands extends AbstractPooledIndicator<BBandsPoint, BBandsEvent> {
+public class BollingerBands extends AbstractPooledIndicator<BollingerBandsPoint, BollingerBandsEvent> {
 
-	public BBands(Instrument instrument, IndicatorPeriod period) {
+	public BollingerBands(Instrument instrument, IndicatorPeriod period) {
 		super(instrument, period, IndicatorCycle.with(1));
 	}
 
@@ -21,7 +21,7 @@ public class BBands extends AbstractPooledIndicator<BBandsPoint, BBandsEvent> {
 	}
 
 	@Override
-	protected void initPooledPoints(PointSet<BBandsPoint> points) {
+	protected void initPooledPoints(PointSet<BollingerBandsPoint> points) {
 		// TODO Auto-generated method stub
 
 	}
@@ -33,7 +33,7 @@ public class BBands extends AbstractPooledIndicator<BBandsPoint, BBandsEvent> {
 	}
 
 	@Override
-	protected BBandsPoint generateNextPoint(BBandsPoint currentPoint) {
+	protected BollingerBandsPoint generateNextPoint(BollingerBandsPoint currentPoint) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -6,9 +6,9 @@ import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class BBandsPoint extends TimePeriodPoint<BBandsPoint> {
+public class BollingerBandsPoint extends TimePeriodPoint<BollingerBandsPoint> {
 
-	private BBandsPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+	private BollingerBandsPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
 		super(index, instrument, period, timePeriod);
 	}
 
@@ -19,12 +19,12 @@ public class BBandsPoint extends TimePeriodPoint<BBandsPoint> {
 	}
 
 	@Override
-	protected BBandsPoint thisPoint() {
+	protected BollingerBandsPoint thisObj() {
 		return this;
 	}
 
 	@Override
-	public BBandsPoint generateNext() {
+	public BollingerBandsPoint generateNext() {
 		// TODO Auto-generated method stub
 		return null;
 	}
