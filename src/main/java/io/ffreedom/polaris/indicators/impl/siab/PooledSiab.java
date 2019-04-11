@@ -1,5 +1,5 @@
 package io.ffreedom.polaris.indicators.impl.siab;
 
-public class SIAB {
+public class PooledSiab {
 
 }

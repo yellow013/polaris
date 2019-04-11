@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.macd.point;
+package io.ffreedom.polaris.indicators.impl.macd;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;

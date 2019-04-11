@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.bbands;
+package io.ffreedom.polaris.indicators.impl.bollinger;
 
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
@@ -6,12 +6,12 @@ import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.events.BollingerBandsEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
-import io.ffreedom.polaris.indicators.impl.bbands.point.BollingerBandsPoint;
+import io.ffreedom.polaris.indicators.impl.bollinger.point.BollingerBandsPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class BollingerBands extends AbstractPooledIndicator<BollingerBandsPoint, BollingerBandsEvent> {
+public class PooledBollingerBands extends AbstractPooledIndicator<BollingerBandsPoint, BollingerBandsEvent> {
 
-	public BollingerBands(Instrument instrument, IndicatorPeriod period) {
+	public PooledBollingerBands(Instrument instrument, IndicatorPeriod period) {
 		super(instrument, period, IndicatorCycle.with(1));
 	}
 

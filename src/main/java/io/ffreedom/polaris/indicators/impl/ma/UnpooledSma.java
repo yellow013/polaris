@@ -12,7 +12,7 @@ import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractUnpooledIndicator;
 import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
-import io.ffreedom.polaris.indicators.impl.ma.point.SmaPoint;
+import io.ffreedom.polaris.indicators.impl.ma.points.SmaPoint;
 import io.ffreedom.polaris.indicators.pools.TradingPeriodPool;
 import io.ffreedom.polaris.market.BasicMarketData;
 

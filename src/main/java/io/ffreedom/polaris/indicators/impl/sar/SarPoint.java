@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.sar.point;
+package io.ffreedom.polaris.indicators.impl.sar;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;

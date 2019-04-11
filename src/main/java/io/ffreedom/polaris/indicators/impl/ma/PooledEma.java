@@ -6,7 +6,7 @@ import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.events.EmaEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
-import io.ffreedom.polaris.indicators.impl.ma.point.EmaPoint;
+import io.ffreedom.polaris.indicators.impl.ma.points.EmaPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class PooledEma extends AbstractPooledIndicator<EmaPoint, EmaEvent> {

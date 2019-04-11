@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.ma.point;
+package io.ffreedom.polaris.indicators.impl.ma.points;
 
 import io.ffreedom.common.utils.DoubleUtil;
 import io.ffreedom.polaris.datetime.TimePeriod;
@@ -6,10 +6,9 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
-import io.ffreedom.polaris.indicators.impl.ma.base.MAPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class SmaPoint extends MAPoint<SmaPoint> {
+public class SmaPoint extends MaPoint<SmaPoint> {
 
 	private double historyPriceSum;
 

@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.bbands.point;
+package io.ffreedom.polaris.indicators.impl.bollinger.point;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;

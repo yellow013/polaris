@@ -1,5 +1,5 @@
-package io.ffreedom.polaris.indicators.impl.siab.point;
+package io.ffreedom.polaris.indicators.impl.siab;
 
-public class SIABPoint {
+public class SiabPoint {
 
 }
