@@ -5,12 +5,12 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.eclipse.collections.api.map.ConcurrentMutableMap;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.MutableMaps;
 
 @ThreadSafe
 public final class SummaryStatisticsPool {
 
-	private static ConcurrentMutableMap<Thread, SummaryStatistics> summaryStatisticsMap = ECollections
+	private static ConcurrentMutableMap<Thread, SummaryStatistics> summaryStatisticsMap = MutableMaps
 			.newConcurrentHashMap();
 
 	public static SummaryStatistics getSummaryStatistics() {

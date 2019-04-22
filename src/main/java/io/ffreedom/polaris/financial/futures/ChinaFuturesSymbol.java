@@ -8,7 +8,7 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.impl.map.mutable.UnifiedMap;
 import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.ImmutableSets;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Exchange;
 import io.ffreedom.polaris.financial.Symbol;
@@ -176,7 +176,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	private ChinaFuturesSymbol(int exchangeNo, Exchange exchange, TradingPeriod... tradingPeriods) {
 		this.symbolId = exchange.getExchangeId() + exchangeNo * 10000;
 		this.exchange = exchange;
-		this.tradingPeriodSet = ECollections.newImmutableSortedSet(tradingPeriods);
+		this.tradingPeriodSet = ImmutableSets.newImmutableSortedSet(tradingPeriods);
 	}
 
 	@Override
