@@ -2,7 +2,7 @@ package io.ffreedom.polaris.indicators.impl.bar.point;
 
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.MutableLists;
 import io.ffreedom.common.utils.DoubleUtil;
 
 public final class Bar {
@@ -13,7 +13,7 @@ public final class Bar {
 	private double close = Double.NaN;
 	private double volumeSum = 0.0D;
 	private double turnoverSum = 0.0D;
-	private MutableDoubleList priceRecord = ECollections.newDoubleArrayList(64);
+	private MutableDoubleList priceRecord = MutableLists.newDoubleArrayList(64);
 
 	Bar() {
 	}

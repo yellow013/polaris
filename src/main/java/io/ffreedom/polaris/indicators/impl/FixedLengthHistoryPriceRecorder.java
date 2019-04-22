@@ -5,7 +5,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.MutableLists;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 
 @NotThreadSafe
@@ -25,7 +25,7 @@ public class FixedLengthHistoryPriceRecorder {
 
 	private FixedLengthHistoryPriceRecorder(int capacity) {
 		this.capacity = capacity;
-		this.priceList = ECollections.newDoubleArrayList(capacity);
+		this.priceList = MutableLists.newDoubleArrayList(capacity);
 	}
 
 	public static FixedLengthHistoryPriceRecorder newRecorder(IndicatorCycle cycle) {

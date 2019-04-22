@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.impl;
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.MutableLists;
 import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.common.sequence.Serial;
 import io.ffreedom.polaris.indicators.api.Indicator;
@@ -15,7 +15,7 @@ abstract class IndicatorEventManager<P extends Point<? extends Serial<?>, P>, E 
 
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
 
-	private MutableList<E> indicatorEvents = ECollections.newFastList();
+	private MutableList<E> indicatorEvents = MutableLists.newFastList();
 
 	@Override
 	public void addIndicatorEvent(E event) {

@@ -8,7 +8,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.MutableLists;
+import io.ffreedom.common.collect.MutableMaps;
 
 @NotThreadSafe
 public final class PointSet<P extends Point<?, P>> {
@@ -17,8 +18,8 @@ public final class PointSet<P extends Point<?, P>> {
 	private MutableLongObjectMap<P> pointMap;
 
 	private PointSet(int size) {
-		this.points = ECollections.newFastList(size);
-		this.pointMap = ECollections.newLongObjectHashMap(size);
+		this.points = MutableLists.newFastList(size);
+		this.pointMap = MutableMaps.newLongObjectHashMap(size);
 	}
 
 	public static <P extends Point<?, P>> PointSet<P> newEmpty(int size) {
