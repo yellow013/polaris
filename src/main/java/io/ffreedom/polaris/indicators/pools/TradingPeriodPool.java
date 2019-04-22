@@ -8,7 +8,7 @@ import org.eclipse.collections.api.map.primitive.ImmutableIntObjectMap;
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.MutableMaps;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
@@ -23,7 +23,7 @@ public final class TradingPeriodPool {
 	}
 
 	// Map<Symbol, Set<TimePeriod>>
-	private MutableIntObjectMap<ImmutableSortedSet<TradingPeriod>> tradingPeriodMap = ECollections
+	private MutableIntObjectMap<ImmutableSortedSet<TradingPeriod>> tradingPeriodMap = MutableMaps
 			.newIntObjectHashMap();
 
 	// Map<Symbol, Set<TimePeriod>>

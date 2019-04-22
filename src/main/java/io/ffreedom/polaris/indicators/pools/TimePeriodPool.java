@@ -10,7 +10,8 @@ import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.MutableMaps;
+import io.ffreedom.common.collect.MutableSets;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Instrument;
@@ -29,14 +30,14 @@ public final class TimePeriodPool {
 	 * 可变的Pool,最终元素为Set <br>
 	 * Map<IndicatorPeriod, Map<Symbol, Set<TimePeriod>>>
 	 */
-	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSortedSet<TimePeriod>>> timePeriodSetsPool = ECollections
+	private MutableLongObjectMap<MutableIntObjectMap<ImmutableSortedSet<TimePeriod>>> timePeriodSetsPool = MutableMaps
 			.newLongObjectHashMap();
 
 	/**
 	 * 可变的Pool,最终元素为Map <br>
 	 * Map<IndicatorPeriod, Map<Symbol, Map<SerialNumber,TimePeriod>>>
 	 */
-	private MutableLongObjectMap<MutableIntObjectMap<ImmutableLongObjectMap<TimePeriod>>> timePeriodMapsPool = ECollections
+	private MutableLongObjectMap<MutableIntObjectMap<ImmutableLongObjectMap<TimePeriod>>> timePeriodMapsPool = MutableMaps
 			.newLongObjectHashMap();
 
 	/**
@@ -66,16 +67,16 @@ public final class TimePeriodPool {
 		MutableIntObjectMap<ImmutableLongObjectMap<TimePeriod>> symbolMaps = timePeriodMapsPool
 				.get(period.getSeconds());
 		if (symbolSets == null) {
-			symbolSets = ECollections.newIntObjectHashMap();
+			symbolSets = MutableMaps.newIntObjectHashMap();
 			timePeriodSetsPool.put(period.getSeconds(), symbolSets);
 		}
 		if (symbolMaps == null) {
-			symbolMaps = ECollections.newIntObjectHashMap();
+			symbolMaps = MutableMaps.newIntObjectHashMap();
 			timePeriodMapsPool.put(period.getSeconds(), symbolMaps);
 		}
 		for (Symbol symbol : symbols) {
-			MutableSortedSet<TimePeriod> timePeriodSet = ECollections.newTreeSortedSet();
-			MutableLongObjectMap<TimePeriod> timePeriodMap = ECollections.newLongObjectHashMap();
+			MutableSortedSet<TimePeriod> timePeriodSet = MutableSets.newTreeSortedSet();
+			MutableLongObjectMap<TimePeriod> timePeriodMap = MutableMaps.newLongObjectHashMap();
 			// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
 			symbol.getTradingPeriodSet().forEach(tradingPeriod -> {
 				MutableList<TimePeriod> segmentByDuration = tradingPeriod.segmentByDuration(period.getDuration());
@@ -91,7 +92,7 @@ public final class TimePeriodPool {
 
 	public void toImmutable() {
 		// 创建临时的可变结构,内部包含不可变的结构.
-		MutableLongObjectMap<ImmutableIntObjectMap<ImmutableSortedSet<TimePeriod>>> tempSetsPool = ECollections
+		MutableLongObjectMap<ImmutableIntObjectMap<ImmutableSortedSet<TimePeriod>>> tempSetsPool = MutableMaps
 				.newLongObjectHashMap();
 		// 将可变Pool中的元素转移到临时池中,将元素转换为不可变
 		timePeriodSetsPool.forEachKeyValue(
@@ -101,7 +102,7 @@ public final class TimePeriodPool {
 		this.immutableTimePeriodSetsPool = tempSetsPool.toImmutable();
 
 		// 创建临时的可变结构,内部包含不可变的结构.
-		MutableLongObjectMap<ImmutableIntObjectMap<ImmutableLongObjectMap<TimePeriod>>> tempMapsPool = ECollections
+		MutableLongObjectMap<ImmutableIntObjectMap<ImmutableLongObjectMap<TimePeriod>>> tempMapsPool = MutableMaps
 				.newLongObjectHashMap();
 		// 将可变Pool中的元素转移到临时池中,将元素转换为不可变
 		timePeriodMapsPool.forEachKeyValue(

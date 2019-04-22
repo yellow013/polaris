@@ -2,29 +2,29 @@ package io.ffreedom.polaris.indicators.pools.base;
 
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 
-import io.ffreedom.common.collect.ECollections;
+import io.ffreedom.common.collect.MutableMaps;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
 
 public abstract class SingleLayerIndicatorPool<I extends AbstractPooledIndicator<?, ?>> extends BaseIndicatorPool<I> {
 
-	private MutableIntObjectMap<I> s1IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> s2IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> s5IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> s10IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> s15IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> s30IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> m1IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> m2IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> m5IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> m10IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> m15IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> m30IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> h1IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> h2IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> h4IndicatorMap = ECollections.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> d1IndicatorMap = ECollections.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> s1IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> s2IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> s5IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> s10IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> s15IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> s30IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> m1IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> m2IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> m5IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> m10IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> m15IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> m30IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> h1IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> h2IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> h4IndicatorMap = MutableMaps.newIntObjectHashMap(8);
+	private MutableIntObjectMap<I> d1IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 
 	protected abstract I generateIndicator(IndicatorPeriod period, Instrument instrument);
 
