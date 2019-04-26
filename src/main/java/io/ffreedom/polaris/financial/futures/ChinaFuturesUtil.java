@@ -12,7 +12,7 @@ public final class ChinaFuturesUtil {
 	private ChinaFuturesUtil() {
 	}
 
-	public static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(15, 05);
+	public static final LocalTime TRADING_DAY_DIVIDING_LINE = LocalTime.of(15, 15);
 
 	public static LocalDate analysisTradingDay(LocalDateTime dateTime) {
 		DayOfWeek dayOfWeek = dateTime.getDayOfWeek();
@@ -41,10 +41,15 @@ public final class ChinaFuturesUtil {
 	}
 
 	public static String analysisSymbolCode(String instrumentCode) {
-		if (StringUtil.isNullOrEmpty(instrumentCode)) {
+		if (StringUtil.isNullOrEmpty(instrumentCode))
 			return instrumentCode;
-		}
-		return instrumentCode.replaceAll("\\d", "");
+		return instrumentCode.replaceAll("[\\d]", "").trim();
+	}
+
+	public static int analysisInstrumentTerm(String instrumentCode) {
+		if (StringUtil.isNullOrEmpty(instrumentCode))
+			return 0;
+		return Integer.parseInt(instrumentCode.replaceAll("[^\\d]", "").trim());
 	}
 
 	public static void main(String[] args) {
@@ -54,6 +59,10 @@ public final class ChinaFuturesUtil {
 		System.out.println(ChinaFuturesSymbol.AG.getExchange().getExchangeId());
 		System.out.println(ChinaFuturesSymbol.AG.getSymbolId());
 		System.out.println(ChinaFuturesSymbol.AG.generateInstrumentId(1906));
+		
+		
+		System.out.println(analysisSymbolCode("rb1901"));
+		System.out.println(analysisInstrumentTerm("rb1901"));
 
 	}
 

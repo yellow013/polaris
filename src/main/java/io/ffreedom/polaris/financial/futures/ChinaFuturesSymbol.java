@@ -209,7 +209,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 		}
 	}
 
-	public static ChinaFuturesSymbol checkout(String symbolName) {
+	public static ChinaFuturesSymbol findOf(String symbolName) {
 		String key = symbolName.toUpperCase();
 		ChinaFuturesSymbol chinaFuturesSymbol = symbolNameMap.get(key);
 		if (chinaFuturesSymbol == null)
@@ -217,7 +217,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 		return chinaFuturesSymbol;
 	}
 
-	public static ChinaFuturesSymbol checkout(int symbolId) {
+	public static ChinaFuturesSymbol findOf(int symbolId) {
 		ChinaFuturesSymbol chinaFuturesSymbol = symbolIdMap.get(symbolId);
 		if (chinaFuturesSymbol == null)
 			throw new IllegalArgumentException("Symbol Id -> " + symbolId + " is no mapping object");
