@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.impl.bar.point;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
 import io.ffreedom.common.collect.MutableLists;
-import io.ffreedom.common.utils.DoubleUtil;
+import io.ffreedom.common.number.DoubleUtil;
 
 public final class Bar {
 

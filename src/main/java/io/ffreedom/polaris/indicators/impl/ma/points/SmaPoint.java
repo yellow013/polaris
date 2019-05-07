@@ -1,6 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.ma.points;
 
-import io.ffreedom.common.utils.DoubleUtil;
+import io.ffreedom.common.number.DoubleUtil;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorCycle;
