@@ -21,7 +21,9 @@ public interface Instrument extends Enable {
 
 	Symbol getSymbol();
 
-	boolean isTZero();
+	boolean isAvailableNow();
+
+	boolean isNakedShort();
 
 	default PriorityCloseType getPriorityCloseType() {
 		return PriorityCloseType.NONE;
@@ -29,31 +31,20 @@ public interface Instrument extends Enable {
 
 	public static enum InstrumentType {
 
-		BOND(false),
+		BOND,
 
-		OPTION(true),
+		OPTION,
 
-		STOCK(false),
+		STOCK,
 
-		FUTURES(true),
+		FUTURES,
 
-		FOREX(true),
+		FOREX,
 
-		FUND(false),
-
-		INVALID(false)
+		FUND,
 
 		;
 
-		private boolean isNakedShort;
-
-		private InstrumentType(boolean isNakedShort) {
-			this.isNakedShort = isNakedShort;
-		}
-
-		public boolean isNakedShort() {
-			return isNakedShort;
-		}
 	}
 
 	public static enum PriorityCloseType {

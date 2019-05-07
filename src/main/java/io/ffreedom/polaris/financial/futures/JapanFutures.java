@@ -1,6 +1,7 @@
 package io.ffreedom.polaris.financial.futures;
 
 import io.ffreedom.polaris.financial.Symbol;
+import io.ffreedom.polaris.financial.futures.base.Futures;
 
 public class JapanFutures extends Futures {
 

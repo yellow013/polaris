@@ -1,7 +1,7 @@
 package io.ffreedom.polaris.financial.forex.cryptocurrency;
 
 import io.ffreedom.polaris.financial.Symbol;
-import io.ffreedom.polaris.financial.forex.Forex;
+import io.ffreedom.polaris.financial.forex.base.Forex;
 
 public final class Cryptocurrency extends Forex {
 

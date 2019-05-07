@@ -1,11 +1,11 @@
-package io.ffreedom.polaris.financial.forex;
+package io.ffreedom.polaris.financial.forex.base;
 
 import io.ffreedom.polaris.financial.AbstractInstrument;
 import io.ffreedom.polaris.financial.Symbol;
 
 public abstract class Forex extends AbstractInstrument {
 
-	protected ExchangeRate rate;
+	private long multiplier;
 
 	protected Forex(int instrumentId, String instrumentCode, Symbol symbol) {
 		super(instrumentId, instrumentCode, symbol);
@@ -17,8 +17,17 @@ public abstract class Forex extends AbstractInstrument {
 	}
 
 	@Override
-	public boolean isTZero() {
+	public boolean isAvailableNow() {
 		return true;
+	}
+
+	@Override
+	public boolean isNakedShort() {
+		return true;
+	}
+
+	public long getMultiplier() {
+		return multiplier;
 	}
 
 }
