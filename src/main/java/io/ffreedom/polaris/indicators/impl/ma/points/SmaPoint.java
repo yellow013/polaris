@@ -3,26 +3,26 @@ package io.ffreedom.polaris.indicators.impl.ma.points;
 import io.ffreedom.common.number.DoubleUtil;
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.IndicatorCycle;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
-import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
+import io.ffreedom.polaris.indicators.api.CalculationCycle;
+import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
+import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SmaPoint extends MaPoint<SmaPoint> {
 
 	private double historyPriceSum;
 
-	private IndicatorCycle cycle;
+	private CalculationCycle cycle;
 
-	public SmaPoint(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod,
-			IndicatorCycle cycle, FixedLengthHistoryPriceRecorder historyPriceRecorder) {
+	public SmaPoint(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod,
+			CalculationCycle cycle, FixedLengthHistoryPriceRecorder historyPriceRecorder) {
 		super(index, instrument, period, timePeriod, historyPriceRecorder);
 		this.historyPriceSum = historyPriceRecorder.sum();
 		this.cycle = cycle;
 	}
 
-	public static SmaPoint with(int indxe, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod,
-			IndicatorCycle cycle, FixedLengthHistoryPriceRecorder historyPriceRecorder) {
+	public static SmaPoint with(int indxe, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod,
+			CalculationCycle cycle, FixedLengthHistoryPriceRecorder historyPriceRecorder) {
 		return new SmaPoint(indxe, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
@@ -49,7 +49,7 @@ public class SmaPoint extends MaPoint<SmaPoint> {
 
 	}
 
-	public IndicatorCycle getCycle() {
+	public CalculationCycle getCycle() {
 		return cycle;
 	}
 

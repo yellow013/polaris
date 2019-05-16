@@ -4,25 +4,25 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.IndicatorCycle;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.api.CalculationCycle;
+import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
-import io.ffreedom.polaris.indicators.impl.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.indicators.impl.ma.points.SmaPoint;
 import io.ffreedom.polaris.indicators.pools.TimePeriodPool;
+import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.BasicMarketData;
 
 public final class PooledSma extends AbstractPooledIndicator<SmaPoint, SmaEvent> {
 
 	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
 
-	public PooledSma(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
+	public PooledSma(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
 	}
 
-	public static PooledSma with(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
+	public static PooledSma with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		return new PooledSma(instrument, period, cycle);
 	}
 

@@ -4,29 +4,23 @@ import javax.annotation.Nonnull;
 
 import io.ffreedom.common.sequence.Serial;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.IndicatorCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-abstract class AbstractIndicator<P extends Point<? extends Serial<?>, P>, E extends IndicatorEvent>
+public abstract class AbstractIndicator<P extends Point<? extends Serial<?>, P>, E extends IndicatorEvent>
 		extends IndicatorEventManager<P, E> {
 
 	protected Instrument instrument;
-	protected IndicatorPeriod period;
-	protected IndicatorCycle cycle;
 
 	protected PointSet<P> points;
 	protected P currentPoint;
 
 	protected BasicMarketData preMarketData;
 
-	public AbstractIndicator(Instrument instrument, IndicatorPeriod period, IndicatorCycle cycle) {
+	public AbstractIndicator(Instrument instrument) {
 		this.instrument = instrument;
-		this.period = period;
-		this.cycle = cycle;
 		this.points = PointSet.newEmpty(265);
 	}
 
@@ -61,11 +55,6 @@ abstract class AbstractIndicator<P extends Point<? extends Serial<?>, P>, E exte
 	}
 
 	@Override
-	public IndicatorPeriod getPeriod() {
-		return period;
-	}
-
-	@Override
 	public P getFastPoint() {
 		if (points.size() == 0)
 			return currentPoint;
@@ -75,11 +64,6 @@ abstract class AbstractIndicator<P extends Point<? extends Serial<?>, P>, E exte
 	@Override
 	public P getCurrentPoint() {
 		return currentPoint;
-	}
-
-	@Override
-	public int size() {
-		return points.size();
 	}
 
 	@Override

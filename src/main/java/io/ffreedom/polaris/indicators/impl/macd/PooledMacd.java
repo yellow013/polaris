@@ -1,8 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.macd;
 
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.IndicatorCycle;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.events.MacdEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
@@ -10,8 +8,8 @@ import io.ffreedom.polaris.market.BasicMarketData;
 
 public final class PooledMacd extends AbstractPooledIndicator<MacdPoint, MacdEvent> {
 
-	public PooledMacd(Instrument instrument, IndicatorPeriod period) {
-		super(instrument, period, IndicatorCycle.with(26));
+	public PooledMacd(Instrument instrument) {
+		super(instrument);
 	}
 
 	@Override

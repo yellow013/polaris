@@ -2,7 +2,7 @@ package io.ffreedom.polaris.indicators.impl.bar.point;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
 import io.ffreedom.polaris.market.BasicMarketData;
 
@@ -10,11 +10,11 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
 	private Bar bar = new Bar();
 
-	private TimeBar(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+	private TimeBar(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod) {
 		super(index, instrument, period, timePeriod);
 	}
 
-	public static TimeBar with(int index, Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+	public static TimeBar with(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod) {
 		return new TimeBar(index, instrument, period, timePeriod);
 	}
 
