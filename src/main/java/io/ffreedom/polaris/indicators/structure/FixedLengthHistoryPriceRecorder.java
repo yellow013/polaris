@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl;
+package io.ffreedom.polaris.indicators.structure;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -6,7 +6,7 @@ import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
 import io.ffreedom.common.collect.MutableLists;
-import io.ffreedom.polaris.indicators.api.IndicatorCycle;
+import io.ffreedom.polaris.indicators.api.CalculationCycle;
 
 @NotThreadSafe
 public class FixedLengthHistoryPriceRecorder {
@@ -28,8 +28,8 @@ public class FixedLengthHistoryPriceRecorder {
 		this.priceList = MutableLists.newDoubleArrayList(capacity);
 	}
 
-	public static FixedLengthHistoryPriceRecorder newRecorder(IndicatorCycle cycle) {
-		return new FixedLengthHistoryPriceRecorder(cycle.getValue());
+	public static FixedLengthHistoryPriceRecorder newRecorder(CalculationCycle cycle) {
+		return new FixedLengthHistoryPriceRecorder(cycle.getCycleValue());
 	}
 
 	public boolean isEmpty() {
@@ -116,7 +116,7 @@ public class FixedLengthHistoryPriceRecorder {
 
 	public static void main(String[] args) {
 
-		FixedLengthHistoryPriceRecorder recorder = newRecorder(IndicatorCycle.with(10));
+		FixedLengthHistoryPriceRecorder recorder = newRecorder(CalculationCycle.with(10));
 
 		for (int i = 1; i < 30; i++) {
 			recorder.addTail(i);
