@@ -1,21 +1,26 @@
 package io.ffreedom.polaris.indicators.api;
 
-public final class IndicatorCycle {
+/**
+ * 标识指标的一个点由N个周期的点计算而来
+ * 
+ * @author yellow013
+ */
+public final class CalculationCycle {
 
-	private int value;
+	private int cycleValue;
 
-	private IndicatorCycle(int value) {
-		this.value = value;
+	private CalculationCycle(int cycleValue) {
+		this.cycleValue = cycleValue;
 	}
 
-	public static IndicatorCycle with(int value) {
-		if (value > 99999)
+	public static CalculationCycle with(int cycleValue) {
+		if (cycleValue > 9999)
 			throw new IllegalArgumentException("IndicatorCycle value is too big.");
-		return new IndicatorCycle(value);
+		return new CalculationCycle(cycleValue);
 	}
 
-	public int getValue() {
-		return value;
+	public int getCycleValue() {
+		return cycleValue;
 	}
 
 }

@@ -8,13 +8,9 @@ public interface Indicator<P extends Point<? extends Serial<?>, P>, E extends In
 
 	Instrument getInstrument();
 
-	IndicatorPeriod getPeriod();
-
 	void onMarketData(BasicMarketData marketData);
 
 	void addIndicatorEvent(E event);
-
-	int size();
 
 	P getPoint(int index);
 

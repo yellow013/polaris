@@ -3,17 +3,34 @@ package io.ffreedom.polaris.indicators.api;
 import java.time.Duration;
 import java.time.LocalTime;
 
-public enum IndicatorPeriod {
+/**
+ * 指标时间周期
+ * 
+ * @author yellow013
+ */
+public enum IndicatorTimePeriod {
 
 	S1(Duration.ofSeconds(1)),
 
 	S2(Duration.ofSeconds(2)),
 
+	S3(Duration.ofSeconds(3)),
+
+	S4(Duration.ofSeconds(4)),
+
 	S5(Duration.ofSeconds(5)),
+
+	S6(Duration.ofSeconds(6)),
 
 	S10(Duration.ofSeconds(10)),
 
+	S12(Duration.ofSeconds(12)),
+
 	S15(Duration.ofSeconds(15)),
+
+	S20(Duration.ofSeconds(20)),
+
+	S25(Duration.ofSeconds(25)),
 
 	S30(Duration.ofSeconds(30)),
 
@@ -31,15 +48,11 @@ public enum IndicatorPeriod {
 
 	H1(Duration.ofHours(1)),
 
-	H2(Duration.ofHours(2)),
-
-	H4(Duration.ofHours(4)),
-
-	D1(Duration.ofDays(1));
+	;
 
 	private Duration duration;
 
-	private IndicatorPeriod(Duration duration) {
+	private IndicatorTimePeriod(Duration duration) {
 		this.duration = duration;
 	}
 
@@ -52,7 +65,7 @@ public enum IndicatorPeriod {
 	}
 
 	public static void main(String[] args) {
-		for (IndicatorPeriod period : IndicatorPeriod.values()) {
+		for (IndicatorTimePeriod period : IndicatorTimePeriod.values()) {
 			System.out.println(period.getSeconds());
 			LocalTime plusSeconds = LocalTime.of(21, 0, 0).plusSeconds(period.getSeconds());
 			System.out.println(plusSeconds);

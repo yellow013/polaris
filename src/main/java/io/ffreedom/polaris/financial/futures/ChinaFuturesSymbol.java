@@ -12,7 +12,7 @@ import io.ffreedom.common.collect.ImmutableSets;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Exchange;
 import io.ffreedom.polaris.financial.Symbol;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 
 public enum ChinaFuturesSymbol implements Symbol {
 
@@ -233,7 +233,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	public static void main(String[] args) {
 		for (Symbol symbol : ChinaFuturesSymbol.values()) {
 			symbol.getTradingPeriodSet()
-					.each(tradingPeriod -> tradingPeriod.segmentByDuration(IndicatorPeriod.S30.getDuration()).each(
+					.each(tradingPeriod -> tradingPeriod.segmentByDuration(IndicatorTimePeriod.S30.getDuration()).each(
 							timePeriod -> System.out.println(symbol.getSymbolCode() + " | " + timePeriod.getEpochTime()
 									+ " -> " + timePeriod.getStartTime() + " - " + timePeriod.getEndTime())));
 		}
