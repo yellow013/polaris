@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.pools;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.impl.bar.PooledTimeBars;
 import io.ffreedom.polaris.indicators.pools.base.SingleLayerIndicatorPool;
 
@@ -16,7 +16,7 @@ public final class BarsPool extends SingleLayerIndicatorPool<PooledTimeBars> {
 	}
 
 	@Override
-	protected PooledTimeBars generateIndicator(IndicatorPeriod period, Instrument instrument) {
+	protected PooledTimeBars generateIndicator(IndicatorTimePeriod period, Instrument instrument) {
 		return new PooledTimeBars(instrument, period);
 	}
 

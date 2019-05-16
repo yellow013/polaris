@@ -4,7 +4,7 @@ import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 
 import io.ffreedom.common.collect.MutableMaps;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
 
 public abstract class SingleLayerIndicatorPool<I extends AbstractPooledIndicator<?, ?>> extends BaseIndicatorPool<I> {
@@ -22,13 +22,10 @@ public abstract class SingleLayerIndicatorPool<I extends AbstractPooledIndicator
 	private MutableIntObjectMap<I> m15IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> m30IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> h1IndicatorMap = MutableMaps.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> h2IndicatorMap = MutableMaps.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> h4IndicatorMap = MutableMaps.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> d1IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 
-	protected abstract I generateIndicator(IndicatorPeriod period, Instrument instrument);
+	protected abstract I generateIndicator(IndicatorTimePeriod period, Instrument instrument);
 
-	public I getIndicator(IndicatorPeriod period, Instrument instrument) {
+	public I getIndicator(IndicatorTimePeriod period, Instrument instrument) {
 		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
 		I saved = indicatorMap.get(instrument.getInstrumentId());
 		if (saved == null) {
@@ -38,7 +35,7 @@ public abstract class SingleLayerIndicatorPool<I extends AbstractPooledIndicator
 		return saved;
 	}
 
-	public boolean putIndicator(IndicatorPeriod period, Instrument instrument, I indicator) {
+	public boolean putIndicator(IndicatorTimePeriod period, Instrument instrument, I indicator) {
 		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
 		I saved = indicatorMap.get(instrument.getInstrumentId());
 		if (saved != null) {
@@ -49,7 +46,7 @@ public abstract class SingleLayerIndicatorPool<I extends AbstractPooledIndicator
 		return indicators.add(indicator);
 	}
 
-	private MutableIntObjectMap<I> getIndicatorMap(IndicatorPeriod period) {
+	private MutableIntObjectMap<I> getIndicatorMap(IndicatorTimePeriod period) {
 		switch (period) {
 		case S1:
 			return s1IndicatorMap;
@@ -77,14 +74,8 @@ public abstract class SingleLayerIndicatorPool<I extends AbstractPooledIndicator
 			return m30IndicatorMap;
 		case H1:
 			return h1IndicatorMap;
-		case H2:
-			return h2IndicatorMap;
-		case H4:
-			return h4IndicatorMap;
-		case D1:
-			return d1IndicatorMap;
 		default:
-			throw new IllegalArgumentException("period : " + period.name() + " is not found.b");
+			throw new IllegalArgumentException("period : " + period.name() + " is not found");
 		}
 	}
 

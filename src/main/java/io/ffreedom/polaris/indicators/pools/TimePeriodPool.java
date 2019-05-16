@@ -16,7 +16,7 @@ import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 
 @ThreadSafe
 public final class TimePeriodPool {
@@ -52,17 +52,17 @@ public final class TimePeriodPool {
 	 */
 	private ImmutableLongObjectMap<ImmutableIntObjectMap<ImmutableLongObjectMap<TimePeriod>>> immutableTimePeriodMapsPool;
 
-	public void register(Symbol[] symbols, IndicatorPeriod... periods) {
+	public void register(Symbol[] symbols, IndicatorTimePeriod... periods) {
 		if (symbols == null)
 			throw new IllegalArgumentException("Illegal Argument -> symbols is null");
 		if (periods == null)
 			throw new IllegalArgumentException("Illegal Argument -> periods in null");
-		for (IndicatorPeriod period : periods)
+		for (IndicatorTimePeriod period : periods)
 			generateTimePeriod(symbols, period);
 		toImmutable();
 	}
 
-	private void generateTimePeriod(Symbol[] symbols, IndicatorPeriod period) {
+	private void generateTimePeriod(Symbol[] symbols, IndicatorTimePeriod period) {
 		MutableIntObjectMap<ImmutableSortedSet<TimePeriod>> symbolSets = timePeriodSetsPool.get(period.getSeconds());
 		MutableIntObjectMap<ImmutableLongObjectMap<TimePeriod>> symbolMaps = timePeriodMapsPool
 				.get(period.getSeconds());
@@ -118,7 +118,7 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Instrument instrument) {
+	public ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorTimePeriod period, Instrument instrument) {
 		return getTimePeriodSet(period, instrument.getSymbol());
 	}
 
@@ -130,15 +130,15 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorPeriod period, Symbol symbol) {
+	public ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorTimePeriod period, Symbol symbol) {
 		return immutableTimePeriodSetsPool.get(period.getSeconds()).get(symbol.getSymbolId());
 	}
 
-	public TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorPeriod period, TimePeriod timePeriod) {
+	public TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod) {
 		return getNextTimePeriod(instrument.getSymbol(), period, timePeriod);
 	}
 
-	public TradingPeriod getNextTimePeriod(Symbol symbol, IndicatorPeriod period, TimePeriod timePeriod) {
+	public TradingPeriod getNextTimePeriod(Symbol symbol, IndicatorTimePeriod period, TimePeriod timePeriod) {
 		ImmutableLongObjectMap<TimePeriod> immutableLongObjectMap = immutableTimePeriodMapsPool.get(period.getSeconds())
 				.get(symbol.getSymbolId());
 		// TODO

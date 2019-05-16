@@ -3,11 +3,11 @@ package io.ffreedom.polaris.indicators.pools.base;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
 import io.ffreedom.common.collect.MutableMaps;
+import io.ffreedom.common.utils.JointIdUtil;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.IndicatorCycle;
-import io.ffreedom.polaris.indicators.api.IndicatorPeriod;
+import io.ffreedom.polaris.indicators.api.CalculationCycle;
+import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
-import io.ffreedom.polaris.market.BasicMarketData;
 
 public abstract class MultiLayerIndicatorPool<I extends AbstractPooledIndicator<?, ?>> extends BaseIndicatorPool<I> {
 
@@ -24,30 +24,24 @@ public abstract class MultiLayerIndicatorPool<I extends AbstractPooledIndicator<
 	private MutableLongObjectMap<I> m15IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 	private MutableLongObjectMap<I> m30IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 	private MutableLongObjectMap<I> h1IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> h2IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> h4IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> d1IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 
-	protected abstract I generateIndicator(IndicatorPeriod period, Instrument instrument, IndicatorCycle cycle);
+	protected abstract I generateIndicator(IndicatorTimePeriod period, CalculationCycle cycle, Instrument instrument);
 
-	public void onMarketDate(BasicMarketData marketData) {
-		indicators.forEach(indicator -> indicator.onMarketData(marketData));
-	}
-
-	public I getIndicator(IndicatorPeriod period, Instrument instrument, IndicatorCycle cycle) {
+	public I getIndicator(IndicatorTimePeriod period, CalculationCycle cycle, Instrument instrument) {
 		MutableLongObjectMap<I> indicatorMap = getIndicatorMap(period);
-		long index = calculateIndex(instrument, cycle);
+		long index = calculateIndex(cycle, instrument);
 		I saved = indicatorMap.get(index);
 		if (saved == null) {
-			saved = generateIndicator(period, instrument, cycle);
+			saved = generateIndicator(period, cycle, instrument);
 			indicatorMap.put(index, saved);
 		}
 		return saved;
 	}
 
-	public boolean putIndicator(IndicatorPeriod period, Instrument instrument, IndicatorCycle cycle, I indicator) {
+	public boolean putIndicator(IndicatorTimePeriod period, CalculationCycle cycle, Instrument instrument,
+			I indicator) {
 		MutableLongObjectMap<I> indicatorMap = getIndicatorMap(period);
-		long index = calculateIndex(instrument, cycle);
+		long index = calculateIndex(cycle, instrument);
 		I saved = indicatorMap.get(index);
 		if (saved != null) {
 			logger.warn("Indicator existed. period==[{}], instrumentCode==[{}], cycle==[{}]", period,
@@ -58,11 +52,11 @@ public abstract class MultiLayerIndicatorPool<I extends AbstractPooledIndicator<
 		return indicators.add(indicator);
 	}
 
-	private long calculateIndex(Instrument instrument, IndicatorCycle cycle) {
-		return instrument.getInstrumentId() * 1000000L + cycle.getValue();
+	private long calculateIndex(CalculationCycle cycle, Instrument instrument) {
+		return JointIdUtil.jointId(cycle.getCycleValue(), instrument.getInstrumentId());
 	}
 
-	private MutableLongObjectMap<I> getIndicatorMap(IndicatorPeriod period) {
+	private MutableLongObjectMap<I> getIndicatorMap(IndicatorTimePeriod period) {
 		switch (period) {
 		case S1:
 			return s1IndicatorMap;
@@ -90,14 +84,8 @@ public abstract class MultiLayerIndicatorPool<I extends AbstractPooledIndicator<
 			return m30IndicatorMap;
 		case H1:
 			return h1IndicatorMap;
-		case H2:
-			return h2IndicatorMap;
-		case H4:
-			return h4IndicatorMap;
-		case D1:
-			return d1IndicatorMap;
 		default:
-			throw new IllegalArgumentException("period : " + period.name() + " is not found.b");
+			throw new IllegalArgumentException("period : " + period.name() + " is not found");
 		}
 	}
 
