@@ -30,19 +30,27 @@ public enum IndicatorTimePeriod {
 
 	S20(Duration.ofSeconds(20)),
 
-	S25(Duration.ofSeconds(25)),
-
 	S30(Duration.ofSeconds(30)),
 
 	M1(Duration.ofMinutes(1)),
 
 	M2(Duration.ofMinutes(2)),
 
+	M3(Duration.ofMinutes(3)),
+
+	M4(Duration.ofMinutes(4)),
+
 	M5(Duration.ofMinutes(5)),
+
+	M6(Duration.ofMinutes(6)),
 
 	M10(Duration.ofMinutes(10)),
 
+	M12(Duration.ofMinutes(12)),
+
 	M15(Duration.ofMinutes(15)),
+
+	M20(Duration.ofMinutes(20)),
 
 	M30(Duration.ofMinutes(30)),
 

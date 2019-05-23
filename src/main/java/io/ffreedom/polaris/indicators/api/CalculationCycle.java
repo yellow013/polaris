@@ -1,7 +1,7 @@
 package io.ffreedom.polaris.indicators.api;
 
 /**
- * 标识指标的一个点由N个周期的点计算而来
+ * 标识指标的一个点由N个周期的点计算
  * 
  * @author yellow013
  */
