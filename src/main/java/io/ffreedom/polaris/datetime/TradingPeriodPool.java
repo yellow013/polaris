@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.pools;
+package io.ffreedom.polaris.datetime;
 
 import java.time.LocalTime;
 
@@ -9,7 +9,6 @@ import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.common.collect.MutableMaps;
-import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.financial.futures.ChinaFuturesSymbol;
@@ -23,8 +22,7 @@ public final class TradingPeriodPool {
 	}
 
 	// Map<Symbol, Set<TimePeriod>>
-	private MutableIntObjectMap<ImmutableSortedSet<TradingPeriod>> tradingPeriodMap = MutableMaps
-			.newIntObjectHashMap();
+	private MutableIntObjectMap<ImmutableSortedSet<TradingPeriod>> tradingPeriodMap = MutableMaps.newIntObjectHashMap();
 
 	// Map<Symbol, Set<TimePeriod>>
 	private ImmutableIntObjectMap<ImmutableSortedSet<TradingPeriod>> immutablePool;
@@ -70,21 +68,21 @@ public final class TradingPeriodPool {
 		TradingPeriod rtnTradingPeriod = null;
 		int baseTime = time.toSecondOfDay();
 		int baseDiff = Integer.MAX_VALUE;
-		for(TradingPeriod tradingPeriod : tradingPeriodSet) {
+		for (TradingPeriod tradingPeriod : tradingPeriodSet) {
 			int startSecondOfDay = tradingPeriod.getStartSecondOfDay();
 			int diff = Math.abs(startSecondOfDay - baseTime);
-			if(diff < baseDiff) {
+			if (diff < baseDiff) {
 				baseDiff = diff;
 				rtnTradingPeriod = tradingPeriod;
 			}
 		}
 		return rtnTradingPeriod;
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		Singleton.register(ChinaFuturesSymbol.values());
-		
+
 		TradingPeriod afterTradingPeriod = Singleton.getAfterTradingPeriod(ChinaFuturesSymbol.RB, LocalTime.now());
 		System.out.println(afterTradingPeriod.getStartTime());
 	}

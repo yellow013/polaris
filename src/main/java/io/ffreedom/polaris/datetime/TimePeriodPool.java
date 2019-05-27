@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.pools;
+package io.ffreedom.polaris.datetime;
 
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -11,8 +11,6 @@ import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import io.ffreedom.common.collect.MutableMaps;
 import io.ffreedom.common.collect.MutableSets;
 import io.ffreedom.common.utils.JointIdUtil;
-import io.ffreedom.polaris.datetime.TimePeriod;
-import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
