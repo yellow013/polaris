@@ -3,6 +3,7 @@ package io.ffreedom.polaris.indicators.impl.ma;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.datetime.TimePeriodPool;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
@@ -10,7 +11,6 @@ import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
 import io.ffreedom.polaris.indicators.impl.ma.points.SmaPoint;
-import io.ffreedom.polaris.indicators.pools.TimePeriodPool;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.BasicMarketData;
 

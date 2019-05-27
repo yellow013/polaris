@@ -6,13 +6,13 @@ import java.time.LocalTime;
 
 import io.ffreedom.polaris.datetime.TimePeriod;
 import io.ffreedom.polaris.datetime.TradingPeriod;
+import io.ffreedom.polaris.datetime.TradingPeriodPool;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractUnpooledIndicator;
 import io.ffreedom.polaris.indicators.impl.ma.points.SmaPoint;
-import io.ffreedom.polaris.indicators.pools.TradingPeriodPool;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.BasicMarketData;
 
