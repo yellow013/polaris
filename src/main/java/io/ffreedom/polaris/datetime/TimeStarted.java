@@ -2,40 +2,41 @@ package io.ffreedom.polaris.datetime;
 
 import java.time.LocalDateTime;
 
+import io.ffreedom.common.datetime.EpochTime;
 import io.ffreedom.common.datetime.TimeZones;
 import io.ffreedom.common.sequence.Serial;
 
 public class TimeStarted implements Serial<TimeStarted> {
 
 	private LocalDateTime startTime;
-	private long epochTime;
+	private long epochMillis;
 
 	public static TimeStarted with(LocalDateTime startTime) {
 		if (startTime == null)
-			throw new IllegalArgumentException("startTime and endTime cannot null");
+			throw new IllegalArgumentException("startTime cannot null");
 		return new TimeStarted(startTime);
 	}
 
 	private TimeStarted(LocalDateTime startTime) {
 		this.startTime = startTime;
-		setEpochTime();
+		setEpochMillis();
 	}
 
-	private void setEpochTime() {
-		this.epochTime = startTime.toEpochSecond(TimeZones.UTC);
+	private void setEpochMillis() {
+		this.epochMillis = EpochTime.milliseconds(startTime, TimeZones.DEFAULT_ZONE_OFFSET);
 	}
 
 	@Override
 	public long getSerialNumber() {
-		return epochTime;
+		return epochMillis;
 	}
 
 	public LocalDateTime getStartTime() {
 		return startTime;
 	}
 
-	public long getEpochTime() {
-		return epochTime;
+	public long getEpochMillis() {
+		return epochMillis;
 	}
 
 }

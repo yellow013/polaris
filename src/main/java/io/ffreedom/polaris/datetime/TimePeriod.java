@@ -12,12 +12,14 @@ public final class TimePeriod implements Serial<TimePeriod> {
 	private LocalDateTime endTime;
 
 	public static TimePeriod with(LocalDateTime startTime, LocalDateTime endTime) {
-		if (startTime == null || endTime == null)
-			throw new IllegalArgumentException("startTime and endTime cannot null");
+		if (startTime == null)
+			throw new IllegalArgumentException("startTime cannot null");
+		if (endTime == null)
+			throw new IllegalArgumentException("endTime cannot null");
 		return new TimePeriod(startTime, endTime);
 	}
 
-	public TimePeriod(LocalDateTime startTime, LocalDateTime endTime) {
+	private TimePeriod(LocalDateTime startTime, LocalDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		setEpochTime();
