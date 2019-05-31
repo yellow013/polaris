@@ -7,6 +7,8 @@ package io.ffreedom.polaris.indicators.api;
  */
 public final class CalculationCycle {
 
+	public static CalculationCycle ONLY_ONE = CalculationCycle.with(1);
+
 	private int cycleValue;
 
 	private CalculationCycle(int cycleValue) {
