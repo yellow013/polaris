@@ -78,7 +78,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			return (startSecondOfDay <= secondOfDay || endSecondOfDay >= secondOfDay) ? true : false;
 	}
 
-	public MutableList<TimePeriod> segmentByDuration(Duration segmentationDuration) {
+	public MutableList<XTimePeriod> segmentByDuration(Duration segmentationDuration) {
 		// 获取分割参数的秒数
 		int seconds = (int) segmentationDuration.getSeconds();
 		// 判断分割段是否大于半天
@@ -86,9 +86,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			// 如果交易周期跨天,则此分割周期等于当天开始时间至次日结束时间
 			// 如果交易周期未跨天,则此分割周期等于当天开始时间至当天结束时间
 			return FastList.newListWith(isCrossDay
-					? TimePeriod.with(LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
+					? XTimePeriod.with(LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
 							LocalDateTime.of(DateTimeUtil.getTomorrowDate(), endTime))
-					: TimePeriod.with(LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
+					: XTimePeriod.with(LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
 							LocalDateTime.of(DateTimeUtil.getCurrentDate(), endTime)));
 		} else {
 			// 获取此交易时间段的总时长
@@ -97,7 +97,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			int count = totalSeconds / seconds;
 			if (totalSeconds % seconds > 0)
 				count++;
-			FastList<TimePeriod> list = FastList.newList(count);
+			FastList<XTimePeriod> list = FastList.newList(count);
 			// 计算开始时间点
 			LocalDateTime startPoint = LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime);
 			// 计算结束时间点,如果跨天则日期加一天
@@ -107,9 +107,9 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 				LocalDateTime nextStartPoint = startPoint.plusSeconds(seconds);
 				if (nextStartPoint.isBefore(lastEndPoint)) {
 					LocalDateTime endPoint = nextStartPoint.minusNanos(1);
-					list.add(TimePeriod.with(startPoint, endPoint));
+					list.add(XTimePeriod.with(startPoint, endPoint));
 				} else {
-					list.add(TimePeriod.with(startPoint, lastEndPoint));
+					list.add(XTimePeriod.with(startPoint, lastEndPoint));
 					break;
 				}
 				startPoint = nextStartPoint;

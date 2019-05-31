@@ -28,7 +28,7 @@ public final class TimePeriodPool {
 	 * 可变的Pool,最终元素为Set <br>
 	 * Map<(period + symbolId), Set<TimePeriod>>
 	 */
-	private MutableLongObjectMap<ImmutableSortedSet<TimePeriod>> timePeriodSetsPool = MutableMaps
+	private MutableLongObjectMap<ImmutableSortedSet<XTimePeriod>> timePeriodSetsPool = MutableMaps
 			.newLongObjectHashMap();
 
 	/**
@@ -36,7 +36,7 @@ public final class TimePeriodPool {
 	 * 可变的Pool,最终元素为Map <br>
 	 * Map<(period + symbolId), Map<SerialNumber,TimePeriod>>
 	 */
-	private MutableLongObjectMap<ImmutableLongObjectMap<TimePeriod>> timePeriodMapsPool = MutableMaps
+	private MutableLongObjectMap<ImmutableLongObjectMap<XTimePeriod>> timePeriodMapsPool = MutableMaps
 			.newLongObjectHashMap();
 
 	/**
@@ -44,14 +44,14 @@ public final class TimePeriodPool {
 	 * 不可变的Pool,用于查询,最终元素为Set<br>
 	 * Map<(period + symbolId), Set<TimePeriod>>
 	 */
-	private ImmutableLongObjectMap<ImmutableSortedSet<TimePeriod>> immutableTimePeriodSetsPool;
+	private ImmutableLongObjectMap<ImmutableSortedSet<XTimePeriod>> immutableTimePeriodSetsPool;
 
 	/**
 	 * 使用联合主键进行索引,高位为period, 低位为symbolId <br>
 	 * 不可变的Pool,用于查询,最终元素为Map <br>
 	 * Map<(period + symbolId), Map<SerialNumber, TimePeriod>>
 	 */
-	private ImmutableLongObjectMap<ImmutableLongObjectMap<TimePeriod>> immutableTimePeriodMapsPool;
+	private ImmutableLongObjectMap<ImmutableLongObjectMap<XTimePeriod>> immutableTimePeriodMapsPool;
 
 	public void register(Symbol symbol, IndicatorTimePeriod... periods) {
 		register(new Symbol[] { symbol }, periods);
@@ -69,11 +69,11 @@ public final class TimePeriodPool {
 
 	private void generateTimePeriod(IndicatorTimePeriod period, Symbol[] symbols) {
 		for (Symbol symbol : symbols) {
-			MutableSortedSet<TimePeriod> timePeriodSet = MutableSets.newTreeSortedSet();
-			MutableLongObjectMap<TimePeriod> timePeriodMap = MutableMaps.newLongObjectHashMap();
+			MutableSortedSet<XTimePeriod> timePeriodSet = MutableSets.newTreeSortedSet();
+			MutableLongObjectMap<XTimePeriod> timePeriodMap = MutableMaps.newLongObjectHashMap();
 			// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
 			symbol.getTradingPeriodSet().forEach(tradingPeriod -> {
-				MutableList<TimePeriod> segmentByDuration = tradingPeriod.segmentByDuration(period.getDuration());
+				MutableList<XTimePeriod> segmentByDuration = tradingPeriod.segmentByDuration(period.getDuration());
 				segmentByDuration.each(timePeriod -> {
 					timePeriodSet.add(timePeriod);
 					timePeriodMap.put(timePeriod.getSerialNumber(), timePeriod);
@@ -97,7 +97,7 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorTimePeriod period, Instrument instrument) {
+	public ImmutableSortedSet<XTimePeriod> getTimePeriodSet(IndicatorTimePeriod period, Instrument instrument) {
 		return getTimePeriodSet(period, instrument.getSymbol());
 	}
 
@@ -109,16 +109,16 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public ImmutableSortedSet<TimePeriod> getTimePeriodSet(IndicatorTimePeriod period, Symbol symbol) {
+	public ImmutableSortedSet<XTimePeriod> getTimePeriodSet(IndicatorTimePeriod period, Symbol symbol) {
 		long jointId = JointIdUtil.jointId((int) period.getSeconds(), symbol.getSymbolId());
 		return immutableTimePeriodSetsPool.get(jointId);
 	}
 
-	public TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod) {
+	public TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod) {
 		return getNextTimePeriod(instrument.getSymbol(), period, timePeriod);
 	}
 
-	public TradingPeriod getNextTimePeriod(Symbol symbol, IndicatorTimePeriod period, TimePeriod timePeriod) {
+	public TradingPeriod getNextTimePeriod(Symbol symbol, IndicatorTimePeriod period, XTimePeriod timePeriod) {
 		long jointId = JointIdUtil.jointId((int) period.getSeconds(), symbol.getSymbolId());
 		immutableTimePeriodMapsPool.get(jointId);
 		// TODO

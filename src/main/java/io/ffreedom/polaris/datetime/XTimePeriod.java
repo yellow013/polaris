@@ -5,21 +5,21 @@ import java.time.LocalDateTime;
 import io.ffreedom.common.datetime.TimeZones;
 import io.ffreedom.common.sequence.Serial;
 
-public final class TimePeriod implements Serial<TimePeriod> {
+public final class XTimePeriod implements Serial<XTimePeriod> {
 
 	private long epochTime;
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 
-	public static TimePeriod with(LocalDateTime startTime, LocalDateTime endTime) {
+	public static XTimePeriod with(LocalDateTime startTime, LocalDateTime endTime) {
 		if (startTime == null)
 			throw new IllegalArgumentException("startTime cannot null");
 		if (endTime == null)
 			throw new IllegalArgumentException("endTime cannot null");
-		return new TimePeriod(startTime, endTime);
+		return new XTimePeriod(startTime, endTime);
 	}
 
-	private TimePeriod(LocalDateTime startTime, LocalDateTime endTime) {
+	private XTimePeriod(LocalDateTime startTime, LocalDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		setEpochTime();
