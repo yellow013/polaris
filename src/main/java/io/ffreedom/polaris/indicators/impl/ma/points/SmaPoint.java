@@ -1,7 +1,7 @@
 package io.ffreedom.polaris.indicators.impl.ma.points;
 
 import io.ffreedom.common.number.DoubleUtil;
-import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
@@ -14,23 +14,21 @@ public class SmaPoint extends MaPoint<SmaPoint> {
 
 	private CalculationCycle cycle;
 
-	public SmaPoint(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod,
+	public SmaPoint(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod,
 			CalculationCycle cycle, FixedLengthHistoryPriceRecorder historyPriceRecorder) {
 		super(index, instrument, period, timePeriod, historyPriceRecorder);
 		this.historyPriceSum = historyPriceRecorder.sum();
 		this.cycle = cycle;
 	}
 
-	public static SmaPoint with(int indxe, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod,
+	public static SmaPoint with(int indxe, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod,
 			CalculationCycle cycle, FixedLengthHistoryPriceRecorder historyPriceRecorder) {
 		return new SmaPoint(indxe, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
-		this.lastPrice = marketData.getLastPrice();
-		int count = historyPriceRecorder.getCount();
-		this.avgPrice = DoubleUtil.correction4(historyPriceSum + lastPrice / count);
+
 	}
 
 	@Override
@@ -57,6 +55,14 @@ public class SmaPoint extends MaPoint<SmaPoint> {
 	public SmaPoint generateNext() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected void handleMarketData(BasicMarketData marketData) {
+		this.lastPrice = marketData.getLastPrice();
+		int count = historyPriceRecorder.getCount();
+		this.avgPrice = DoubleUtil.correction4(historyPriceSum + lastPrice / count);
+
 	}
 
 }

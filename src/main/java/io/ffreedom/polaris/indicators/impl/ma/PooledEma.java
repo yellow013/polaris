@@ -27,16 +27,4 @@ public class PooledEma extends AbstractPooledIndicator<EmaPoint, EmaEvent> {
 
 	}
 
-	@Override
-	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected EmaPoint generateNextPoint(EmaPoint currentPoint) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

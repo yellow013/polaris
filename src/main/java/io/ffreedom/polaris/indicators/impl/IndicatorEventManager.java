@@ -19,8 +19,10 @@ abstract class IndicatorEventManager<P extends Point<? extends Serial<?>, P>, E 
 
 	@Override
 	public void addIndicatorEvent(E event) {
-		if (event != null)
+		if (event != null) {
+			logger.info("Add IndicatorEvent -> name==[{}]", event.getEventName());
 			indicatorEvents.add(event);
+		}
 	}
 
 }

@@ -1,7 +1,5 @@
 package io.ffreedom.polaris.indicators.impl;
 
-import javax.annotation.Nonnull;
-
 import io.ffreedom.common.sequence.Serial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
@@ -24,10 +22,10 @@ public abstract class AbstractIndicator<P extends Point<? extends Serial<?>, P>,
 		this.points = PointSet.newEmpty(265);
 	}
 
-	@Nonnull
-	protected abstract P generateNextPoint(P currentPoint);
-
-	protected abstract boolean isCurrentPointPeriod(BasicMarketData marketData);
+//	@Nonnull
+//	protected abstract P generateNextPoint(P currentPoint);
+//
+//	protected abstract boolean isCurrentPointPeriod(BasicMarketData marketData);
 
 //	@Override
 //	public void onMarketData(BasicMarketData marketData) {

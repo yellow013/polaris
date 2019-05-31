@@ -19,18 +19,6 @@ public class UnpooledVolumeBars extends AbstractUnpooledIndicator<VolumeBar, Vol
 	}
 
 	@Override
-	protected VolumeBar generateNextPoint(VolumeBar currentPoint) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public void onMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
 

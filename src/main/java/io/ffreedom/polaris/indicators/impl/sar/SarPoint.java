@@ -8,17 +8,11 @@ import io.ffreedom.polaris.market.BasicMarketData;
 
 public class SarPoint extends TimePeriodPoint<SarPoint> {
 
+	private double pointValue;
+
 	public SarPoint(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod) {
 		super(index, instrument, period, timePeriod);
 		// TODO Auto-generated constructor stub
-	}
-
-	private double pointValue;
-
-	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -34,6 +28,12 @@ public class SarPoint extends TimePeriodPoint<SarPoint> {
 	public SarPoint generateNext() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected void handleMarketData(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -1,6 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.bar.point;
 
-import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
@@ -10,19 +10,12 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
 	private Bar bar = new Bar();
 
-	private TimeBar(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod) {
+	private TimeBar(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod) {
 		super(index, instrument, period, timePeriod);
 	}
 
-	public static TimeBar with(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod) {
+	public static TimeBar with(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod) {
 		return new TimeBar(index, instrument, period, timePeriod);
-	}
-
-	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		bar.onPrice(marketData.getLastPrice());
-		bar.addVolumeSum(marketData.getVolume());
-		bar.addTurnoverSum(marketData.getTurnover());
 	}
 
 	@Override
@@ -33,12 +26,19 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 	@Override
 	public TimeBar generateNext() {
 		return new TimeBar(index + 1, instrument, period,
-				TimePeriod.with(timePeriod.getStartTime().plusSeconds(period.getSeconds()),
+				XTimePeriod.with(timePeriod.getStartTime().plusSeconds(period.getSeconds()),
 						timePeriod.getEndTime().plusSeconds(period.getSeconds())));
 	}
 
 	public Bar getBar() {
 		return bar;
+	}
+
+	@Override
+	protected void handleMarketData(BasicMarketData marketData) {
+		bar.onPrice(marketData.getLastPrice());
+		bar.addVolumeSum(marketData.getVolume());
+		bar.addTurnoverSum(marketData.getTurnover());
 	}
 
 }

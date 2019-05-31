@@ -38,17 +38,7 @@ public final class UnpooledSma extends AbstractUnpooledIndicator<SmaPoint, SmaEv
 		return SmaPoint.with(0, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
-	@Override
-	protected SmaPoint generateNextPoint(SmaPoint currentPoint) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public void onMarketData(BasicMarketData marketData) {

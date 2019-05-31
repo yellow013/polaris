@@ -13,12 +13,6 @@ public class BollingerBandsPoint extends TimePeriodPoint<BollingerBandsPoint> {
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected BollingerBandsPoint thisObj() {
 		return this;
 	}
@@ -27,6 +21,12 @@ public class BollingerBandsPoint extends TimePeriodPoint<BollingerBandsPoint> {
 	public BollingerBandsPoint generateNext() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected void handleMarketData(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

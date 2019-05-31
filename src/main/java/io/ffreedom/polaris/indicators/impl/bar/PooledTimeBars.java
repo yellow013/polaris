@@ -10,10 +10,11 @@ import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.events.TimeBarsEvent;
 import io.ffreedom.polaris.indicators.impl.AbstractPooledIndicator;
+import io.ffreedom.polaris.indicators.impl.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.impl.bar.point.TimeBar;
 import io.ffreedom.polaris.market.BasicMarketData;
 
-public class PooledTimeBars extends AbstractPooledIndicator<TimeBar, TimeBarsEvent> {
+public class PooledTimeBars extends AbstractTimePeriodIndicator<TimeBar, TimeBarsEvent> {
 
 	public PooledTimeBars(Instrument instrument, IndicatorTimePeriod period) {
 		super(instrument, period, CalculationCycle.with(1));
@@ -39,7 +40,7 @@ public class PooledTimeBars extends AbstractPooledIndicator<TimeBar, TimeBarsEve
 	@Override
 	protected void initPooledPoints(PointSet<TimeBar> points) {
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSortedSet<TimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
+		ImmutableSortedSet<XTimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
 		int i = -1;
 		for (TimePeriod timePeriod : timePeriodSet)
 			points.add(TimeBar.with(++i, instrument, period, timePeriod));

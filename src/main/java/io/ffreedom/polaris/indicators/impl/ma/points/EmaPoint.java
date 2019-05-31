@@ -1,6 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.ma.points;
 
-import io.ffreedom.polaris.datetime.TimePeriod;
+import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
@@ -8,7 +8,7 @@ import io.ffreedom.polaris.market.BasicMarketData;
 
 public class EmaPoint extends MaPoint<EmaPoint> {
 
-	protected EmaPoint(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriod timePeriod,
+	protected EmaPoint(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod,
 			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
 		super(index, instrument, period, timePeriod, historyPriceRecorder);
 		// TODO Auto-generated constructor stub
@@ -21,14 +21,14 @@ public class EmaPoint extends MaPoint<EmaPoint> {
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-
+	protected EmaPoint thisObj() {
+		return this;
 	}
 
 	@Override
-	protected EmaPoint thisObj() {
-		return this;
+	protected void handleMarketData(BasicMarketData preMarketData) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

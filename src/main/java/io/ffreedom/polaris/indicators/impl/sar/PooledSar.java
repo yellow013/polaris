@@ -27,16 +27,6 @@ public class PooledSar extends AbstractPooledIndicator<SarPoint, SarEvent> {
 
 	}
 
-	@Override
-	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	protected SarPoint generateNextPoint(SarPoint currentPoint) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

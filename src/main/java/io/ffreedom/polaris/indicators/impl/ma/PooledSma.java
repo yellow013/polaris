@@ -36,21 +36,13 @@ public final class PooledSma extends AbstractPooledIndicator<SmaPoint, SmaEvent>
 	}
 
 	@Override
-	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected SmaPoint generateNextPoint(SmaPoint currentPoint) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void onMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+
 
 }

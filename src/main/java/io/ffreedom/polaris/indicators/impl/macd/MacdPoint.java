@@ -19,14 +19,14 @@ public class MacdPoint extends TimePeriodPoint<MacdPoint> {
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-
+	protected MacdPoint thisObj() {
+		return this;
 	}
 
 	@Override
-	protected MacdPoint thisObj() {
-		return this;
+	protected void handleMarketData(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

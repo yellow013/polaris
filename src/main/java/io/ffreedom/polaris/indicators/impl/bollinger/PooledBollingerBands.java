@@ -26,16 +26,4 @@ public class PooledBollingerBands extends AbstractPooledIndicator<BollingerBands
 
 	}
 
-	@Override
-	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected BollingerBandsPoint generateNextPoint(BollingerBandsPoint currentPoint) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
