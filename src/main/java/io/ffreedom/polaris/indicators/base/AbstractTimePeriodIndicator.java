@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl;
+package io.ffreedom.polaris.indicators.base;
 
 import javax.annotation.Nonnull;
 

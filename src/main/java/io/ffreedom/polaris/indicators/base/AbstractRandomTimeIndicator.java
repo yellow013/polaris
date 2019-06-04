@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl;
+package io.ffreedom.polaris.indicators.base;
 
 import javax.annotation.Nonnull;
 
@@ -6,7 +6,6 @@ import io.ffreedom.polaris.datetime.XRandomTime;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
-import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 
 public abstract class AbstractRandomTimeIndicator<P extends Point<XRandomTime, P>, E extends IndicatorEvent>

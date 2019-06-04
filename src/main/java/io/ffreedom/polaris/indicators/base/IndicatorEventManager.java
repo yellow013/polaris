@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl;
+package io.ffreedom.polaris.indicators.base;
 
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ abstract class IndicatorEventManager<P extends Point<? extends Serial<?>, P>, E 
 
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
 
-	private MutableList<E> indicatorEvents = MutableLists.newFastList();
+	private MutableList<E> indicatorEvents = MutableLists.newFastList(8);
 
 	@Override
 	public void addIndicatorEvent(E event) {

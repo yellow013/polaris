@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl;
+package io.ffreedom.polaris.indicators.base;
 
 import io.ffreedom.polaris.datetime.XRandomTime;
 import io.ffreedom.polaris.financial.Instrument;
