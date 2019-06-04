@@ -5,13 +5,13 @@ import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 import io.ffreedom.common.collect.MutableLists;
 import io.ffreedom.common.number.DoubleUtil;
 
-public final class Bar {
+final class Bar {
 
 	private double open = Double.NaN;
 	private double highest = Double.MIN_VALUE;
 	private double lowest = Double.MAX_VALUE;
 	private double close = Double.NaN;
-	private double volumeSum = 0.0D;
+	private long volumeSum = 0L;
 	private double turnoverSum = 0.0D;
 	private MutableDoubleList priceRecord = MutableLists.newDoubleArrayList(64);
 
@@ -29,8 +29,8 @@ public final class Bar {
 		priceRecord.add(price);
 	}
 
-	public void addVolumeSum(double volume) {
-		this.volumeSum = DoubleUtil.correction8(volumeSum + volume);
+	public void addVolumeSum(long volume) {
+		this.volumeSum += volume;
 	}
 
 	public void addTurnoverSum(double turnover) {

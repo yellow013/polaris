@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.impl.ma.points;
 import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
-import io.ffreedom.polaris.indicators.impl.TimePeriodPoint;
+import io.ffreedom.polaris.indicators.base.TimePeriodPoint;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 
 public abstract class MaPoint<P extends MaPoint<P>> extends TimePeriodPoint<P> {
