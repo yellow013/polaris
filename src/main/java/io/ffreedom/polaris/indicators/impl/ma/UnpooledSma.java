@@ -39,18 +39,14 @@ public final class UnpooledSma extends AbstractTimePeriodIndicator<SmaPoint, Sma
 		return SmaPoint.with(0, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
-
-
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void initPooledPoints(PointSet<SmaPoint> points) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }
