@@ -9,6 +9,7 @@ import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public class VolumeBar extends RandomTimePoint<VolumeBar> {
 
+	// 存储开高低收价格和成交量以及成交金额的数据结构
 	private Bar bar = new Bar();
 
 	private long volumeLimit;
