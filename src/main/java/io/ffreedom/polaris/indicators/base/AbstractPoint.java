@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.base;
 import io.ffreedom.common.sequence.Serial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.Point;
-import io.ffreedom.polaris.market.BasicMarketData;
+import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 abstract class AbstractPoint<X extends Serial<X>, Y extends Point<X, Y>> implements Point<X, Y>, Comparable<Y> {
 
