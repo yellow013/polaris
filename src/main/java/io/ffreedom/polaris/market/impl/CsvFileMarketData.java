@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.market;
+package io.ffreedom.polaris.market.impl;
 
 import static io.ffreedom.polaris.financial.futures.ChinaFuturesUtil.TRADING_DAY_DIVIDING_LINE;
 

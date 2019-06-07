@@ -1,6 +1,8 @@
-package io.ffreedom.polaris.market;
+package io.ffreedom.polaris.market.impl;
 
 import java.util.NoSuchElementException;
+
+import io.ffreedom.polaris.market.api.QuoteLevelOverflowException;
 
 public final class Quotes {
 

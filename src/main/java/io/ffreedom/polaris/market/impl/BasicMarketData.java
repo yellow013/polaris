@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.market;
+package io.ffreedom.polaris.market.impl;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -10,12 +10,13 @@ import java.time.temporal.ChronoUnit;
 
 import io.ffreedom.common.datetime.TimeZones;
 import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.market.api.MarketData;
 
 /**
  * @author yellow013
  * @creation 2019年5月24日
  */
-public class BasicMarketData {
+public final class BasicMarketData implements MarketData {
 
 	private Instrument instrument;
 	private long epochMillis;
@@ -44,6 +45,7 @@ public class BasicMarketData {
 	private long bidVolume9;
 	private double bidPrice10;
 	private long bidVolume10;
+
 	/** ask level 10 **/
 	private double askPrice1;
 	private long askVolume1;

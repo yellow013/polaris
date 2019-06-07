@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.market;
+package io.ffreedom.polaris.market.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import io.ffreedom.polaris.financial.Instrument;
+import io.ffreedom.polaris.market.api.QuoteLevelOverflowException;
 
 public final class DepthMarketData {
 

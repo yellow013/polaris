@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.market;
+package io.ffreedom.polaris.market.impl;
 
 public final class SysMarketData {
 
