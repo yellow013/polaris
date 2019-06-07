@@ -12,7 +12,7 @@ import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.impl.ma.points.SmaPoint;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
-import io.ffreedom.polaris.market.BasicMarketData;
+import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public final class PooledSma extends AbstractTimePeriodIndicator<SmaPoint, SmaEvent> {
 

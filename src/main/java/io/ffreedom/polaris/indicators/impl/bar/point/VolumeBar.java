@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import io.ffreedom.polaris.datetime.XRandomTime;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.base.RandomTimePoint;
-import io.ffreedom.polaris.market.BasicMarketData;
+import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public class VolumeBar extends RandomTimePoint<VolumeBar> {
 

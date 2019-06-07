@@ -5,7 +5,7 @@ import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.MacdEvent;
-import io.ffreedom.polaris.market.BasicMarketData;
+import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public final class PooledMacd extends AbstractTimePeriodIndicator<MacdPoint, MacdEvent> {
 

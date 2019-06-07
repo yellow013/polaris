@@ -11,7 +11,7 @@ import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.TimeBarsEvent;
 import io.ffreedom.polaris.indicators.impl.bar.point.TimeBar;
-import io.ffreedom.polaris.market.BasicMarketData;
+import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public class TimeBars extends AbstractTimePeriodIndicator<TimeBar, TimeBarsEvent> {
 
