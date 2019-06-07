@@ -1,11 +1,11 @@
-package io.ffreedom.polaris.market;
+package io.ffreedom.polaris.market.api;
 
 public interface MarketData {
 
-	MarketDataType getMarketDataType();
-
-	public static enum MarketDataType {
-		Basic, Depth, Group
-	}
+//	MarketDataType getMarketDataType();
+//
+//	public static enum MarketDataType {
+//		Basic, Depth, Group
+//	}
 
 }
