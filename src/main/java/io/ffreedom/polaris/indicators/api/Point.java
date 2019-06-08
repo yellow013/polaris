@@ -19,7 +19,7 @@ public interface Point<X extends Serial<X>, Y extends Point<X, Y>> {
 	 * 
 	 * @return
 	 */
-	Y generateNext();
+	//Y generateNext();
 
 	void onMarketData(BasicMarketData marketData);
 

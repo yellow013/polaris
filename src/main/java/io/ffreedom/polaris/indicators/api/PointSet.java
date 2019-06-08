@@ -10,9 +10,10 @@ import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
 import io.ffreedom.common.collect.MutableLists;
 import io.ffreedom.common.collect.MutableMaps;
+import io.ffreedom.common.sequence.Serial;
 
 @NotThreadSafe
-public final class PointSet<P extends Point<?, P>> {
+public final class PointSet<P extends Point<? extends Serial<?>, P>> {
 
 	private MutableList<P> points;
 	private MutableLongObjectMap<P> pointMap;
@@ -22,7 +23,7 @@ public final class PointSet<P extends Point<?, P>> {
 		this.pointMap = MutableMaps.newLongObjectHashMap(size);
 	}
 
-	public static <P extends Point<?, P>> PointSet<P> newEmpty(int size) {
+	public static <P extends Point<? extends Serial<?>, P>> PointSet<P> newEmpty(int size) {
 		return new PointSet<>(size);
 	}
 
@@ -50,16 +51,9 @@ public final class PointSet<P extends Point<?, P>> {
 		return index < points.size() ? Optional.ofNullable(points.get(index)) : Optional.empty();
 	}
 
-	public Optional<P> nextOf(P currentPoint) {
-		int index = currentPoint.getIndex();
-		if (++index < size())
-			return get(index);
-		P nextPoint = currentPoint.generateNext();
-		if (nextPoint == null)
-			return Optional.empty();
-		pointMap.put(nextPoint.getXAxis().getSerialNumber(), nextPoint);
-		points.add(nextPoint);
-		return Optional.of(nextPoint);
+	public Optional<P> nextOf(P point) {
+		int index = point.getIndex();
+		return ++index < size() ? get(index) : Optional.empty();
 	}
 
 	@CheckForNull

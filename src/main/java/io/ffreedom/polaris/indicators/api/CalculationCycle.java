@@ -16,7 +16,7 @@ public final class CalculationCycle {
 	}
 
 	public static CalculationCycle with(int cycleValue) {
-		if (cycleValue > 9999)
+		if (cycleValue > 10000)
 			throw new IllegalArgumentException("IndicatorCycle value is too big.");
 		return new CalculationCycle(cycleValue);
 	}
