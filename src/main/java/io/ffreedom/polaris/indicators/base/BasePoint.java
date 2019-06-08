@@ -5,14 +5,16 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-abstract class AbstractPoint<X extends Serial<X>, Y extends Point<X, Y>> implements Point<X, Y>, Comparable<Y> {
+abstract class BasePoint<X extends Serial<X>, Y extends Point<X, Y>> implements Point<X, Y>, Comparable<Y> {
 
 	protected int index;
 	protected Instrument instrument;
 
 	protected BasicMarketData preMarketData;
 
-	protected AbstractPoint(int index, Instrument instrument) {
+	protected BasePoint(int index, Instrument instrument) {
+		if (index < 0)
+			throw new IllegalArgumentException("index can not less than 0");
 		this.index = index;
 		this.instrument = instrument;
 	}

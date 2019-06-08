@@ -13,7 +13,7 @@ import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public abstract class AbstractIndicator<P extends Point<? extends Serial<?>, P>, E extends IndicatorEvent>
+public abstract class BaseIndicator<P extends Point<? extends Serial<?>, P>, E extends IndicatorEvent>
 		implements Indicator<P, E> {
 
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
@@ -29,11 +29,11 @@ public abstract class AbstractIndicator<P extends Point<? extends Serial<?>, P>,
 	// 前一笔行情
 	protected BasicMarketData preMarketData;
 
-	protected AbstractIndicator(Instrument instrument) {
+	protected BaseIndicator(Instrument instrument) {
 		this(instrument, 256);
 	}
 
-	protected AbstractIndicator(Instrument instrument, int size) {
+	protected BaseIndicator(Instrument instrument, int size) {
 		this.instrument = instrument;
 		this.points = PointSet.newEmpty(size);
 	}

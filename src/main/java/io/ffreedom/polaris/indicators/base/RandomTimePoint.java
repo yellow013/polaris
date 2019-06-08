@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.base;
 import io.ffreedom.polaris.datetime.XRandomTime;
 import io.ffreedom.polaris.financial.Instrument;
 
-public abstract class RandomTimePoint<Y extends RandomTimePoint<Y>> extends AbstractPoint<XRandomTime, Y> {
+public abstract class RandomTimePoint<Y extends RandomTimePoint<Y>> extends BasePoint<XRandomTime, Y> {
 
 	protected XRandomTime timeStarted;
 

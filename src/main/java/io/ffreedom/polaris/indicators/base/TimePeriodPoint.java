@@ -6,7 +6,7 @@ import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 
-public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends AbstractPoint<XTimePeriod, Y> {
+public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends BasePoint<XTimePeriod, Y> {
 
 	protected IndicatorTimePeriod period;
 	protected XTimePeriod timePeriod;

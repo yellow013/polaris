@@ -10,17 +10,17 @@ import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.indicators.api.PointSet;
 
-public abstract class AbstractTimePeriodIndicator<P extends Point<XTimePeriod, P>, E extends IndicatorEvent>
-		extends AbstractIndicator<P, E> {
+public abstract class BaseTimePeriodIndicator<P extends Point<XTimePeriod, P>, E extends IndicatorEvent>
+		extends BaseIndicator<P, E> {
 
 	protected IndicatorTimePeriod period;
 	protected CalculationCycle cycle;
 
-	public AbstractTimePeriodIndicator(Instrument instrument, IndicatorTimePeriod period) {
+	public BaseTimePeriodIndicator(Instrument instrument, IndicatorTimePeriod period) {
 		this(instrument, period, CalculationCycle.ONLY_ONE);
 	}
 
-	public AbstractTimePeriodIndicator(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public BaseTimePeriodIndicator(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument);
 		this.period = period;
 		this.cycle = cycle;
