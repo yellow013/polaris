@@ -7,9 +7,9 @@ import io.ffreedom.common.utils.JointIdUtil;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
-import io.ffreedom.polaris.indicators.base.AbstractIndicator;
+import io.ffreedom.polaris.indicators.base.BaseIndicator;
 
-public abstract class MultiLayerIndicatorPool<I extends AbstractIndicator<?, ?>> extends BaseIndicatorPool<I> {
+public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> extends BaseIndicatorPool<I> {
 
 	private MutableLongObjectMap<I> s1IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 	private MutableLongObjectMap<I> s2IndicatorMap = MutableMaps.newLongObjectHashMap(8);

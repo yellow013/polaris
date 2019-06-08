@@ -5,10 +5,10 @@ import org.slf4j.Logger;
 
 import io.ffreedom.common.collect.MutableLists;
 import io.ffreedom.common.log.CommonLoggerFactory;
-import io.ffreedom.polaris.indicators.base.AbstractIndicator;
+import io.ffreedom.polaris.indicators.base.BaseIndicator;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public abstract class BaseIndicatorPool<I extends AbstractIndicator<?, ?>> {
+public abstract class BaseIndicatorPool<I extends BaseIndicator<?, ?>> {
 
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
 
