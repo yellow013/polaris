@@ -7,11 +7,11 @@ import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
-import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
+import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.TimeBarsEvent;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class TimeBars extends AbstractTimePeriodIndicator<TimeBar, TimeBarsEvent> {
+public class TimeBars extends BaseTimePeriodIndicator<TimeBar, TimeBarsEvent> {
 
 	public TimeBars(Instrument instrument, IndicatorTimePeriod period) {
 		super(instrument, period);
@@ -30,7 +30,7 @@ public class TimeBars extends AbstractTimePeriodIndicator<TimeBar, TimeBarsEvent
 	protected TimeBar generateNextPoint(TimeBar currentPoint) {
 		// 根据当前周期的开始时间和结束时间以及时间周期创建新的点
 		TimeBar newPoint = currentPoint.generateNext();
-		getPointSet().add(newPoint);
+		points.add(newPoint);
 		return newPoint;
 	}
 

@@ -12,15 +12,17 @@ public class VolumeBar extends RandomTimePoint<VolumeBar> {
 	// 存储开高低收价格和成交量以及成交金额的数据结构
 	private Bar bar = new Bar();
 
-	private long volumeLimit;
+	private long limitVolume;
 
-	private VolumeBar(int index, Instrument instrument, XRandomTime timeStarted, long volumeLimit) {
+	private long remainingVolume;
+
+	private VolumeBar(int index, Instrument instrument, XRandomTime timeStarted, long limitVolume) {
 		super(index, instrument, timeStarted);
-		this.volumeLimit = volumeLimit;
+		this.limitVolume = limitVolume;
 	}
 
-	public static VolumeBar with(int index, Instrument instrument, LocalDateTime datetime, long volumeLimit) {
-		return new VolumeBar(index, instrument, XRandomTime.with(datetime), volumeLimit);
+	public static VolumeBar with(int index, Instrument instrument, LocalDateTime datetime, long limitVolume) {
+		return new VolumeBar(index, instrument, XRandomTime.with(datetime), limitVolume);
 	}
 
 	@Override
@@ -28,8 +30,12 @@ public class VolumeBar extends RandomTimePoint<VolumeBar> {
 		return this;
 	}
 
-	public long getVolumeLimit() {
-		return volumeLimit;
+	public long getLimitVolume() {
+		return limitVolume;
+	}
+
+	public long getRemainingVolume() {
+		return remainingVolume;
 	}
 
 	public Bar getBar() {

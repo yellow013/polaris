@@ -3,11 +3,11 @@ package io.ffreedom.polaris.indicators.impl.macd;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
-import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
+import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.MacdEvent;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public final class Macd extends AbstractTimePeriodIndicator<MacdPoint, MacdEvent> {
+public final class Macd extends BaseTimePeriodIndicator<MacdPoint, MacdEvent> {
 
 	public Macd(Instrument instrument, IndicatorTimePeriod timePeriod) {
 		super(instrument, timePeriod);

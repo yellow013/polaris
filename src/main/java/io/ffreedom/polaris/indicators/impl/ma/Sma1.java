@@ -8,12 +8,12 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
-import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
+import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public final class Sma1 extends AbstractTimePeriodIndicator<SmaPoint, SmaEvent> {
+public final class Sma1 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 
 	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
 
