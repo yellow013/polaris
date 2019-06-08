@@ -1,7 +1,7 @@
 package io.ffreedom.polaris.indicators.events;
 
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
-import io.ffreedom.polaris.indicators.impl.ma.points.SmaPoint;
+import io.ffreedom.polaris.indicators.impl.ma.SmaPoint;
 
 public interface SmaEvent extends IndicatorEvent {
 

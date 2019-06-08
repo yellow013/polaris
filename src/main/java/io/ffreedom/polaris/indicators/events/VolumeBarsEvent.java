@@ -1,7 +1,7 @@
 package io.ffreedom.polaris.indicators.events;
 
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
-import io.ffreedom.polaris.indicators.impl.bar.point.VolumeBar;
+import io.ffreedom.polaris.indicators.impl.bar.VolumeBar;
 
 public interface VolumeBarsEvent extends IndicatorEvent {
 
