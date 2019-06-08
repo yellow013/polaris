@@ -7,11 +7,11 @@ import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SarEvent;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class PooledSar extends AbstractTimePeriodIndicator<SarPoint, SarEvent> {
+public class Sar extends AbstractTimePeriodIndicator<SarPoint, SarEvent> {
 
 	private IndicatorTimePeriod period;
 
-	public PooledSar(Instrument instrument, IndicatorTimePeriod period) {
+	public Sar(Instrument instrument, IndicatorTimePeriod period) {
 		super(instrument, period);
 		this.period = period;
 	}

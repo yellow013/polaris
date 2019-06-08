@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.bar.point;
+package io.ffreedom.polaris.indicators.impl.bar;
 
 import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
@@ -23,7 +23,6 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 		return this;
 	}
 
-	@Override
 	public TimeBar generateNext() {
 		return new TimeBar(index + 1, instrument, period,
 				XTimePeriod.with(timePeriod.getStartTime().plusSeconds(period.getSeconds()),

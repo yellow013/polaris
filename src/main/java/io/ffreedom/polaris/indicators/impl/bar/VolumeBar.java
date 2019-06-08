@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.bar.point;
+package io.ffreedom.polaris.indicators.impl.bar;
 
 import java.time.LocalDateTime;
 
@@ -21,11 +21,6 @@ public class VolumeBar extends RandomTimePoint<VolumeBar> {
 
 	public static VolumeBar with(int index, Instrument instrument, LocalDateTime datetime, long volumeLimit) {
 		return new VolumeBar(index, instrument, XRandomTime.with(datetime), volumeLimit);
-	}
-
-	@Override
-	public VolumeBar generateNext() {
-		return null;
 	}
 
 	@Override

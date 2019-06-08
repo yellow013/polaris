@@ -12,11 +12,6 @@ public class MacdPoint extends TimePeriodPoint<MacdPoint> {
 		super(index, instrument, period, timePeriod);
 	}
 
-	@Override
-	public MacdPoint generateNext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	protected MacdPoint thisObj() {

@@ -1,11 +1,11 @@
-package io.ffreedom.polaris.indicators.impl.bar.point;
+package io.ffreedom.polaris.indicators.impl.bar;
 
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
 import io.ffreedom.common.collect.MutableLists;
 import io.ffreedom.common.number.DoubleUtil;
 
-final class Bar {
+public final class Bar {
 
 	private double open = Double.NaN;
 	private double highest = Double.MIN_VALUE;

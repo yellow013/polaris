@@ -6,7 +6,6 @@ import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.BollingerBandsEvent;
-import io.ffreedom.polaris.indicators.impl.bollinger.point.BollingerBandsPoint;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public class BollingerBands extends AbstractTimePeriodIndicator<BollingerBandsPoint, BollingerBandsEvent> {

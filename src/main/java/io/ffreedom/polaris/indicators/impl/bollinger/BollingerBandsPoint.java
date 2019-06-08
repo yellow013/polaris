@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.bollinger.point;
+package io.ffreedom.polaris.indicators.impl.bollinger;
 
 import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
@@ -17,11 +17,6 @@ public class BollingerBandsPoint extends TimePeriodPoint<BollingerBandsPoint> {
 		return this;
 	}
 
-	@Override
-	public BollingerBandsPoint generateNext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {

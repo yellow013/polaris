@@ -1,10 +1,11 @@
-package io.ffreedom.polaris.indicators.impl.ma.points;
+package io.ffreedom.polaris.indicators.impl.ma;
 
 import io.ffreedom.common.number.DoubleUtil;
 import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
+import io.ffreedom.polaris.indicators.impl.ma.base.MaPoint;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
@@ -27,11 +28,6 @@ public class SmaPoint extends MaPoint<SmaPoint> {
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
-
-	}
-
-	@Override
 	protected SmaPoint thisObj() {
 		return this;
 	}
@@ -51,18 +47,12 @@ public class SmaPoint extends MaPoint<SmaPoint> {
 		return cycle;
 	}
 
-	@Override
-	public SmaPoint generateNext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
 		this.lastPrice = marketData.getLastPrice();
 		int count = historyPriceRecorder.getCount();
 		this.avgPrice = DoubleUtil.correction4(historyPriceSum + lastPrice / count);
-
 	}
 
 }

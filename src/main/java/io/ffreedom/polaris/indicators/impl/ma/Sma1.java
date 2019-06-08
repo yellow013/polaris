@@ -10,20 +10,19 @@ import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
-import io.ffreedom.polaris.indicators.impl.ma.points.SmaPoint;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public final class PooledSma extends AbstractTimePeriodIndicator<SmaPoint, SmaEvent> {
+public final class Sma1 extends AbstractTimePeriodIndicator<SmaPoint, SmaEvent> {
 
 	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
 
-	public PooledSma(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public Sma1(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
 	}
 
-	public static PooledSma with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
-		return new PooledSma(instrument, period, cycle);
+	public static Sma1 with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+		return new Sma1(instrument, period, cycle);
 	}
 
 	@Override

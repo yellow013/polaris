@@ -5,12 +5,10 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import io.ffreedom.polaris.datetime.TimePeriodPool;
 import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
-import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.TimeBarsEvent;
-import io.ffreedom.polaris.indicators.impl.bar.point.TimeBar;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public class TimeBars extends AbstractTimePeriodIndicator<TimeBar, TimeBarsEvent> {

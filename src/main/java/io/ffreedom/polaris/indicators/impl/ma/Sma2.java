@@ -13,23 +13,22 @@ import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.base.AbstractTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
-import io.ffreedom.polaris.indicators.impl.ma.points.SmaPoint;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public final class UnpooledSma extends AbstractTimePeriodIndicator<SmaPoint, SmaEvent> {
+public final class Sma2 extends AbstractTimePeriodIndicator<SmaPoint, SmaEvent> {
 
 	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
 
-	public UnpooledSma(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public Sma2(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
 	}
 
-	public static UnpooledSma with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
-		return new UnpooledSma(instrument, period, cycle);
+	public static Sma2 with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+		return new Sma2(instrument, period, cycle);
 	}
 
-	@Override
+	//@Override
 	protected SmaPoint initFirstPoint() {
 		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
 		TradingPeriod tradingPeriod = TradingPeriodPool.Singleton.getAfterTradingPeriod(instrument, LocalTime.now());

@@ -24,11 +24,6 @@ public class SarPoint extends TimePeriodPoint<SarPoint> {
 		return pointValue;
 	}
 
-	@Override
-	public SarPoint generateNext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
