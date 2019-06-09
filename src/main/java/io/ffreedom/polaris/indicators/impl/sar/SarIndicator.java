@@ -7,20 +7,21 @@ import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SarEvent;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class Sar extends BaseTimePeriodIndicator<SarPoint, SarEvent> {
+public class SarIndicator extends BaseTimePeriodIndicator<SarPoint, SarEvent> {
 
-	public Sar(Instrument instrument, IndicatorTimePeriod period) {
+	public SarIndicator(Instrument instrument, IndicatorTimePeriod period) {
 		super(instrument, period);
 		this.period = period;
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
+	protected void initPooledPoints(PointSet<SarPoint> points) {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	protected void initPooledPoints(PointSet<SarPoint> points) {
+	protected void handleMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
 
 	}
