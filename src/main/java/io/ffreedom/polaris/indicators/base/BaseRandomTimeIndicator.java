@@ -1,7 +1,5 @@
 package io.ffreedom.polaris.indicators.base;
 
-import javax.annotation.Nonnull;
-
 import io.ffreedom.polaris.datetime.XRandomTime;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
@@ -20,11 +18,11 @@ public abstract class BaseRandomTimeIndicator<P extends Point<XRandomTime, P>, E
 	public BaseRandomTimeIndicator(Instrument instrument, CalculationCycle cycle) {
 		super(instrument);
 		this.cycle = cycle;
-		this.currentPoint = initFirstPoint();
-		points.add(currentPoint);
+		initialize();
+//		this.currentPoint = initFirstPoint();
+//		points.add(currentPoint);
 	}
 
-	@Nonnull
-	protected abstract P initFirstPoint();
+	// protected abstract P initFirstPoint();
 
 }

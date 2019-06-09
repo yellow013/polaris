@@ -38,6 +38,8 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>, P>, E e
 		this.points = PointSet.newEmpty(size);
 	}
 
+	protected abstract void initialize();
+
 	// 存储事件的集合
 	private MutableList<E> indicatorEvents = MutableLists.newFastList(8);
 
@@ -49,10 +51,13 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>, P>, E e
 		}
 	}
 
-//	@Nonnull
-//	protected abstract P generateNextPoint(P currentPoint);
-//
-//	protected abstract boolean isCurrentPointPeriod(BasicMarketData marketData);
+	@Override
+	public void onMarketData(BasicMarketData marketData) {
+		handleMarketData(marketData);
+		this.preMarketData = marketData;
+	}
+
+	protected abstract void handleMarketData(BasicMarketData marketData);
 
 //	@Override
 //	public void onMarketData(BasicMarketData marketData) {

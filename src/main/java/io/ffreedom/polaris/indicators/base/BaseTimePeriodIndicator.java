@@ -24,11 +24,11 @@ public abstract class BaseTimePeriodIndicator<P extends Point<XTimePeriod, P>, E
 		super(instrument);
 		this.period = period;
 		this.cycle = cycle;
-		initPooledPoints(points);
-		this.currentPoint = points.getFirst();
+		initialize();
+//		initPooledPoints(points);
+//		this.currentPoint = points.getFirst();
 	}
 
-	@Nonnull
-	protected abstract void initPooledPoints(PointSet<P> points);
+//	protected abstract void initPooledPoints(PointSet<P> points);
 
 }
