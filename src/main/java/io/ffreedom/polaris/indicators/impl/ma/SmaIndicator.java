@@ -13,16 +13,16 @@ import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public final class Sma1 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
+public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 
 	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
 
-	public Sma1(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public SmaIndicator(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
 	}
 
-	public static Sma1 with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
-		return new Sma1(instrument, period, cycle);
+	public static SmaIndicator with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+		return new SmaIndicator(instrument, period, cycle);
 	}
 
 	@Override
@@ -35,13 +35,9 @@ public final class Sma1 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
+	protected void handleMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
-
-
 
 }
