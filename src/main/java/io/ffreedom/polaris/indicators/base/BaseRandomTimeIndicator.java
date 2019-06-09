@@ -18,11 +18,7 @@ public abstract class BaseRandomTimeIndicator<P extends Point<XRandomTime, P>, E
 	public BaseRandomTimeIndicator(Instrument instrument, CalculationCycle cycle) {
 		super(instrument);
 		this.cycle = cycle;
-		initialize();
-//		this.currentPoint = initFirstPoint();
-//		points.add(currentPoint);
+		this.currentPoint = initialize();
 	}
-
-	// protected abstract P initFirstPoint();
 
 }

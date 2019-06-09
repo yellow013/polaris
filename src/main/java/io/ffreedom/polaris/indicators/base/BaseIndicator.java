@@ -1,5 +1,7 @@
 package io.ffreedom.polaris.indicators.base;
 
+import javax.annotation.Nonnull;
+
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
@@ -38,10 +40,12 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>, P>, E e
 		this.points = PointSet.newEmpty(size);
 	}
 
-	protected abstract void initialize();
+	// 反对当前节点
+	@Nonnull
+	protected abstract P initialize();
 
 	// 存储事件的集合
-	private MutableList<E> indicatorEvents = MutableLists.newFastList(8);
+	protected MutableList<E> indicatorEvents = MutableLists.newFastList(8);
 
 	@Override
 	public void addIndicatorEvent(E event) {
