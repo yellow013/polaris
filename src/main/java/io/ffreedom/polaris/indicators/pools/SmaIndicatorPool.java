@@ -9,11 +9,11 @@ import io.ffreedom.polaris.indicators.impl.ma.SmaIndicator;
 import io.ffreedom.polaris.indicators.pools.base.MultiLayerIndicatorPool;
 
 @NotThreadSafe
-public class SmaPool extends MultiLayerIndicatorPool<SmaIndicator> {
+public class SmaIndicatorPool extends MultiLayerIndicatorPool<SmaIndicator> {
 
-	public static final SmaPool Singleton = new SmaPool();
+	public static final SmaIndicatorPool Singleton = new SmaIndicatorPool();
 
-	private SmaPool() {
+	private SmaIndicatorPool() {
 	}
 
 	@Override

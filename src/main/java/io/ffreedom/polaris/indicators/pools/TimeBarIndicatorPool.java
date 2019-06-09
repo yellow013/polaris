@@ -8,11 +8,11 @@ import io.ffreedom.polaris.indicators.impl.bar.TimeBarIndicator;
 import io.ffreedom.polaris.indicators.pools.base.SingleLayerIndicatorPool;
 
 @NotThreadSafe
-public final class BarsPool extends SingleLayerIndicatorPool<TimeBarIndicator> {
+public final class TimeBarIndicatorPool extends SingleLayerIndicatorPool<TimeBarIndicator> {
 
-	public static final BarsPool Singleton = new BarsPool();
+	public static final TimeBarIndicatorPool Singleton = new TimeBarIndicatorPool();
 
-	private BarsPool() {
+	private TimeBarIndicatorPool() {
 	}
 
 	@Override
