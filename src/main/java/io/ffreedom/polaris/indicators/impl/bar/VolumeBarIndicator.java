@@ -5,7 +5,7 @@ import io.ffreedom.polaris.indicators.base.BaseRandomTimeIndicator;
 import io.ffreedom.polaris.indicators.events.VolumeBarsEvent;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar, VolumeBarsEvent> {
+public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar, VolumeBarsEvent> {
 
 	public VolumeBarIndicator(Instrument instrument) {
 		super(instrument);
@@ -18,9 +18,9 @@ public class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar, Volum
 	}
 
 	@Override
-	protected void initialize() {
+	protected VolumeBar initialize() {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 }

@@ -6,7 +6,7 @@ import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.TimePeriodPoint;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class BollingerBandsPoint extends TimePeriodPoint<BollingerBandsPoint> {
+public final class BollingerBandsPoint extends TimePeriodPoint<BollingerBandsPoint> {
 
 	private BollingerBandsPoint(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod) {
 		super(index, instrument, period, timePeriod);

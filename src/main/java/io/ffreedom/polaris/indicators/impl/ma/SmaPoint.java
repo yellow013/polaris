@@ -9,7 +9,7 @@ import io.ffreedom.polaris.indicators.impl.ma.base.MaPoint;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class SmaPoint extends MaPoint<SmaPoint> {
+public final class SmaPoint extends MaPoint<SmaPoint> {
 
 	private double historyPriceSum;
 

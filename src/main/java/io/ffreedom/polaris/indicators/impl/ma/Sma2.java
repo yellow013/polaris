@@ -10,7 +10,6 @@ import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
-import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
@@ -28,8 +27,13 @@ public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 		return new Sma2(instrument, period, cycle);
 	}
 
-	//@Override
-	protected SmaPoint initFirstPoint() {
+	@Override
+	public void onMarketData(BasicMarketData marketData) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected SmaPoint initialize() {
 		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
 		TradingPeriod tradingPeriod = TradingPeriodPool.Singleton.getAfterTradingPeriod(instrument, LocalTime.now());
 		LocalDate nowDate = LocalDate.now();
@@ -39,13 +43,9 @@ public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 	}
 
 	@Override
-	public void onMarketData(BasicMarketData marketData) {
+	protected void handleMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
-	}
 
-	@Override
-	protected void initPooledPoints(PointSet<SmaPoint> points) {
-		// TODO Auto-generated method stub
 	}
 
 }

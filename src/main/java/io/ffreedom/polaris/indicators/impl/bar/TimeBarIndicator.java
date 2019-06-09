@@ -6,12 +6,11 @@ import io.ffreedom.polaris.datetime.TimePeriodPool;
 import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
-import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.TimeBarsEvent;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, TimeBarsEvent> {
+public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, TimeBarsEvent> {
 
 	public TimeBarIndicator(Instrument instrument, IndicatorTimePeriod period) {
 		super(instrument, period);
@@ -33,6 +32,16 @@ public class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, TimeBarsE
 		points.add(newPoint);
 		return newPoint;
 	}
+	
+	@Override
+	protected TimeBar initialize() {
+		// 从已经根据交易周期分配好的池中获取此指标的分割节点
+		ImmutableSortedSet<XTimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
+		int i = -1;
+		for (XTimePeriod timePeriod : timePeriodSet)
+			points.add(TimeBar.with(++i, instrument, period, timePeriod));
+		return points.getFirst();
+	}
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
@@ -40,12 +49,5 @@ public class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, TimeBarsE
 
 	}
 
-	@Override
-	protected void initialize() {
-		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSortedSet<XTimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
-		int i = -1;
-		for (XTimePeriod timePeriod : timePeriodSet)
-			points.add(TimeBar.with(++i, instrument, period, timePeriod));
-	}
+	
 }

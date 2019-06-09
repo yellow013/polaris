@@ -7,7 +7,7 @@ import io.ffreedom.polaris.indicators.impl.ma.base.MaPoint;
 import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class EmaPoint extends MaPoint<EmaPoint> {
+public final class EmaPoint extends MaPoint<EmaPoint> {
 
 	protected EmaPoint(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod,
 			FixedLengthHistoryPriceRecorder historyPriceRecorder) {

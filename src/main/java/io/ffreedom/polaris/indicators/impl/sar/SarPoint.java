@@ -6,7 +6,7 @@ import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.TimePeriodPoint;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public class SarPoint extends TimePeriodPoint<SarPoint> {
+public final class SarPoint extends TimePeriodPoint<SarPoint> {
 
 	private double pointValue;
 
