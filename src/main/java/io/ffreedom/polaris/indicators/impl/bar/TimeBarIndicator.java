@@ -1,5 +1,7 @@
 package io.ffreedom.polaris.indicators.impl.bar;
 
+import java.time.LocalDateTime;
+
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.polaris.datetime.TimePeriodPool;
@@ -21,18 +23,13 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 	}
 
 	// @Override
-	protected boolean isCurrentPointPeriod(BasicMarketData marketData) {
-		return currentPoint.isPeriod(marketData.getZonedDateTime().toLocalDateTime());
-	}
-
-	// @Override
 	protected TimeBar generateNextPoint(TimeBar currentPoint) {
 		// 根据当前周期的开始时间和结束时间以及时间周期创建新的点
 		TimeBar newPoint = currentPoint.generateNext();
 		points.add(newPoint);
 		return newPoint;
 	}
-	
+
 	@Override
 	protected TimeBar initialize() {
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
@@ -45,9 +42,57 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
-		// TODO Auto-generated method stub
+
+//		if (isCurrentPointPeriod(marketData)) {
+//			currentPoint.onMarketData(marketData);
+//			currentPointChanged(currentPoint);
+//		} else {
+//			endPoint(currentPoint);
+//			currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
+//			while (!isCurrentPointPeriod(marketData)) {
+//				currentPoint.onMarketData(preMarketData);
+//				startPoint(currentPoint);
+//				endPoint(currentPoint);
+//				currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
+//			}
+//			currentPoint.onMarketData(marketData);
+//			startPoint(currentPoint);
+//		}
+		XTimePeriod currentPointXAxis = currentPoint.getXAxis();
+		LocalDateTime marketDataTime = marketData.getZonedDateTime().toLocalDateTime();
+		if (currentPointXAxis.isPeriod(marketData.getZonedDateTime().toLocalDateTime())) {
+			currentPoint.onMarketData(marketData);
+			for (TimeBarsEvent timeBarsEvent : indicatorEvents) {
+				timeBarsEvent.onCurrentTimeBarChanged(currentPoint);
+			}
+		} else {
+			for (TimeBarsEvent timeBarsEvent : indicatorEvents) {
+				timeBarsEvent.onEndTimeBar(currentPoint);
+			}
+			TimeBar newBar = points.nextOf(currentPoint).orElse(null);
+			if (newBar == null) {
+				logger.error("TimeBar [{}-{}] next is null.", currentPointXAxis.getStartTime(),
+						currentPointXAxis.getEndTime());
+				return;
+			}
+			while (!newBar.getXAxis().isPeriod(marketDataTime)) {
+				newBar.onMarketData(preMarketData);
+				for (TimeBarsEvent timeBarsEvent : indicatorEvents)
+					timeBarsEvent.onStartTimeBar(newBar);
+				for (TimeBarsEvent timeBarsEvent : indicatorEvents)
+					timeBarsEvent.onEndTimeBar(newBar);
+				newBar = points.nextOf(currentPoint).orElseGet(null);
+				if (newBar == null) {
+					logger.error("TimeBar [{}-{}] next is null.", currentPointXAxis.getStartTime(),
+							currentPointXAxis.getEndTime());
+					break;
+				}
+			}
+			for (TimeBarsEvent timeBarsEvent : indicatorEvents) {
+				timeBarsEvent.onStartTimeBar(newBar);
+			}
+		}
 
 	}
 
-	
 }

@@ -1,19 +1,11 @@
 package io.ffreedom.polaris.indicators.impl.bar;
 
-import org.eclipse.collections.api.list.primitive.MutableDoubleList;
-
-import io.ffreedom.common.collect.MutableLists;
-import io.ffreedom.common.number.DoubleUtil;
-
 public final class Bar {
 
 	private double open = Double.NaN;
 	private double highest = Double.MIN_VALUE;
 	private double lowest = Double.MAX_VALUE;
 	private double close = Double.NaN;
-	private long volumeSum = 0L;
-	private double turnoverSum = 0.0D;
-	private MutableDoubleList priceRecord = MutableLists.newDoubleArrayList(64);
 
 	Bar() {
 	}
@@ -26,15 +18,6 @@ public final class Bar {
 			lowest = price;
 		if (price > highest)
 			highest = price;
-		priceRecord.add(price);
-	}
-
-	public void addVolumeSum(long volume) {
-		this.volumeSum += volume;
-	}
-
-	public void addTurnoverSum(double turnover) {
-		this.turnoverSum = DoubleUtil.correction8(turnoverSum + turnover);
 	}
 
 	public double getOpen() {
@@ -51,18 +34,6 @@ public final class Bar {
 
 	public double getClose() {
 		return close;
-	}
-
-	public double getVolumeSum() {
-		return volumeSum;
-	}
-
-	public double getTurnoverSum() {
-		return turnoverSum;
-	}
-
-	public MutableDoubleList getPriceRecord() {
-		return priceRecord;
 	}
 
 }
