@@ -5,11 +5,7 @@ import io.ffreedom.polaris.indicators.impl.bar.TimeBar;
 
 public interface TimeBarsEvent extends IndicatorEvent {
 
-	void onCurrentTimeBarLastPriceChanged(TimeBar bar);
-
-	void onCurrentTimeBarHighestPriceChanged(TimeBar bar);
-
-	void onCurrentTimeBarLowestPriceChanged(TimeBar bar);
+	void onCurrentTimeBarChanged(TimeBar bar);
 
 	void onStartTimeBar(TimeBar bar);
 

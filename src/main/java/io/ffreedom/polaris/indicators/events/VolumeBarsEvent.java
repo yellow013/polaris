@@ -5,11 +5,7 @@ import io.ffreedom.polaris.indicators.impl.bar.VolumeBar;
 
 public interface VolumeBarsEvent extends IndicatorEvent {
 
-	void onCurrentVolumeBarLastPriceChanged(VolumeBar bar);
-
-	void onCurrentVolumeBarHighestPriceChanged(VolumeBar bar);
-
-	void onCurrentVolumeBarLowestPriceChanged(VolumeBar bar);
+	void onCurrentVolumeBarChanged(VolumeBar bar);
 
 	void onStartVolumeBar(VolumeBar bar);
 
