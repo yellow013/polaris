@@ -26,10 +26,6 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends Base
 		return timePeriod;
 	}
 
-	public boolean isPeriod(LocalDateTime time) {
-		return timePeriod.getStartTime().isBefore(time) && timePeriod.getEndTime().isAfter(time) ? true : false;
-	}
-
 	public LocalDateTime getStartTime() {
 		return timePeriod.getStartTime();
 	}

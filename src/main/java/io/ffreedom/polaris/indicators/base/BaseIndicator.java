@@ -63,26 +63,6 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>, P>, E e
 
 	protected abstract void handleMarketData(BasicMarketData marketData);
 
-//	@Override
-//	public void onMarketData(BasicMarketData marketData) {
-//		if (isCurrentPointPeriod(marketData)) {
-//			currentPoint.onMarketData(marketData);
-//			currentPointChanged(currentPoint);
-//		} else {
-//			endPoint(currentPoint);
-//			currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
-//			while (!isCurrentPointPeriod(marketData)) {
-//				currentPoint.onMarketData(preMarketData);
-//				startPoint(currentPoint);
-//				endPoint(currentPoint);
-//				currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
-//			}
-//			currentPoint.onMarketData(marketData);
-//			startPoint(currentPoint);
-//		}
-//		this.preMarketData = marketData;
-//	}
-
 	@Override
 	public Instrument getInstrument() {
 		return instrument;
