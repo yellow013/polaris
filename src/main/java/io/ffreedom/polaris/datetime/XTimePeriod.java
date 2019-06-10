@@ -38,6 +38,10 @@ public final class XTimePeriod implements Serial<XTimePeriod> {
 		return epochTime;
 	}
 
+	public boolean isPeriod(LocalDateTime time) {
+		return startTime.isBefore(time) && endTime.isAfter(time) ? true : false;
+	}
+
 	public LocalDateTime getStartTime() {
 		return startTime;
 	}
