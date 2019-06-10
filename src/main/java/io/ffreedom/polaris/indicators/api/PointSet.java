@@ -53,7 +53,7 @@ public final class PointSet<P extends Point<? extends Serial<?>, P>> {
 
 	public Optional<P> nextOf(P point) {
 		int index = point.getIndex();
-		return ++index < size() ? get(index) : Optional.empty();
+		return get(++index);
 	}
 
 	@CheckForNull
