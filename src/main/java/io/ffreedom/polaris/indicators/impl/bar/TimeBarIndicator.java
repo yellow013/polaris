@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.polaris.datetime.TimePeriodPool;
-import io.ffreedom.polaris.datetime.XTimePeriod;
+import io.ffreedom.polaris.datetime.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
@@ -16,6 +16,12 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 
 	public TimeBarIndicator(Instrument instrument, IndicatorTimePeriod period) {
 		super(instrument, period);
+		// 从已经根据交易周期分配好的池中获取此指标的分割节点
+		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
+		int i = -1;
+		for (TimePeriodSerial timePeriod : timePeriodSet)
+			points.add(TimeBar.with(++i, instrument, period, timePeriod));
+		currentPoint = points.getFirst();
 	}
 
 	public static TimeBarIndicator with(Instrument instrument, IndicatorTimePeriod period) {
@@ -31,36 +37,10 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 	}
 
 	@Override
-	protected TimeBar initialize() {
-		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSortedSet<XTimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
-		int i = -1;
-		for (XTimePeriod timePeriod : timePeriodSet)
-			points.add(TimeBar.with(++i, instrument, period, timePeriod));
-		return points.getFirst();
-	}
-
-	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
-
-//		if (isCurrentPointPeriod(marketData)) {
-//			currentPoint.onMarketData(marketData);
-//			currentPointChanged(currentPoint);
-//		} else {
-//			endPoint(currentPoint);
-//			currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
-//			while (!isCurrentPointPeriod(marketData)) {
-//				currentPoint.onMarketData(preMarketData);
-//				startPoint(currentPoint);
-//				endPoint(currentPoint);
-//				currentPoint = points.nextOf(currentPoint).orElseGet(() -> generateNextPoint(currentPoint));
-//			}
-//			currentPoint.onMarketData(marketData);
-//			startPoint(currentPoint);
-//		}
-		XTimePeriod currentPointXAxis = currentPoint.getXAxis();
+		TimePeriodSerial currentPointSerial = currentPoint.getSerial();
 		LocalDateTime marketDataTime = marketData.getZonedDateTime().toLocalDateTime();
-		if (currentPointXAxis.isPeriod(marketData.getZonedDateTime().toLocalDateTime())) {
+		if (currentPointSerial.isPeriod(marketData.getZonedDateTime().toLocalDateTime())) {
 			currentPoint.onMarketData(marketData);
 			for (TimeBarsEvent timeBarsEvent : indicatorEvents) {
 				timeBarsEvent.onCurrentTimeBarChanged(currentPoint);
@@ -71,11 +51,11 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 			}
 			TimeBar newBar = points.nextOf(currentPoint).orElse(null);
 			if (newBar == null) {
-				logger.error("TimeBar [{}-{}] next is null.", currentPointXAxis.getStartTime(),
-						currentPointXAxis.getEndTime());
+				logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.getStartTime(),
+						currentPointSerial.getEndTime());
 				return;
 			}
-			while (!newBar.getXAxis().isPeriod(marketDataTime)) {
+			while (!newBar.getSerial().isPeriod(marketDataTime)) {
 				newBar.onMarketData(preMarketData);
 				for (TimeBarsEvent timeBarsEvent : indicatorEvents)
 					timeBarsEvent.onStartTimeBar(newBar);
@@ -83,8 +63,8 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 					timeBarsEvent.onEndTimeBar(newBar);
 				newBar = points.nextOf(currentPoint).orElseGet(null);
 				if (newBar == null) {
-					logger.error("TimeBar [{}-{}] next is null.", currentPointXAxis.getStartTime(),
-							currentPointXAxis.getEndTime());
+					logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.getStartTime(),
+							currentPointSerial.getEndTime());
 					break;
 				}
 			}

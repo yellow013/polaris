@@ -19,10 +19,5 @@ public final class SarIndicator extends BaseTimePeriodIndicator<SarPoint, SarEve
 
 	}
 
-	@Override
-	protected SarPoint initialize() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

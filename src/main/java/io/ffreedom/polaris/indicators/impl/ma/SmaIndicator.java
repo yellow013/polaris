@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.impl.ma;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.polaris.datetime.TimePeriodPool;
-import io.ffreedom.polaris.datetime.XTimePeriod;
+import io.ffreedom.polaris.datetime.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
@@ -18,6 +18,14 @@ public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEve
 
 	public SmaIndicator(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
+
+		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
+		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
+		int i = -1;
+		for (TimePeriodSerial timePeriod : timePeriodSet)
+			points.add(SmaPoint.with(++i, instrument, period, timePeriod, cycle, historyPriceRecorder));
+		currentPoint = points.getFirst();
+
 	}
 
 	public static SmaIndicator with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
@@ -28,16 +36,6 @@ public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEve
 	protected void handleMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	protected SmaPoint initialize() {
-		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
-		ImmutableSortedSet<XTimePeriod> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
-		int i = -1;
-		for (XTimePeriod timePeriod : timePeriodSet)
-			points.add(SmaPoint.with(++i, instrument, period, timePeriod, cycle, historyPriceRecorder));
-		return points.getFirst();
 	}
 
 }

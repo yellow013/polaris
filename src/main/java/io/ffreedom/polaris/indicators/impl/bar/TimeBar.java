@@ -5,7 +5,7 @@ import org.eclipse.collections.api.list.primitive.MutableLongList;
 
 import io.ffreedom.common.collect.MutableLists;
 import io.ffreedom.common.number.DoubleUtil;
-import io.ffreedom.polaris.datetime.XTimePeriod;
+import io.ffreedom.polaris.datetime.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.TimePeriodPoint;
@@ -24,27 +24,39 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 	private MutableDoubleList priceRecord = MutableLists.newDoubleArrayList(64);
 	private MutableLongList volumeRecord = MutableLists.newLongArrayList(64);
 
-	private TimeBar(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod) {
+	private TimeBar(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial timePeriod) {
 		super(index, instrument, period, timePeriod);
 	}
 
-	public static TimeBar with(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod) {
+	public static TimeBar with(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial timePeriod) {
 		return new TimeBar(index, instrument, period, timePeriod);
 	}
 
-	@Override
-	protected TimeBar thisObj() {
-		return this;
-	}
 
 	public TimeBar generateNext() {
 		return new TimeBar(index + 1, instrument, period,
-				XTimePeriod.with(timePeriod.getStartTime().plusSeconds(period.getSeconds()),
-						timePeriod.getEndTime().plusSeconds(period.getSeconds())));
+				TimePeriodSerial.with(serial.getStartTime().plusSeconds(period.getSeconds()),
+						serial.getEndTime().plusSeconds(period.getSeconds())));
 	}
 
 	public Bar getBar() {
 		return bar;
+	}
+
+	public MutableDoubleList getPriceRecord() {
+		return priceRecord;
+	}
+
+	public long getVolumeSum() {
+		return volumeSum;
+	}
+
+	public MutableLongList getVolumeRecord() {
+		return volumeRecord;
+	}
+
+	public double getTurnoverSum() {
+		return turnoverSum;
 	}
 
 	@Override

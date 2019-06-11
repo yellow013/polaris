@@ -18,10 +18,4 @@ public final class BollingerBandsIndicator extends BaseTimePeriodIndicator<Bolli
 
 	}
 
-	@Override
-	protected BollingerBandsPoint initialize() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

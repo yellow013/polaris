@@ -19,10 +19,5 @@ public final class EmaIndicator extends BaseTimePeriodIndicator<EmaPoint, EmaEve
 
 	}
 
-	@Override
-	protected EmaPoint initialize() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

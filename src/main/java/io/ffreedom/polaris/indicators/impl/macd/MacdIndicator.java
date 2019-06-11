@@ -12,11 +12,6 @@ public final class MacdIndicator extends BaseTimePeriodIndicator<MacdPoint, Macd
 		super(instrument, timePeriod);
 	}
 
-	@Override
-	protected MacdPoint initialize() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {

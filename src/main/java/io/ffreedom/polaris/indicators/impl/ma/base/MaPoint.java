@@ -1,6 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.ma.base;
 
-import io.ffreedom.polaris.datetime.XTimePeriod;
+import io.ffreedom.polaris.datetime.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.TimePeriodPoint;
@@ -12,7 +12,7 @@ public abstract class MaPoint<P extends MaPoint<P>> extends TimePeriodPoint<P> {
 	protected double avgPrice;
 	protected double lastPrice;
 
-	protected MaPoint(int index, Instrument instrument, IndicatorTimePeriod period, XTimePeriod timePeriod,
+	protected MaPoint(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial timePeriod,
 			FixedLengthHistoryPriceRecorder historyPriceRecorder) {
 		super(index, instrument, period, timePeriod);
 		this.historyPriceRecorder = historyPriceRecorder;

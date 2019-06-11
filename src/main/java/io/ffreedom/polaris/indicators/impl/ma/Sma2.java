@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import io.ffreedom.polaris.datetime.TimePeriodSerial;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.datetime.TradingPeriodPool;
-import io.ffreedom.polaris.datetime.XTimePeriod;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
@@ -21,6 +21,12 @@ public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 
 	public Sma2(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
+		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
+		TradingPeriod tradingPeriod = TradingPeriodPool.Singleton.getAfterTradingPeriod(instrument, LocalTime.now());
+		LocalDate nowDate = LocalDate.now();
+		TimePeriodSerial timePeriod = TimePeriodSerial.with(LocalDateTime.of(nowDate, tradingPeriod.getStartTime()),
+				LocalDateTime.of(nowDate, tradingPeriod.getStartTime().plusSeconds(period.getSeconds()).minusNanos(1)));
+		currentPoint = SmaPoint.with(0, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
 	public static Sma2 with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
@@ -30,16 +36,6 @@ public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
 		// TODO Auto-generated method stub
-	}
-
-	@Override
-	protected SmaPoint initialize() {
-		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
-		TradingPeriod tradingPeriod = TradingPeriodPool.Singleton.getAfterTradingPeriod(instrument, LocalTime.now());
-		LocalDate nowDate = LocalDate.now();
-		XTimePeriod timePeriod = XTimePeriod.with(LocalDateTime.of(nowDate, tradingPeriod.getStartTime()),
-				LocalDateTime.of(nowDate, tradingPeriod.getStartTime().plusSeconds(period.getSeconds()).minusNanos(1)));
-		return SmaPoint.with(0, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
 	@Override
