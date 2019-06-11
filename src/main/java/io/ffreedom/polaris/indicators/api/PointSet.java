@@ -13,7 +13,7 @@ import io.ffreedom.common.collect.MutableMaps;
 import io.ffreedom.common.sequence.Serial;
 
 @NotThreadSafe
-public final class PointSet<P extends Point<? extends Serial<?>, P>> {
+public final class PointSet<P extends Point<? extends Serial<?>>> {
 
 	private MutableList<P> points;
 	private MutableLongObjectMap<P> pointMap;
@@ -23,12 +23,12 @@ public final class PointSet<P extends Point<? extends Serial<?>, P>> {
 		this.pointMap = MutableMaps.newLongObjectHashMap(size);
 	}
 
-	public static <P extends Point<? extends Serial<?>, P>> PointSet<P> newEmpty(int size) {
+	public static <P extends Point<? extends Serial<?>>> PointSet<P> newEmpty(int size) {
 		return new PointSet<>(size);
 	}
 
 	public boolean add(P point) {
-		long serialNumber = point.getXAxis().getSerialNumber();
+		long serialNumber = point.getSerial().getSerialNumber();
 		if (pointMap.containsKey(serialNumber))
 			return false;
 		pointMap.put(serialNumber, point);
