@@ -6,18 +6,18 @@ import io.ffreedom.common.datetime.EpochTime;
 import io.ffreedom.common.datetime.TimeZones;
 import io.ffreedom.common.sequence.Serial;
 
-public final class XRandomTime implements Serial<XRandomTime> {
+public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 
 	private LocalDateTime startTime;
 	private long epochMillis;
 
-	public static XRandomTime with(LocalDateTime startTime) {
+	public static RandomTimeSerial with(LocalDateTime startTime) {
 		if (startTime == null)
 			throw new IllegalArgumentException("startTime cannot null");
-		return new XRandomTime(startTime);
+		return new RandomTimeSerial(startTime);
 	}
 
-	private XRandomTime(LocalDateTime startTime) {
+	private RandomTimeSerial(LocalDateTime startTime) {
 		this.startTime = startTime;
 		setEpochMillis();
 	}
@@ -43,7 +43,7 @@ public final class XRandomTime implements Serial<XRandomTime> {
 		LocalDateTime now = LocalDateTime.now();
 
 		long epochSecond = now.toEpochSecond(TimeZones.DEFAULT_ZONE_OFFSET);
-		XRandomTime timeStarted = XRandomTime.with(now);
+		RandomTimeSerial timeStarted = RandomTimeSerial.with(now);
 		System.out.println(epochSecond);
 		System.out.println(timeStarted.getEpochMillis());
 		System.out.println(EpochTime.milliseconds());
