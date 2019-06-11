@@ -1,7 +1,5 @@
 package io.ffreedom.polaris.indicators.base;
 
-import javax.annotation.Nonnull;
-
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
@@ -15,7 +13,7 @@ import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.indicators.api.PointSet;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-public abstract class BaseIndicator<P extends Point<? extends Serial<?>, P>, E extends IndicatorEvent>
+public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E extends IndicatorEvent>
 		implements Indicator<P, E> {
 
 	protected Logger logger = CommonLoggerFactory.getLogger(getClass());
@@ -25,6 +23,7 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>, P>, E e
 
 	// 存储所有Point的集合
 	protected PointSet<P> points;
+
 	// 当前Point
 	protected P currentPoint;
 
@@ -39,10 +38,6 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>, P>, E e
 		this.instrument = instrument;
 		this.points = PointSet.newEmpty(size);
 	}
-
-	// 反对当前节点
-	@Nonnull
-	protected abstract P initialize();
 
 	// 存储事件的集合
 	protected MutableList<E> indicatorEvents = MutableLists.newFastList(8);

@@ -5,7 +5,7 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.Point;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
-abstract class BasePoint<X extends Serial<X>, Y extends Point<X, Y>> implements Point<X, Y>, Comparable<Y> {
+abstract class BasePoint<S extends Serial<S>> implements Point<S>, Comparable<Point<S>> {
 
 	protected int index;
 	protected Instrument instrument;
@@ -30,13 +30,8 @@ abstract class BasePoint<X extends Serial<X>, Y extends Point<X, Y>> implements 
 	}
 
 	@Override
-	public Y getYAxis() {
-		return thisObj();
-	}
-
-	@Override
-	public int compareTo(Y o) {
-		return getXAxis().compareTo(o.getXAxis());
+	public int compareTo(Point<S> o) {
+		return getSerial().compareTo(o.getSerial());
 	}
 
 	@Override
@@ -46,7 +41,5 @@ abstract class BasePoint<X extends Serial<X>, Y extends Point<X, Y>> implements 
 	}
 
 	protected abstract void handleMarketData(BasicMarketData marketData);
-
-	protected abstract Y thisObj();
 
 }

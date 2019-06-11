@@ -1,13 +1,13 @@
 package io.ffreedom.polaris.indicators.base;
 
-import io.ffreedom.polaris.datetime.XTimePeriod;
+import io.ffreedom.polaris.datetime.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.api.Point;
 
-public abstract class BaseTimePeriodIndicator<P extends Point<XTimePeriod, P>, E extends IndicatorEvent>
+public abstract class BaseTimePeriodIndicator<P extends Point<TimePeriodSerial>, E extends IndicatorEvent>
 		extends BaseIndicator<P, E> {
 
 	protected IndicatorTimePeriod period;
@@ -21,7 +21,7 @@ public abstract class BaseTimePeriodIndicator<P extends Point<XTimePeriod, P>, E
 		super(instrument);
 		this.period = period;
 		this.cycle = cycle;
-		this.currentPoint = initialize();
+		
 	}
 
 }
