@@ -22,7 +22,7 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 	protected Instrument instrument;
 
 	// 存储所有Point的集合
-	protected PointSet<P> points;
+	protected PointSet<P> pointSet;
 
 	// 当前Point
 	protected P currentPoint;
@@ -36,7 +36,7 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 
 	protected BaseIndicator(Instrument instrument, int size) {
 		this.instrument = instrument;
-		this.points = PointSet.newEmpty(size);
+		this.pointSet = PointSet.newEmpty(size);
 	}
 
 	// 存储事件的集合
@@ -65,9 +65,9 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 
 	@Override
 	public P getFastPoint() {
-		if (points.size() == 0)
+		if (pointSet.size() == 0)
 			return currentPoint;
-		return points.getFirst();
+		return pointSet.getFirst();
 	}
 
 	@Override
@@ -77,16 +77,16 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 
 	@Override
 	public P getPoint(int index) {
-		if (index < 0 || points.size() == 0)
+		if (index < 0 || pointSet.size() == 0)
 			return currentPoint;
-		if (index >= points.size())
-			index = points.size() - 1;
-		return points.get(index).orElse(currentPoint);
+		if (index >= pointSet.size())
+			index = pointSet.size() - 1;
+		return pointSet.get(index).orElse(currentPoint);
 	}
 
 	@Override
 	public PointSet<P> getPointSet() {
-		return points;
+		return pointSet;
 	}
 
 }

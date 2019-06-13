@@ -37,6 +37,10 @@ abstract class BasePoint<S extends Serial<S>> implements Point<S>, Comparable<Po
 	@Override
 	public void onMarketData(BasicMarketData marketData) {
 		handleMarketData(marketData);
+		updatePreMarketData(marketData);
+	}
+
+	public void updatePreMarketData(BasicMarketData marketData) {
 		this.preMarketData = marketData;
 	}
 

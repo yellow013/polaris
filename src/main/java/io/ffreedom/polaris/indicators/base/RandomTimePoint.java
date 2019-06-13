@@ -5,16 +5,16 @@ import io.ffreedom.polaris.financial.Instrument;
 
 public abstract class RandomTimePoint<Y extends RandomTimePoint<Y>> extends BasePoint<RandomTimeSerial> {
 
-	protected RandomTimeSerial timeStarted;
+	protected RandomTimeSerial datetime;
 
-	protected RandomTimePoint(int index, Instrument instrument, RandomTimeSerial timeStarted) {
+	protected RandomTimePoint(int index, Instrument instrument, RandomTimeSerial datetime) {
 		super(index, instrument);
-		this.timeStarted = timeStarted;
+		this.datetime = datetime;
 	}
 
 	@Override
 	public RandomTimeSerial getSerial() {
-		return timeStarted;
+		return datetime;
 	}
 
 }
