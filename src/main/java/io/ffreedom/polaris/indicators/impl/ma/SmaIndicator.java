@@ -23,8 +23,8 @@ public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEve
 		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
 		int i = -1;
 		for (TimePeriodSerial timePeriod : timePeriodSet)
-			points.add(SmaPoint.with(++i, instrument, period, timePeriod, cycle, historyPriceRecorder));
-		currentPoint = points.getFirst();
+			pointSet.add(SmaPoint.with(++i, instrument, period, timePeriod, cycle, historyPriceRecorder));
+		currentPoint = pointSet.getFirst();
 
 	}
 
