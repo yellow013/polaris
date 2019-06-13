@@ -17,11 +17,12 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 	public TimeBarIndicator(Instrument instrument, IndicatorTimePeriod period) {
 		super(instrument, period);
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
+		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period,
+				instrument);
 		int i = -1;
 		for (TimePeriodSerial timePeriod : timePeriodSet)
-			points.add(TimeBar.with(++i, instrument, period, timePeriod));
-		currentPoint = points.getFirst();
+			pointSet.add(TimeBar.with(++i, instrument, period, timePeriod));
+		currentPoint = pointSet.getFirst();
 	}
 
 	public static TimeBarIndicator with(Instrument instrument, IndicatorTimePeriod period) {
@@ -32,7 +33,7 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 	protected TimeBar generateNextPoint(TimeBar currentPoint) {
 		// 根据当前周期的开始时间和结束时间以及时间周期创建新的点
 		TimeBar newPoint = currentPoint.generateNext();
-		points.add(newPoint);
+		pointSet.add(newPoint);
 		return newPoint;
 	}
 
@@ -49,7 +50,7 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 			for (TimeBarsEvent timeBarsEvent : indicatorEvents) {
 				timeBarsEvent.onEndTimeBar(currentPoint);
 			}
-			TimeBar newBar = points.nextOf(currentPoint).orElse(null);
+			TimeBar newBar = pointSet.nextOf(currentPoint).orElse(null);
 			if (newBar == null) {
 				logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.getStartTime(),
 						currentPointSerial.getEndTime());
@@ -61,7 +62,7 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 					timeBarsEvent.onStartTimeBar(newBar);
 				for (TimeBarsEvent timeBarsEvent : indicatorEvents)
 					timeBarsEvent.onEndTimeBar(newBar);
-				newBar = points.nextOf(currentPoint).orElseGet(null);
+				newBar = pointSet.nextOf(currentPoint).orElseGet(null);
 				if (newBar == null) {
 					logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.getStartTime(),
 							currentPointSerial.getEndTime());

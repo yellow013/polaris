@@ -16,25 +16,19 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 	private long limitVolume;
 
 	// 当前已写入的成交量
-	private long currentVolume;
+	private long currentVolume = 0L;
 
-	// 剩余的成交量
-	private long remainingVolume;
-
-	private VolumeBar(int index, Instrument instrument, RandomTimeSerial timeStarted, long limitVolume,
-			long initCurrentVolume) {
+	private VolumeBar(int index, Instrument instrument, RandomTimeSerial timeStarted, long limitVolume) {
 		super(index, instrument, timeStarted);
 		this.limitVolume = limitVolume;
-		this.currentVolume = initCurrentVolume;
 	}
 
 	public static VolumeBar with(int index, Instrument instrument, LocalDateTime datetime, long limitVolume) {
-		return new VolumeBar(index, instrument, RandomTimeSerial.with(datetime), limitVolume, 0);
+		return new VolumeBar(index, instrument, RandomTimeSerial.with(datetime), limitVolume);
 	}
-
-	public static VolumeBar with(int index, Instrument instrument, LocalDateTime datetime, long limitVolume,
-			long initCurrentVolume) {
-		return new VolumeBar(index, instrument, RandomTimeSerial.with(datetime), limitVolume, initCurrentVolume);
+	
+	public static VolumeBar with(int index, Instrument instrument, RandomTimeSerial timeStarted, long limitVolume) {
+		return new VolumeBar(index, instrument, RandomTimeSerial.with(timeStarted), limitVolume);
 	}
 
 	public long getLimitVolume() {
@@ -46,7 +40,7 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 	}
 
 	public long getRemainingVolume() {
-		return remainingVolume;
+		return limitVolume - currentVolume;
 	}
 
 	public Bar getBar() {
@@ -55,7 +49,15 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
-		bar.onPrice(marketData.getLastPrice());
+		handleData(marketData.getLastPrice(), marketData.getVolume());
+	}
+
+	public void handleData(double price, long volume) {
+		if (limitVolume - currentVolume > volume)
+			currentVolume += volume;
+		else
+			currentVolume = limitVolume;
+		bar.onPrice(price);
 	}
 
 }
