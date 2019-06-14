@@ -13,7 +13,11 @@ import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
-	private Bar bar = new Bar();
+	// 存储开高低收价格和成交量以及成交金额的字段
+	private double open = Double.NaN;
+	private double highest = Double.MIN_VALUE;
+	private double lowest = Double.MAX_VALUE;
+	private double last = Double.NaN;
 
 	// 总成交量
 	private long volumeSum = 0L;
@@ -28,10 +32,10 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 		super(index, instrument, period, timePeriod);
 	}
 
-	public static TimeBar with(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial timePeriod) {
+	public static TimeBar with(int index, Instrument instrument, IndicatorTimePeriod period,
+			TimePeriodSerial timePeriod) {
 		return new TimeBar(index, instrument, period, timePeriod);
 	}
-
 
 	public TimeBar generateNext() {
 		return new TimeBar(index + 1, instrument, period,
@@ -39,8 +43,35 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 						serial.getEndTime().plusSeconds(period.getSeconds())));
 	}
 
-	public Bar getBar() {
-		return bar;
+	public double getOpen() {
+		return open;
+	}
+
+	public double getHighest() {
+		return highest;
+	}
+
+	public double getLowest() {
+		return lowest;
+	}
+
+	public double getLast() {
+		return last;
+	}
+
+	public void onPrice(double price) {
+		last = price;
+		if (Double.isNaN(open))
+			open = price;
+		if (price < lowest)
+			lowest = price;
+		if (price > highest)
+			highest = price;
+	}
+
+	public void initOpenPrice(double price) {
+		if (Double.isNaN(open))
+			open = price;
 	}
 
 	public MutableDoubleList getPriceRecord() {
@@ -61,7 +92,7 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
-		bar.onPrice(marketData.getLastPrice());
+		onPrice(marketData.getLastPrice());
 		priceRecord.add(marketData.getLastPrice());
 
 		volumeSum += marketData.getVolume();
