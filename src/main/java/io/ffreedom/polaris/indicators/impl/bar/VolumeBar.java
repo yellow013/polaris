@@ -9,8 +9,11 @@ import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 
-	// 存储开高低收价格和成交量以及成交金额的数据结构
-	private Bar bar = new Bar();
+	// 存储开高低收价格和成交量以及成交金额的字段
+	private double open = Double.NaN;
+	private double highest = Double.MIN_VALUE;
+	private double lowest = Double.MAX_VALUE;
+	private double last = Double.NaN;
 
 	// 此bar限制的成交量
 	private long limitVolume;
@@ -26,9 +29,40 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 	public static VolumeBar with(int index, Instrument instrument, LocalDateTime datetime, long limitVolume) {
 		return new VolumeBar(index, instrument, RandomTimeSerial.with(datetime), limitVolume);
 	}
-	
+
 	public static VolumeBar with(int index, Instrument instrument, RandomTimeSerial timeStarted, long limitVolume) {
 		return new VolumeBar(index, instrument, RandomTimeSerial.with(timeStarted), limitVolume);
+	}
+
+	public double getOpen() {
+		return open;
+	}
+
+	public double getHighest() {
+		return highest;
+	}
+
+	public double getLowest() {
+		return lowest;
+	}
+
+	public double getLast() {
+		return last;
+	}
+
+	public void onPrice(double price) {
+		last = price;
+		if (Double.isNaN(open))
+			open = price;
+		if (price < lowest)
+			lowest = price;
+		if (price > highest)
+			highest = price;
+	}
+	
+	public void initOpenPrice(double price) {
+		if (Double.isNaN(open))
+			open = price;
 	}
 
 	public long getLimitVolume() {
@@ -43,10 +77,6 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 		return limitVolume - currentVolume;
 	}
 
-	public Bar getBar() {
-		return bar;
-	}
-
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
 		handleData(marketData.getLastPrice(), marketData.getVolume());
@@ -57,7 +87,7 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 			currentVolume += volume;
 		else
 			currentVolume = limitVolume;
-		bar.onPrice(price);
+		onPrice(price);
 	}
 
 }
