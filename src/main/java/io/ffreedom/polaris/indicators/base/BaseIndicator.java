@@ -30,6 +30,9 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 	// 前一笔行情
 	protected BasicMarketData preMarketData;
 
+	// 存储事件的集合
+	protected MutableList<E> events = MutableLists.newFastList(8);
+
 	protected BaseIndicator(Instrument instrument) {
 		this(instrument, 256);
 	}
@@ -39,14 +42,11 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 		this.pointSet = PointSet.newEmpty(size);
 	}
 
-	// 存储事件的集合
-	protected MutableList<E> indicatorEvents = MutableLists.newFastList(8);
-
 	@Override
 	public void addIndicatorEvent(E event) {
 		if (event != null) {
 			logger.info("Add IndicatorEvent -> name==[{}]", event.getEventName());
-			indicatorEvents.add(event);
+			events.add(event);
 		}
 	}
 
