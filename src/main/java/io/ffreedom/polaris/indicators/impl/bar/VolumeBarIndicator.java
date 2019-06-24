@@ -81,8 +81,16 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 		newBar.handleData(price, volume);
 		// 更新节点的上一次行情
 		newBar.updatePreMarketData(marketData);
+		// 调用当前节点结束事件
+		for (VolumeBarsEvent volumeBarsEvent : events) {
+			volumeBarsEvent.onEndVolumeBar(currentPoint);
+		}
 		// 更新当前节点
 		currentPoint = newBar;
+		// 调用当前节点开始事件
+		for (VolumeBarsEvent volumeBarsEvent : events) {
+			volumeBarsEvent.onStartVolumeBar(currentPoint);
+		}
 	}
 
 }
