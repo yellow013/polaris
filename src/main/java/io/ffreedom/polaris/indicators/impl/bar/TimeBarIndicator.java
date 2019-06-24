@@ -43,13 +43,11 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 		LocalDateTime marketDataTime = marketData.getZonedDateTime().toLocalDateTime();
 		if (currentPointSerial.isPeriod(marketData.getZonedDateTime().toLocalDateTime())) {
 			currentPoint.onMarketData(marketData);
-			for (TimeBarsEvent timeBarsEvent : indicatorEvents) {
+			for (TimeBarsEvent timeBarsEvent : events)
 				timeBarsEvent.onCurrentTimeBarChanged(currentPoint);
-			}
 		} else {
-			for (TimeBarsEvent timeBarsEvent : indicatorEvents) {
+			for (TimeBarsEvent timeBarsEvent : events)
 				timeBarsEvent.onEndTimeBar(currentPoint);
-			}
 			TimeBar newBar = pointSet.nextOf(currentPoint).orElse(null);
 			if (newBar == null) {
 				logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.getStartTime(),
@@ -58,9 +56,9 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 			}
 			while (!newBar.getSerial().isPeriod(marketDataTime)) {
 				newBar.onMarketData(preMarketData);
-				for (TimeBarsEvent timeBarsEvent : indicatorEvents)
+				for (TimeBarsEvent timeBarsEvent : events)
 					timeBarsEvent.onStartTimeBar(newBar);
-				for (TimeBarsEvent timeBarsEvent : indicatorEvents)
+				for (TimeBarsEvent timeBarsEvent : events)
 					timeBarsEvent.onEndTimeBar(newBar);
 				newBar = pointSet.nextOf(currentPoint).orElseGet(null);
 				if (newBar == null) {
@@ -69,9 +67,8 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 					break;
 				}
 			}
-			for (TimeBarsEvent timeBarsEvent : indicatorEvents) {
+			for (TimeBarsEvent timeBarsEvent : events)
 				timeBarsEvent.onStartTimeBar(newBar);
-			}
 		}
 
 	}
