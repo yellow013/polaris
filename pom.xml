@@ -15,8 +15,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<commons.version>1.0-SNAPSHOT</commons.version>
-		<ec.version>9.2.0</ec.version>
 	</properties>
 
 	<build>
@@ -47,7 +45,7 @@
 		<dependency>
 			<groupId>io.ffreedom</groupId>
 			<artifactId>commons</artifactId>
-			<version>${commons.version}</version>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
