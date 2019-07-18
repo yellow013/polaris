@@ -5,7 +5,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.eclipse.collections.api.map.ConcurrentMutableMap;
 
-import io.ffreedom.common.collect.MutableMaps;
+import io.ffreedom.common.collections.MutableMaps;
 
 @ThreadSafe
 public final class SummaryStatisticsPool {
