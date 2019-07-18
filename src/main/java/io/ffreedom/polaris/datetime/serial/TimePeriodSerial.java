@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.datetime;
+package io.ffreedom.polaris.datetime.serial;
 
 import java.time.LocalDateTime;
 

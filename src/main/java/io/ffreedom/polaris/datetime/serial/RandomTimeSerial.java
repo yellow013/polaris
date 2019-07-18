@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.datetime;
+package io.ffreedom.polaris.datetime.serial;
 
 import java.time.LocalDateTime;
 
@@ -8,7 +8,7 @@ import io.ffreedom.common.sequence.Serial;
 
 public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 
-	private LocalDateTime startTime;
+	private LocalDateTime timePoint;
 	private long epochMillis;
 	private long repeat;
 	private long serialNumber;
@@ -22,18 +22,18 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 	public static RandomTimeSerial with(RandomTimeSerial other) {
 		if (other == null)
 			throw new IllegalArgumentException("other RandomTimeSerial cannot null");
-		return new RandomTimeSerial(other.startTime, other.repeat + 1);
+		return new RandomTimeSerial(other.timePoint, other.repeat + 1);
 	}
 
 	private RandomTimeSerial(LocalDateTime startTime, long repeat) {
-		this.startTime = startTime;
+		this.timePoint = startTime;
 		this.repeat = repeat;
 		setEpochMillis();
 		setSerialNumber();
 	}
 
 	private void setEpochMillis() {
-		this.epochMillis = EpochTime.milliseconds(startTime, TimeZones.DEFAULT_ZONE_OFFSET);
+		this.epochMillis = EpochTime.milliseconds(timePoint, TimeZones.DEFAULT_ZONE_OFFSET);
 	}
 
 	public void setSerialNumber() {
@@ -45,8 +45,8 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 		return serialNumber;
 	}
 
-	public LocalDateTime getStartTime() {
-		return startTime;
+	public LocalDateTime getTimePoint() {
+		return timePoint;
 	}
 
 	public long getEpochMillis() {
@@ -60,12 +60,12 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 		System.out.println(epochSecond);
 
 		RandomTimeSerial timeStarted0 = RandomTimeSerial.with(now);
-		System.out.println(timeStarted0.getStartTime());
+		System.out.println(timeStarted0.getTimePoint());
 		System.out.println(timeStarted0.getEpochMillis());
 		System.out.println(timeStarted0.getSerialNumber());
 
 		RandomTimeSerial timeStarted1 = RandomTimeSerial.with(timeStarted0);
-		System.out.println(timeStarted1.getStartTime());
+		System.out.println(timeStarted1.getTimePoint());
 		System.out.println(timeStarted1.getEpochMillis());
 		System.out.println(timeStarted1.getSerialNumber());
 
@@ -73,5 +73,5 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 		System.out.println(EpochTime.seconds());
 		System.out.println(Long.MAX_VALUE);
 	}
-	
+
 }

@@ -6,10 +6,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.eclipse.collections.api.list.MutableList;
-import org.eclipse.collections.impl.list.mutable.FastList;
 
+import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.common.datetime.DateTimeUtil;
 import io.ffreedom.common.datetime.TimeConstants;
+import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 
 /**
  * 指示某交易标的总的交易时间
@@ -85,7 +86,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		if (seconds > TimeConstants.HALF_DAY_SECONDS) {
 			// 如果交易周期跨天,则此分割周期等于当天开始时间至次日结束时间
 			// 如果交易周期未跨天,则此分割周期等于当天开始时间至当天结束时间
-			return FastList.newListWith(isCrossDay
+			return MutableLists.newFastList(isCrossDay
 					? TimePeriodSerial.with(LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
 							LocalDateTime.of(DateTimeUtil.getTomorrowDate(), endTime))
 					: TimePeriodSerial.with(LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
@@ -97,7 +98,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			int count = totalSeconds / seconds;
 			if (totalSeconds % seconds > 0)
 				count++;
-			FastList<TimePeriodSerial> list = FastList.newList(count);
+			MutableList<TimePeriodSerial> list = MutableLists.newFastList(count);
 			// 计算开始时间点
 			LocalDateTime startPoint = LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime);
 			// 计算结束时间点,如果跨天则日期加一天
