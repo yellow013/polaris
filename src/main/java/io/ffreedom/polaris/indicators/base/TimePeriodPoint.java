@@ -2,7 +2,7 @@ package io.ffreedom.polaris.indicators.base;
 
 import java.time.LocalDateTime;
 
-import io.ffreedom.polaris.datetime.TimePeriodSerial;
+import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 

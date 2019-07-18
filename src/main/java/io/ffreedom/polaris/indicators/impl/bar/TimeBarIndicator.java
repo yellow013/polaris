@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.polaris.datetime.TimePeriodPool;
-import io.ffreedom.polaris.datetime.TimePeriodSerial;
+import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;

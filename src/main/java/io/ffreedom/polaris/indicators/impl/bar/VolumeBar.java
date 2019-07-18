@@ -2,7 +2,7 @@ package io.ffreedom.polaris.indicators.impl.bar;
 
 import java.time.LocalDateTime;
 
-import io.ffreedom.polaris.datetime.RandomTimeSerial;
+import io.ffreedom.polaris.datetime.serial.RandomTimeSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.base.RandomTimePoint;
 import io.ffreedom.polaris.market.impl.BasicMarketData;

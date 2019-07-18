@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import io.ffreedom.polaris.datetime.TimePeriodSerial;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.datetime.TradingPeriodPool;
+import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;

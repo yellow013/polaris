@@ -3,9 +3,9 @@ package io.ffreedom.polaris.indicators.impl.bar;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableLongList;
 
-import io.ffreedom.common.collect.MutableLists;
+import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.common.number.DoubleUtil;
-import io.ffreedom.polaris.datetime.TimePeriodSerial;
+import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.TimePeriodPoint;

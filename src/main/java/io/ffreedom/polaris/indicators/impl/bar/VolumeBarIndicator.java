@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import io.ffreedom.polaris.datetime.RandomTimeSerial;
+import io.ffreedom.polaris.datetime.serial.RandomTimeSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.base.BaseRandomTimeIndicator;
 import io.ffreedom.polaris.indicators.events.VolumeBarsEvent;
@@ -65,7 +65,7 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 		// 获取当前节点的序列
 		RandomTimeSerial currentPointSerial = currentPoint.getSerial();
 		// 获取当前节点时间
-		LocalDateTime currentPointDatetime = currentPointSerial.getStartTime();
+		LocalDateTime currentPointDatetime = currentPointSerial.getTimePoint();
 		// 创建newBar指针
 		VolumeBar newBar = null;
 		// 如果当前节点与行情时间一致,则使用当前序列创建新节点序列,否则使用行情时间创建新节点序列

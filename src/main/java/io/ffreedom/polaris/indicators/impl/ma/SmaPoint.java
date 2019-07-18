@@ -1,7 +1,7 @@
 package io.ffreedom.polaris.indicators.impl.ma;
 
 import io.ffreedom.common.number.DoubleUtil;
-import io.ffreedom.polaris.datetime.TimePeriodSerial;
+import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;

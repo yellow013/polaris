@@ -8,8 +8,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
-import io.ffreedom.common.collect.MutableLists;
-import io.ffreedom.common.collect.MutableMaps;
+import io.ffreedom.common.collections.MutableLists;
+import io.ffreedom.common.collections.MutableMaps;
 import io.ffreedom.common.sequence.Serial;
 
 @NotThreadSafe

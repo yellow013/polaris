@@ -3,7 +3,7 @@ package io.ffreedom.polaris.indicators.pools.base;
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
-import io.ffreedom.common.collect.MutableLists;
+import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.polaris.indicators.base.BaseIndicator;
 import io.ffreedom.polaris.market.impl.BasicMarketData;

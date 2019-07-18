@@ -5,7 +5,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
-import io.ffreedom.common.collect.MutableLists;
+import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 
 @NotThreadSafe

@@ -1,6 +1,6 @@
 package io.ffreedom.polaris.indicators.base;
 
-import io.ffreedom.polaris.datetime.RandomTimeSerial;
+import io.ffreedom.polaris.datetime.serial.RandomTimeSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorEvent;
