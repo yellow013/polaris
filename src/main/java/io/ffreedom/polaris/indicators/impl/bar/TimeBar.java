@@ -59,7 +59,7 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 		return last;
 	}
 
-	public void onPrice(double price) {
+	private void onPrice(double price) {
 		last = price;
 		if (Double.isNaN(open))
 			open = price;

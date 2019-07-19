@@ -50,7 +50,7 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 		return last;
 	}
 
-	public void onPrice(double price) {
+	private void onPrice(double price) {
 		last = price;
 		if (Double.isNaN(open))
 			open = price;
