@@ -1,14 +1,21 @@
 package io.ffreedom.polaris.financial.futures;
 
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.eclipse.collections.api.map.ImmutableMap;
 import org.eclipse.collections.api.map.MutableMap;
+import org.eclipse.collections.api.map.primitive.ImmutableIntObjectMap;
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
-import org.eclipse.collections.impl.map.mutable.UnifiedMap;
-import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
+import org.eclipse.collections.impl.map.immutable.ImmutableMapFactoryImpl;
+import org.eclipse.collections.impl.map.immutable.primitive.ImmutableIntObjectMapFactoryImpl;
 
+import io.ffreedom.common.collections.ImmutableMaps;
 import io.ffreedom.common.collections.ImmutableSets;
+import io.ffreedom.common.collections.MutableMaps;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Exchange;
 import io.ffreedom.polaris.financial.Symbol;
@@ -199,15 +206,11 @@ public enum ChinaFuturesSymbol implements Symbol {
 		return exchange;
 	}
 
-	private static MutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = IntObjectHashMap.newMap();
-	private static MutableMap<String, ChinaFuturesSymbol> symbolNameMap = UnifiedMap.newMap();
+	private static ImmutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = ImmutableMaps.getIntObjectMapFactory()
+			.from(Arrays.asList(ChinaFuturesSymbol.values()), ChinaFuturesSymbol::getSymbolId, symbol -> symbol);
 
-	static {
-		for (ChinaFuturesSymbol symbol : ChinaFuturesSymbol.values()) {
-			symbolIdMap.put(symbol.getSymbolId(), symbol);
-			symbolNameMap.put(symbol.name(), symbol);
-		}
-	}
+	private static ImmutableMap<String, ChinaFuturesSymbol> symbolNameMap = ImmutableMaps.newImmutableMap(Stream
+			.of(ChinaFuturesSymbol.values()).collect(Collectors.toMap(ChinaFuturesSymbol::name, symbol -> symbol)));
 
 	public static ChinaFuturesSymbol findOf(String symbolName) {
 		String key = symbolName.toUpperCase();
