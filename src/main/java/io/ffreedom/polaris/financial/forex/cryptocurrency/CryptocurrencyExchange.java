@@ -6,7 +6,7 @@ import io.ffreedom.polaris.financial.forex.base.Forex;
 public final class CryptocurrencyExchange extends Forex {
 
 	protected CryptocurrencyExchange(int instrumentId, Symbol symbol) {
-		super(instrumentId, symbol.getSymbolCode(), symbol);
+		super(instrumentId, symbol.getSymbolName(), symbol);
 		// TODO Auto-generated constructor stub
 	}
 

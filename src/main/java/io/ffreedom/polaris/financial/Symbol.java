@@ -8,7 +8,7 @@ public interface Symbol {
 
 	int getSymbolId();
 	
-	String getSymbolCode();
+	String getSymbolName();
 
 	ImmutableSortedSet<TradingPeriod> getTradingPeriodSet();
 

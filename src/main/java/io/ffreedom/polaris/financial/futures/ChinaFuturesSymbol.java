@@ -6,16 +6,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.collections.api.map.ImmutableMap;
-import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.api.map.primitive.ImmutableIntObjectMap;
-import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
-import org.eclipse.collections.impl.map.immutable.ImmutableMapFactoryImpl;
-import org.eclipse.collections.impl.map.immutable.primitive.ImmutableIntObjectMapFactoryImpl;
 
 import io.ffreedom.common.collections.ImmutableMaps;
 import io.ffreedom.common.collections.ImmutableSets;
-import io.ffreedom.common.collections.MutableMaps;
 import io.ffreedom.polaris.datetime.TradingPeriod;
 import io.ffreedom.polaris.financial.Exchange;
 import io.ffreedom.polaris.financial.Symbol;
@@ -144,7 +139,6 @@ public enum ChinaFuturesSymbol implements Symbol {
 			TradingPeriod.with(1, LocalTime.of(9, 00, 00), LocalTime.of(10, 15, 00)),
 			TradingPeriod.with(2, LocalTime.of(10, 30, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.with(3, LocalTime.of(13, 30, 00), LocalTime.of(15, 00, 00))),
-
 	// ************************能源交易所END************************//
 
 	// ************************中金所************************//
@@ -155,7 +149,6 @@ public enum ChinaFuturesSymbol implements Symbol {
 			// 股指期货交易时段
 			TradingPeriod.with(0, LocalTime.of(9, 15, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.with(1, LocalTime.of(13, 00, 00), LocalTime.of(15, 15, 00))),
-
 	/**
 	 * 中证500期货
 	 */
@@ -163,7 +156,6 @@ public enum ChinaFuturesSymbol implements Symbol {
 			// 股指期货交易时段
 			TradingPeriod.with(0, LocalTime.of(9, 15, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.with(1, LocalTime.of(13, 00, 00), LocalTime.of(15, 15, 00))),
-
 	/**
 	 * 债券期货
 	 */
@@ -172,6 +164,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 			TradingPeriod.with(0, LocalTime.of(9, 15, 00), LocalTime.of(11, 30, 00)),
 			TradingPeriod.with(1, LocalTime.of(13, 00, 00), LocalTime.of(15, 15, 00))),
 	// ************************中金所END************************//
+
 	;
 
 	private int symbolId;
@@ -192,7 +185,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	}
 
 	@Override
-	public String getSymbolCode() {
+	public String getSymbolName() {
 		return this.name();
 	}
 
@@ -206,11 +199,14 @@ public enum ChinaFuturesSymbol implements Symbol {
 		return exchange;
 	}
 
+	// 建立SymbolId -> Symbol的映射
 	private static ImmutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = ImmutableMaps.getIntObjectMapFactory()
 			.from(Arrays.asList(ChinaFuturesSymbol.values()), ChinaFuturesSymbol::getSymbolId, symbol -> symbol);
 
-	private static ImmutableMap<String, ChinaFuturesSymbol> symbolNameMap = ImmutableMaps.newImmutableMap(Stream
-			.of(ChinaFuturesSymbol.values()).collect(Collectors.toMap(ChinaFuturesSymbol::name, symbol -> symbol)));
+	// 建立SymbolNeam -> Symbol的映射
+	private static ImmutableMap<String, ChinaFuturesSymbol> symbolNameMap = ImmutableMaps
+			.newImmutableMap(Stream.of(ChinaFuturesSymbol.values())
+					.collect(Collectors.toMap(ChinaFuturesSymbol::getSymbolName, symbol -> symbol)));
 
 	public static ChinaFuturesSymbol findOf(String symbolName) {
 		String key = symbolName.toUpperCase();
@@ -237,7 +233,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 		for (Symbol symbol : ChinaFuturesSymbol.values()) {
 			symbol.getTradingPeriodSet()
 					.each(tradingPeriod -> tradingPeriod.segmentByDuration(IndicatorTimePeriod.S30.getDuration()).each(
-							timePeriod -> System.out.println(symbol.getSymbolCode() + " | " + timePeriod.getEpochTime()
+							timePeriod -> System.out.println(symbol.getSymbolName() + " | " + timePeriod.getEpochTime()
 									+ " -> " + timePeriod.getStartTime() + " - " + timePeriod.getEndTime())));
 		}
 	}
