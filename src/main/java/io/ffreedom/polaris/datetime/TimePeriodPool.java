@@ -86,7 +86,7 @@ public final class TimePeriodPool {
 		}
 	}
 
-	public void toImmutable() {
+	private void toImmutable() {
 		this.immutableTimePeriodSetsPool = timePeriodSetsPool.toImmutable();
 		this.immutableTimePeriodMapsPool = timePeriodMapsPool.toImmutable();
 	}
@@ -115,7 +115,8 @@ public final class TimePeriodPool {
 		return immutableTimePeriodSetsPool.get(jointId);
 	}
 
-	public TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial timePeriod) {
+	public TradingPeriod getNextTimePeriod(Instrument instrument, IndicatorTimePeriod period,
+			TimePeriodSerial timePeriod) {
 		return getNextTimePeriod(instrument.getSymbol(), period, timePeriod);
 	}
 
