@@ -50,12 +50,6 @@ public enum IndicatorTimePeriod {
 
 	M15(Duration.ofMinutes(15)),
 
-	M20(Duration.ofMinutes(20)),
-
-	M30(Duration.ofMinutes(30)),
-
-	H1(Duration.ofHours(1)),
-
 	;
 
 	private Duration duration;

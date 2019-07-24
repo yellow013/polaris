@@ -9,7 +9,7 @@ import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 
 @NotThreadSafe
-public class FixedLengthHistoryPriceRecorder {
+public class FixedHistoryPriceRecorder {
 
 	private int tail = -1;
 	private int count = 0;
@@ -23,13 +23,13 @@ public class FixedLengthHistoryPriceRecorder {
 
 	private static double nothingPrice = 0.0d;
 
-	private FixedLengthHistoryPriceRecorder(int capacity) {
+	private FixedHistoryPriceRecorder(int capacity) {
 		this.capacity = capacity;
 		this.priceList = MutableLists.newDoubleArrayList(capacity);
 	}
 
-	public static FixedLengthHistoryPriceRecorder newRecorder(CalculationCycle cycle) {
-		return new FixedLengthHistoryPriceRecorder(cycle.getCycleValue());
+	public static FixedHistoryPriceRecorder newRecorder(CalculationCycle cycle) {
+		return new FixedHistoryPriceRecorder(cycle.getCycleValue());
 	}
 
 	public boolean isEmpty() {
@@ -82,7 +82,7 @@ public class FixedLengthHistoryPriceRecorder {
 		return count;
 	}
 
-	public FixedLengthHistoryPriceRecorder addTail(double value) {
+	public FixedHistoryPriceRecorder addTail(double value) {
 		updateTail(value);
 		return this;
 	}
@@ -116,7 +116,7 @@ public class FixedLengthHistoryPriceRecorder {
 
 	public static void main(String[] args) {
 
-		FixedLengthHistoryPriceRecorder recorder = newRecorder(CalculationCycle.with(10));
+		FixedHistoryPriceRecorder recorder = newRecorder(CalculationCycle.with(10));
 
 		for (int i = 1; i < 30; i++) {
 			recorder.addTail(i);
