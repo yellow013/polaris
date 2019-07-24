@@ -10,7 +10,7 @@ import java.time.LocalTime;
 import io.ffreedom.common.datetime.DateTimeStyle;
 import io.ffreedom.polaris.financial.futures.ChinaFuturesUtil;
 
-public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
+public class CsvMarketData implements Comparable<CsvMarketData> {
 
 	private String timestamp;
 	private String instrumentID;
@@ -27,16 +27,16 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 	private String ask3;
 	private String ask4;
 	private String ask5;
-	private String bidSize1;
-	private String bidSize2;
-	private String bidSize3;
-	private String bidSize4;
-	private String bidSize5;
-	private String askSize1;
-	private String askSize2;
-	private String askSize3;
-	private String askSize4;
-	private String askSize5;
+	private String bidVolume1;
+	private String bidVolume2;
+	private String bidVolume3;
+	private String bidVolume4;
+	private String bidVolume5;
+	private String askVolume1;
+	private String askVolume2;
+	private String askVolume3;
+	private String askVolume4;
+	private String askVolume5;
 	private String volume;
 	private String amount;
 	private String openInterest;
@@ -44,9 +44,9 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 
 	private boolean expired = false;
 
-	public final static String CSV_HEAD = "timestamp,instrumentID,exchangeID,last,iopv,"
-			+ "bid1,bid2,bid3,bid4,bid5,ask1,ask2,ask3,ask4,ask5,bidSize1,bidSize2,bidSize3,bidSize4,bidSize5,"
-			+ "askSize1,askSize2,askSize3,askSize4,askSize5,volume,amount,openInterest,updateTime";
+	public final static String CSV_HEAD = "timestamp,instrumentId,exchangeId,last,iopv,"
+			+ "bid1,bid2,bid3,bid4,bid5,ask1,ask2,ask3,ask4,ask5,bidVolume1,bidVolume2,bidVolume3,bidVolume4,bidVolume5,"
+			+ "askVolume1,askVolume2,askVolume3,askVolume4,askVolume5,volume,amount,openInterest,updateTime";
 
 	public String getTimestamp() {
 		return timestamp;
@@ -108,44 +108,44 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 		return ask5;
 	}
 
-	public String getBidSize1() {
-		return bidSize1;
+	public String getBidVolume1() {
+		return bidVolume1;
 	}
 
-	public String getBidSize2() {
-		return bidSize2;
+	public String getBidVolume2() {
+		return bidVolume2;
 	}
 
-	public String getBidSize3() {
-		return bidSize3;
+	public String getBidVolume3() {
+		return bidVolume3;
 	}
 
-	public String getBidSize4() {
-		return bidSize4;
+	public String getBidVolume4() {
+		return bidVolume4;
 	}
 
-	public String getBidSize5() {
-		return bidSize5;
+	public String getBidVolume5() {
+		return bidVolume5;
 	}
 
-	public String getAskSize1() {
-		return askSize1;
+	public String getAskVolume1() {
+		return askVolume1;
 	}
 
-	public String getAskSize2() {
-		return askSize2;
+	public String getAskVolume2() {
+		return askVolume2;
 	}
 
-	public String getAskSize3() {
-		return askSize3;
+	public String getAskVolume3() {
+		return askVolume3;
 	}
 
-	public String getAskSize4() {
-		return askSize4;
+	public String getAskVolume4() {
+		return askVolume4;
 	}
 
-	public String getAskSize5() {
-		return askSize5;
+	public String getAskVolume5() {
+		return askVolume5;
 	}
 
 	public String getVolume() {
@@ -180,25 +180,25 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 	 * @param ask3
 	 * @param ask4
 	 * @param ask5
-	 * @param bidSize1
-	 * @param bidSize2
-	 * @param bidSize3
-	 * @param bidSize4
-	 * @param bidSize5
-	 * @param askSize1
-	 * @param askSize2
-	 * @param askSize3
-	 * @param askSize4
-	 * @param askSize5
+	 * @param bidVolume1
+	 * @param bidVolume2
+	 * @param bidVolume3
+	 * @param bidVolume4
+	 * @param bidVolume5
+	 * @param askVolume1
+	 * @param askVolume2
+	 * @param askVolume3
+	 * @param askVolume4
+	 * @param askVolume5
 	 * @param volume
 	 * @param amount
 	 * @param openInterest
 	 * @param updateTime
 	 */
-	private CsvFileMarketData(String timestamp, String instrumentID, String symbol, String exchangeID, String last,
+	private CsvMarketData(String timestamp, String instrumentID, String symbol, String exchangeID, String last,
 			String iopv, String bid1, String bid2, String bid3, String bid4, String bid5, String ask1, String ask2,
-			String ask3, String ask4, String ask5, String bidSize1, String bidSize2, String bidSize3, String bidSize4,
-			String bidSize5, String askSize1, String askSize2, String askSize3, String askSize4, String askSize5,
+			String ask3, String ask4, String ask5, String bidVolume1, String bidVolume2, String bidVolume3, String bidVolume4,
+			String bidVolume5, String askVolume1, String askVolume2, String askVolume3, String askVolume4, String askVolume5,
 			String volume, String amount, String openInterest, String updateTime) {
 		this.timestamp = timestamp;
 		this.instrumentID = instrumentID;
@@ -216,16 +216,16 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 		this.ask3 = ask3;
 		this.ask4 = ask4;
 		this.ask5 = ask5;
-		this.bidSize1 = bidSize1;
-		this.bidSize2 = bidSize2;
-		this.bidSize3 = bidSize3;
-		this.bidSize4 = bidSize4;
-		this.bidSize5 = bidSize5;
-		this.askSize1 = askSize1;
-		this.askSize2 = askSize2;
-		this.askSize3 = askSize3;
-		this.askSize4 = askSize4;
-		this.askSize5 = askSize5;
+		this.bidVolume1 = bidVolume1;
+		this.bidVolume2 = bidVolume2;
+		this.bidVolume3 = bidVolume3;
+		this.bidVolume4 = bidVolume4;
+		this.bidVolume5 = bidVolume5;
+		this.askVolume1 = askVolume1;
+		this.askVolume2 = askVolume2;
+		this.askVolume3 = askVolume3;
+		this.askVolume4 = askVolume4;
+		this.askVolume5 = askVolume5;
 		this.volume = volume;
 		this.amount = amount;
 		this.openInterest = openInterest;
@@ -260,9 +260,9 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 				.append(last).append(",").append(iopv).append(",").append(bid1).append(",").append(bid2).append(",")
 				.append(bid3).append(",").append(bid4).append(",").append(bid5).append(",").append(ask1).append(",")
 				.append(ask2).append(",").append(ask3).append(",").append(ask4).append(",").append(ask5).append(",")
-				.append(bidSize1).append(",").append(bidSize2).append(",").append(bidSize3).append(",").append(bidSize4)
-				.append(",").append(bidSize5).append(",").append(askSize1).append(",").append(askSize2).append(",")
-				.append(askSize3).append(",").append(askSize4).append(",").append(askSize5).append(",").append(volume)
+				.append(bidVolume1).append(",").append(bidVolume2).append(",").append(bidVolume3).append(",").append(bidVolume4)
+				.append(",").append(bidVolume5).append(",").append(askVolume1).append(",").append(askVolume2).append(",")
+				.append(askVolume3).append(",").append(askVolume4).append(",").append(askVolume5).append(",").append(volume)
 				.append(",").append(amount).append(",").append(openInterest).append(",").append(updateTime);
 	}
 
@@ -349,22 +349,21 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 
 	}
 
-	public boolean equalsInstrumentId(CsvFileMarketData o) {
+	public boolean equalsInstrumentId(CsvMarketData o) {
 		return instrumentID.equals(o.getInstrumentID());
 	}
 
 	@Override
-	public int compareTo(CsvFileMarketData o) {
+	public int compareTo(CsvMarketData o) {
 		if (equalsInstrumentId(o)) {
-			if (this.localTimestamp.isEqual(o.getLocalTimestamp())) {
+			if (this.localTimestamp.isEqual(o.getLocalTimestamp()))
 				return 0;
-			}
 		}
-		if (this.localTimestamp.isAfter(o.getLocalTimestamp())) {
+		if (this.localTimestamp.isAfter(o.getLocalTimestamp()))
 			return 1;
-		} else {
+		else
 			return -1;
-		}
+
 	}
 
 	private String diskLocation;
@@ -377,7 +376,7 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 		return diskLocation;
 	}
 
-	public static CsvFileMarketData newFileMarketData4CsvLine(String line) {
+	public static CsvMarketData newFileMarketData4CsvLine(String line) {
 		String[] strArray = line.split(",");
 		String timestamp = strArray[0];
 		String instrumentID = strArray[1];
@@ -395,34 +394,34 @@ public class CsvFileMarketData implements Comparable<CsvFileMarketData> {
 		String ask3 = strArray[12];
 		String ask4 = strArray[13];
 		String ask5 = strArray[14];
-		String bidSize1 = strArray[15];
-		String bidSize2 = strArray[16];
-		String bidSize3 = strArray[17];
-		String bidSize4 = strArray[18];
-		String bidSize5 = strArray[19];
-		String askSize1 = strArray[20];
-		String askSize2 = strArray[21];
-		String askSize3 = strArray[22];
-		String askSize4 = strArray[23];
-		String askSize5 = strArray[24];
+		String bidVolume1 = strArray[15];
+		String bidVolume2 = strArray[16];
+		String bidVolume3 = strArray[17];
+		String bidVolume4 = strArray[18];
+		String bidVolume5 = strArray[19];
+		String askVolume1 = strArray[20];
+		String askVolume2 = strArray[21];
+		String askVolume3 = strArray[22];
+		String askVolume4 = strArray[23];
+		String askVolume5 = strArray[24];
 		String volume = strArray[25];
 		String amount = strArray[26];
 		String openInterest = strArray[27];
 		String updateTime = strArray[28];
-		return new CsvFileMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
-				ask1, ask2, ask3, ask4, ask5, bidSize1, bidSize2, bidSize3, bidSize4, bidSize5, askSize1, askSize2,
-				askSize3, askSize4, askSize5, volume, amount, openInterest, updateTime);
+		return new CsvMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
+				ask1, ask2, ask3, ask4, ask5, bidVolume1, bidVolume2, bidVolume3, bidVolume4, bidVolume5, askVolume1, askVolume2,
+				askVolume3, askVolume4, askVolume5, volume, amount, openInterest, updateTime);
 	}
 
-	public static CsvFileMarketData newFileMarketData(String timestamp, String instrumentID, String symbol,
+	public static CsvMarketData newFileMarketData(String timestamp, String instrumentID, String symbol,
 			String exchangeID, String last, String iopv, String bid1, String bid2, String bid3, String bid4,
-			String bid5, String ask1, String ask2, String ask3, String ask4, String ask5, String bidSize1,
-			String bidSize2, String bidSize3, String bidSize4, String bidSize5, String askSize1, String askSize2,
-			String askSize3, String askSize4, String askSize5, String volume, String amount, String openInterest,
+			String bid5, String ask1, String ask2, String ask3, String ask4, String ask5, String bidVolume1,
+			String bidVolume2, String bidVolume3, String bidVolume4, String bidVolume5, String askVolume1, String askVolume2,
+			String askVolume3, String askVolume4, String askVolume5, String volume, String amount, String openInterest,
 			String updateTime) {
-		return new CsvFileMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
-				ask1, ask2, ask3, ask4, ask5, bidSize1, bidSize2, bidSize3, bidSize4, bidSize5, askSize1, askSize2,
-				askSize3, askSize4, askSize5, volume, amount, openInterest, updateTime);
+		return new CsvMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
+				ask1, ask2, ask3, ask4, ask5, bidVolume1, bidVolume2, bidVolume3, bidVolume4, bidVolume5, askVolume1, askVolume2,
+				askVolume3, askVolume4, askVolume5, volume, amount, openInterest, updateTime);
 	}
 
 }

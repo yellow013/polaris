@@ -16,7 +16,7 @@ import io.ffreedom.polaris.market.api.MarketData;
  * @author yellow013
  * @creation 2019年5月24日
  */
-public final class BasicMarketData implements MarketData {
+public class BasicMarketData implements MarketData {
 
 	private Instrument instrument;
 	private long epochMillis;
