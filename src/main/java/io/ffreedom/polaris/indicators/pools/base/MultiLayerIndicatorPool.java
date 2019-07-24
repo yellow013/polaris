@@ -22,8 +22,6 @@ public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> ext
 	private MutableLongObjectMap<I> m5IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 	private MutableLongObjectMap<I> m10IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 	private MutableLongObjectMap<I> m15IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> m30IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> h1IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 
 	protected abstract I generateIndicator(IndicatorTimePeriod period, CalculationCycle cycle, Instrument instrument);
 
@@ -80,10 +78,6 @@ public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> ext
 			return m10IndicatorMap;
 		case M15:
 			return m15IndicatorMap;
-		case M30:
-			return m30IndicatorMap;
-		case H1:
-			return h1IndicatorMap;
 		default:
 			throw new IllegalArgumentException("period : " + period.name() + " is not found");
 		}

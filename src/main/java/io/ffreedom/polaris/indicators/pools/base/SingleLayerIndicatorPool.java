@@ -20,8 +20,6 @@ public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> ex
 	private MutableIntObjectMap<I> m5IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> m10IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> m15IndicatorMap = MutableMaps.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> m30IndicatorMap = MutableMaps.newIntObjectHashMap(8);
-	private MutableIntObjectMap<I> h1IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 
 	protected abstract I generateIndicator(IndicatorTimePeriod period, Instrument instrument);
 
@@ -70,10 +68,6 @@ public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> ex
 			return m10IndicatorMap;
 		case M15:
 			return m15IndicatorMap;
-		case M30:
-			return m30IndicatorMap;
-		case H1:
-			return h1IndicatorMap;
 		default:
 			throw new IllegalArgumentException("period : " + period.name() + " is not found");
 		}
