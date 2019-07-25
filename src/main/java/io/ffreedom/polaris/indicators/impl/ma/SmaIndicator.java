@@ -9,17 +9,17 @@ import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
-import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
+import io.ffreedom.polaris.indicators.structure.FixedHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 
-	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
+	private FixedHistoryPriceRecorder historyPriceRecorder;
 
 	public SmaIndicator(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
 
-		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
+		this.historyPriceRecorder = FixedHistoryPriceRecorder.newRecorder(cycle);
 		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
 		int i = -1;
 		for (TimePeriodSerial timePeriod : timePeriodSet)

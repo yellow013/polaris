@@ -6,7 +6,7 @@ import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.impl.ma.base.MaPoint;
-import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
+import io.ffreedom.polaris.indicators.structure.FixedHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public final class SmaPoint extends MaPoint<SmaPoint> {
@@ -16,14 +16,14 @@ public final class SmaPoint extends MaPoint<SmaPoint> {
 	private CalculationCycle cycle;
 
 	public SmaPoint(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial timePeriod,
-			CalculationCycle cycle, FixedLengthHistoryPriceRecorder historyPriceRecorder) {
+			CalculationCycle cycle, FixedHistoryPriceRecorder historyPriceRecorder) {
 		super(index, instrument, period, timePeriod, historyPriceRecorder);
 		this.historyPriceSum = historyPriceRecorder.sum();
 		this.cycle = cycle;
 	}
 
 	public static SmaPoint with(int indxe, Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial timePeriod,
-			CalculationCycle cycle, FixedLengthHistoryPriceRecorder historyPriceRecorder) {
+			CalculationCycle cycle, FixedHistoryPriceRecorder historyPriceRecorder) {
 		return new SmaPoint(indxe, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 

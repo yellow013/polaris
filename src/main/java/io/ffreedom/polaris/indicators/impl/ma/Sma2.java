@@ -12,16 +12,16 @@ import io.ffreedom.polaris.indicators.api.CalculationCycle;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
 import io.ffreedom.polaris.indicators.base.BaseTimePeriodIndicator;
 import io.ffreedom.polaris.indicators.events.SmaEvent;
-import io.ffreedom.polaris.indicators.structure.FixedLengthHistoryPriceRecorder;
+import io.ffreedom.polaris.indicators.structure.FixedHistoryPriceRecorder;
 import io.ffreedom.polaris.market.impl.BasicMarketData;
 
 public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 
-	private FixedLengthHistoryPriceRecorder historyPriceRecorder;
+	private FixedHistoryPriceRecorder historyPriceRecorder;
 
 	public Sma2(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
-		this.historyPriceRecorder = FixedLengthHistoryPriceRecorder.newRecorder(cycle);
+		this.historyPriceRecorder = FixedHistoryPriceRecorder.newRecorder(cycle);
 		TradingPeriod tradingPeriod = TradingPeriodPool.Singleton.getAfterTradingPeriod(instrument, LocalTime.now());
 		LocalDate nowDate = LocalDate.now();
 		TimePeriodSerial timePeriod = TimePeriodSerial.with(LocalDateTime.of(nowDate, tradingPeriod.getStartTime()),
