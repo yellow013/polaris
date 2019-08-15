@@ -4,7 +4,7 @@ import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableLongList;
 
 import io.ffreedom.common.collections.MutableLists;
-import io.ffreedom.common.number.DoubleUtil;
+import io.ffreedom.common.number.DoubleArithmetic;
 import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.IndicatorTimePeriod;
@@ -98,7 +98,7 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 		volumeSum += marketData.getVolume();
 		volumeRecord.add(marketData.getVolume());
 
-		turnoverSum = DoubleUtil.correction8(turnoverSum + marketData.getTurnover());
+		turnoverSum = DoubleArithmetic.correction8(turnoverSum + marketData.getTurnover());
 	}
 
 }
