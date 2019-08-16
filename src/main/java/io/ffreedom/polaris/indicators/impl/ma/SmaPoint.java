@@ -1,6 +1,6 @@
 package io.ffreedom.polaris.indicators.impl.ma;
 
-import io.ffreedom.common.number.DoubleUtil;
+import io.ffreedom.common.number.DoubleArithmetic;
 import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.indicators.api.CalculationCycle;
@@ -46,7 +46,7 @@ public final class SmaPoint extends MaPoint<SmaPoint> {
 	protected void handleMarketData(BasicMarketData marketData) {
 		this.lastPrice = marketData.getLastPrice();
 		int count = historyPriceRecorder.getCount();
-		this.avgPrice = DoubleUtil.correction4(historyPriceSum + lastPrice / count);
+		this.avgPrice = DoubleArithmetic.correction4(historyPriceSum + lastPrice / count);
 	}
 
 }
