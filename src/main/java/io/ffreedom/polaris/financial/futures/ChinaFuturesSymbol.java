@@ -200,7 +200,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	}
 
 	// 建立SymbolId -> Symbol的映射
-	private static ImmutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = ImmutableMaps.getIntObjectMapFactory()
+	private static ImmutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = ImmutableMaps.IntObjectMapFactoryInstance()
 			.from(Arrays.asList(ChinaFuturesSymbol.values()), ChinaFuturesSymbol::getSymbolId, symbol -> symbol);
 
 	// 建立SymbolNeam -> Symbol的映射
