@@ -10,7 +10,7 @@ import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 
 import io.ffreedom.common.collections.MutableMaps;
 import io.ffreedom.common.collections.MutableSets;
-import io.ffreedom.common.utils.JointIdUtil;
+import io.ffreedom.common.param.JointIdUtil;
 import io.ffreedom.polaris.datetime.serial.TimePeriodSerial;
 import io.ffreedom.polaris.financial.Instrument;
 import io.ffreedom.polaris.financial.Symbol;
