@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import io.ffreedom.common.datetime.DateTimePattern;
+import io.ffreedom.common.datetime.Pattern.DatePattern;
+import io.ffreedom.common.datetime.Pattern.TimePattern;
 import io.ffreedom.polaris.financial.futures.ChinaFuturesUtil;
 
 public class CsvMarketData implements Comparable<CsvMarketData> {
@@ -277,8 +278,8 @@ public class CsvMarketData implements Comparable<CsvMarketData> {
 	private void setLocalDateTime() {
 		String[] split = timestamp.split(" ");
 		try {
-			this.localTimestampDate = LocalDate.parse(split[0], DateTimePattern.YYYYMMDD.newFormatter());
-			this.localTimestampTime = LocalTime.parse(split[1], DateTimePattern.HH_MM_SS_MICROSECOND.newFormatter());
+			this.localTimestampDate = LocalDate.parse(split[0], DatePattern.YYYYMMDD.newFormatter());
+			this.localTimestampTime = LocalTime.parse(split[1], TimePattern.HH_MM_SS_MICROSECOND.newFormatter());
 			setLocalTimestamp();
 		} catch (Exception e) {
 			// System.out.println(JSON.toJSONString(this));
@@ -334,7 +335,7 @@ public class CsvMarketData implements Comparable<CsvMarketData> {
 				tradingDayLocalDate = tempLocalDate;
 			}
 		}
-		this.tradingDay = tradingDayLocalDate.format(DateTimePattern.YYYYMMDD.newFormatter());
+		this.tradingDay = tradingDayLocalDate.format(DatePattern.YYYYMMDD.newFormatter());
 	}
 
 	private boolean isNightTrading(LocalTime time) {

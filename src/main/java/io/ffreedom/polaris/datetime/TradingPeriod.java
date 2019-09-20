@@ -87,10 +87,10 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			// 如果交易周期跨天,则此分割周期等于当天开始时间至次日结束时间
 			// 如果交易周期未跨天,则此分割周期等于当天开始时间至当天结束时间
 			return MutableLists.newFastList(isCrossDay
-					? TimePeriodSerial.with(LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
-							LocalDateTime.of(DateTimeUtil.getTomorrowDate(), endTime))
-					: TimePeriodSerial.with(LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime),
-							LocalDateTime.of(DateTimeUtil.getCurrentDate(), endTime)));
+					? TimePeriodSerial.with(LocalDateTime.of(DateTimeUtil.CurrentDate(), startTime),
+							LocalDateTime.of(DateTimeUtil.NextDate(), endTime))
+					: TimePeriodSerial.with(LocalDateTime.of(DateTimeUtil.CurrentDate(), startTime),
+							LocalDateTime.of(DateTimeUtil.CurrentDate(), endTime)));
 		} else {
 			// 获取此交易时间段的总时长
 			int totalSeconds = (int) totalDuration.getSeconds();
@@ -100,10 +100,10 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 				count++;
 			MutableList<TimePeriodSerial> list = MutableLists.newFastList(count);
 			// 计算开始时间点
-			LocalDateTime startPoint = LocalDateTime.of(DateTimeUtil.getCurrentDate(), startTime);
+			LocalDateTime startPoint = LocalDateTime.of(DateTimeUtil.CurrentDate(), startTime);
 			// 计算结束时间点,如果跨天则日期加一天
 			LocalDateTime lastEndPoint = LocalDateTime
-					.of(isCrossDay ? DateTimeUtil.getTomorrowDate() : DateTimeUtil.getCurrentDate(), endTime);
+					.of(isCrossDay ? DateTimeUtil.NextDate() : DateTimeUtil.CurrentDate(), endTime);
 			for (int i = 0; i < count; i++) {
 				LocalDateTime nextStartPoint = startPoint.plusSeconds(seconds);
 				if (nextStartPoint.isBefore(lastEndPoint)) {
