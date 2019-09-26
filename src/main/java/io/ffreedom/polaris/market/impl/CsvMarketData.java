@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import io.ffreedom.common.datetime.Pattern.PatternSymbol;
 import io.ffreedom.common.datetime.Pattern.DatePattern;
 import io.ffreedom.common.datetime.Pattern.TimePattern;
 import io.ffreedom.polaris.financial.futures.ChinaFuturesUtil;
@@ -198,9 +199,10 @@ public class CsvMarketData implements Comparable<CsvMarketData> {
 	 */
 	private CsvMarketData(String timestamp, String instrumentID, String symbol, String exchangeID, String last,
 			String iopv, String bid1, String bid2, String bid3, String bid4, String bid5, String ask1, String ask2,
-			String ask3, String ask4, String ask5, String bidVolume1, String bidVolume2, String bidVolume3, String bidVolume4,
-			String bidVolume5, String askVolume1, String askVolume2, String askVolume3, String askVolume4, String askVolume5,
-			String volume, String amount, String openInterest, String updateTime) {
+			String ask3, String ask4, String ask5, String bidVolume1, String bidVolume2, String bidVolume3,
+			String bidVolume4, String bidVolume5, String askVolume1, String askVolume2, String askVolume3,
+			String askVolume4, String askVolume5, String volume, String amount, String openInterest,
+			String updateTime) {
 		this.timestamp = timestamp;
 		this.instrumentID = instrumentID;
 		this.exchangeID = exchangeID;
@@ -261,10 +263,11 @@ public class CsvMarketData implements Comparable<CsvMarketData> {
 				.append(last).append(",").append(iopv).append(",").append(bid1).append(",").append(bid2).append(",")
 				.append(bid3).append(",").append(bid4).append(",").append(bid5).append(",").append(ask1).append(",")
 				.append(ask2).append(",").append(ask3).append(",").append(ask4).append(",").append(ask5).append(",")
-				.append(bidVolume1).append(",").append(bidVolume2).append(",").append(bidVolume3).append(",").append(bidVolume4)
-				.append(",").append(bidVolume5).append(",").append(askVolume1).append(",").append(askVolume2).append(",")
-				.append(askVolume3).append(",").append(askVolume4).append(",").append(askVolume5).append(",").append(volume)
-				.append(",").append(amount).append(",").append(openInterest).append(",").append(updateTime);
+				.append(bidVolume1).append(",").append(bidVolume2).append(",").append(bidVolume3).append(",")
+				.append(bidVolume4).append(",").append(bidVolume5).append(",").append(askVolume1).append(",")
+				.append(askVolume2).append(",").append(askVolume3).append(",").append(askVolume4).append(",")
+				.append(askVolume5).append(",").append(volume).append(",").append(amount).append(",")
+				.append(openInterest).append(",").append(updateTime);
 	}
 
 	@Override
@@ -276,10 +279,10 @@ public class CsvMarketData implements Comparable<CsvMarketData> {
 	private LocalTime localTimestampTime;
 
 	private void setLocalDateTime() {
-		String[] split = timestamp.split(" ");
+		String[] split = timestamp.split(PatternSymbol.BLANK);
 		try {
-			this.localTimestampDate = LocalDate.parse(split[0], DatePattern.YYYYMMDD.newFormatter());
-			this.localTimestampTime = LocalTime.parse(split[1], TimePattern.HH_MM_SS_MICROSECOND.newFormatter());
+			this.localTimestampDate = LocalDate.parse(split[0], DatePattern.YYYYMMDD.getFormatter());
+			this.localTimestampTime = LocalTime.parse(split[1], TimePattern.HH_MM_SS_SSSSSS.getFormatter());
 			setLocalTimestamp();
 		} catch (Exception e) {
 			// System.out.println(JSON.toJSONString(this));
@@ -335,7 +338,7 @@ public class CsvMarketData implements Comparable<CsvMarketData> {
 				tradingDayLocalDate = tempLocalDate;
 			}
 		}
-		this.tradingDay = tradingDayLocalDate.format(DatePattern.YYYYMMDD.newFormatter());
+		this.tradingDay = tradingDayLocalDate.format(DatePattern.YYYYMMDD.getFormatter());
 	}
 
 	private boolean isNightTrading(LocalTime time) {
@@ -410,19 +413,19 @@ public class CsvMarketData implements Comparable<CsvMarketData> {
 		String openInterest = strArray[27];
 		String updateTime = strArray[28];
 		return new CsvMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
-				ask1, ask2, ask3, ask4, ask5, bidVolume1, bidVolume2, bidVolume3, bidVolume4, bidVolume5, askVolume1, askVolume2,
-				askVolume3, askVolume4, askVolume5, volume, amount, openInterest, updateTime);
+				ask1, ask2, ask3, ask4, ask5, bidVolume1, bidVolume2, bidVolume3, bidVolume4, bidVolume5, askVolume1,
+				askVolume2, askVolume3, askVolume4, askVolume5, volume, amount, openInterest, updateTime);
 	}
 
 	public static CsvMarketData newFileMarketData(String timestamp, String instrumentID, String symbol,
 			String exchangeID, String last, String iopv, String bid1, String bid2, String bid3, String bid4,
 			String bid5, String ask1, String ask2, String ask3, String ask4, String ask5, String bidVolume1,
-			String bidVolume2, String bidVolume3, String bidVolume4, String bidVolume5, String askVolume1, String askVolume2,
-			String askVolume3, String askVolume4, String askVolume5, String volume, String amount, String openInterest,
-			String updateTime) {
+			String bidVolume2, String bidVolume3, String bidVolume4, String bidVolume5, String askVolume1,
+			String askVolume2, String askVolume3, String askVolume4, String askVolume5, String volume, String amount,
+			String openInterest, String updateTime) {
 		return new CsvMarketData(timestamp, instrumentID, symbol, exchangeID, last, iopv, bid1, bid2, bid3, bid4, bid5,
-				ask1, ask2, ask3, ask4, ask5, bidVolume1, bidVolume2, bidVolume3, bidVolume4, bidVolume5, askVolume1, askVolume2,
-				askVolume3, askVolume4, askVolume5, volume, amount, openInterest, updateTime);
+				ask1, ask2, ask3, ask4, ask5, bidVolume1, bidVolume2, bidVolume3, bidVolume4, bidVolume5, askVolume1,
+				askVolume2, askVolume3, askVolume4, askVolume5, volume, amount, openInterest, updateTime);
 	}
 
 }
