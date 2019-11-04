@@ -117,7 +117,7 @@ public class BasicMarketData implements MarketData {
 
 	public ZonedDateTime getZonedDateTime() {
 		if (zonedDateTime == null)
-			zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), TimeZones.DEFAULT_ZONE_ID);
+			zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), TimeZones.SYSTEM_DEFAULT);
 		return zonedDateTime;
 	}
 

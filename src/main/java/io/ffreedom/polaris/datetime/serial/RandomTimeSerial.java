@@ -33,7 +33,7 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 	}
 
 	private void setEpochMillis() {
-		this.epochMillis = EpochTime.milliseconds(timePoint, TimeZones.DEFAULT_ZONE_OFFSET);
+		this.epochMillis = EpochTime.milliseconds(timePoint, TimeZones.SYSTEM_DEFAULT_OFFSET);
 	}
 
 	public void setSerialNumber() {
@@ -56,7 +56,7 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 	public static void main(String[] args) {
 		LocalDateTime now = LocalDateTime.now();
 
-		long epochSecond = now.toEpochSecond(TimeZones.DEFAULT_ZONE_OFFSET);
+		long epochSecond = now.toEpochSecond(TimeZones.SYSTEM_DEFAULT_OFFSET);
 		System.out.println(epochSecond);
 
 		RandomTimeSerial timeStarted0 = RandomTimeSerial.with(now);
