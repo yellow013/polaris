@@ -176,7 +176,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	private ChinaFuturesSymbol(int exchangeNo, Exchange exchange, TradingPeriod... tradingPeriods) {
 		this.symbolId = exchange.getExchangeId() + exchangeNo * 10000;
 		this.exchange = exchange;
-		this.tradingPeriodSet = ImmutableSets.newImmutableSortedSet(tradingPeriods);
+		this.tradingPeriodSet = ImmutableSets.newSortedSet(tradingPeriods);
 	}
 
 	@Override
@@ -196,17 +196,22 @@ public enum ChinaFuturesSymbol implements Symbol {
 
 	@Override
 	public Exchange getExchange() {
+
 		return exchange;
 	}
 
 	// 建立SymbolId -> Symbol的映射
-	private static ImmutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = ImmutableMaps.immutableIntObjectMapFactory()
-			.from(Arrays.asList(ChinaFuturesSymbol.values()), ChinaFuturesSymbol::getSymbolId, symbol -> symbol);
+	private final static ImmutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = ImmutableMaps.IntObjectMapFactory()
+			.from(
+					// 将ChinaFuturesSymbol转换为Iterable, 取SymbolId为Key
+					Arrays.asList(ChinaFuturesSymbol.values()), ChinaFuturesSymbol::getSymbolId, symbol -> symbol);
 
 	// 建立SymbolNeam -> Symbol的映射
-	private static ImmutableMap<String, ChinaFuturesSymbol> symbolNameMap = ImmutableMaps
-			.newImmutableMap(Stream.of(ChinaFuturesSymbol.values())
-					.collect(Collectors.toMap(ChinaFuturesSymbol::getSymbolName, symbol -> symbol)));
+	private final static ImmutableMap<String, ChinaFuturesSymbol> symbolNameMap = ImmutableMaps.newMap(
+			// 将ChinaFuturesSymbol转换为Map
+			Stream.of(ChinaFuturesSymbol.values()).collect(Collectors.toMap(
+					// 取SymbolName为Key
+					ChinaFuturesSymbol::getSymbolName, symbol -> symbol)));
 
 	public static ChinaFuturesSymbol findOf(String symbolName) {
 		String key = symbolName.toUpperCase();
