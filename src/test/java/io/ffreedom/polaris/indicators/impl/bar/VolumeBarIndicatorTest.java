@@ -2,9 +2,10 @@ package io.ffreedom.polaris.indicators.impl.bar;
 
 import org.junit.Test;
 
-import io.ffreedom.polaris.financial.Instrument.PriorityCloseType;
-import io.ffreedom.polaris.financial.futures.ChinaFutures;
-import io.ffreedom.polaris.financial.futures.ChinaFuturesSymbol;
+import io.polaris.financial.Instrument.PriorityCloseType;
+import io.polaris.financial.futures.ChinaFutures;
+import io.polaris.financial.futures.ChinaFuturesSymbol;
+import io.polaris.indicators.impl.bar.VolumeBarIndicator;
 
 public class VolumeBarIndicatorTest {
 
