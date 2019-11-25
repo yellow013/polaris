@@ -1,14 +1,14 @@
-package io.polaris.indicators.impl.bar;
+package io.polaris.indicator.impl.bar;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import io.polaris.datetime.serial.RandomTimeSerial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.base.BaseRandomTimeIndicator;
-import io.polaris.indicators.events.VolumeBarsEvent;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.indicator.base.BaseRandomTimeIndicator;
+import io.polaris.indicator.events.VolumeBarsEvent;
+import io.polaris.vector.RandomTimeSerial;
 
 public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar, VolumeBarsEvent> {
 

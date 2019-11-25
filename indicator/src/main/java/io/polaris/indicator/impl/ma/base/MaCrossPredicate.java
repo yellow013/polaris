@@ -1,4 +1,4 @@
-package io.polaris.indicators.impl.ma.base;
+package io.polaris.indicator.impl.ma.base;
 
 public final class MaCrossPredicate {
 

@@ -1,8 +1,8 @@
-package io.polaris.indicators.api;
+package io.polaris.indicator.api;
 
 import io.ffreedom.common.sequence.Serial;
-import io.polaris.financial.Instrument;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
 
 public interface Indicator<P extends Point<? extends Serial<?>>, E extends IndicatorEvent> {
 

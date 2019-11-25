@@ -1,11 +1,11 @@
-package io.polaris.indicators.pools.base;
+package io.polaris.indicator.pools.base;
 
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 
 import io.ffreedom.common.collections.MutableMaps;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.base.BaseIndicator;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.indicator.base.BaseIndicator;
+import io.polaris.vector.TimePeriod;
 
 public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> extends BaseIndicatorPool<I> {
 
@@ -21,9 +21,9 @@ public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> ex
 	private MutableIntObjectMap<I> m10IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 	private MutableIntObjectMap<I> m15IndicatorMap = MutableMaps.newIntObjectHashMap(8);
 
-	protected abstract I generateIndicator(IndicatorTimePeriod period, Instrument instrument);
+	protected abstract I generateIndicator(TimePeriod period, Instrument instrument);
 
-	public I getIndicator(IndicatorTimePeriod period, Instrument instrument) {
+	public I getIndicator(TimePeriod period, Instrument instrument) {
 		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
 		I saved = indicatorMap.get(instrument.getInstrumentId());
 		if (saved == null) {
@@ -33,7 +33,7 @@ public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> ex
 		return saved;
 	}
 
-	public boolean putIndicator(IndicatorTimePeriod period, Instrument instrument, I indicator) {
+	public boolean putIndicator(TimePeriod period, Instrument instrument, I indicator) {
 		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
 		I saved = indicatorMap.get(instrument.getInstrumentId());
 		if (saved != null) {
@@ -44,7 +44,7 @@ public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> ex
 		return indicators.add(indicator);
 	}
 
-	private MutableIntObjectMap<I> getIndicatorMap(IndicatorTimePeriod period) {
+	private MutableIntObjectMap<I> getIndicatorMap(TimePeriod period) {
 		switch (period) {
 		case S1:
 			return s1IndicatorMap;

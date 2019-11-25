@@ -1,4 +1,4 @@
-package io.polaris.indicators.impl.bar;
+package io.polaris.indicator.impl.bar;
 
 @Deprecated
 public final class Bar {

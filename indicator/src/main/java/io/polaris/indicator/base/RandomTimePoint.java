@@ -1,7 +1,7 @@
-package io.polaris.indicators.base;
+package io.polaris.indicator.base;
 
-import io.polaris.datetime.serial.RandomTimeSerial;
-import io.polaris.financial.Instrument;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.vector.RandomTimeSerial;
 
 public abstract class RandomTimePoint<Y extends RandomTimePoint<Y>> extends BasePoint<RandomTimeSerial> {
 

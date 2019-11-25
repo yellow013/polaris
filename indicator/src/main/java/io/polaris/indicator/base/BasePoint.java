@@ -1,9 +1,9 @@
-package io.polaris.indicators.base;
+package io.polaris.indicator.base;
 
 import io.ffreedom.common.sequence.Serial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.Point;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.indicator.api.Point;
 
 abstract class BasePoint<S extends Serial<S>> implements Point<S>, Comparable<Point<S>> {
 

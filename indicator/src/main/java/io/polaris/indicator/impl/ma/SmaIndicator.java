@@ -1,22 +1,22 @@
-package io.polaris.indicators.impl.ma;
+package io.polaris.indicator.impl.ma;
 
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
-import io.polaris.datetime.TimePeriodPool;
-import io.polaris.datetime.serial.TimePeriodSerial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.CalculationCycle;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.base.BaseTimePeriodIndicator;
-import io.polaris.indicators.events.SmaEvent;
-import io.polaris.indicators.structure.FixedHistoryPriceRecorder;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.financial.time.TimePeriodPool;
+import io.polaris.indicator.api.CalculationCycle;
+import io.polaris.indicator.base.BaseTimePeriodIndicator;
+import io.polaris.indicator.events.SmaEvent;
+import io.polaris.indicator.structure.FixedHistoryPriceRecorder;
+import io.polaris.vector.TimePeriod;
+import io.polaris.vector.TimePeriodSerial;
 
 public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 
 	private FixedHistoryPriceRecorder historyPriceRecorder;
 
-	public SmaIndicator(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public SmaIndicator(Instrument instrument, TimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
 
 		this.historyPriceRecorder = FixedHistoryPriceRecorder.newRecorder(cycle);
@@ -28,7 +28,7 @@ public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEve
 
 	}
 
-	public static SmaIndicator with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public static SmaIndicator with(Instrument instrument, TimePeriod period, CalculationCycle cycle) {
 		return new SmaIndicator(instrument, period, cycle);
 	}
 

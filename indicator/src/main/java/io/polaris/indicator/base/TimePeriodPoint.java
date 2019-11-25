@@ -1,23 +1,23 @@
-package io.polaris.indicators.base;
+package io.polaris.indicator.base;
 
 import java.time.LocalDateTime;
 
-import io.polaris.datetime.serial.TimePeriodSerial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.IndicatorTimePeriod;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.vector.TimePeriod;
+import io.polaris.vector.TimePeriodSerial;
 
 public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends BasePoint<TimePeriodSerial> {
 
-	protected IndicatorTimePeriod period;
+	protected TimePeriod period;
 	protected TimePeriodSerial serial;
 
-	protected TimePeriodPoint(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial serial) {
+	protected TimePeriodPoint(int index, Instrument instrument, TimePeriod period, TimePeriodSerial serial) {
 		super(index, instrument);
 		this.period = period;
 		this.serial = serial;
 	}
 
-	public IndicatorTimePeriod getPeriod() {
+	public TimePeriod getPeriod() {
 		return period;
 	}
 

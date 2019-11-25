@@ -1,4 +1,4 @@
-package io.polaris.indicators.structure;
+package io.polaris.indicator.structure;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -6,7 +6,7 @@ import org.eclipse.collections.api.list.primitive.ImmutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 
 import io.ffreedom.common.collections.MutableLists;
-import io.polaris.indicators.api.CalculationCycle;
+import io.polaris.indicator.api.CalculationCycle;
 
 @NotThreadSafe
 public class FixedHistoryPriceRecorder {

@@ -1,14 +1,14 @@
-package io.polaris.indicators.impl.sar;
+package io.polaris.indicator.impl.sar;
 
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.base.BaseTimePeriodIndicator;
-import io.polaris.indicators.events.SarEvent;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.indicator.base.BaseTimePeriodIndicator;
+import io.polaris.indicator.events.SarEvent;
+import io.polaris.vector.TimePeriod;
 
 public final class SarIndicator extends BaseTimePeriodIndicator<SarPoint, SarEvent> {
 
-	public SarIndicator(Instrument instrument, IndicatorTimePeriod period) {
+	public SarIndicator(Instrument instrument, TimePeriod period) {
 		super(instrument, period);
 		this.period = period;
 	}

@@ -1,4 +1,4 @@
-package io.polaris.pools;
+package io.polaris.indicator.pools;
 
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -10,7 +10,7 @@ import io.ffreedom.common.collections.MutableMaps;
 @ThreadSafe
 public final class SummaryStatisticsPool {
 
-	private static ConcurrentMutableMap<Long, SummaryStatistics> summaryStatisticsMap = MutableMaps
+	private static final ConcurrentMutableMap<Long, SummaryStatistics> SummaryStatisticsMap = MutableMaps
 			.newConcurrentHashMap();
 
 	public static SummaryStatistics getSummaryStatistics() {
@@ -18,12 +18,7 @@ public final class SummaryStatisticsPool {
 	}
 
 	public static SummaryStatistics getSummaryStatistics(Thread currentThread) {
-		SummaryStatistics summaryStatistics = summaryStatisticsMap.get(currentThread.getId());
-		if (summaryStatistics == null) {
-			summaryStatistics = new SummaryStatistics();
-			summaryStatisticsMap.put(currentThread.getId(), summaryStatistics);
-		}
-		return summaryStatistics;
+		return SummaryStatisticsMap.getIfAbsentPut(currentThread.getId(), SummaryStatistics::new);
 	}
 
 }

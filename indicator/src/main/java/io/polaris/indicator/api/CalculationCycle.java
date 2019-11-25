@@ -1,4 +1,4 @@
-package io.polaris.indicators.api;
+package io.polaris.indicator.api;
 
 /**
  * 标识指标的一个点由N个周期的点计算

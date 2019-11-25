@@ -1,4 +1,4 @@
-package io.polaris.indicators.api;
+package io.polaris.indicator.api;
 
 import java.util.Optional;
 

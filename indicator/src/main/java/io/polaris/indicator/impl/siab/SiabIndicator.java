@@ -1,4 +1,4 @@
-package io.polaris.indicators.impl.siab;
+package io.polaris.indicator.impl.siab;
 
 public final class SiabIndicator {
 

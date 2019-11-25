@@ -1,4 +1,4 @@
-package io.polaris.indicators.base;
+package io.polaris.indicator.base;
 
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
@@ -6,12 +6,12 @@ import org.slf4j.Logger;
 import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.common.log.CommonLoggerFactory;
 import io.ffreedom.common.sequence.Serial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.Indicator;
-import io.polaris.indicators.api.IndicatorEvent;
-import io.polaris.indicators.api.Point;
-import io.polaris.indicators.api.PointSet;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.indicator.api.Indicator;
+import io.polaris.indicator.api.IndicatorEvent;
+import io.polaris.indicator.api.Point;
+import io.polaris.indicator.api.PointSet;
 
 public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E extends IndicatorEvent>
 		implements Indicator<P, E> {

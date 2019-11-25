@@ -1,8 +1,8 @@
-package io.polaris.indicators.events;
+package io.polaris.indicator.events;
 
 import java.time.temporal.TemporalAdjuster;
 
-import io.polaris.indicators.api.IndicatorEvent;
+import io.polaris.indicator.api.IndicatorEvent;
 
 public interface TimeEvent<T extends TemporalAdjuster> extends IndicatorEvent{
 

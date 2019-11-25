@@ -1,7 +1,7 @@
-package io.polaris.indicators.events;
+package io.polaris.indicator.events;
 
-import io.polaris.indicators.api.IndicatorEvent;
-import io.polaris.indicators.impl.bar.TimeBar;
+import io.polaris.indicator.api.IndicatorEvent;
+import io.polaris.indicator.impl.bar.TimeBar;
 
 public interface TimeBarsEvent extends IndicatorEvent {
 

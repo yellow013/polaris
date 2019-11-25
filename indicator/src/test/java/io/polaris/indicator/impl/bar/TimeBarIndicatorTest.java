@@ -1,4 +1,4 @@
-package io.ffreedom.polaris.indicators.impl.bar;
+package io.polaris.indicator.impl.bar;
 
 import org.junit.Test;
 

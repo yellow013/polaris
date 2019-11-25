@@ -1,6 +1,6 @@
-package io.polaris.indicators.events;
+package io.polaris.indicator.events;
 
-import io.polaris.indicators.api.IndicatorEvent;
+import io.polaris.indicator.api.IndicatorEvent;
 
 public interface BollingerBandsEvent extends IndicatorEvent {
 

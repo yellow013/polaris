@@ -1,23 +1,23 @@
-package io.polaris.indicators.base;
+package io.polaris.indicator.base;
 
-import io.polaris.datetime.serial.TimePeriodSerial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.CalculationCycle;
-import io.polaris.indicators.api.IndicatorEvent;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.api.Point;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.indicator.api.CalculationCycle;
+import io.polaris.indicator.api.IndicatorEvent;
+import io.polaris.indicator.api.Point;
+import io.polaris.vector.TimePeriod;
+import io.polaris.vector.TimePeriodSerial;
 
 public abstract class BaseTimePeriodIndicator<P extends Point<TimePeriodSerial>, E extends IndicatorEvent>
 		extends BaseIndicator<P, E> {
 
-	protected IndicatorTimePeriod period;
+	protected TimePeriod period;
 	protected CalculationCycle cycle;
 
-	public BaseTimePeriodIndicator(Instrument instrument, IndicatorTimePeriod period) {
+	public BaseTimePeriodIndicator(Instrument instrument, TimePeriod period) {
 		this(instrument, period, CalculationCycle.ONLY_ONE);
 	}
 
-	public BaseTimePeriodIndicator(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public BaseTimePeriodIndicator(Instrument instrument, TimePeriod period, CalculationCycle cycle) {
 		super(instrument);
 		this.period = period;
 		this.cycle = cycle;

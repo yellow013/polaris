@@ -1,4 +1,4 @@
-package io.polaris.indicators.impl.fractal;
+package io.polaris.indicator.impl.fractal;
 
 public final class FractalIndicator {
 

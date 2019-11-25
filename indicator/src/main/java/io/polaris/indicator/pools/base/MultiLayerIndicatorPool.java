@@ -1,13 +1,13 @@
-package io.polaris.indicators.pools.base;
+package io.polaris.indicator.pools.base;
 
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
 import io.ffreedom.common.collections.MutableMaps;
 import io.ffreedom.common.param.JointIdUtil;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.CalculationCycle;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.base.BaseIndicator;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.indicator.api.CalculationCycle;
+import io.polaris.indicator.base.BaseIndicator;
+import io.polaris.vector.TimePeriod;
 
 public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> extends BaseIndicatorPool<I> {
 
@@ -23,9 +23,9 @@ public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> ext
 	private MutableLongObjectMap<I> m10IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 	private MutableLongObjectMap<I> m15IndicatorMap = MutableMaps.newLongObjectHashMap(8);
 
-	protected abstract I generateIndicator(IndicatorTimePeriod period, CalculationCycle cycle, Instrument instrument);
+	protected abstract I generateIndicator(TimePeriod period, CalculationCycle cycle, Instrument instrument);
 
-	public I getIndicator(IndicatorTimePeriod period, CalculationCycle cycle, Instrument instrument) {
+	public I getIndicator(TimePeriod period, CalculationCycle cycle, Instrument instrument) {
 		MutableLongObjectMap<I> indicatorMap = getIndicatorMap(period);
 		long index = calculateIndex(cycle, instrument);
 		I saved = indicatorMap.get(index);
@@ -36,7 +36,7 @@ public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> ext
 		return saved;
 	}
 
-	public boolean putIndicator(IndicatorTimePeriod period, CalculationCycle cycle, Instrument instrument,
+	public boolean putIndicator(TimePeriod period, CalculationCycle cycle, Instrument instrument,
 			I indicator) {
 		MutableLongObjectMap<I> indicatorMap = getIndicatorMap(period);
 		long index = calculateIndex(cycle, instrument);
@@ -54,7 +54,7 @@ public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> ext
 		return JointIdUtil.jointId(cycle.getCycleValue(), instrument.getInstrumentId());
 	}
 
-	private MutableLongObjectMap<I> getIndicatorMap(IndicatorTimePeriod period) {
+	private MutableLongObjectMap<I> getIndicatorMap(TimePeriod period) {
 		switch (period) {
 		case S1:
 			return s1IndicatorMap;

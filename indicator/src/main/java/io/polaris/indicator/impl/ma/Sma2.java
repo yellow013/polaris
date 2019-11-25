@@ -1,25 +1,25 @@
-package io.polaris.indicators.impl.ma;
+package io.polaris.indicator.impl.ma;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import io.polaris.datetime.TradingPeriod;
-import io.polaris.datetime.TradingPeriodPool;
-import io.polaris.datetime.serial.TimePeriodSerial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.CalculationCycle;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.base.BaseTimePeriodIndicator;
-import io.polaris.indicators.events.SmaEvent;
-import io.polaris.indicators.structure.FixedHistoryPriceRecorder;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.financial.time.TradingPeriod;
+import io.polaris.financial.time.TradingPeriodPool;
+import io.polaris.indicator.api.CalculationCycle;
+import io.polaris.indicator.base.BaseTimePeriodIndicator;
+import io.polaris.indicator.events.SmaEvent;
+import io.polaris.indicator.structure.FixedHistoryPriceRecorder;
+import io.polaris.vector.TimePeriod;
+import io.polaris.vector.TimePeriodSerial;
 
 public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 
 	private FixedHistoryPriceRecorder historyPriceRecorder;
 
-	public Sma2(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public Sma2(Instrument instrument, TimePeriod period, CalculationCycle cycle) {
 		super(instrument, period, cycle);
 		this.historyPriceRecorder = FixedHistoryPriceRecorder.newRecorder(cycle);
 		TradingPeriod tradingPeriod = TradingPeriodPool.Singleton.getAfterTradingPeriod(instrument, LocalTime.now());
@@ -29,7 +29,7 @@ public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 		currentPoint = SmaPoint.with(0, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
-	public static Sma2 with(Instrument instrument, IndicatorTimePeriod period, CalculationCycle cycle) {
+	public static Sma2 with(Instrument instrument, TimePeriod period, CalculationCycle cycle) {
 		return new Sma2(instrument, period, cycle);
 	}
 

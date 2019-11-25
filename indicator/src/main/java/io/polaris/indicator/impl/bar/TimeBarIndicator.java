@@ -1,20 +1,20 @@
-package io.polaris.indicators.impl.bar;
+package io.polaris.indicator.impl.bar;
 
 import java.time.LocalDateTime;
 
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
-import io.polaris.datetime.TimePeriodPool;
-import io.polaris.datetime.serial.TimePeriodSerial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.base.BaseTimePeriodIndicator;
-import io.polaris.indicators.events.TimeBarsEvent;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.financial.time.TimePeriodPool;
+import io.polaris.indicator.base.BaseTimePeriodIndicator;
+import io.polaris.indicator.events.TimeBarsEvent;
+import io.polaris.vector.TimePeriod;
+import io.polaris.vector.TimePeriodSerial;
 
 public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, TimeBarsEvent> {
 
-	public TimeBarIndicator(Instrument instrument, IndicatorTimePeriod period) {
+	public TimeBarIndicator(Instrument instrument, TimePeriod period) {
 		super(instrument, period);
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
 		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period,
@@ -25,7 +25,7 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 		currentPoint = pointSet.getFirst();
 	}
 
-	public static TimeBarIndicator with(Instrument instrument, IndicatorTimePeriod period) {
+	public static TimeBarIndicator with(Instrument instrument, TimePeriod period) {
 		return new TimeBarIndicator(instrument, period);
 	}
 

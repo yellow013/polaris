@@ -1,12 +1,12 @@
-package io.polaris.indicators.pools.base;
+package io.polaris.indicator.pools.base;
 
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
 import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.common.log.CommonLoggerFactory;
-import io.polaris.indicators.base.BaseIndicator;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.indicator.base.BaseIndicator;
 
 public abstract class BaseIndicatorPool<I extends BaseIndicator<?, ?>> {
 

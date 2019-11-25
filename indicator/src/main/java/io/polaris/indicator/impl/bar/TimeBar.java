@@ -1,15 +1,15 @@
-package io.polaris.indicators.impl.bar;
+package io.polaris.indicator.impl.bar;
 
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableLongList;
 
 import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.common.number.DoubleArithmetic;
-import io.polaris.datetime.serial.TimePeriodSerial;
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.base.TimePeriodPoint;
-import io.polaris.market.impl.BasicMarketData;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.market.impl.BasicMarketData;
+import io.polaris.indicator.base.TimePeriodPoint;
+import io.polaris.vector.TimePeriod;
+import io.polaris.vector.TimePeriodSerial;
 
 public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
@@ -28,11 +28,11 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 	private MutableDoubleList priceRecord = MutableLists.newDoubleArrayList(64);
 	private MutableLongList volumeRecord = MutableLists.newLongArrayList(64);
 
-	private TimeBar(int index, Instrument instrument, IndicatorTimePeriod period, TimePeriodSerial timePeriod) {
+	private TimeBar(int index, Instrument instrument, TimePeriod period, TimePeriodSerial timePeriod) {
 		super(index, instrument, period, timePeriod);
 	}
 
-	public static TimeBar with(int index, Instrument instrument, IndicatorTimePeriod period,
+	public static TimeBar with(int index, Instrument instrument, TimePeriod period,
 			TimePeriodSerial timePeriod) {
 		return new TimeBar(index, instrument, period, timePeriod);
 	}

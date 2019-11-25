@@ -1,11 +1,11 @@
-package io.polaris.indicators.pools;
+package io.polaris.indicator.pools;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
-import io.polaris.financial.Instrument;
-import io.polaris.indicators.api.IndicatorTimePeriod;
-import io.polaris.indicators.impl.bar.TimeBarIndicator;
-import io.polaris.indicators.pools.base.SingleLayerIndicatorPool;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.indicator.impl.bar.TimeBarIndicator;
+import io.polaris.indicator.pools.base.SingleLayerIndicatorPool;
+import io.polaris.vector.TimePeriod;
 
 @NotThreadSafe
 public final class TimeBarIndicatorPool extends SingleLayerIndicatorPool<TimeBarIndicator> {
@@ -16,7 +16,7 @@ public final class TimeBarIndicatorPool extends SingleLayerIndicatorPool<TimeBar
 	}
 
 	@Override
-	protected TimeBarIndicator generateIndicator(IndicatorTimePeriod period, Instrument instrument) {
+	protected TimeBarIndicator generateIndicator(TimePeriod period, Instrument instrument) {
 		return new TimeBarIndicator(instrument, period);
 	}
 
