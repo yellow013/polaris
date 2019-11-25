@@ -1,4 +1,4 @@
-package io.polaris.datetime.serial;
+package io.polaris.vector;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package io.polaris.indicators.api;
+package io.polaris.vector;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -8,7 +8,7 @@ import java.time.LocalTime;
  * 
  * @author yellow013
  */
-public enum IndicatorTimePeriod {
+public enum TimePeriod {
 
 	S1(Duration.ofSeconds(1)),
 
@@ -54,7 +54,7 @@ public enum IndicatorTimePeriod {
 
 	private Duration duration;
 
-	private IndicatorTimePeriod(Duration duration) {
+	private TimePeriod(Duration duration) {
 		this.duration = duration;
 	}
 
@@ -67,11 +67,12 @@ public enum IndicatorTimePeriod {
 	}
 
 	public static void main(String[] args) {
-		for (IndicatorTimePeriod period : IndicatorTimePeriod.values()) {
+		for (TimePeriod period : TimePeriod.values()) {
 			System.out.println(period.getSeconds());
 			LocalTime plusSeconds = LocalTime.of(21, 0, 0).plusSeconds(period.getSeconds());
 			System.out.println(plusSeconds);
 		}
+
 
 	}
 

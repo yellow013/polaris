@@ -1,4 +1,4 @@
-package io.polaris.datetime.serial;
+package io.polaris.vector;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +22,7 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 	public static RandomTimeSerial with(RandomTimeSerial other) {
 		if (other == null)
 			throw new IllegalArgumentException("other RandomTimeSerial cannot null");
-		return new RandomTimeSerial(other.timePoint, other.repeat + 1);
+		return new RandomTimeSerial(other.timePoint, other.repeat++);
 	}
 
 	private RandomTimeSerial(LocalDateTime startTime, long repeat) {
