@@ -1,4 +1,4 @@
-package io.polaris.market.impl;
+package io.polaris.financial.market.impl;
 
 import java.util.Set;
 

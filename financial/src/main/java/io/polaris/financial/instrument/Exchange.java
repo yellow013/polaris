@@ -1,4 +1,4 @@
-package io.polaris.financial;
+package io.polaris.financial.instrument;
 
 import java.time.ZoneId;
 

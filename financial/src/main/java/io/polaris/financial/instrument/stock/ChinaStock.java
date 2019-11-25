@@ -1,7 +1,7 @@
-package io.polaris.financial.stock;
+package io.polaris.financial.instrument.stock;
 
-import io.polaris.financial.Symbol;
-import io.polaris.financial.stock.base.Stock;
+import io.polaris.financial.instrument.Symbol;
+import io.polaris.financial.instrument.stock.base.Stock;
 
 public final class ChinaStock extends Stock {
 

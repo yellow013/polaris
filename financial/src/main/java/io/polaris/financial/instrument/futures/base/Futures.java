@@ -1,7 +1,7 @@
-package io.polaris.financial.futures.base;
+package io.polaris.financial.instrument.futures.base;
 
-import io.polaris.financial.AbstractInstrument;
-import io.polaris.financial.Symbol;
+import io.polaris.financial.instrument.AbstractInstrument;
+import io.polaris.financial.instrument.Symbol;
 
 public abstract class Futures extends AbstractInstrument {
 

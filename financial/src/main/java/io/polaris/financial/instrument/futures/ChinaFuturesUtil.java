@@ -1,4 +1,4 @@
-package io.polaris.financial.futures;
+package io.polaris.financial.instrument.futures;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

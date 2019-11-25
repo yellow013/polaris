@@ -1,4 +1,4 @@
-package io.polaris.financial.futures;
+package io.polaris.financial.instrument.futures;
 
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -11,10 +11,10 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.ffreedom.common.collections.ImmutableMaps;
 import io.ffreedom.common.collections.ImmutableSets;
-import io.polaris.datetime.TradingPeriod;
-import io.polaris.financial.Exchange;
-import io.polaris.financial.Symbol;
-import io.polaris.indicators.api.IndicatorTimePeriod;
+import io.polaris.financial.instrument.Exchange;
+import io.polaris.financial.instrument.Symbol;
+import io.polaris.financial.time.TradingPeriod;
+import io.polaris.vector.TimePeriod;
 
 public enum ChinaFuturesSymbol implements Symbol {
 
@@ -233,14 +233,15 @@ public enum ChinaFuturesSymbol implements Symbol {
 			throw new IllegalArgumentException("Term > 9999, Is too much.");
 		return symbolId + term;
 	}
-
+	
 	public static void main(String[] args) {
 		for (Symbol symbol : ChinaFuturesSymbol.values()) {
 			symbol.getTradingPeriodSet()
-					.each(tradingPeriod -> tradingPeriod.segmentByDuration(IndicatorTimePeriod.S30.getDuration()).each(
+					.each(tradingPeriod -> tradingPeriod.segmentByDuration(TimePeriod.S30.getDuration()).each(
 							timePeriod -> System.out.println(symbol.getSymbolName() + " | " + timePeriod.getEpochTime()
 									+ " -> " + timePeriod.getStartTime() + " - " + timePeriod.getEndTime())));
 		}
+
 	}
 
 }

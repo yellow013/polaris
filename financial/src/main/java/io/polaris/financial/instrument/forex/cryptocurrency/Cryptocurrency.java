@@ -1,7 +1,7 @@
-package io.polaris.financial.forex.cryptocurrency;
+package io.polaris.financial.instrument.forex.cryptocurrency;
 
-import io.polaris.financial.Symbol;
-import io.polaris.financial.forex.base.Forex;
+import io.polaris.financial.instrument.Symbol;
+import io.polaris.financial.instrument.forex.base.Forex;
 
 public final class Cryptocurrency extends Forex {
 

@@ -1,4 +1,4 @@
-package io.polaris.financial;
+package io.polaris.financial.instrument;
 
 public abstract class AbstractInstrument implements Instrument {
 

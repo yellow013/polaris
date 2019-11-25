@@ -1,7 +1,7 @@
-package io.polaris.financial.futures;
+package io.polaris.financial.instrument.futures;
 
-import io.polaris.financial.Symbol;
-import io.polaris.financial.futures.base.Futures;
+import io.polaris.financial.instrument.Symbol;
+import io.polaris.financial.instrument.futures.base.Futures;
 
 public class JapanFutures extends Futures {
 

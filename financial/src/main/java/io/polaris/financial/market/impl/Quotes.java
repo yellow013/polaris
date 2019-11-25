@@ -1,8 +1,8 @@
-package io.polaris.market.impl;
+package io.polaris.financial.market.impl;
 
 import java.util.NoSuchElementException;
 
-import io.polaris.market.api.QuoteLevelOverflowException;
+import io.polaris.financial.market.api.QuoteLevelOverflowException;
 
 public final class Quotes {
 

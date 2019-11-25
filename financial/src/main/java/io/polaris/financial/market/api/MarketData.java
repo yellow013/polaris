@@ -1,4 +1,4 @@
-package io.polaris.market.api;
+package io.polaris.financial.market.api;
 
 public interface MarketData {
 

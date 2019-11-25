@@ -1,7 +1,7 @@
-package io.polaris.financial.forex.base;
+package io.polaris.financial.instrument.forex.base;
 
-import io.polaris.financial.AbstractInstrument;
-import io.polaris.financial.Symbol;
+import io.polaris.financial.instrument.AbstractInstrument;
+import io.polaris.financial.instrument.Symbol;
 
 public abstract class Forex extends AbstractInstrument {
 

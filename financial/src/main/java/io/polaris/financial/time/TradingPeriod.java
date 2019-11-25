@@ -1,4 +1,4 @@
-package io.polaris.datetime;
+package io.polaris.financial.time;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import org.eclipse.collections.api.list.MutableList;
 import io.ffreedom.common.collections.MutableLists;
 import io.ffreedom.common.datetime.DateTimeUtil;
 import io.ffreedom.common.datetime.TimeConstants;
-import io.polaris.datetime.serial.TimePeriodSerial;
+import io.polaris.vector.TimePeriodSerial;
 
 /**
  * 指示某交易标的总的交易时间

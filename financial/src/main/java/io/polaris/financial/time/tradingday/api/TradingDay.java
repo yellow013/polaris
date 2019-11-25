@@ -1,4 +1,4 @@
-package io.polaris.datetime.tradingday.api;
+package io.polaris.financial.time.tradingday.api;
 
 import java.time.LocalDate;
 

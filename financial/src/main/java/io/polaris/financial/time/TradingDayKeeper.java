@@ -1,15 +1,15 @@
-package io.polaris.datetime.tradingday;
+package io.polaris.financial.time;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import io.polaris.datetime.tradingday.api.TradingDay;
-import io.polaris.datetime.tradingday.impl.ChinaFuturesTradingDayImpl;
-import io.polaris.datetime.tradingday.impl.CommonTradingDayImpl;
-import io.polaris.financial.Instrument;
-import io.polaris.financial.Symbol;
-import io.polaris.financial.futures.ChinaFutures;
-import io.polaris.financial.futures.ChinaFuturesSymbol;
+import io.polaris.financial.instrument.Instrument;
+import io.polaris.financial.instrument.Symbol;
+import io.polaris.financial.instrument.futures.ChinaFutures;
+import io.polaris.financial.instrument.futures.ChinaFuturesSymbol;
+import io.polaris.financial.time.tradingday.api.TradingDay;
+import io.polaris.financial.time.tradingday.impl.ChinaFuturesTradingDayImpl;
+import io.polaris.financial.time.tradingday.impl.CommonTradingDayImpl;
 
 @Deprecated
 public final class TradingDayKeeper {

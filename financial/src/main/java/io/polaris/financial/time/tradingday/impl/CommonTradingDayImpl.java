@@ -1,11 +1,11 @@
-package io.polaris.datetime.tradingday.impl;
+package io.polaris.financial.time.tradingday.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.annotation.concurrent.ThreadSafe;
 
-import io.polaris.datetime.tradingday.api.TradingDay;
+import io.polaris.financial.time.tradingday.api.TradingDay;
 
 @Deprecated
 @ThreadSafe
