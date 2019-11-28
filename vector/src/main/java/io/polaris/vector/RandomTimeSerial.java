@@ -2,9 +2,9 @@ package io.polaris.vector;
 
 import java.time.LocalDateTime;
 
-import io.ffreedom.common.datetime.EpochTime;
-import io.ffreedom.common.datetime.TimeZones;
-import io.ffreedom.common.sequence.Serial;
+import io.mercury.common.datetime.EpochTime;
+import io.mercury.common.datetime.TimeZones;
+import io.mercury.common.sequence.Serial;
 
 public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 

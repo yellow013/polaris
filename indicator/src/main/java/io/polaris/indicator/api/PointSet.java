@@ -8,9 +8,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
-import io.ffreedom.common.collections.MutableLists;
-import io.ffreedom.common.collections.MutableMaps;
-import io.ffreedom.common.sequence.Serial;
+import io.mercury.common.collections.MutableLists;
+import io.mercury.common.collections.MutableMaps;
+import io.mercury.common.sequence.Serial;
 
 @NotThreadSafe
 public final class PointSet<P extends Point<? extends Serial<?>>> {

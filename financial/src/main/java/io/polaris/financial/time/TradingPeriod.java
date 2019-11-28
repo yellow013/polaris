@@ -7,9 +7,9 @@ import java.time.LocalTime;
 
 import org.eclipse.collections.api.list.MutableList;
 
-import io.ffreedom.common.collections.MutableLists;
-import io.ffreedom.common.datetime.DateTimeUtil;
-import io.ffreedom.common.datetime.TimeConstants;
+import io.mercury.common.collections.MutableLists;
+import io.mercury.common.datetime.DateTimeUtil;
+import io.mercury.common.datetime.TimeConstants;
 import io.polaris.vector.TimePeriodSerial;
 
 /**

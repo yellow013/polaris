@@ -1,6 +1,6 @@
 package io.polaris.indicator.api;
 
-import io.ffreedom.common.sequence.Serial;
+import io.mercury.common.sequence.Serial;
 import io.polaris.financial.instrument.Instrument;
 import io.polaris.financial.market.impl.BasicMarketData;
 

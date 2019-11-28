@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import io.ffreedom.common.utils.StringUtil;
+import io.mercury.common.utils.StringUtil;
 
 public final class ChinaFuturesUtil {
 

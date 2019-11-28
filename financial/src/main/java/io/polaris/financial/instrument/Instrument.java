@@ -1,6 +1,6 @@
 package io.polaris.financial.instrument;
 
-import io.ffreedom.common.fsm.Enable;
+import io.mercury.common.fsm.Enable;
 
 public interface Instrument extends Enable {
 

@@ -9,8 +9,8 @@ import org.eclipse.collections.api.map.ImmutableMap;
 import org.eclipse.collections.api.map.primitive.ImmutableIntObjectMap;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
-import io.ffreedom.common.collections.ImmutableMaps;
-import io.ffreedom.common.collections.ImmutableSets;
+import io.mercury.common.collections.ImmutableMaps;
+import io.mercury.common.collections.ImmutableSets;
 import io.polaris.financial.instrument.Exchange;
 import io.polaris.financial.instrument.Symbol;
 import io.polaris.financial.time.TradingPeriod;

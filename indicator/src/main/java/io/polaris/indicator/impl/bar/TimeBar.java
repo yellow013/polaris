@@ -3,8 +3,8 @@ package io.polaris.indicator.impl.bar;
 import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableLongList;
 
-import io.ffreedom.common.collections.MutableLists;
-import io.ffreedom.common.number.DoubleArithmetic;
+import io.mercury.common.collections.MutableLists;
+import io.mercury.common.number.DoubleArithmetic;
 import io.polaris.financial.instrument.Instrument;
 import io.polaris.financial.market.impl.BasicMarketData;
 import io.polaris.indicator.base.TimePeriodPoint;

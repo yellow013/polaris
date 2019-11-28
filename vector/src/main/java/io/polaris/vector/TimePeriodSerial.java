@@ -2,8 +2,8 @@ package io.polaris.vector;
 
 import java.time.LocalDateTime;
 
-import io.ffreedom.common.datetime.TimeZones;
-import io.ffreedom.common.sequence.Serial;
+import io.mercury.common.datetime.TimeZones;
+import io.mercury.common.sequence.Serial;
 
 public final class TimePeriodSerial implements Serial<TimePeriodSerial> {
 

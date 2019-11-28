@@ -2,8 +2,8 @@ package io.polaris.indicator.pools.base;
 
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
-import io.ffreedom.common.collections.MutableMaps;
-import io.ffreedom.common.param.JointIdUtil;
+import io.mercury.common.collections.MutableMaps;
+import io.mercury.common.param.JointIdUtil;
 import io.polaris.financial.instrument.Instrument;
 import io.polaris.indicator.api.CalculationCycle;
 import io.polaris.indicator.base.BaseIndicator;

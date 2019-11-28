@@ -1,6 +1,6 @@
 package io.polaris.indicator.impl.ma;
 
-import io.ffreedom.common.number.DoubleArithmetic;
+import io.mercury.common.number.DoubleArithmetic;
 import io.polaris.financial.instrument.Instrument;
 import io.polaris.financial.market.impl.BasicMarketData;
 import io.polaris.indicator.api.CalculationCycle;

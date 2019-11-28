@@ -3,8 +3,8 @@ package io.polaris.indicator.pools.base;
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
-import io.ffreedom.common.collections.MutableLists;
-import io.ffreedom.common.log.CommonLoggerFactory;
+import io.mercury.common.collections.MutableLists;
+import io.mercury.common.log.CommonLoggerFactory;
 import io.polaris.financial.market.impl.BasicMarketData;
 import io.polaris.indicator.base.BaseIndicator;
 

@@ -2,7 +2,7 @@ package io.polaris.indicator.pools.base;
 
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 
-import io.ffreedom.common.collections.MutableMaps;
+import io.mercury.common.collections.MutableMaps;
 import io.polaris.financial.instrument.Instrument;
 import io.polaris.indicator.base.BaseIndicator;
 import io.polaris.vector.TimePeriod;
