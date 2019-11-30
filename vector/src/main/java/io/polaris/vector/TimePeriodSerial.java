@@ -30,7 +30,7 @@ public final class TimePeriodSerial implements Serial<TimePeriodSerial> {
 	}
 
 	@Override
-	public long getSerialNumber() {
+	public long serialNumber() {
 		return epochTime;
 	}
 

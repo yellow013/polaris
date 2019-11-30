@@ -53,26 +53,27 @@ public enum TimePeriod {
 	;
 
 	private Duration duration;
+	private int seconds;
 
 	private TimePeriod(Duration duration) {
 		this.duration = duration;
+		this.seconds = (int) duration.getSeconds();
 	}
 
-	public Duration getDuration() {
+	public Duration duration() {
 		return duration;
 	}
 
-	public long getSeconds() {
-		return duration.getSeconds();
+	public int seconds() {
+		return seconds;
 	}
 
 	public static void main(String[] args) {
 		for (TimePeriod period : TimePeriod.values()) {
-			System.out.println(period.getSeconds());
-			LocalTime plusSeconds = LocalTime.of(21, 0, 0).plusSeconds(period.getSeconds());
+			System.out.println(period.seconds());
+			LocalTime plusSeconds = LocalTime.of(21, 0, 0).plusSeconds(period.seconds());
 			System.out.println(plusSeconds);
 		}
-
 
 	}
 

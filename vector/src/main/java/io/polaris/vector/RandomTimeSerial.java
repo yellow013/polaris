@@ -41,15 +41,15 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 	}
 
 	@Override
-	public long getSerialNumber() {
+	public long serialNumber() {
 		return serialNumber;
 	}
 
-	public LocalDateTime getTimePoint() {
+	public LocalDateTime timePoint() {
 		return timePoint;
 	}
 
-	public long getEpochMillis() {
+	public long epochMillis() {
 		return epochMillis;
 	}
 
@@ -60,14 +60,14 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 		System.out.println(epochSecond);
 
 		RandomTimeSerial timeStarted0 = RandomTimeSerial.with(now);
-		System.out.println(timeStarted0.getTimePoint());
-		System.out.println(timeStarted0.getEpochMillis());
-		System.out.println(timeStarted0.getSerialNumber());
+		System.out.println(timeStarted0.timePoint());
+		System.out.println(timeStarted0.epochMillis());
+		System.out.println(timeStarted0.serialNumber());
 
 		RandomTimeSerial timeStarted1 = RandomTimeSerial.with(timeStarted0);
-		System.out.println(timeStarted1.getTimePoint());
-		System.out.println(timeStarted1.getEpochMillis());
-		System.out.println(timeStarted1.getSerialNumber());
+		System.out.println(timeStarted1.timePoint());
+		System.out.println(timeStarted1.epochMillis());
+		System.out.println(timeStarted1.serialNumber());
 
 		System.out.println(EpochTime.milliseconds());
 		System.out.println(EpochTime.seconds());
