@@ -20,18 +20,18 @@ abstract class BasePoint<S extends Serial<S>> implements Point<S>, Comparable<Po
 	}
 
 	@Override
-	public int getIndex() {
+	public int index() {
 		return index;
 	}
 
 	@Override
-	public Instrument getInstrument() {
+	public Instrument instrument() {
 		return instrument;
 	}
 
 	@Override
 	public int compareTo(Point<S> o) {
-		return getSerial().compareTo(o.getSerial());
+		return serial().compareTo(o.serial());
 	}
 
 	@Override

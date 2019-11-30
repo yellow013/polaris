@@ -45,7 +45,7 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 	@Override
 	public void addIndicatorEvent(E event) {
 		if (event != null) {
-			logger.info("Add IndicatorEvent -> name==[{}]", event.getEventName());
+			logger.info("Add IndicatorEvent -> name==[{}]", event.eventName());
 			events.add(event);
 		}
 	}
@@ -59,19 +59,19 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 	protected abstract void handleMarketData(BasicMarketData marketData);
 
 	@Override
-	public Instrument getInstrument() {
+	public Instrument instrument() {
 		return instrument;
 	}
 
 	@Override
-	public P getFastPoint() {
+	public P fastPoint() {
 		if (pointSet.size() == 0)
 			return currentPoint;
 		return pointSet.getFirst();
 	}
 
 	@Override
-	public P getCurrentPoint() {
+	public P currentPoint() {
 		return currentPoint;
 	}
 
@@ -85,7 +85,7 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 	}
 
 	@Override
-	public PointSet<P> getPointSet() {
+	public PointSet<P> pointSet() {
 		return pointSet;
 	}
 

@@ -28,7 +28,7 @@ public final class PointSet<P extends Point<? extends Serial<?>>> {
 	}
 
 	public boolean add(P point) {
-		long serialNumber = point.getSerial().getSerialNumber();
+		long serialNumber = point.serial().serialNumber();
 		if (pointMap.containsKey(serialNumber))
 			return false;
 		pointMap.put(serialNumber, point);
@@ -52,7 +52,7 @@ public final class PointSet<P extends Point<? extends Serial<?>>> {
 	}
 
 	public Optional<P> nextOf(P point) {
-		int index = point.getIndex();
+		int index = point.index();
 		return get(++index);
 	}
 

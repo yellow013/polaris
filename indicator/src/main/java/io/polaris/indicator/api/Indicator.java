@@ -6,7 +6,7 @@ import io.polaris.financial.market.impl.BasicMarketData;
 
 public interface Indicator<P extends Point<? extends Serial<?>>, E extends IndicatorEvent> {
 
-	Instrument getInstrument();
+	Instrument instrument();
 
 	void onMarketData(BasicMarketData marketData);
 
@@ -14,10 +14,10 @@ public interface Indicator<P extends Point<? extends Serial<?>>, E extends Indic
 
 	P getPoint(int index);
 
-	P getFastPoint();
+	P fastPoint();
 
-	P getCurrentPoint();
+	P currentPoint();
 
-	PointSet<P> getPointSet();
+	PointSet<P> pointSet();
 
 }

@@ -25,7 +25,7 @@ public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 		TradingPeriod tradingPeriod = TradingPeriodPool.Singleton.getAfterTradingPeriod(instrument, LocalTime.now());
 		LocalDate nowDate = LocalDate.now();
 		TimePeriodSerial timePeriod = TimePeriodSerial.with(LocalDateTime.of(nowDate, tradingPeriod.getStartTime()),
-				LocalDateTime.of(nowDate, tradingPeriod.getStartTime().plusSeconds(period.getSeconds()).minusNanos(1)));
+				LocalDateTime.of(nowDate, tradingPeriod.getStartTime().plusSeconds(period.seconds()).minusNanos(1)));
 		currentPoint = SmaPoint.with(0, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 

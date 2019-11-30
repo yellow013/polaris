@@ -22,7 +22,7 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends Base
 	}
 
 	@Override
-	public TimePeriodSerial getSerial() {
+	public TimePeriodSerial serial() {
 		return serial;
 	}
 

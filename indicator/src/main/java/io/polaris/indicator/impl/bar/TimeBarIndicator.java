@@ -39,7 +39,7 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
-		TimePeriodSerial currentPointSerial = currentPoint.getSerial();
+		TimePeriodSerial currentPointSerial = currentPoint.serial();
 		LocalDateTime marketDataTime = marketData.getZonedDateTime().toLocalDateTime();
 		if (currentPointSerial.isPeriod(marketData.getZonedDateTime().toLocalDateTime())) {
 			currentPoint.onMarketData(marketData);
@@ -54,7 +54,7 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 						currentPointSerial.getEndTime());
 				return;
 			}
-			while (!newBar.getSerial().isPeriod(marketDataTime)) {
+			while (!newBar.serial().isPeriod(marketDataTime)) {
 				newBar.onMarketData(preMarketData);
 				for (TimeBarsEvent timeBarsEvent : events)
 					timeBarsEvent.onStartTimeBar(newBar);

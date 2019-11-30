@@ -43,7 +43,7 @@ public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> ext
 		I saved = indicatorMap.get(index);
 		if (saved != null) {
 			logger.warn("Indicator existed. period==[{}], instrumentCode==[{}], cycle==[{}]", period,
-					instrument.getInstrumentId(), cycle);
+					instrument.instrumentId(), cycle);
 			return false;
 		}
 		indicatorMap.put(index, indicator);
@@ -51,7 +51,7 @@ public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> ext
 	}
 
 	private long calculateIndex(CalculationCycle cycle, Instrument instrument) {
-		return JointIdUtil.jointId(cycle.getCycleValue(), instrument.getInstrumentId());
+		return JointIdUtil.jointId(cycle.getCycleValue(), instrument.instrumentId());
 	}
 
 	private MutableLongObjectMap<I> getIndicatorMap(TimePeriod period) {

@@ -14,7 +14,7 @@ public abstract class BaseTimePeriodIndicator<P extends Point<TimePeriodSerial>,
 	protected CalculationCycle cycle;
 
 	public BaseTimePeriodIndicator(Instrument instrument, TimePeriod period) {
-		this(instrument, period, CalculationCycle.ONLY_ONE);
+		this(instrument, period, CalculationCycle.OnlyOne);
 	}
 
 	public BaseTimePeriodIndicator(Instrument instrument, TimePeriod period, CalculationCycle cycle) {

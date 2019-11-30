@@ -12,7 +12,7 @@ public abstract class BaseRandomTimeIndicator<P extends Point<RandomTimeSerial>,
 	protected CalculationCycle cycle;
 
 	public BaseRandomTimeIndicator(Instrument instrument) {
-		this(instrument, CalculationCycle.ONLY_ONE);
+		this(instrument, CalculationCycle.OnlyOne);
 	}
 
 	public BaseRandomTimeIndicator(Instrument instrument, CalculationCycle cycle) {

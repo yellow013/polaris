@@ -6,11 +6,11 @@ import io.polaris.financial.market.impl.BasicMarketData;
 
 public interface Point<S extends Serial<S>> {
 
-	int getIndex();
+	int index();
 
-	Instrument getInstrument();
+	Instrument instrument();
 
-	S getSerial();
+	S serial();
 
 	void onMarketData(BasicMarketData marketData);
 

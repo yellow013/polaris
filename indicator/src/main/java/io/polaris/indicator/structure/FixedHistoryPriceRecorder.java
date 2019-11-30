@@ -21,7 +21,7 @@ public class FixedHistoryPriceRecorder {
 	private boolean isEmpty = true;
 	private boolean isFull = false;
 
-	private static double nothingPrice = 0.0d;
+	private final static double NothingPrice = 0.0d;
 
 	private FixedHistoryPriceRecorder(int capacity) {
 		this.capacity = capacity;
@@ -40,15 +40,15 @@ public class FixedHistoryPriceRecorder {
 		return isFull;
 	}
 
-	public double getTail() {
+	public double tail() {
 		if (isEmpty)
-			return nothingPrice;
+			return NothingPrice;
 		return priceList.get(tail);
 	}
 
-	public double getHead() {
+	public double head() {
 		if (isEmpty)
-			return nothingPrice;
+			return NothingPrice;
 		if (isFull)
 			return priceList.get(tail + 1 == capacity ? 0 : tail + 1);
 		return priceList.get(tail - count + 1);
@@ -78,7 +78,7 @@ public class FixedHistoryPriceRecorder {
 		return priceList.toImmutable();
 	}
 
-	public int getCount() {
+	public int count() {
 		return count;
 	}
 
@@ -124,8 +124,8 @@ public class FixedHistoryPriceRecorder {
 			System.out.print("Value -> ");
 			recorder.priceList.each(value -> System.out.print(value + " , "));
 			System.out.println();
-			System.out.println("Head -> " + recorder.getHead());
-			System.out.println("Tail -> " + recorder.getTail());
+			System.out.println("Head -> " + recorder.head());
+			System.out.println("Tail -> " + recorder.tail());
 		}
 
 	}

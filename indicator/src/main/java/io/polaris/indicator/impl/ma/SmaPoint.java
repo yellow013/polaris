@@ -27,6 +27,17 @@ public final class SmaPoint extends MaPoint<SmaPoint> {
 		return new SmaPoint(indxe, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 
+	public CalculationCycle cycle() {
+		return cycle;
+	}
+
+	@Override
+	protected void handleMarketData(BasicMarketData marketData) {
+		this.lastPrice = marketData.getLastPrice();
+		int count = historyPriceRecorder.count();
+		this.avgPrice = DoubleArithmetic.correction4(historyPriceSum + lastPrice / count);
+	}
+
 	public static void main(String[] args) {
 
 		double d = 1 + 1 + 6 + 10;
@@ -36,17 +47,6 @@ public final class SmaPoint extends MaPoint<SmaPoint> {
 		System.out.println(b1 / 2);
 		System.out.println((1 + 1 + 6 + 10 + 20) / 2);
 
-	}
-
-	public CalculationCycle getCycle() {
-		return cycle;
-	}
-
-	@Override
-	protected void handleMarketData(BasicMarketData marketData) {
-		this.lastPrice = marketData.getLastPrice();
-		int count = historyPriceRecorder.getCount();
-		this.avgPrice = DoubleArithmetic.correction4(historyPriceSum + lastPrice / count);
 	}
 
 }

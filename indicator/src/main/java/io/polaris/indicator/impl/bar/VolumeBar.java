@@ -34,19 +34,19 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 		return new VolumeBar(index, instrument, RandomTimeSerial.with(timeStarted), limitVolume);
 	}
 
-	public double getOpen() {
+	public double open() {
 		return open;
 	}
 
-	public double getHighest() {
+	public double highest() {
 		return highest;
 	}
 
-	public double getLowest() {
+	public double lowest() {
 		return lowest;
 	}
 
-	public double getLast() {
+	public double last() {
 		return last;
 	}
 
@@ -65,11 +65,11 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 			open = price;
 	}
 
-	public long getLimitVolume() {
+	public long limitVolume() {
 		return limitVolume;
 	}
 
-	public long getCurrentVolume() {
+	public long currentVolume() {
 		return currentVolume;
 	}
 

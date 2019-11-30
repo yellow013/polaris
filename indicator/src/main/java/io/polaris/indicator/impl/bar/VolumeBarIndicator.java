@@ -18,7 +18,7 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 	public VolumeBarIndicator(Instrument instrument, long limitVolume) {
 		super(instrument);
 		this.limitVolume = limitVolume;
-		LocalTime startTime = instrument.getSymbol().getTradingPeriodSet().getFirstOptional().get().getStartTime();
+		LocalTime startTime = instrument.symbol().getTradingPeriodSet().getFirstOptional().get().getStartTime();
 		this.currentPoint = VolumeBar.with(0, instrument, LocalDateTime.of(LocalDate.now(), startTime), limitVolume);
 		pointSet.add(currentPoint);
 	}
@@ -63,20 +63,20 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 	private void createNewBarByCurrentPoint(BasicMarketData marketData, LocalDateTime marketDataLocalDatetime,
 			double price, long volume) {
 		// 获取当前节点的序列
-		RandomTimeSerial currentPointSerial = currentPoint.getSerial();
+		RandomTimeSerial currentPointSerial = currentPoint.serial();
 		// 获取当前节点时间
-		LocalDateTime currentPointDatetime = currentPointSerial.getTimePoint();
+		LocalDateTime currentPointDatetime = currentPointSerial.timePoint();
 		// 创建newBar指针
 		VolumeBar newBar = null;
 		// 如果当前节点与行情时间一致,则使用当前序列创建新节点序列,否则使用行情时间创建新节点序列
 		if (marketDataLocalDatetime.equals(currentPointDatetime))
-			newBar = VolumeBar.with(currentPoint.getIndex() + 1, instrument, currentPointSerial, limitVolume);
+			newBar = VolumeBar.with(currentPoint.index() + 1, instrument, currentPointSerial, limitVolume);
 		else
-			newBar = VolumeBar.with(currentPoint.getIndex() + 1, instrument, marketDataLocalDatetime, limitVolume);
+			newBar = VolumeBar.with(currentPoint.index() + 1, instrument, marketDataLocalDatetime, limitVolume);
 		// 将新创建的节点加入节点集合
 		pointSet.add(newBar);
 		// 初始化新节点的OpenPrice
-		newBar.initOpenPrice(currentPoint.getLast());
+		newBar.initOpenPrice(currentPoint.last());
 		// 新节点写入价格,处理的数量
 		newBar.handleData(price, volume);
 		// 更新节点的上一次行情

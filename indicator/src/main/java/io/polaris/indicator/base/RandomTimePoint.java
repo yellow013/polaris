@@ -13,7 +13,7 @@ public abstract class RandomTimePoint<Y extends RandomTimePoint<Y>> extends Base
 	}
 
 	@Override
-	public RandomTimeSerial getSerial() {
+	public RandomTimeSerial serial() {
 		return datetime;
 	}
 

@@ -18,15 +18,15 @@ public abstract class MaPoint<P extends MaPoint<P>> extends TimePeriodPoint<P> {
 		this.historyPriceRecorder = historyPriceRecorder;
 	}
 
-	public double getAvgPrice() {
+	public double avgPrice() {
 		return avgPrice;
 	}
 
-	public double getLastPrice() {
+	public double lastPrice() {
 		return lastPrice;
 	}
 
-	public FixedHistoryPriceRecorder getHistoryPriceRecorder() {
+	public FixedHistoryPriceRecorder historyPriceRecorder() {
 		return historyPriceRecorder;
 	}
 

@@ -39,23 +39,23 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
 	public TimeBar generateNext() {
 		return new TimeBar(index + 1, instrument, period,
-				TimePeriodSerial.with(serial.getStartTime().plusSeconds(period.getSeconds()),
-						serial.getEndTime().plusSeconds(period.getSeconds())));
+				TimePeriodSerial.with(serial.getStartTime().plusSeconds(period.seconds()),
+						serial.getEndTime().plusSeconds(period.seconds())));
 	}
 
-	public double getOpen() {
+	public double open() {
 		return open;
 	}
 
-	public double getHighest() {
+	public double highest() {
 		return highest;
 	}
 
-	public double getLowest() {
+	public double lowest() {
 		return lowest;
 	}
 
-	public double getLast() {
+	public double last() {
 		return last;
 	}
 
@@ -74,19 +74,19 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 			open = price;
 	}
 
-	public MutableDoubleList getPriceRecord() {
+	public MutableDoubleList priceRecord() {
 		return priceRecord;
 	}
 
-	public long getVolumeSum() {
+	public long volumeSum() {
 		return volumeSum;
 	}
 
-	public MutableLongList getVolumeRecord() {
+	public MutableLongList volumeRecord() {
 		return volumeRecord;
 	}
 
-	public double getTurnoverSum() {
+	public double turnoverSum() {
 		return turnoverSum;
 	}
 

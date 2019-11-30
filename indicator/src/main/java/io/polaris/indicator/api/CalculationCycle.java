@@ -7,7 +7,7 @@ package io.polaris.indicator.api;
  */
 public final class CalculationCycle {
 
-	public static CalculationCycle ONLY_ONE = CalculationCycle.with(1);
+	public final static CalculationCycle OnlyOne = CalculationCycle.with(1);
 
 	private int cycleValue;
 
