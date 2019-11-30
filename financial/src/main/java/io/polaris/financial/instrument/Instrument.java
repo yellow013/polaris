@@ -13,13 +13,13 @@ public interface Instrument extends Enable {
 	 * 
 	 * @return int
 	 */
-	int getInstrumentId();
+	int instrumentId();
 
-	InstrumentType getInstrumentType();
+	InstrumentType instrumentType();
 
-	String getInstrumentCode();
+	String instrumentCode();
 
-	Symbol getSymbol();
+	Symbol symbol();
 
 	boolean isAvailableNow();
 

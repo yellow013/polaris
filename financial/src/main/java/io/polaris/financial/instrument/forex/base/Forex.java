@@ -12,7 +12,7 @@ public abstract class Forex extends AbstractInstrument {
 	}
 
 	@Override
-	public InstrumentType getInstrumentType() {
+	public InstrumentType instrumentType() {
 		return InstrumentType.FOREX;
 	}
 

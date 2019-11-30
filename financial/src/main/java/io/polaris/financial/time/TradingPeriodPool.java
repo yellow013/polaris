@@ -52,7 +52,7 @@ public final class TradingPeriodPool {
 	 * @return
 	 */
 	public ImmutableSortedSet<TradingPeriod> getTradingPeriodSet(Instrument instrument) {
-		return getTradingPeriodSet(instrument.getSymbol());
+		return getTradingPeriodSet(instrument.symbol());
 	}
 
 	public ImmutableSortedSet<TradingPeriod> getTradingPeriodSet(Symbol symbol) {
@@ -60,7 +60,7 @@ public final class TradingPeriodPool {
 	}
 
 	public TradingPeriod getAfterTradingPeriod(Instrument instrument, LocalTime time) {
-		return getAfterTradingPeriod(instrument.getSymbol(), time);
+		return getAfterTradingPeriod(instrument.symbol(), time);
 	}
 
 	public TradingPeriod getAfterTradingPeriod(Symbol symbol, LocalTime time) {

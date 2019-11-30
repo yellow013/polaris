@@ -10,7 +10,7 @@ public abstract class Futures extends AbstractInstrument {
 	}
 
 	@Override
-	public InstrumentType getInstrumentType() {
+	public InstrumentType instrumentType() {
 		return InstrumentType.FUTURES;
 	}
 

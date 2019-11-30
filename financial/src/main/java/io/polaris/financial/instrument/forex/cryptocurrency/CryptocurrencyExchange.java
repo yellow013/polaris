@@ -11,7 +11,7 @@ public final class CryptocurrencyExchange extends Forex {
 	}
 
 	@Override
-	public String getInstrumentCode() {
+	public String instrumentCode() {
 		// TODO Auto-generated method stub
 		return null;
 	}

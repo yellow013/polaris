@@ -34,17 +34,17 @@ public abstract class AbstractInstrument implements Instrument {
 	}
 
 	@Override
-	public int getInstrumentId() {
+	public int instrumentId() {
 		return instrumentId;
 	}
 
 	@Override
-	public String getInstrumentCode() {
+	public String instrumentCode() {
 		return instrumentCode;
 	}
 
 	@Override
-	public Symbol getSymbol() {
+	public Symbol symbol() {
 		return symbol;
 	}
 

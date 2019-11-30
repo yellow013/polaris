@@ -74,13 +74,13 @@ public final class TimePeriodPool {
 			MutableLongObjectMap<TimePeriodSerial> timePeriodMap = MutableMaps.newLongObjectHashMap();
 			// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
 			symbol.getTradingPeriodSet().forEach(tradingPeriod -> {
-				MutableList<TimePeriodSerial> segmentByDuration = tradingPeriod.segmentByDuration(period.getDuration());
+				MutableList<TimePeriodSerial> segmentByDuration = tradingPeriod.segmentByDuration(period.duration());
 				segmentByDuration.each(timePeriod -> {
 					timePeriodSet.add(timePeriod);
-					timePeriodMap.put(timePeriod.getSerialNumber(), timePeriod);
+					timePeriodMap.put(timePeriod.serialNumber(), timePeriod);
 				});
 			});
-			long jointId = JointIdUtil.jointId((int) period.getSeconds(), symbol.getSymbolId());
+			long jointId = JointIdUtil.jointId((int) period.seconds(), symbol.getSymbolId());
 			timePeriodSetsPool.put(jointId, timePeriodSet.toImmutable());
 			timePeriodMapsPool.put(jointId, timePeriodMap.toImmutable());
 		}
@@ -99,7 +99,7 @@ public final class TimePeriodPool {
 	 * @return
 	 */
 	public ImmutableSortedSet<TimePeriodSerial> getTimePeriodSet(TimePeriod period, Instrument instrument) {
-		return getTimePeriodSet(period, instrument.getSymbol());
+		return getTimePeriodSet(period, instrument.symbol());
 	}
 
 	/**
@@ -111,17 +111,16 @@ public final class TimePeriodPool {
 	 * @return
 	 */
 	public ImmutableSortedSet<TimePeriodSerial> getTimePeriodSet(TimePeriod period, Symbol symbol) {
-		long jointId = JointIdUtil.jointId((int) period.getSeconds(), symbol.getSymbolId());
+		long jointId = JointIdUtil.jointId(period.seconds(), symbol.getSymbolId());
 		return immutableTimePeriodSetsPool.get(jointId);
 	}
 
-	public TradingPeriod getNextTimePeriod(Instrument instrument, TimePeriod period,
-			TimePeriodSerial timePeriod) {
-		return getNextTimePeriod(instrument.getSymbol(), period, timePeriod);
+	public TradingPeriod getNextTimePeriod(Instrument instrument, TimePeriod period, TimePeriodSerial timePeriod) {
+		return getNextTimePeriod(instrument.symbol(), period, timePeriod);
 	}
 
 	public TradingPeriod getNextTimePeriod(Symbol symbol, TimePeriod period, TimePeriodSerial timePeriod) {
-		long jointId = JointIdUtil.jointId((int) period.getSeconds(), symbol.getSymbolId());
+		long jointId = JointIdUtil.jointId(period.seconds(), symbol.getSymbolId());
 		immutableTimePeriodMapsPool.get(jointId);
 		// TODO
 		return null;

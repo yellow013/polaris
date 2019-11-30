@@ -237,7 +237,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 	public static void main(String[] args) {
 		for (Symbol symbol : ChinaFuturesSymbol.values()) {
 			symbol.getTradingPeriodSet()
-					.each(tradingPeriod -> tradingPeriod.segmentByDuration(TimePeriod.S30.getDuration()).each(
+					.each(tradingPeriod -> tradingPeriod.segmentByDuration(TimePeriod.S30.duration()).each(
 							timePeriod -> System.out.println(symbol.getSymbolName() + " | " + timePeriod.getEpochTime()
 									+ " -> " + timePeriod.getStartTime() + " - " + timePeriod.getEndTime())));
 		}

@@ -10,7 +10,7 @@ public abstract class Stock extends AbstractInstrument {
 	}
 
 	@Override
-	public InstrumentType getInstrumentType() {
+	public InstrumentType instrumentType() {
 		return InstrumentType.STOCK;
 	}
 
