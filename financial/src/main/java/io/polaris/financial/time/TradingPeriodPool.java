@@ -36,8 +36,8 @@ public final class TradingPeriodPool {
 	}
 
 	private void putTradingPeriod(Symbol symbol) {
-		if (!tradingPeriodMap.containsKey(symbol.getSymbolId()))
-			tradingPeriodMap.put(symbol.getSymbolId(), symbol.getTradingPeriodSet());
+		if (!tradingPeriodMap.containsKey(symbol.id()))
+			tradingPeriodMap.put(symbol.id(), symbol.tradingPeriodSet());
 	}
 
 	private void toImmutable() {
@@ -56,7 +56,7 @@ public final class TradingPeriodPool {
 	}
 
 	public ImmutableSortedSet<TradingPeriod> getTradingPeriodSet(Symbol symbol) {
-		return immutablePool.get(symbol.getSymbolId());
+		return immutablePool.get(symbol.id());
 	}
 
 	public TradingPeriod getAfterTradingPeriod(Instrument instrument, LocalTime time) {
@@ -69,7 +69,7 @@ public final class TradingPeriodPool {
 		int baseTime = time.toSecondOfDay();
 		int baseDiff = Integer.MAX_VALUE;
 		for (TradingPeriod tradingPeriod : tradingPeriodSet) {
-			int startSecondOfDay = tradingPeriod.getStartSecondOfDay();
+			int startSecondOfDay = tradingPeriod.startSecondOfDay();
 			int diff = Math.abs(startSecondOfDay - baseTime);
 			if (diff < baseDiff) {
 				baseDiff = diff;
@@ -84,7 +84,7 @@ public final class TradingPeriodPool {
 		Singleton.register(ChinaFuturesSymbol.values());
 
 		TradingPeriod afterTradingPeriod = Singleton.getAfterTradingPeriod(ChinaFuturesSymbol.RB, LocalTime.now());
-		System.out.println(afterTradingPeriod.getStartTime());
+		System.out.println(afterTradingPeriod.startTime());
 	}
 
 }

@@ -174,29 +174,28 @@ public enum ChinaFuturesSymbol implements Symbol {
 	private ImmutableSortedSet<TradingPeriod> tradingPeriodSet;
 
 	private ChinaFuturesSymbol(int exchangeNo, Exchange exchange, TradingPeriod... tradingPeriods) {
-		this.symbolId = exchange.getExchangeId() + exchangeNo * 10000;
+		this.symbolId = exchange.id() + exchangeNo * 10000;
 		this.exchange = exchange;
 		this.tradingPeriodSet = ImmutableSets.newSortedSet(tradingPeriods);
 	}
 
 	@Override
-	public int getSymbolId() {
+	public int id() {
 		return symbolId;
 	}
 
 	@Override
-	public String getSymbolName() {
-		return this.name();
+	public String code() {
+		return name();
 	}
 
 	@Override
-	public ImmutableSortedSet<TradingPeriod> getTradingPeriodSet() {
+	public ImmutableSortedSet<TradingPeriod> tradingPeriodSet() {
 		return tradingPeriodSet;
 	}
 
 	@Override
-	public Exchange getExchange() {
-
+	public Exchange exchange() {
 		return exchange;
 	}
 
@@ -204,20 +203,20 @@ public enum ChinaFuturesSymbol implements Symbol {
 	private final static ImmutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = ImmutableMaps.IntObjectMapFactory()
 			.from(
 					// 将ChinaFuturesSymbol转换为Iterable, 取SymbolId为Key
-					Arrays.asList(ChinaFuturesSymbol.values()), ChinaFuturesSymbol::getSymbolId, symbol -> symbol);
+					Arrays.asList(ChinaFuturesSymbol.values()), ChinaFuturesSymbol::id, symbol -> symbol);
 
 	// 建立SymbolNeam -> Symbol的映射
-	private final static ImmutableMap<String, ChinaFuturesSymbol> symbolNameMap = ImmutableMaps.newMap(
+	private final static ImmutableMap<String, ChinaFuturesSymbol> symbolCodeMap = ImmutableMaps.newMap(
 			// 将ChinaFuturesSymbol转换为Map
 			Stream.of(ChinaFuturesSymbol.values()).collect(Collectors.toMap(
 					// 取SymbolName为Key
-					ChinaFuturesSymbol::getSymbolName, symbol -> symbol)));
+					ChinaFuturesSymbol::name, symbol -> symbol)));
 
-	public static ChinaFuturesSymbol findOf(String symbolName) {
-		String key = symbolName.toUpperCase();
-		ChinaFuturesSymbol chinaFuturesSymbol = symbolNameMap.get(key);
+	public static ChinaFuturesSymbol findOf(String symbolCode) {
+		String key = symbolCode.toUpperCase();
+		ChinaFuturesSymbol chinaFuturesSymbol = symbolCodeMap.get(key);
 		if (chinaFuturesSymbol == null)
-			throw new IllegalArgumentException("Symbol Name -> " + symbolName + " is no mapping object");
+			throw new IllegalArgumentException("Symbol Code -> " + symbolCode + " is no mapping object");
 		return chinaFuturesSymbol;
 	}
 
@@ -228,17 +227,17 @@ public enum ChinaFuturesSymbol implements Symbol {
 		return chinaFuturesSymbol;
 	}
 
-	public int generateInstrumentId(int term) {
+	public int acquireInstrumentId(int term) {
 		if (term > 9999)
 			throw new IllegalArgumentException("Term > 9999, Is too much.");
 		return symbolId + term;
 	}
-	
+
 	public static void main(String[] args) {
 		for (Symbol symbol : ChinaFuturesSymbol.values()) {
-			symbol.getTradingPeriodSet()
-					.each(tradingPeriod -> tradingPeriod.segmentByDuration(TimePeriod.S30.duration()).each(
-							timePeriod -> System.out.println(symbol.getSymbolName() + " | " + timePeriod.getEpochTime()
+			symbol.tradingPeriodSet()
+					.each(tradingPeriod -> tradingPeriod.segmentByDuration(TimePeriod.S30.duration())
+							.each(timePeriod -> System.out.println(symbol.code() + " | " + timePeriod.getEpochTime()
 									+ " -> " + timePeriod.getStartTime() + " - " + timePeriod.getEndTime())));
 		}
 

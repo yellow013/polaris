@@ -6,12 +6,12 @@ import io.polaris.financial.time.TradingPeriod;
 
 public interface Symbol {
 
-	int getSymbolId();
+	int id();
 	
-	String getSymbolName();
+	String code();
 
-	ImmutableSortedSet<TradingPeriod> getTradingPeriodSet();
+	ImmutableSortedSet<TradingPeriod> tradingPeriodSet();
 
-	Exchange getExchange();
+	Exchange exchange();
 
 }

@@ -50,19 +50,19 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		}
 	}
 
-	public LocalTime getStartTime() {
+	public LocalTime startTime() {
 		return startTime;
 	}
 
-	public LocalTime getEndTime() {
+	public LocalTime endTime() {
 		return endTime;
 	}
 
-	public int getStartSecondOfDay() {
+	public int startSecondOfDay() {
 		return startSecondOfDay;
 	}
 
-	public int getEndSecondOfDay() {
+	public int endSecondOfDay() {
 		return endSecondOfDay;
 	}
 

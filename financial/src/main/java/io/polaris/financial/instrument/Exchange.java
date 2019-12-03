@@ -36,15 +36,15 @@ public enum Exchange {
 
 	}
 
-	public String getExchangeCode() {
-		return this.name();
-	}
-
-	public int getExchangeId() {
+	public int id() {
 		return exchangeId;
 	}
 
-	public ZoneId getZoneId() {
+	public String code() {
+		return name();
+	}
+
+	public ZoneId zoneId() {
 		return zoneId;
 	}
 

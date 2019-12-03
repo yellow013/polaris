@@ -8,7 +8,7 @@ public final class ChinaFutures extends Futures {
 
 	private ChinaFutures(ChinaFuturesSymbol symbol, int term, String instrumentCode,
 			PriorityCloseType priorityCloseType) {
-		super(symbol.generateInstrumentId(term), instrumentCode, symbol);
+		super(symbol.acquireInstrumentId(term), instrumentCode, symbol);
 		this.priorityCloseType = priorityCloseType;
 	}
 
@@ -17,7 +17,7 @@ public final class ChinaFutures extends Futures {
 	}
 
 	@Override
-	public PriorityCloseType getPriorityCloseType() {
+	public PriorityCloseType priorityCloseType() {
 		return priorityCloseType;
 	}
 

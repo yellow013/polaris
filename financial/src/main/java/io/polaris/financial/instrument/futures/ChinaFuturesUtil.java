@@ -56,9 +56,9 @@ public final class ChinaFuturesUtil {
 
 		System.out.println(Integer.MAX_VALUE);
 
-		System.out.println(ChinaFuturesSymbol.AG.getExchange().getExchangeId());
-		System.out.println(ChinaFuturesSymbol.AG.getSymbolId());
-		System.out.println(ChinaFuturesSymbol.AG.generateInstrumentId(1906));
+		System.out.println(ChinaFuturesSymbol.AG.exchange().id());
+		System.out.println(ChinaFuturesSymbol.AG.id());
+		System.out.println(ChinaFuturesSymbol.AG.acquireInstrumentId(1906));
 		
 		
 		System.out.println(analysisSymbolCode("rb1901"));

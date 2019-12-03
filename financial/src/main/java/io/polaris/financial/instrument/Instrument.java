@@ -13,11 +13,11 @@ public interface Instrument extends Enable {
 	 * 
 	 * @return int
 	 */
-	int instrumentId();
+	int id();
 
-	InstrumentType instrumentType();
+	InstrumentType type();
 
-	String instrumentCode();
+	String code();
 
 	Symbol symbol();
 
@@ -25,7 +25,7 @@ public interface Instrument extends Enable {
 
 	boolean isNakedShort();
 
-	default PriorityCloseType getPriorityCloseType() {
+	default PriorityCloseType priorityCloseType() {
 		return PriorityCloseType.NONE;
 	}
 

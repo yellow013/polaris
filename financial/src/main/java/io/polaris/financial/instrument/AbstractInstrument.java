@@ -2,14 +2,14 @@ package io.polaris.financial.instrument;
 
 public abstract class AbstractInstrument implements Instrument {
 
-	private int instrumentId;
-	private String instrumentCode;
+	private int id;
+	private String code;
 	private Symbol symbol;
 	private boolean isEnable;
 
-	protected AbstractInstrument(int instrumentId, String instrumentCode, Symbol symbol) {
-		this.instrumentId = instrumentId;
-		this.instrumentCode = instrumentCode;
+	protected AbstractInstrument(int id, String code, Symbol symbol) {
+		this.id = id;
+		this.code = code;
 		this.symbol = symbol;
 	}
 
@@ -34,13 +34,13 @@ public abstract class AbstractInstrument implements Instrument {
 	}
 
 	@Override
-	public int instrumentId() {
-		return instrumentId;
+	public int id() {
+		return id;
 	}
 
 	@Override
-	public String instrumentCode() {
-		return instrumentCode;
+	public String code() {
+		return code;
 	}
 
 	@Override

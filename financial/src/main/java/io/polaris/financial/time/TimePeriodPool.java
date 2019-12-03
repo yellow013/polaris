@@ -73,14 +73,14 @@ public final class TimePeriodPool {
 			MutableSortedSet<TimePeriodSerial> timePeriodSet = MutableSets.newTreeSortedSet();
 			MutableLongObjectMap<TimePeriodSerial> timePeriodMap = MutableMaps.newLongObjectHashMap();
 			// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
-			symbol.getTradingPeriodSet().forEach(tradingPeriod -> {
+			symbol.tradingPeriodSet().forEach(tradingPeriod -> {
 				MutableList<TimePeriodSerial> segmentByDuration = tradingPeriod.segmentByDuration(period.duration());
 				segmentByDuration.each(timePeriod -> {
 					timePeriodSet.add(timePeriod);
 					timePeriodMap.put(timePeriod.serialNumber(), timePeriod);
 				});
 			});
-			long jointId = JointIdUtil.jointId((int) period.seconds(), symbol.getSymbolId());
+			long jointId = JointIdUtil.jointId((int) period.seconds(), symbol.id());
 			timePeriodSetsPool.put(jointId, timePeriodSet.toImmutable());
 			timePeriodMapsPool.put(jointId, timePeriodMap.toImmutable());
 		}
@@ -111,7 +111,7 @@ public final class TimePeriodPool {
 	 * @return
 	 */
 	public ImmutableSortedSet<TimePeriodSerial> getTimePeriodSet(TimePeriod period, Symbol symbol) {
-		long jointId = JointIdUtil.jointId(period.seconds(), symbol.getSymbolId());
+		long jointId = JointIdUtil.jointId(period.seconds(), symbol.id());
 		return immutableTimePeriodSetsPool.get(jointId);
 	}
 
@@ -120,7 +120,7 @@ public final class TimePeriodPool {
 	}
 
 	public TradingPeriod getNextTimePeriod(Symbol symbol, TimePeriod period, TimePeriodSerial timePeriod) {
-		long jointId = JointIdUtil.jointId(period.seconds(), symbol.getSymbolId());
+		long jointId = JointIdUtil.jointId(period.seconds(), symbol.id());
 		immutableTimePeriodMapsPool.get(jointId);
 		// TODO
 		return null;
