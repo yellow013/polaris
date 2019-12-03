@@ -25,22 +25,22 @@ public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> ex
 
 	public I getIndicator(TimePeriod period, Instrument instrument) {
 		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
-		I saved = indicatorMap.get(instrument.instrumentId());
+		I saved = indicatorMap.get(instrument.id());
 		if (saved == null) {
 			saved = generateIndicator(period, instrument);
-			indicatorMap.put(instrument.instrumentId(), saved);
+			indicatorMap.put(instrument.id(), saved);
 		}
 		return saved;
 	}
 
 	public boolean putIndicator(TimePeriod period, Instrument instrument, I indicator) {
 		MutableIntObjectMap<I> indicatorMap = getIndicatorMap(period);
-		I saved = indicatorMap.get(instrument.instrumentId());
+		I saved = indicatorMap.get(instrument.id());
 		if (saved != null) {
-			logger.warn("Indicator existed. period==[{}], instrumentCode==[{}]", period, instrument.instrumentId());
+			logger.warn("Indicator existed. period==[{}], instrumentCode==[{}]", period, instrument.id());
 			return false;
 		}
-		indicatorMap.put(instrument.instrumentId(), indicator);
+		indicatorMap.put(instrument.id(), indicator);
 		return indicators.add(indicator);
 	}
 

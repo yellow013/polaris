@@ -18,7 +18,7 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 	public VolumeBarIndicator(Instrument instrument, long limitVolume) {
 		super(instrument);
 		this.limitVolume = limitVolume;
-		LocalTime startTime = instrument.symbol().getTradingPeriodSet().getFirstOptional().get().getStartTime();
+		LocalTime startTime = instrument.symbol().tradingPeriodSet().getFirstOptional().get().startTime();
 		this.currentPoint = VolumeBar.with(0, instrument, LocalDateTime.of(LocalDate.now(), startTime), limitVolume);
 		pointSet.add(currentPoint);
 	}
