@@ -39,8 +39,8 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
 	public TimeBar generateNext() {
 		return new TimeBar(index + 1, instrument, period,
-				TimePeriodSerial.with(serial.getStartTime().plusSeconds(period.seconds()),
-						serial.getEndTime().plusSeconds(period.seconds())));
+				TimePeriodSerial.with(serial.startTime().plusSeconds(period.seconds()),
+						serial.endTime().plusSeconds(period.seconds())));
 	}
 
 	public double open() {

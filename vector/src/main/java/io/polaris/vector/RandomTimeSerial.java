@@ -36,7 +36,7 @@ public final class RandomTimeSerial implements Serial<RandomTimeSerial> {
 		this.epochMillis = EpochTime.milliseconds(timePoint, TimeZones.SYSTEM_DEFAULT_OFFSET);
 	}
 
-	public void setSerialNumber() {
+	private void setSerialNumber() {
 		this.serialNumber = epochMillis * 1000L + repeat;
 	}
 

@@ -34,7 +34,7 @@ public final class TimePeriodSerial implements Serial<TimePeriodSerial> {
 		return epochTime;
 	}
 
-	public long getEpochTime() {
+	public long epochTime() {
 		return epochTime;
 	}
 
@@ -42,11 +42,11 @@ public final class TimePeriodSerial implements Serial<TimePeriodSerial> {
 		return startTime.isBefore(time) && endTime.isAfter(time) ? true : false;
 	}
 
-	public LocalDateTime getStartTime() {
+	public LocalDateTime startTime() {
 		return startTime;
 	}
 
-	public LocalDateTime getEndTime() {
+	public LocalDateTime endTime() {
 		return endTime;
 	}
 

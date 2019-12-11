@@ -26,12 +26,12 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends Base
 		return serial;
 	}
 
-	public LocalDateTime getStartTime() {
-		return serial.getStartTime();
+	public LocalDateTime startTime() {
+		return serial.startTime();
 	}
 
-	public LocalDateTime getEndTime() {
-		return serial.getEndTime();
+	public LocalDateTime endTime() {
+		return serial.endTime();
 	}
 
 }

@@ -50,8 +50,8 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 				timeBarsEvent.onEndTimeBar(currentPoint);
 			TimeBar newBar = pointSet.nextOf(currentPoint).orElse(null);
 			if (newBar == null) {
-				logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.getStartTime(),
-						currentPointSerial.getEndTime());
+				logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.startTime(),
+						currentPointSerial.endTime());
 				return;
 			}
 			while (!newBar.serial().isPeriod(marketDataTime)) {
@@ -62,8 +62,8 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 					timeBarsEvent.onEndTimeBar(newBar);
 				newBar = pointSet.nextOf(currentPoint).orElseGet(null);
 				if (newBar == null) {
-					logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.getStartTime(),
-							currentPointSerial.getEndTime());
+					logger.error("TimeBar [{}-{}] next is null.", currentPointSerial.startTime(),
+							currentPointSerial.endTime());
 					break;
 				}
 			}

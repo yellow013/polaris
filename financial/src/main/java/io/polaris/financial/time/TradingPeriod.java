@@ -126,7 +126,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		System.out.println(tradingPeriod.isPeriod(LocalTime.of(14, 00, 00)));
 
 		tradingPeriod.segmentByDuration(Duration.ofMinutes(45))
-				.each(timePeriod -> System.out.println(timePeriod.getStartTime() + " - " + timePeriod.getEndTime()));
+				.each(timePeriod -> System.out.println(timePeriod.startTime() + " - " + timePeriod.endTime()));
 
 		LocalDateTime of = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 55, 30));
 
