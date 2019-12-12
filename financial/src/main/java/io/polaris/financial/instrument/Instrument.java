@@ -29,6 +29,12 @@ public interface Instrument extends Enable {
 		return PriorityCloseType.NONE;
 	}
 
+	public interface MarketConstant {
+
+		long PriceMultiplier = 100_000_000L;
+
+	}
+
 	public static enum InstrumentType {
 
 		BOND,
