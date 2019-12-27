@@ -9,7 +9,7 @@ import org.eclipse.collections.api.list.MutableList;
 
 import io.mercury.common.collections.MutableLists;
 import io.mercury.common.datetime.DateTimeUtil;
-import io.mercury.common.datetime.TimeConstants;
+import io.mercury.common.datetime.TimeConst;
 import io.polaris.vector.TimePeriodSerial;
 
 /**
@@ -43,7 +43,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	private void setAttributes() {
 		if (startSecondOfDay > endSecondOfDay) {
 			isCrossDay = true;
-			totalDuration = Duration.ofSeconds(endSecondOfDay - startSecondOfDay + TimeConstants.SECONDS_PER_DAY);
+			totalDuration = Duration.ofSeconds(endSecondOfDay - startSecondOfDay + TimeConst.SECONDS_PER_DAY);
 		} else {
 			isCrossDay = false;
 			totalDuration = Duration.ofSeconds(endSecondOfDay - startSecondOfDay);
@@ -83,7 +83,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		// 获取分割参数的秒数
 		int seconds = (int) segmentationDuration.getSeconds();
 		// 判断分割段是否大于半天
-		if (seconds > TimeConstants.SECONDS_PER_HALF_DAY) {
+		if (seconds > TimeConst.SECONDS_PER_HALF_DAY) {
 			// 如果交易周期跨天,则此分割周期等于当天开始时间至次日结束时间
 			// 如果交易周期未跨天,则此分割周期等于当天开始时间至当天结束时间
 			return MutableLists.newFastList(isCrossDay
