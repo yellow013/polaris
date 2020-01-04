@@ -8,6 +8,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
+import io.mercury.common.collections.Capacity;
 import io.mercury.common.collections.MutableLists;
 import io.mercury.common.collections.MutableMaps;
 import io.mercury.common.sequence.Serial;
@@ -18,13 +19,13 @@ public final class PointSet<P extends Point<? extends Serial<?>>> {
 	private MutableList<P> points;
 	private MutableLongObjectMap<P> pointMap;
 
-	private PointSet(int size) {
-		this.points = MutableLists.newFastList(size);
-		this.pointMap = MutableMaps.newLongObjectHashMap(size);
+	private PointSet(Capacity capacity) {
+		this.points = MutableLists.newFastList(capacity.size());
+		this.pointMap = MutableMaps.newLongObjectHashMap(capacity);
 	}
 
-	public static <P extends Point<? extends Serial<?>>> PointSet<P> newEmpty(int size) {
-		return new PointSet<>(size);
+	public static <P extends Point<? extends Serial<?>>> PointSet<P> newEmpty(Capacity capacity) {
+		return new PointSet<>(capacity);
 	}
 
 	public boolean add(P point) {

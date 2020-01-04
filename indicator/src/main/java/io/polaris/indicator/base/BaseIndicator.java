@@ -3,6 +3,7 @@ package io.polaris.indicator.base;
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
+import io.mercury.common.collections.Capacity;
 import io.mercury.common.collections.MutableLists;
 import io.mercury.common.log.CommonLoggerFactory;
 import io.mercury.common.sequence.Serial;
@@ -34,12 +35,12 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 	protected MutableList<E> events = MutableLists.newFastList(8);
 
 	protected BaseIndicator(Instrument instrument) {
-		this(instrument, 256);
+		this(instrument, Capacity.L08_SIZE_256);
 	}
 
-	protected BaseIndicator(Instrument instrument, int size) {
+	protected BaseIndicator(Instrument instrument, Capacity capacity) {
 		this.instrument = instrument;
-		this.pointSet = PointSet.newEmpty(size);
+		this.pointSet = PointSet.newEmpty(capacity);
 	}
 
 	@Override
