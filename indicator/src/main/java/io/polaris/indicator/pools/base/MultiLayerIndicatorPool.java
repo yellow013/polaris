@@ -2,6 +2,7 @@ package io.polaris.indicator.pools.base;
 
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
+import io.mercury.common.collections.Capacity;
 import io.mercury.common.collections.MutableMaps;
 import io.mercury.common.param.JointIdUtil;
 import io.polaris.financial.instrument.Instrument;
@@ -11,17 +12,17 @@ import io.polaris.vector.TimePeriod;
 
 public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> extends BaseIndicatorPool<I> {
 
-	private MutableLongObjectMap<I> s1IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> s2IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> s5IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> s10IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> s15IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> s30IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> m1IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> m2IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> m5IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> m10IndicatorMap = MutableMaps.newLongObjectHashMap(8);
-	private MutableLongObjectMap<I> m15IndicatorMap = MutableMaps.newLongObjectHashMap(8);
+	private MutableLongObjectMap<I> s1IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> s2IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> s5IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> s10IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> s15IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> s30IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> m1IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> m2IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> m5IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> m10IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
+	private MutableLongObjectMap<I> m15IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
 
 	protected abstract I generateIndicator(TimePeriod period, CalculationCycle cycle, Instrument instrument);
 
