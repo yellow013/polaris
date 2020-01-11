@@ -3,6 +3,7 @@ package io.polaris.indicator.base;
 import org.eclipse.collections.api.list.MutableList;
 import org.slf4j.Logger;
 
+import io.mercury.common.annotation.lang.ProtectedAbstractMethod;
 import io.mercury.common.collections.Capacity;
 import io.mercury.common.collections.MutableLists;
 import io.mercury.common.log.CommonLoggerFactory;
@@ -57,6 +58,7 @@ public abstract class BaseIndicator<P extends Point<? extends Serial<?>>, E exte
 		this.preMarketData = marketData;
 	}
 
+	@ProtectedAbstractMethod
 	protected abstract void handleMarketData(BasicMarketData marketData);
 
 	@Override

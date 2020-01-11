@@ -1,5 +1,6 @@
 package io.polaris.indicator.base;
 
+import io.mercury.common.annotation.lang.ProtectedAbstractMethod;
 import io.mercury.common.sequence.Serial;
 import io.polaris.financial.instrument.Instrument;
 import io.polaris.financial.market.impl.BasicMarketData;
@@ -44,6 +45,7 @@ abstract class BasePoint<S extends Serial<S>> implements Point<S>, Comparable<Po
 		this.preMarketData = marketData;
 	}
 
+	@ProtectedAbstractMethod
 	protected abstract void handleMarketData(BasicMarketData marketData);
 
 }
