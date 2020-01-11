@@ -2,6 +2,7 @@ package io.polaris.indicator.pools.base;
 
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 
+import io.mercury.common.annotation.lang.ProtectedAbstractMethod;
 import io.mercury.common.collections.Capacity;
 import io.mercury.common.collections.MutableMaps;
 import io.mercury.common.param.JointIdUtil;
@@ -24,6 +25,7 @@ public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> ext
 	private MutableLongObjectMap<I> m10IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
 	private MutableLongObjectMap<I> m15IndicatorMap = MutableMaps.newLongObjectHashMap(Capacity.L04_SIZE_16);
 
+	@ProtectedAbstractMethod
 	protected abstract I generateIndicator(TimePeriod period, CalculationCycle cycle, Instrument instrument);
 
 	public I getIndicator(TimePeriod period, CalculationCycle cycle, Instrument instrument) {

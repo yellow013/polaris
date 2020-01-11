@@ -2,6 +2,7 @@ package io.polaris.indicator.pools.base;
 
 import org.eclipse.collections.api.map.primitive.MutableIntObjectMap;
 
+import io.mercury.common.annotation.lang.ProtectedAbstractMethod;
 import io.mercury.common.collections.Capacity;
 import io.mercury.common.collections.MutableMaps;
 import io.polaris.financial.instrument.Instrument;
@@ -22,6 +23,7 @@ public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> ex
 	private MutableIntObjectMap<I> m10IndicatorMap = MutableMaps.newIntObjectHashMap(Capacity.L04_SIZE_16);
 	private MutableIntObjectMap<I> m15IndicatorMap = MutableMaps.newIntObjectHashMap(Capacity.L04_SIZE_16);
 
+	@ProtectedAbstractMethod
 	protected abstract I generateIndicator(TimePeriod period, Instrument instrument);
 
 	public I getIndicator(TimePeriod period, Instrument instrument) {
