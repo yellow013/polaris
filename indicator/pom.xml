@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>io.polaris</groupId>
+		<groupId>io.mercury.polaris</groupId>
 		<artifactId>polaris</artifactId>
 		<version>0.1</version>
 	</parent>
@@ -17,11 +17,11 @@
 			<artifactId>commons-math3</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.polaris</groupId>
+			<groupId>io.mercury.polaris</groupId>
 			<artifactId>financial</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.polaris</groupId>
+			<groupId>io.mercury.polaris</groupId>
 			<artifactId>vector</artifactId>
 		</dependency>
 	</dependencies>
