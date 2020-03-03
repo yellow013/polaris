@@ -1,4 +1,4 @@
-package io.polaris.vector;
+package io.mercury.polaris.vector;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

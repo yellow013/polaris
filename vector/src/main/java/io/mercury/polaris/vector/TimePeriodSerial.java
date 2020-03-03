@@ -1,17 +1,16 @@
 package io.mercury.polaris.vector;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-import io.mercury.common.datetime.TimeZones;
 import io.mercury.common.sequence.Serial;
 
 public final class TimePeriodSerial implements Serial<TimePeriodSerial> {
 
-	private long epochTime;
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+	private long epochSecond;
+	private ZonedDateTime startTime;
+	private ZonedDateTime endTime;
 
-	public static TimePeriodSerial with(LocalDateTime startTime, LocalDateTime endTime) {
+	public static TimePeriodSerial with(ZonedDateTime startTime, ZonedDateTime endTime) {
 		if (startTime == null)
 			throw new IllegalArgumentException("startTime cannot null");
 		if (endTime == null)
@@ -19,34 +18,34 @@ public final class TimePeriodSerial implements Serial<TimePeriodSerial> {
 		return new TimePeriodSerial(startTime, endTime);
 	}
 
-	private TimePeriodSerial(LocalDateTime startTime, LocalDateTime endTime) {
+	private TimePeriodSerial(ZonedDateTime startTime, ZonedDateTime endTime) {
 		this.startTime = startTime;
 		this.endTime = endTime;
-		setEpochTime();
+		initEpochSecond();
 	}
 
-	private void setEpochTime() {
-		this.epochTime = startTime.toEpochSecond(TimeZones.UTC);
+	private void initEpochSecond() {
+		this.epochSecond = startTime.toEpochSecond();
 	}
 
 	@Override
 	public long serialNumber() {
-		return epochTime;
+		return epochSecond;
 	}
 
-	public long epochTime() {
-		return epochTime;
+	public long epochSecond() {
+		return epochSecond;
 	}
 
-	public boolean isPeriod(LocalDateTime time) {
+	public boolean isPeriod(ZonedDateTime time) {
 		return startTime.isBefore(time) && endTime.isAfter(time) ? true : false;
 	}
 
-	public LocalDateTime startTime() {
+	public ZonedDateTime startTime() {
 		return startTime;
 	}
 
-	public LocalDateTime endTime() {
+	public ZonedDateTime endTime() {
 		return endTime;
 	}
 

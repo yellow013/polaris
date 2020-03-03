@@ -10,6 +10,7 @@
 
 	<packaging>pom</packaging>
 	<name>polaris</name>
+	
 	<url>https://github.com/yellow013/polaris.git</url>
 
 	<modules>

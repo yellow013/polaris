@@ -50,6 +50,12 @@ public enum TimePeriod {
 
 	M15(Duration.ofMinutes(15)),
 
+	M20(Duration.ofMinutes(20)),
+
+	M30(Duration.ofMinutes(30)),
+
+	M60(Duration.ofMinutes(60)),
+
 	;
 
 	private Duration duration;
