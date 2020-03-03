@@ -5,16 +5,16 @@ import io.mercury.polaris.vector.RandomTimeSerial;
 
 public abstract class RandomTimePoint<Y extends RandomTimePoint<Y>> extends BasePoint<RandomTimeSerial> {
 
-	protected RandomTimeSerial datetime;
+	protected RandomTimeSerial timeSerial;
 
-	protected RandomTimePoint(int index, Instrument instrument, RandomTimeSerial datetime) {
+	protected RandomTimePoint(int index, Instrument instrument, RandomTimeSerial timeSerial) {
 		super(index, instrument);
-		this.datetime = datetime;
+		this.timeSerial = timeSerial;
 	}
 
 	@Override
 	public RandomTimeSerial serial() {
-		return datetime;
+		return timeSerial;
 	}
 
 }

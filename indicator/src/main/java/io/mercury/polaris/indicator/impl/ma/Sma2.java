@@ -1,8 +1,9 @@
 package io.mercury.polaris.indicator.impl.ma;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
@@ -24,8 +25,10 @@ public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 		this.historyPriceRecorder = FixedHistoryPriceRecorder.newRecorder(cycle);
 		TradingPeriod tradingPeriod = TradingPeriodPool.Singleton.getAfterTradingPeriod(instrument, LocalTime.now());
 		LocalDate nowDate = LocalDate.now();
-		TimePeriodSerial timePeriod = TimePeriodSerial.with(LocalDateTime.of(nowDate, tradingPeriod.startTime()),
-				LocalDateTime.of(nowDate, tradingPeriod.startTime().plusSeconds(period.seconds()).minusNanos(1)));
+		ZoneId zoneId = instrument.symbol().exchange().zoneId();
+		TimePeriodSerial timePeriod = TimePeriodSerial
+				.with(ZonedDateTime.of(nowDate, tradingPeriod.startTime(), zoneId), ZonedDateTime.of(nowDate,
+						tradingPeriod.startTime().plusSeconds(period.seconds()).minusNanos(1), zoneId));
 		currentPoint = SmaPoint.with(0, instrument, period, timePeriod, cycle, historyPriceRecorder);
 	}
 

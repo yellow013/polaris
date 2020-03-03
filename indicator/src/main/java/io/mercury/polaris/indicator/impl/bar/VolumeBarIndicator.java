@@ -1,8 +1,9 @@
 package io.mercury.polaris.indicator.impl.bar;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
@@ -18,8 +19,11 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 	public VolumeBarIndicator(Instrument instrument, long limitVolume) {
 		super(instrument);
 		this.limitVolume = limitVolume;
+		ZoneId zoneId = instrument.symbol().exchange().zoneId();
 		LocalTime startTime = instrument.symbol().tradingPeriodSet().getFirstOptional().get().startTime();
-		this.currentPoint = VolumeBar.with(0, instrument, LocalDateTime.of(LocalDate.now(), startTime), limitVolume);
+		// 创建指标的第一个节点
+		this.currentPoint = VolumeBar.with(0, instrument, ZonedDateTime.of(LocalDate.now(), startTime, zoneId),
+				limitVolume);
 		pointSet.add(currentPoint);
 	}
 
@@ -45,34 +49,34 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 			// 未处理的成交量等于行情成交量减去当前节点写入的数量
 			long unhandledVolume = volume - remainingVolume;
 			// 获取行情的时间
-			LocalDateTime marketDataLocalDatetime = marketData.getZonedDateTime().toLocalDateTime();
+			ZonedDateTime marketDataDatetime = marketData.getZonedDateTime();
 			// 未处理的成交量大于单个Bar的写入成交量上限
 			while (unhandledVolume > limitVolume) {
 				// 创建新节点,写入当前行情,当前行情时间,需要写入的价格,Bar最大写入数量
-				createNewBarByCurrentPoint(marketData, marketDataLocalDatetime, lastPrice, limitVolume);
+				createNewBarByCurrentPoint(marketData, marketDataDatetime, lastPrice, limitVolume);
 				// 剩余计算量减去单个Bar限制量
 				unhandledVolume -= limitVolume;
 			}
 			// 剩余的未计算量小于单个Bar的最大写入量但不为0
 			if (unhandledVolume > 0)
 				// 创建新节点,写入当前行情,当前行情时间,需要写入的价格,行情未处理的数量
-				createNewBarByCurrentPoint(marketData, marketDataLocalDatetime, lastPrice, unhandledVolume);
+				createNewBarByCurrentPoint(marketData, marketDataDatetime, lastPrice, unhandledVolume);
 		}
 	}
 
-	private void createNewBarByCurrentPoint(BasicMarketData marketData, LocalDateTime marketDataLocalDatetime,
-			double price, long volume) {
+	private void createNewBarByCurrentPoint(BasicMarketData marketData, ZonedDateTime marketDataDatetime, double price,
+			long volume) {
 		// 获取当前节点的序列
 		RandomTimeSerial currentPointSerial = currentPoint.serial();
 		// 获取当前节点时间
-		LocalDateTime currentPointDatetime = currentPointSerial.timePoint();
+		ZonedDateTime currentPointDatetime = currentPointSerial.timePoint();
 		// 创建newBar指针
 		VolumeBar newBar = null;
 		// 如果当前节点与行情时间一致,则使用当前序列创建新节点序列,否则使用行情时间创建新节点序列
-		if (marketDataLocalDatetime.equals(currentPointDatetime))
+		if (marketDataDatetime.equals(currentPointDatetime))
 			newBar = VolumeBar.with(currentPoint.index() + 1, instrument, currentPointSerial, limitVolume);
 		else
-			newBar = VolumeBar.with(currentPoint.index() + 1, instrument, marketDataLocalDatetime, limitVolume);
+			newBar = VolumeBar.with(currentPoint.index() + 1, instrument, marketDataDatetime, limitVolume);
 		// 将新创建的节点加入节点集合
 		pointSet.add(newBar);
 		// 初始化新节点的OpenPrice

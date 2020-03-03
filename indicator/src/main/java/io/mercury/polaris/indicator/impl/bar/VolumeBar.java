@@ -1,6 +1,6 @@
 package io.mercury.polaris.indicator.impl.bar;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
@@ -26,7 +26,7 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 		this.limitVolume = limitVolume;
 	}
 
-	public static VolumeBar with(int index, Instrument instrument, LocalDateTime datetime, long limitVolume) {
+	public static VolumeBar with(int index, Instrument instrument, ZonedDateTime datetime, long limitVolume) {
 		return new VolumeBar(index, instrument, RandomTimeSerial.with(datetime), limitVolume);
 	}
 

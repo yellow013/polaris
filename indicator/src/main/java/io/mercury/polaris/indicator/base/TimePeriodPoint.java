@@ -1,6 +1,6 @@
 package io.mercury.polaris.indicator.base;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.vector.TimePeriod;
@@ -26,11 +26,11 @@ public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends Base
 		return serial;
 	}
 
-	public LocalDateTime startTime() {
+	public ZonedDateTime startTime() {
 		return serial.startTime();
 	}
 
-	public LocalDateTime endTime() {
+	public ZonedDateTime endTime() {
 		return serial.endTime();
 	}
 

@@ -1,6 +1,6 @@
 package io.mercury.polaris.indicator.impl.bar;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
@@ -40,8 +40,8 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
 		TimePeriodSerial currentPointSerial = currentPoint.serial();
-		LocalDateTime marketDataTime = marketData.getZonedDateTime().toLocalDateTime();
-		if (currentPointSerial.isPeriod(marketData.getZonedDateTime().toLocalDateTime())) {
+		ZonedDateTime marketDataTime = marketData.getZonedDateTime();
+		if (currentPointSerial.isPeriod(marketDataTime)) {
 			currentPoint.onMarketData(marketData);
 			for (TimeBarsEvent timeBarsEvent : events)
 				timeBarsEvent.onCurrentTimeBarChanged(currentPoint);
