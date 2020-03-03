@@ -11,6 +11,7 @@ import org.eclipse.collections.api.set.sorted.MutableSortedSet;
 import io.mercury.common.collections.MutableMaps;
 import io.mercury.common.collections.MutableSets;
 import io.mercury.common.param.JointIdUtil;
+import io.mercury.common.util.Assertor;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.instrument.Symbol;
 import io.mercury.polaris.vector.TimePeriod;
@@ -59,10 +60,8 @@ public final class TimePeriodPool {
 	}
 
 	public void register(Symbol[] symbols, TimePeriod... periods) {
-		if (symbols == null)
-			throw new IllegalArgumentException("Illegal Argument -> symbols is null");
-		if (periods == null)
-			throw new IllegalArgumentException("Illegal Argument -> periods in null");
+		Assertor.validArray(symbols, 1, "symbols");
+		Assertor.validArray(periods, 1, "periods");	
 		for (TimePeriod period : periods)
 			generateTimePeriod(period, symbols);
 		toImmutable();
@@ -74,7 +73,8 @@ public final class TimePeriodPool {
 			MutableLongObjectMap<TimePeriodSerial> timePeriodMap = MutableMaps.newLongObjectHashMap();
 			// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
 			symbol.tradingPeriodSet().forEach(tradingPeriod -> {
-				MutableList<TimePeriodSerial> segmentByDuration = tradingPeriod.segmentByDuration(period.duration());
+				MutableList<TimePeriodSerial> segmentByDuration = tradingPeriod
+						.segmentByDuration(symbol.exchange().zoneId(), period.duration());
 				segmentByDuration.each(timePeriod -> {
 					timePeriodSet.add(timePeriod);
 					timePeriodMap.put(timePeriod.serialNumber(), timePeriod);

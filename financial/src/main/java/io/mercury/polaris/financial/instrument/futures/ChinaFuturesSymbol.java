@@ -1,7 +1,6 @@
 package io.mercury.polaris.financial.instrument.futures;
 
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,6 +10,8 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
 import io.mercury.common.collections.ImmutableMaps;
 import io.mercury.common.collections.ImmutableSets;
+import io.mercury.common.collections.MutableLists;
+import io.mercury.common.datetime.TimeZones;
 import io.mercury.polaris.financial.instrument.Exchange;
 import io.mercury.polaris.financial.instrument.Symbol;
 import io.mercury.polaris.financial.time.TradingPeriod;
@@ -202,8 +203,10 @@ public enum ChinaFuturesSymbol implements Symbol {
 	// 建立SymbolId -> Symbol的映射
 	private final static ImmutableIntObjectMap<ChinaFuturesSymbol> symbolIdMap = ImmutableMaps.IntObjectMapFactory()
 			.from(
-					// 将ChinaFuturesSymbol转换为Iterable, 取SymbolId为Key
-					Arrays.asList(ChinaFuturesSymbol.values()), ChinaFuturesSymbol::id, symbol -> symbol);
+					// 将ChinaFuturesSymbol转换为Iterable
+					MutableLists.newFastList(ChinaFuturesSymbol.values()),
+					// 取SymbolId为Key
+					ChinaFuturesSymbol::id, symbol -> symbol);
 
 	// 建立SymbolNeam -> Symbol的映射
 	private final static ImmutableMap<String, ChinaFuturesSymbol> symbolCodeMap = ImmutableMaps.newMap(
@@ -212,7 +215,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 					// 取SymbolName为Key
 					ChinaFuturesSymbol::name, symbol -> symbol)));
 
-	public static ChinaFuturesSymbol findOf(String symbolCode) {
+	public static ChinaFuturesSymbol of(String symbolCode) {
 		String key = symbolCode.toUpperCase();
 		ChinaFuturesSymbol chinaFuturesSymbol = symbolCodeMap.get(key);
 		if (chinaFuturesSymbol == null)
@@ -220,7 +223,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 		return chinaFuturesSymbol;
 	}
 
-	public static ChinaFuturesSymbol findOf(int symbolId) {
+	public static ChinaFuturesSymbol of(int symbolId) {
 		ChinaFuturesSymbol chinaFuturesSymbol = symbolIdMap.get(symbolId);
 		if (chinaFuturesSymbol == null)
 			throw new IllegalArgumentException("Symbol Id -> " + symbolId + " is no mapping object");
@@ -236,8 +239,8 @@ public enum ChinaFuturesSymbol implements Symbol {
 	public static void main(String[] args) {
 		for (Symbol symbol : ChinaFuturesSymbol.values()) {
 			symbol.tradingPeriodSet()
-					.each(tradingPeriod -> tradingPeriod.segmentByDuration(TimePeriod.S30.duration())
-							.each(timePeriod -> System.out.println(symbol.code() + " | " + timePeriod.epochTime()
+					.each(tradingPeriod -> tradingPeriod.segmentByDuration(TimeZones.CST, TimePeriod.S30.duration())
+							.each(timePeriod -> System.out.println(symbol.code() + " | " + timePeriod.epochSecond()
 									+ " -> " + timePeriod.startTime() + " - " + timePeriod.endTime())));
 		}
 
