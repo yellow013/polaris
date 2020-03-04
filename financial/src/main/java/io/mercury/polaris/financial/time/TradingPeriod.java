@@ -15,6 +15,7 @@ import io.mercury.common.collections.MutableLists;
 import io.mercury.common.datetime.DateTimeUtil;
 import io.mercury.common.datetime.TimeConst;
 import io.mercury.common.datetime.TimeZones;
+import io.mercury.common.sequence.Serial;
 import io.mercury.polaris.vector.TimePeriodSerial;
 
 /**
@@ -22,7 +23,7 @@ import io.mercury.polaris.vector.TimePeriodSerial;
  * 
  * @author yellow013
  */
-public final class TradingPeriod implements Comparable<TradingPeriod> {
+public final class TradingPeriod implements Serial<TradingPeriod> {
 
 	private int serialNumber;
 	private LocalTime startTime;
@@ -42,10 +43,6 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 		this.startSecondOfDay = startTime.toSecondOfDay();
 		this.endTime = endTime;
 		this.endSecondOfDay = endTime.toSecondOfDay();
-		setAttributes();
-	}
-
-	private void setAttributes() {
 		if (startSecondOfDay > endSecondOfDay) {
 			isCrossDay = true;
 			totalDuration = Duration.ofSeconds(endSecondOfDay - startSecondOfDay + TimeConst.SECONDS_PER_DAY);
@@ -72,8 +69,8 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 	}
 
 	@Override
-	public int compareTo(TradingPeriod o) {
-		return this.serialNumber < o.serialNumber ? -1 : this.serialNumber > o.serialNumber ? 1 : 0;
+	public long serialNumber() {
+		return serialNumber;
 	}
 
 	public boolean isPeriod(LocalTime time) {
@@ -84,7 +81,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 			return (startSecondOfDay <= secondOfDay || endSecondOfDay >= secondOfDay) ? true : false;
 	}
 
-	public MutableList<TimePeriodSerial> segmentByDuration(@Nonnull ZoneId zoneId, @Nonnull Duration duration) {
+	public MutableList<TimePeriodSerial> segmentation(@Nonnull ZoneId zoneId, @Nonnull Duration duration) {
 		// 获取分割参数的秒数
 		int seconds = (int) duration.getSeconds();
 		// 判断分割段是否大于半天
@@ -130,9 +127,7 @@ public final class TradingPeriod implements Comparable<TradingPeriod> {
 
 		System.out.println(tradingPeriod.isPeriod(LocalTime.of(14, 00, 00)));
 
-		tradingPeriod.segmentByDuration(
-				TimeZones.CST,
-				Duration.ofMinutes(45))
+		tradingPeriod.segmentation(TimeZones.CST, Duration.ofMinutes(45))
 				.each(timePeriod -> System.out.println(timePeriod.startTime() + " - " + timePeriod.endTime()));
 
 		LocalDateTime of = LocalDateTime.of(LocalDate.now(), LocalTime.of(23, 55, 30));

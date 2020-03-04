@@ -1,8 +1,9 @@
 package io.mercury.polaris.financial.time;
 
+import java.util.stream.Collectors;
+
 import javax.annotation.concurrent.ThreadSafe;
 
-import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.api.map.primitive.ImmutableLongObjectMap;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
@@ -26,7 +27,7 @@ public final class TimePeriodPool {
 	}
 
 	/**
-	 * 使用联合主键进行索引,高位为period, 低位为symbolId <br>
+	 * 使用联合主键进行索引,高位为symbolId, 低位为period <br>
 	 * 可变的Pool,最终元素为Set <br>
 	 * Map<(period + symbolId), Set<TimePeriod>>
 	 */
@@ -34,26 +35,12 @@ public final class TimePeriodPool {
 			.newLongObjectHashMap();
 
 	/**
-	 * 使用联合主键进行索引,高位为period, 低位为symbolId <br>
+	 * 使用联合主键进行索引,高位为symbolId, 低位为period <br>
 	 * 可变的Pool,最终元素为Map <br>
 	 * Map<(period + symbolId), Map<SerialNumber,TimePeriod>>
 	 */
 	private MutableLongObjectMap<ImmutableLongObjectMap<TimePeriodSerial>> timePeriodMapsPool = MutableMaps
 			.newLongObjectHashMap();
-
-	/**
-	 * 使用联合主键进行索引,高位为period, 低位为symbolId <br>
-	 * 不可变的Pool,用于查询,最终元素为Set<br>
-	 * Map<(period + symbolId), Set<TimePeriod>>
-	 */
-	private ImmutableLongObjectMap<ImmutableSortedSet<TimePeriodSerial>> immutableTimePeriodSetsPool;
-
-	/**
-	 * 使用联合主键进行索引,高位为period, 低位为symbolId <br>
-	 * 不可变的Pool,用于查询,最终元素为Map <br>
-	 * Map<(period + symbolId), Map<SerialNumber, TimePeriod>>
-	 */
-	private ImmutableLongObjectMap<ImmutableLongObjectMap<TimePeriodSerial>> immutableTimePeriodMapsPool;
 
 	public void register(Symbol symbol, TimePeriod... periods) {
 		register(new Symbol[] { symbol }, periods);
@@ -61,34 +48,26 @@ public final class TimePeriodPool {
 
 	public void register(Symbol[] symbols, TimePeriod... periods) {
 		Assertor.validArray(symbols, 1, "symbols");
-		Assertor.validArray(periods, 1, "periods");	
+		Assertor.validArray(periods, 1, "periods");
 		for (TimePeriod period : periods)
-			generateTimePeriod(period, symbols);
-		toImmutable();
+			generateTimePeriod(symbols, period);
 	}
 
-	private void generateTimePeriod(TimePeriod period, Symbol[] symbols) {
+	private void generateTimePeriod(Symbol[] symbols, TimePeriod period) {
 		for (Symbol symbol : symbols) {
 			MutableSortedSet<TimePeriodSerial> timePeriodSet = MutableSets.newTreeSortedSet();
 			MutableLongObjectMap<TimePeriodSerial> timePeriodMap = MutableMaps.newLongObjectHashMap();
 			// 获取指定品种下的全部交易时段,将交易时段按照指定指标周期切分
-			symbol.tradingPeriodSet().forEach(tradingPeriod -> {
-				MutableList<TimePeriodSerial> segmentByDuration = tradingPeriod
-						.segmentByDuration(symbol.exchange().zoneId(), period.duration());
-				segmentByDuration.each(timePeriod -> {
-					timePeriodSet.add(timePeriod);
-					timePeriodMap.put(timePeriod.serialNumber(), timePeriod);
-				});
-			});
-			long jointId = JointIdUtil.jointId((int) period.seconds(), symbol.id());
+			symbol.tradingPeriodSet().stream().flatMap(
+					tradingPeriod -> tradingPeriod.segmentation(symbol.exchange().zoneId(), period.duration()).stream())
+					.collect(Collectors.toList()).forEach(serial -> {
+						timePeriodSet.add(serial);
+						timePeriodMap.put(serial.serialNumber(), serial);
+					});
+			long jointId = JointIdUtil.jointId(symbol.id(), (int) period.seconds());
 			timePeriodSetsPool.put(jointId, timePeriodSet.toImmutable());
 			timePeriodMapsPool.put(jointId, timePeriodMap.toImmutable());
 		}
-	}
-
-	private void toImmutable() {
-		this.immutableTimePeriodSetsPool = timePeriodSetsPool.toImmutable();
-		this.immutableTimePeriodMapsPool = timePeriodMapsPool.toImmutable();
 	}
 
 	/**
@@ -98,8 +77,8 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public ImmutableSortedSet<TimePeriodSerial> getTimePeriodSet(TimePeriod period, Instrument instrument) {
-		return getTimePeriodSet(period, instrument.symbol());
+	public ImmutableSortedSet<TimePeriodSerial> getTimePeriodSet(Instrument instrument, TimePeriod period) {
+		return getTimePeriodSet(instrument.symbol(), period);
 	}
 
 	/**
@@ -110,18 +89,19 @@ public final class TimePeriodPool {
 	 * @param symbol
 	 * @return
 	 */
-	public ImmutableSortedSet<TimePeriodSerial> getTimePeriodSet(TimePeriod period, Symbol symbol) {
-		long jointId = JointIdUtil.jointId(period.seconds(), symbol.id());
-		return immutableTimePeriodSetsPool.get(jointId);
+	public ImmutableSortedSet<TimePeriodSerial> getTimePeriodSet(Symbol symbol, TimePeriod period) {
+		long jointId = JointIdUtil.jointId(symbol.id(), period.seconds());
+		return timePeriodSetsPool.get(jointId);
 	}
 
-	public TradingPeriod getNextTimePeriod(Instrument instrument, TimePeriod period, TimePeriodSerial timePeriod) {
-		return getNextTimePeriod(instrument.symbol(), period, timePeriod);
+	public TradingPeriod getNextTimePeriod(Instrument instrument, TimePeriod period, TimePeriodSerial serial) {
+		return getNextTimePeriod(instrument.symbol(), period, serial);
 	}
 
-	public TradingPeriod getNextTimePeriod(Symbol symbol, TimePeriod period, TimePeriodSerial timePeriod) {
-		long jointId = JointIdUtil.jointId(period.seconds(), symbol.id());
-		immutableTimePeriodMapsPool.get(jointId);
+	public TradingPeriod getNextTimePeriod(Symbol symbol, TimePeriod period, TimePeriodSerial serial) {
+		long jointId = JointIdUtil.jointId(symbol.id(), period.seconds());
+		ImmutableLongObjectMap<TimePeriodSerial> immutableLongObjectMap = timePeriodMapsPool.get(jointId);
+		// 获取下一条数据
 		// TODO
 		return null;
 	}
