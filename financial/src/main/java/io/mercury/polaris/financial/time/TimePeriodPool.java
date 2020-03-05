@@ -2,7 +2,7 @@ package io.mercury.polaris.financial.time;
 
 import java.util.stream.Collectors;
 
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import org.eclipse.collections.api.map.primitive.ImmutableLongObjectMap;
 import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
@@ -15,10 +15,10 @@ import io.mercury.common.param.JointIdUtil;
 import io.mercury.common.util.Assertor;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.instrument.Symbol;
-import io.mercury.polaris.vector.TimePeriod;
-import io.mercury.polaris.vector.TimePeriodSerial;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriodSerial;
 
-@ThreadSafe
+@NotThreadSafe
 public final class TimePeriodPool {
 
 	public static final TimePeriodPool Singleton = new TimePeriodPool();
@@ -31,7 +31,7 @@ public final class TimePeriodPool {
 	 * 可变的Pool,最终元素为Set <br>
 	 * Map<(period + symbolId), Set<TimePeriod>>
 	 */
-	private MutableLongObjectMap<ImmutableSortedSet<TimePeriodSerial>> timePeriodSetsPool = MutableMaps
+	private MutableLongObjectMap<ImmutableSortedSet<TimePeriodSerial>> timePeriodSetPool = MutableMaps
 			.newLongObjectHashMap();
 
 	/**
@@ -39,7 +39,7 @@ public final class TimePeriodPool {
 	 * 可变的Pool,最终元素为Map <br>
 	 * Map<(period + symbolId), Map<SerialNumber,TimePeriod>>
 	 */
-	private MutableLongObjectMap<ImmutableLongObjectMap<TimePeriodSerial>> timePeriodMapsPool = MutableMaps
+	private MutableLongObjectMap<ImmutableLongObjectMap<TimePeriodSerial>> timePeriodMapPool = MutableMaps
 			.newLongObjectHashMap();
 
 	public void register(Symbol symbol, TimePeriod... periods) {
@@ -65,8 +65,8 @@ public final class TimePeriodPool {
 						timePeriodMap.put(serial.serialNumber(), serial);
 					});
 			long jointId = JointIdUtil.jointId(symbol.id(), (int) period.seconds());
-			timePeriodSetsPool.put(jointId, timePeriodSet.toImmutable());
-			timePeriodMapsPool.put(jointId, timePeriodMap.toImmutable());
+			timePeriodSetPool.put(jointId, timePeriodSet.toImmutable());
+			timePeriodMapPool.put(jointId, timePeriodMap.toImmutable());
 		}
 	}
 
@@ -91,16 +91,35 @@ public final class TimePeriodPool {
 	 */
 	public ImmutableSortedSet<TimePeriodSerial> getTimePeriodSet(Symbol symbol, TimePeriod period) {
 		long jointId = JointIdUtil.jointId(symbol.id(), period.seconds());
-		return timePeriodSetsPool.get(jointId);
+		ImmutableSortedSet<TimePeriodSerial> sortedSet = timePeriodSetPool.get(jointId);
+		if (sortedSet == null) {
+			register(symbol, period);
+			sortedSet = timePeriodSetPool.get(jointId);
+		}
+		return sortedSet;
 	}
 
-	public TradingPeriod getNextTimePeriod(Instrument instrument, TimePeriod period, TimePeriodSerial serial) {
+	public ImmutableLongObjectMap<TimePeriodSerial> getTimePeriodMap(Instrument instrument, TimePeriod period) {
+		return getTimePeriodMap(instrument.symbol(), period);
+	}
+
+	public ImmutableLongObjectMap<TimePeriodSerial> getTimePeriodMap(Symbol symbol, TimePeriod period) {
+		long jointId = JointIdUtil.jointId(symbol.id(), period.seconds());
+		ImmutableLongObjectMap<TimePeriodSerial> longObjectMap = timePeriodMapPool.get(jointId);
+		if (longObjectMap == null) {
+			register(symbol, period);
+			longObjectMap = timePeriodMapPool.get(jointId);
+		}
+		return longObjectMap;
+	}
+
+	public TimePeriodSerial getNextTimePeriod(Instrument instrument, TimePeriod period, TimePeriodSerial serial) {
 		return getNextTimePeriod(instrument.symbol(), period, serial);
 	}
 
-	public TradingPeriod getNextTimePeriod(Symbol symbol, TimePeriod period, TimePeriodSerial serial) {
-		long jointId = JointIdUtil.jointId(symbol.id(), period.seconds());
-		ImmutableLongObjectMap<TimePeriodSerial> immutableLongObjectMap = timePeriodMapsPool.get(jointId);
+	public TimePeriodSerial getNextTimePeriod(Symbol symbol, TimePeriod period, TimePeriodSerial serial) {
+		ImmutableLongObjectMap<TimePeriodSerial> longObjectMap = getTimePeriodMap(symbol, period);
+		
 		// 获取下一条数据
 		// TODO
 		return null;

@@ -8,6 +8,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import io.mercury.common.datetime.EpochTime;
 import io.mercury.common.datetime.TimeZones;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.api.MarketData;
@@ -15,57 +16,59 @@ import io.mercury.polaris.financial.market.api.MarketData;
 /**
  * @author yellow013
  * @creation 2019年5月24日
+ * @description 价格全部*10000转换为long类型
  */
 public class BasicMarketData implements MarketData {
 
 	private Instrument instrument;
 	private long epochMillis;
-	private ZonedDateTime zonedDateTime;
-	private double lastPrice;
+	private ZonedDateTime dateTime;
+	private long lastPrice;
 	private long volume;
-	private double turnover;
+	private long turnover;
+
 	/** bid level 10 **/
-	private double bidPrice1;
+	private long bidPrice1;
 	private long bidVolume1;
-	private double bidPrice2;
+	private long bidPrice2;
 	private long bidVolume2;
-	private double bidPrice3;
+	private long bidPrice3;
 	private long bidVolume3;
-	private double bidPrice4;
+	private long bidPrice4;
 	private long bidVolume4;
-	private double bidPrice5;
+	private long bidPrice5;
 	private long bidVolume5;
-	private double bidPrice6;
+	private long bidPrice6;
 	private long bidVolume6;
-	private double bidPrice7;
+	private long bidPrice7;
 	private long bidVolume7;
-	private double bidPrice8;
+	private long bidPrice8;
 	private long bidVolume8;
-	private double bidPrice9;
+	private long bidPrice9;
 	private long bidVolume9;
-	private double bidPrice10;
+	private long bidPrice10;
 	private long bidVolume10;
 
 	/** ask level 10 **/
-	private double askPrice1;
+	private long askPrice1;
 	private long askVolume1;
-	private double askPrice2;
+	private long askPrice2;
 	private long askVolume2;
-	private double askPrice3;
+	private long askPrice3;
 	private long askVolume3;
-	private double askPrice4;
+	private long askPrice4;
 	private long askVolume4;
-	private double askPrice5;
+	private long askPrice5;
 	private long askVolume5;
-	private double askPrice6;
+	private long askPrice6;
 	private long askVolume6;
-	private double askPrice7;
+	private long askPrice7;
 	private long askVolume7;
-	private double askPrice8;
+	private long askPrice8;
 	private long askVolume8;
-	private double askPrice9;
+	private long askPrice9;
 	private long askVolume9;
-	private double askPrice10;
+	private long askPrice10;
 	private long askVolume10;
 
 	private BasicMarketData() {
@@ -76,15 +79,29 @@ public class BasicMarketData implements MarketData {
 		this.instrument = instrument;
 	}
 
-	public BasicMarketData(Instrument instrument, ZonedDateTime zonedDateTime) {
-		super();
+	public BasicMarketData(Instrument instrument, ZonedDateTime dateTime) {
 		this.instrument = instrument;
-		this.zonedDateTime = zonedDateTime;
+		this.epochMillis = EpochTime.milliseconds(dateTime);
+		this.dateTime = dateTime;
 	}
 
-	private BasicMarketData(Instrument instrument, long epochMillis, double lastPrice, long volume, double turnover) {
-		this.epochMillis = epochMillis;
+	private BasicMarketData(Instrument instrument, long epochMillis, long lastPrice, long volume, long turnover) {
 		this.instrument = instrument;
+		this.epochMillis = epochMillis;
+		this.lastPrice = lastPrice;
+		this.volume = volume;
+		this.turnover = turnover;
+	}
+
+	private BasicMarketData(Instrument instrument, ZonedDateTime dateTime, long lastPrice, long volume, long turnover) {
+		this(instrument, EpochTime.milliseconds(dateTime), dateTime, lastPrice, volume, turnover);
+	}
+
+	private BasicMarketData(Instrument instrument, long epochMillis, ZonedDateTime dateTime, long lastPrice,
+			long volume, long turnover) {
+		this.instrument = instrument;
+		this.epochMillis = epochMillis;
+		this.dateTime = dateTime;
 		this.lastPrice = lastPrice;
 		this.volume = volume;
 		this.turnover = turnover;
@@ -102,9 +119,14 @@ public class BasicMarketData implements MarketData {
 		return new BasicMarketData(instrument, zonedDateTime);
 	}
 
-	public static final BasicMarketData of(Instrument instrument, long epochMillis, double lastPrice, long volume,
-			double turnover) {
+	public static final BasicMarketData of(Instrument instrument, long epochMillis, long lastPrice, long volume,
+			long turnover) {
 		return new BasicMarketData(instrument, epochMillis, lastPrice, volume, turnover);
+	}
+
+	public static final BasicMarketData of(Instrument instrument, ZonedDateTime dateTime, long lastPrice, long volume,
+			long turnover) {
+		return new BasicMarketData(instrument, dateTime, lastPrice, volume, turnover);
 	}
 
 	public Instrument getInstrument() {
@@ -115,13 +137,13 @@ public class BasicMarketData implements MarketData {
 		return epochMillis;
 	}
 
-	public ZonedDateTime getZonedDateTime() {
-		if (zonedDateTime == null)
-			zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), TimeZones.SYSTEM_DEFAULT);
-		return zonedDateTime;
+	public ZonedDateTime getDateTime() {
+		if (dateTime == null)
+			dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(epochMillis), TimeZones.SYSTEM_DEFAULT);
+		return dateTime;
 	}
 
-	public double getLastPrice() {
+	public long getLastPrice() {
 		return lastPrice;
 	}
 
@@ -129,11 +151,11 @@ public class BasicMarketData implements MarketData {
 		return volume;
 	}
 
-	public double getTurnover() {
+	public long getTurnover() {
 		return turnover;
 	}
 
-	public double getBidPrice1() {
+	public long getBidPrice1() {
 		return bidPrice1;
 	}
 
@@ -141,7 +163,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume1;
 	}
 
-	public double getBidPrice2() {
+	public long getBidPrice2() {
 		return bidPrice2;
 	}
 
@@ -149,7 +171,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume2;
 	}
 
-	public double getBidPrice3() {
+	public long getBidPrice3() {
 		return bidPrice3;
 	}
 
@@ -157,7 +179,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume3;
 	}
 
-	public double getBidPrice4() {
+	public long getBidPrice4() {
 		return bidPrice4;
 	}
 
@@ -165,7 +187,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume4;
 	}
 
-	public double getBidPrice5() {
+	public long getBidPrice5() {
 		return bidPrice5;
 	}
 
@@ -173,7 +195,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume5;
 	}
 
-	public double getBidPrice6() {
+	public long getBidPrice6() {
 		return bidPrice6;
 	}
 
@@ -181,7 +203,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume6;
 	}
 
-	public double getBidPrice7() {
+	public long getBidPrice7() {
 		return bidPrice7;
 	}
 
@@ -189,7 +211,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume7;
 	}
 
-	public double getBidPrice8() {
+	public long getBidPrice8() {
 		return bidPrice8;
 	}
 
@@ -197,7 +219,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume8;
 	}
 
-	public double getBidPrice9() {
+	public long getBidPrice9() {
 		return bidPrice9;
 	}
 
@@ -205,7 +227,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume9;
 	}
 
-	public double getBidPrice10() {
+	public long getBidPrice10() {
 		return bidPrice10;
 	}
 
@@ -213,7 +235,7 @@ public class BasicMarketData implements MarketData {
 		return bidVolume10;
 	}
 
-	public double getAskPrice1() {
+	public long getAskPrice1() {
 		return askPrice1;
 	}
 
@@ -221,7 +243,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume1;
 	}
 
-	public double getAskPrice2() {
+	public long getAskPrice2() {
 		return askPrice2;
 	}
 
@@ -229,7 +251,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume2;
 	}
 
-	public double getAskPrice3() {
+	public long getAskPrice3() {
 		return askPrice3;
 	}
 
@@ -237,7 +259,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume3;
 	}
 
-	public double getAskPrice4() {
+	public long getAskPrice4() {
 		return askPrice4;
 	}
 
@@ -245,7 +267,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume4;
 	}
 
-	public double getAskPrice5() {
+	public long getAskPrice5() {
 		return askPrice5;
 	}
 
@@ -253,7 +275,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume5;
 	}
 
-	public double getAskPrice6() {
+	public long getAskPrice6() {
 		return askPrice6;
 	}
 
@@ -261,7 +283,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume6;
 	}
 
-	public double getAskPrice7() {
+	public long getAskPrice7() {
 		return askPrice7;
 	}
 
@@ -269,7 +291,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume7;
 	}
 
-	public double getAskPrice8() {
+	public long getAskPrice8() {
 		return askPrice8;
 	}
 
@@ -277,7 +299,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume8;
 	}
 
-	public double getAskPrice9() {
+	public long getAskPrice9() {
 		return askPrice9;
 	}
 
@@ -285,7 +307,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume9;
 	}
 
-	public double getAskPrice10() {
+	public long getAskPrice10() {
 		return askPrice10;
 	}
 
@@ -293,7 +315,7 @@ public class BasicMarketData implements MarketData {
 		return askVolume10;
 	}
 
-	public BasicMarketData setLastPrice(double lastPrice) {
+	public BasicMarketData setLastPrice(long lastPrice) {
 		this.lastPrice = lastPrice;
 		return this;
 	}
@@ -303,12 +325,12 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setTurnover(double turnover) {
+	public BasicMarketData setTurnover(long turnover) {
 		this.turnover = turnover;
 		return this;
 	}
 
-	public BasicMarketData setBidPrice1(double bidPrice1) {
+	public BasicMarketData setBidPrice1(long bidPrice1) {
 		this.bidPrice1 = bidPrice1;
 		return this;
 	}
@@ -318,7 +340,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice2(double bidPrice2) {
+	public BasicMarketData setBidPrice2(long bidPrice2) {
 		this.bidPrice2 = bidPrice2;
 		return this;
 	}
@@ -328,7 +350,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice3(double bidPrice3) {
+	public BasicMarketData setBidPrice3(long bidPrice3) {
 		this.bidPrice3 = bidPrice3;
 		return this;
 	}
@@ -338,7 +360,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice4(double bidPrice4) {
+	public BasicMarketData setBidPrice4(long bidPrice4) {
 		this.bidPrice4 = bidPrice4;
 		return this;
 	}
@@ -348,7 +370,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice5(double bidPrice5) {
+	public BasicMarketData setBidPrice5(long bidPrice5) {
 		this.bidPrice5 = bidPrice5;
 		return this;
 	}
@@ -358,7 +380,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice6(double bidPrice6) {
+	public BasicMarketData setBidPrice6(long bidPrice6) {
 		this.bidPrice6 = bidPrice6;
 		return this;
 	}
@@ -368,7 +390,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice7(double bidPrice7) {
+	public BasicMarketData setBidPrice7(long bidPrice7) {
 		this.bidPrice7 = bidPrice7;
 		return this;
 	}
@@ -378,7 +400,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice8(double bidPrice8) {
+	public BasicMarketData setBidPrice8(long bidPrice8) {
 		this.bidPrice8 = bidPrice8;
 		return this;
 	}
@@ -388,7 +410,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice9(double bidPrice9) {
+	public BasicMarketData setBidPrice9(long bidPrice9) {
 		this.bidPrice9 = bidPrice9;
 		return this;
 	}
@@ -398,7 +420,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setBidPrice10(double bidPrice10) {
+	public BasicMarketData setBidPrice10(long bidPrice10) {
 		this.bidPrice10 = bidPrice10;
 		return this;
 	}
@@ -408,7 +430,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice1(double askPrice1) {
+	public BasicMarketData setAskPrice1(long askPrice1) {
 		this.askPrice1 = askPrice1;
 		return this;
 	}
@@ -418,7 +440,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice2(double askPrice2) {
+	public BasicMarketData setAskPrice2(long askPrice2) {
 		this.askPrice2 = askPrice2;
 		return this;
 	}
@@ -428,7 +450,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice3(double askPrice3) {
+	public BasicMarketData setAskPrice3(long askPrice3) {
 		this.askPrice3 = askPrice3;
 		return this;
 	}
@@ -438,7 +460,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice4(double askPrice4) {
+	public BasicMarketData setAskPrice4(long askPrice4) {
 		this.askPrice4 = askPrice4;
 		return this;
 	}
@@ -448,7 +470,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice5(double askPrice5) {
+	public BasicMarketData setAskPrice5(long askPrice5) {
 		this.askPrice5 = askPrice5;
 		return this;
 	}
@@ -458,7 +480,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice6(double askPrice6) {
+	public BasicMarketData setAskPrice6(long askPrice6) {
 		this.askPrice6 = askPrice6;
 		return this;
 	}
@@ -468,7 +490,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice7(double askPrice7) {
+	public BasicMarketData setAskPrice7(long askPrice7) {
 		this.askPrice7 = askPrice7;
 		return this;
 	}
@@ -478,7 +500,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice8(double askPrice8) {
+	public BasicMarketData setAskPrice8(long askPrice8) {
 		this.askPrice8 = askPrice8;
 		return this;
 	}
@@ -488,7 +510,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice9(double askPrice9) {
+	public BasicMarketData setAskPrice9(long askPrice9) {
 		this.askPrice9 = askPrice9;
 		return this;
 	}
@@ -498,7 +520,7 @@ public class BasicMarketData implements MarketData {
 		return this;
 	}
 
-	public BasicMarketData setAskPrice10(double askPrice10) {
+	public BasicMarketData setAskPrice10(long askPrice10) {
 		this.askPrice10 = askPrice10;
 		return this;
 	}

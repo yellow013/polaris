@@ -2,7 +2,7 @@ package io.mercury.polaris.financial.instrument;
 
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 
-import io.mercury.polaris.financial.time.TradingPeriod;
+import io.mercury.polaris.financial.vector.TradingPeriod;
 
 public interface Symbol {
 

@@ -14,8 +14,8 @@ import io.mercury.common.collections.MutableLists;
 import io.mercury.common.datetime.TimeZones;
 import io.mercury.polaris.financial.instrument.Exchange;
 import io.mercury.polaris.financial.instrument.Symbol;
-import io.mercury.polaris.financial.time.TradingPeriod;
-import io.mercury.polaris.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TradingPeriod;
 
 public enum ChinaFuturesSymbol implements Symbol {
 
@@ -240,8 +240,7 @@ public enum ChinaFuturesSymbol implements Symbol {
 		for (Symbol symbol : ChinaFuturesSymbol.values()) {
 			symbol.tradingPeriodSet()
 					.each(tradingPeriod -> tradingPeriod.segmentation(TimeZones.CST, TimePeriod.S30.duration())
-							.each(timePeriod -> System.out.println(symbol.code() + " | " + timePeriod.epochSecond()
-									+ " -> " + timePeriod.startTime() + " - " + timePeriod.endTime())));
+							.each(timePeriod -> System.out.println(symbol.code() + " | " + timePeriod)));
 		}
 
 	}

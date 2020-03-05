@@ -1,4 +1,4 @@
-package io.mercury.polaris.vector;
+package io.mercury.polaris.financial.vector;
 
 import java.time.ZonedDateTime;
 
@@ -47,6 +47,16 @@ public final class TimePeriodSerial implements Serial<TimePeriodSerial> {
 
 	public ZonedDateTime endTime() {
 		return endTime;
+	}
+
+	private String toStringCache;
+
+	@Override
+	public String toString() {
+		if (toStringCache == null)
+			toStringCache = epochSecond + " -> [" + startTime.getZone() + "][" + startTime.toLocalDateTime() + " - "
+					+ endTime.toLocalDateTime() + "]";
+		return toStringCache;
 	}
 
 }
