@@ -7,9 +7,9 @@ import io.mercury.common.collections.Capacity;
 import io.mercury.common.collections.MutableMaps;
 import io.mercury.common.param.JointIdUtil;
 import io.mercury.polaris.financial.instrument.Instrument;
+import io.mercury.polaris.financial.vector.TimePeriod;
 import io.mercury.polaris.indicator.api.CalculationCycle;
 import io.mercury.polaris.indicator.base.BaseIndicator;
-import io.mercury.polaris.vector.TimePeriod;
 
 public abstract class MultiLayerIndicatorPool<I extends BaseIndicator<?, ?>> extends BaseIndicatorPool<I> {
 

@@ -7,9 +7,9 @@ import java.time.ZonedDateTime;
 
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
+import io.mercury.polaris.financial.vector.RandomTimeSerial;
 import io.mercury.polaris.indicator.base.BaseRandomTimeIndicator;
 import io.mercury.polaris.indicator.events.VolumeBarsEvent;
-import io.mercury.polaris.vector.RandomTimeSerial;
 
 public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar, VolumeBarsEvent> {
 
@@ -49,7 +49,7 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 			// 未处理的成交量等于行情成交量减去当前节点写入的数量
 			long unhandledVolume = volume - remainingVolume;
 			// 获取行情的时间
-			ZonedDateTime marketDataDatetime = marketData.getZonedDateTime();
+			ZonedDateTime marketDataDatetime = marketData.getDateTime();
 			// 未处理的成交量大于单个Bar的写入成交量上限
 			while (unhandledVolume > limitVolume) {
 				// 创建新节点,写入当前行情,当前行情时间,需要写入的价格,Bar最大写入数量

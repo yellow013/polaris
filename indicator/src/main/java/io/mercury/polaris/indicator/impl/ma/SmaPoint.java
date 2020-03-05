@@ -3,11 +3,11 @@ package io.mercury.polaris.indicator.impl.ma;
 import io.mercury.common.number.DoubleArithmetic;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriodSerial;
 import io.mercury.polaris.indicator.api.CalculationCycle;
 import io.mercury.polaris.indicator.impl.ma.base.MaPoint;
 import io.mercury.polaris.indicator.structure.FixedHistoryPriceRecorder;
-import io.mercury.polaris.vector.TimePeriod;
-import io.mercury.polaris.vector.TimePeriodSerial;
 
 public final class SmaPoint extends MaPoint<SmaPoint> {
 

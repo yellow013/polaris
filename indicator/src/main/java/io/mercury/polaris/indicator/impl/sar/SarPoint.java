@@ -2,9 +2,9 @@ package io.mercury.polaris.indicator.impl.sar;
 
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriodSerial;
 import io.mercury.polaris.indicator.base.TimePeriodPoint;
-import io.mercury.polaris.vector.TimePeriod;
-import io.mercury.polaris.vector.TimePeriodSerial;
 
 public final class SarPoint extends TimePeriodPoint<SarPoint> {
 

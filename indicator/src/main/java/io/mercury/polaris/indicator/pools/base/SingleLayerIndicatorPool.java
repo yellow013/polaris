@@ -6,8 +6,8 @@ import io.mercury.common.annotation.lang.ProtectedAbstractMethod;
 import io.mercury.common.collections.Capacity;
 import io.mercury.common.collections.MutableMaps;
 import io.mercury.polaris.financial.instrument.Instrument;
+import io.mercury.polaris.financial.vector.TimePeriod;
 import io.mercury.polaris.indicator.base.BaseIndicator;
-import io.mercury.polaris.vector.TimePeriod;
 
 public abstract class SingleLayerIndicatorPool<I extends BaseIndicator<?, ?>> extends BaseIndicatorPool<I> {
 

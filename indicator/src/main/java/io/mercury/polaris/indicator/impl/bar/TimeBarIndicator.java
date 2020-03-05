@@ -7,18 +7,18 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
 import io.mercury.polaris.financial.time.TimePeriodPool;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriodSerial;
 import io.mercury.polaris.indicator.base.BaseTimePeriodIndicator;
 import io.mercury.polaris.indicator.events.TimeBarsEvent;
-import io.mercury.polaris.vector.TimePeriod;
-import io.mercury.polaris.vector.TimePeriodSerial;
 
 public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, TimeBarsEvent> {
 
 	public TimeBarIndicator(Instrument instrument, TimePeriod period) {
 		super(instrument, period);
 		// 从已经根据交易周期分配好的池中获取此指标的分割节点
-		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period,
-				instrument);
+		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(instrument,
+				period);
 		int i = -1;
 		for (TimePeriodSerial timePeriod : timePeriodSet)
 			pointSet.add(TimeBar.with(++i, instrument, period, timePeriod));
@@ -40,7 +40,7 @@ public final class TimeBarIndicator extends BaseTimePeriodIndicator<TimeBar, Tim
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
 		TimePeriodSerial currentPointSerial = currentPoint.serial();
-		ZonedDateTime marketDataTime = marketData.getZonedDateTime();
+		ZonedDateTime marketDataTime = marketData.getDateTime();
 		if (currentPointSerial.isPeriod(marketDataTime)) {
 			currentPoint.onMarketData(marketData);
 			for (TimeBarsEvent timeBarsEvent : events)

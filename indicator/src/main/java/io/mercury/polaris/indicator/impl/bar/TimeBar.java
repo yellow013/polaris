@@ -7,9 +7,9 @@ import io.mercury.common.collections.MutableLists;
 import io.mercury.common.number.DoubleArithmetic;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriodSerial;
 import io.mercury.polaris.indicator.base.TimePeriodPoint;
-import io.mercury.polaris.vector.TimePeriod;
-import io.mercury.polaris.vector.TimePeriodSerial;
 
 public final class TimeBar extends TimePeriodPoint<TimeBar> {
 

@@ -9,12 +9,12 @@ import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
 import io.mercury.polaris.financial.time.TradingPeriod;
 import io.mercury.polaris.financial.time.TradingPeriodPool;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriodSerial;
 import io.mercury.polaris.indicator.api.CalculationCycle;
 import io.mercury.polaris.indicator.base.BaseTimePeriodIndicator;
 import io.mercury.polaris.indicator.events.SmaEvent;
 import io.mercury.polaris.indicator.structure.FixedHistoryPriceRecorder;
-import io.mercury.polaris.vector.TimePeriod;
-import io.mercury.polaris.vector.TimePeriodSerial;
 
 public final class Sma2 extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 

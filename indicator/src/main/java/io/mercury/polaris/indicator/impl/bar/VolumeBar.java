@@ -4,8 +4,8 @@ import java.time.ZonedDateTime;
 
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
+import io.mercury.polaris.financial.vector.RandomTimeSerial;
 import io.mercury.polaris.indicator.base.RandomTimePoint;
-import io.mercury.polaris.vector.RandomTimeSerial;
 
 public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 

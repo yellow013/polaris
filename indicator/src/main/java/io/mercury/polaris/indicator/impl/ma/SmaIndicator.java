@@ -5,12 +5,12 @@ import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
 import io.mercury.polaris.financial.time.TimePeriodPool;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriodSerial;
 import io.mercury.polaris.indicator.api.CalculationCycle;
 import io.mercury.polaris.indicator.base.BaseTimePeriodIndicator;
 import io.mercury.polaris.indicator.events.SmaEvent;
 import io.mercury.polaris.indicator.structure.FixedHistoryPriceRecorder;
-import io.mercury.polaris.vector.TimePeriod;
-import io.mercury.polaris.vector.TimePeriodSerial;
 
 public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEvent> {
 
@@ -20,7 +20,7 @@ public final class SmaIndicator extends BaseTimePeriodIndicator<SmaPoint, SmaEve
 		super(instrument, period, cycle);
 
 		this.historyPriceRecorder = FixedHistoryPriceRecorder.newRecorder(cycle);
-		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(period, instrument);
+		ImmutableSortedSet<TimePeriodSerial> timePeriodSet = TimePeriodPool.Singleton.getTimePeriodSet(instrument, period);
 		int i = -1;
 		for (TimePeriodSerial timePeriod : timePeriodSet)
 			pointSet.add(SmaPoint.with(++i, instrument, period, timePeriod, cycle, historyPriceRecorder));

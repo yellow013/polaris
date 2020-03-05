@@ -3,8 +3,8 @@ package io.mercury.polaris.indicator.base;
 import java.time.ZonedDateTime;
 
 import io.mercury.polaris.financial.instrument.Instrument;
-import io.mercury.polaris.vector.TimePeriod;
-import io.mercury.polaris.vector.TimePeriodSerial;
+import io.mercury.polaris.financial.vector.TimePeriod;
+import io.mercury.polaris.financial.vector.TimePeriodSerial;
 
 public abstract class TimePeriodPoint<Y extends TimePeriodPoint<Y>> extends BasePoint<TimePeriodSerial> {
 
