@@ -111,20 +111,20 @@ public class BasicMarketData implements MarketData {
 		return new BasicMarketData();
 	}
 
-	public static final BasicMarketData of(Instrument instrument, long epochMillis) {
+	public static final BasicMarketData with(Instrument instrument, long epochMillis) {
 		return new BasicMarketData(instrument, epochMillis);
 	}
 
-	public static final BasicMarketData of(Instrument instrument, ZonedDateTime zonedDateTime) {
+	public static final BasicMarketData with(Instrument instrument, ZonedDateTime zonedDateTime) {
 		return new BasicMarketData(instrument, zonedDateTime);
 	}
 
-	public static final BasicMarketData of(Instrument instrument, long epochMillis, long lastPrice, long volume,
+	public static final BasicMarketData with(Instrument instrument, long epochMillis, long lastPrice, long volume,
 			long turnover) {
 		return new BasicMarketData(instrument, epochMillis, lastPrice, volume, turnover);
 	}
 
-	public static final BasicMarketData of(Instrument instrument, ZonedDateTime dateTime, long lastPrice, long volume,
+	public static final BasicMarketData with(Instrument instrument, ZonedDateTime dateTime, long lastPrice, long volume,
 			long turnover) {
 		return new BasicMarketData(instrument, dateTime, lastPrice, volume, turnover);
 	}

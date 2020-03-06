@@ -13,9 +13,5 @@
 	<name>financial</name>
 	
 	<dependencies>
-		<dependency>
-			<groupId>io.mercury.polaris</groupId>
-			<artifactId>vector</artifactId>
-		</dependency>
 	</dependencies>
 </project>

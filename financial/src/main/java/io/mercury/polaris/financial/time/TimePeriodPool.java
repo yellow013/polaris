@@ -2,6 +2,7 @@ package io.mercury.polaris.financial.time;
 
 import java.util.stream.Collectors;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.eclipse.collections.api.map.primitive.ImmutableLongObjectMap;
@@ -117,12 +118,10 @@ public final class TimePeriodPool {
 		return getNextTimePeriod(instrument.symbol(), period, serial);
 	}
 
+	@CheckForNull
 	public TimePeriodSerial getNextTimePeriod(Symbol symbol, TimePeriod period, TimePeriodSerial serial) {
 		ImmutableLongObjectMap<TimePeriodSerial> longObjectMap = getTimePeriodMap(symbol, period);
-		
-		// 获取下一条数据
-		// TODO
-		return null;
+		return longObjectMap.get(serial.serialNumber() + period.seconds());
 	}
 
 }

@@ -12,6 +12,7 @@ import io.mercury.common.collections.MutableMaps;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.instrument.Symbol;
 import io.mercury.polaris.financial.instrument.futures.ChinaFuturesSymbol;
+import io.mercury.polaris.financial.vector.TradingPeriod;
 
 @ThreadSafe
 public final class TradingPeriodPool {
