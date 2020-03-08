@@ -48,8 +48,8 @@ public final class TimePeriodPool {
 	}
 
 	public void register(Symbol[] symbols, TimePeriod... periods) {
-		Assertor.validArray(symbols, 1, "symbols");
-		Assertor.validArray(periods, 1, "periods");
+		Assertor.requiredLength(symbols, 1, "symbols");
+		Assertor.requiredLength(periods, 1, "periods");
 		for (TimePeriod period : periods)
 			generateTimePeriod(symbols, period);
 	}
