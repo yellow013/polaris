@@ -1,41 +1,21 @@
 package io.mercury.polaris.indicator.impl.bar;
 
-@Deprecated
-public final class Bar {
+class Bar {
 
-	// 存储开高低收价格和成交量以及成交金额的字段
-	private double open = Double.NaN;
-	private double highest = Double.MIN_VALUE;
-	private double lowest = Double.MAX_VALUE;
-	private double close = Double.NaN;
+	// 存储开高低收价格
+	long open = 0L;
+	long highest = Long.MIN_VALUE;
+	long lowest = Long.MAX_VALUE;
+	long last = 0L;
 
-	Bar() {
-	}
-
-	void onPrice(double price) {
-		close = price;
-		if (Double.isNaN(open))
+	void onPrice(long price) {
+		last = price;
+		if (open == 0L)
 			open = price;
 		if (price < lowest)
 			lowest = price;
 		if (price > highest)
 			highest = price;
-	}
-
-	public double getOpen() {
-		return open;
-	}
-
-	public double getHighest() {
-		return highest;
-	}
-
-	public double getLowest() {
-		return lowest;
-	}
-
-	public double getClose() {
-		return close;
 	}
 
 }

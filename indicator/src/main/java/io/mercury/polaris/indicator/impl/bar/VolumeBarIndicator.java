@@ -30,11 +30,11 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
 		// 当前节点剩余的写入量
-		long remainingVolume = currentPoint.getRemainingVolume();
+		long remainingVolume = currentPoint.remainingVolume();
 		// 此次行情成交量
 		long volume = marketData.getVolume();
 		// 此次行情最新价
-		double lastPrice = marketData.getLastPrice();
+		long lastPrice = marketData.getLastPrice();
 		// 如果行情成交量小于剩余数量,则此次行情可以全部写入当前节点
 		if (volume <= remainingVolume)
 			currentPoint.onMarketData(marketData);
@@ -64,7 +64,7 @@ public final class VolumeBarIndicator extends BaseRandomTimeIndicator<VolumeBar,
 		}
 	}
 
-	private void createNewBarByCurrentPoint(BasicMarketData marketData, ZonedDateTime marketDataDatetime, double price,
+	private void createNewBarByCurrentPoint(BasicMarketData marketData, ZonedDateTime marketDataDatetime, long price,
 			long volume) {
 		// 获取当前节点的序列
 		RandomTimeSerial currentPointSerial = currentPoint.serial();

@@ -9,11 +9,8 @@ import io.mercury.polaris.indicator.base.RandomTimePoint;
 
 public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 
-	// 存储开高低收价格和成交量以及成交金额的字段
-	private double open = Double.NaN;
-	private double highest = Double.MIN_VALUE;
-	private double lowest = Double.MAX_VALUE;
-	private double last = Double.NaN;
+	// 存储开高低收价格的对象
+	private Bar bar = new Bar();
 
 	// 此bar限制的成交量
 	private long limitVolume;
@@ -34,35 +31,25 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 		return new VolumeBar(index, instrument, RandomTimeSerial.with(timeStarted), limitVolume);
 	}
 
-	public double open() {
-		return open;
+	public long open() {
+		return bar.open;
 	}
 
-	public double highest() {
-		return highest;
+	public long highest() {
+		return bar.highest;
 	}
 
-	public double lowest() {
-		return lowest;
+	public long lowest() {
+		return bar.lowest;
 	}
 
-	public double last() {
-		return last;
+	public long last() {
+		return bar.last;
 	}
 
-	private void onPrice(double price) {
-		last = price;
-		if (Double.isNaN(open))
-			open = price;
-		if (price < lowest)
-			lowest = price;
-		if (price > highest)
-			highest = price;
-	}
-	
-	public void initOpenPrice(double price) {
-		if (Double.isNaN(open))
-			open = price;
+	public void initOpenPrice(long price) {
+		if (bar.open == 0L)
+			bar.open = price;
 	}
 
 	public long limitVolume() {
@@ -73,7 +60,7 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 		return currentVolume;
 	}
 
-	public long getRemainingVolume() {
+	public long remainingVolume() {
 		return limitVolume - currentVolume;
 	}
 
@@ -82,12 +69,12 @@ public final class VolumeBar extends RandomTimePoint<VolumeBar> {
 		handleData(marketData.getLastPrice(), marketData.getVolume());
 	}
 
-	public void handleData(double price, long volume) {
+	public void handleData(long price, long volume) {
 		if (limitVolume - currentVolume > volume)
 			currentVolume += volume;
 		else
 			currentVolume = limitVolume;
-		onPrice(price);
+		bar.onPrice(price);
 	}
 
 }

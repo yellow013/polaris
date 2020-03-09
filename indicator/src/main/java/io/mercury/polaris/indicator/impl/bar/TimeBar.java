@@ -4,7 +4,6 @@ import org.eclipse.collections.api.list.primitive.MutableDoubleList;
 import org.eclipse.collections.api.list.primitive.MutableLongList;
 
 import io.mercury.common.collections.MutableLists;
-import io.mercury.common.number.DoubleArithmetic;
 import io.mercury.polaris.financial.instrument.Instrument;
 import io.mercury.polaris.financial.market.impl.BasicMarketData;
 import io.mercury.polaris.financial.vector.TimePeriod;
@@ -14,16 +13,13 @@ import io.mercury.polaris.indicator.base.TimePeriodPoint;
 public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
 	// 存储开高低收价格和成交量以及成交金额的字段
-	private double open = Double.NaN;
-	private double highest = Double.MIN_VALUE;
-	private double lowest = Double.MAX_VALUE;
-	private double last = Double.NaN;
+	private Bar bar = new Bar();
 
 	// 总成交量
 	private long volumeSum = 0L;
 
 	// 总成交金额
-	private double turnoverSum = 0.0D;
+	private long turnoverSum = 0L;
 
 	private MutableDoubleList priceRecord = MutableLists.newDoubleArrayList(64);
 	private MutableLongList volumeRecord = MutableLists.newLongArrayList(64);
@@ -32,46 +28,29 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 		super(index, instrument, period, timePeriod);
 	}
 
-	public static TimeBar with(int index, Instrument instrument, TimePeriod period,
-			TimePeriodSerial timePeriod) {
+	public static TimeBar with(int index, Instrument instrument, TimePeriod period, TimePeriodSerial timePeriod) {
 		return new TimeBar(index, instrument, period, timePeriod);
 	}
 
 	public TimeBar generateNext() {
-		return new TimeBar(index + 1, instrument, period,
-				TimePeriodSerial.with(serial.startTime().plusSeconds(period.seconds()),
-						serial.endTime().plusSeconds(period.seconds())));
+		return new TimeBar(index + 1, instrument, period, TimePeriodSerial.with(
+				serial.startTime().plusSeconds(period.seconds()), serial.endTime().plusSeconds(period.seconds())));
 	}
 
 	public double open() {
-		return open;
+		return bar.open;
 	}
 
 	public double highest() {
-		return highest;
+		return bar.highest;
 	}
 
 	public double lowest() {
-		return lowest;
+		return bar.lowest;
 	}
 
 	public double last() {
-		return last;
-	}
-
-	private void onPrice(double price) {
-		last = price;
-		if (Double.isNaN(open))
-			open = price;
-		if (price < lowest)
-			lowest = price;
-		if (price > highest)
-			highest = price;
-	}
-
-	public void initOpenPrice(double price) {
-		if (Double.isNaN(open))
-			open = price;
+		return bar.last;
 	}
 
 	public MutableDoubleList priceRecord() {
@@ -92,13 +71,16 @@ public final class TimeBar extends TimePeriodPoint<TimeBar> {
 
 	@Override
 	protected void handleMarketData(BasicMarketData marketData) {
-		onPrice(marketData.getLastPrice());
+		// 处理当前价格
+		bar.onPrice(marketData.getLastPrice());
+		// 记录当前价格
 		priceRecord.add(marketData.getLastPrice());
-
+		// 总成交量增加处理当前行情
 		volumeSum += marketData.getVolume();
+		// 记录当前成交量
 		volumeRecord.add(marketData.getVolume());
-
-		turnoverSum = DoubleArithmetic.correction8(turnoverSum + marketData.getTurnover());
+		// 处理当前成交额
+		turnoverSum = turnoverSum + marketData.getTurnover();
 	}
 
 }

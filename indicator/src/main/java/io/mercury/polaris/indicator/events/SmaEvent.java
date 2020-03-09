@@ -5,6 +5,10 @@ import io.mercury.polaris.indicator.impl.ma.SmaPoint;
 
 public interface SmaEvent extends IndicatorEvent {
 
+	default String eventName() {
+		return "SmaEvent";
+	}
+
 	void onCurrentPointAvgPriceChanged(SmaPoint point);
 
 	void onStartSmaPoint(SmaPoint point);
